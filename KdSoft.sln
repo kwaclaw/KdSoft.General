@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.Common.VeryPortable", "KdSoft.Common.VeryPortable\KdSoft.Common.VeryPortable.csproj", "{E1E92289-C0A9-4B67-9731-A93899AA54EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.StorageBase", "KdSoft.StorageBase\KdSoft.StorageBase.csproj", "{DDABD70C-1B17-4D5A-945B-219B488A8AE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.TransientStorage", "KdSoft.TransientStorage\KdSoft.TransientStorage.csproj", "{C250B017-B255-474F-8B1B-471E2C498F02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.Utils", "KdSoft.Utils\KdSoft.Utils.csproj", "{60891736-D38F-43DA-A322-7A707B5FFBB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.Utils.Portable", "KdSoft.Utils.Portable\KdSoft.Utils.Portable.csproj", "{0EC2013E-BE48-438B-8432-02EA716DCE4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.Utils.VeryPortable", "KdSoft.Utils.VeryPortable\KdSoft.Utils.VeryPortable.csproj", "{E8344381-1CE4-4DD9-B51E-3F654CF7984A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1E92289-C0A9-4B67-9731-A93899AA54EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E92289-C0A9-4B67-9731-A93899AA54EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E92289-C0A9-4B67-9731-A93899AA54EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E92289-C0A9-4B67-9731-A93899AA54EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDABD70C-1B17-4D5A-945B-219B488A8AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDABD70C-1B17-4D5A-945B-219B488A8AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDABD70C-1B17-4D5A-945B-219B488A8AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDABD70C-1B17-4D5A-945B-219B488A8AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C250B017-B255-474F-8B1B-471E2C498F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C250B017-B255-474F-8B1B-471E2C498F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C250B017-B255-474F-8B1B-471E2C498F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C250B017-B255-474F-8B1B-471E2C498F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60891736-D38F-43DA-A322-7A707B5FFBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60891736-D38F-43DA-A322-7A707B5FFBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60891736-D38F-43DA-A322-7A707B5FFBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60891736-D38F-43DA-A322-7A707B5FFBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EC2013E-BE48-438B-8432-02EA716DCE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EC2013E-BE48-438B-8432-02EA716DCE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EC2013E-BE48-438B-8432-02EA716DCE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EC2013E-BE48-438B-8432-02EA716DCE4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8344381-1CE4-4DD9-B51E-3F654CF7984A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8344381-1CE4-4DD9-B51E-3F654CF7984A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8344381-1CE4-4DD9-B51E-3F654CF7984A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8344381-1CE4-4DD9-B51E-3F654CF7984A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

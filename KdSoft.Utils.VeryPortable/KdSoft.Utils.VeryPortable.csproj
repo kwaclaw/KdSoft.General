@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8344381-1CE4-4DD9-B51E-3F654CF7984A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KdSoft.Utils</RootNamespace>
+    <AssemblyName>KdSoft.Utils.VeryPortable</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="..\KdSoft.Utils.Portable\KdSoft.Utils.Shared.pfx">
+      <Link>KdSoft.Utils.Shared.pfx</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\KdSoft.Utils.Portable\AsyncTaskResult.cs">
+      <Link>AsyncTaskResult.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\Common.cs">
+      <Link>Common.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\DateEnumerators.cs">
+      <Link>DateEnumerators.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\DateTimeExtensions.cs">
+      <Link>DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\EventArgs.cs">
+      <Link>EventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\Grouping.cs">
+      <Link>Grouping.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\Holder.cs">
+      <Link>Holder.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\LambdaComparer.cs">
+      <Link>LambdaComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\LifeCycle.cs">
+      <Link>LifeCycle.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\LinqExtensions.cs">
+      <Link>LinqExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\ListSegment.cs">
+      <Link>ListSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\MiscExtensions.cs">
+      <Link>MiscExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\SortedRingQueue.cs">
+      <Link>SortedRingQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\TaskAwaiter.cs">
+      <Link>TaskAwaiter.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\TaskExtensions.cs">
+      <Link>TaskExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\TimedLifeCycle.cs">
+      <Link>TimedLifeCycle.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\TimedLifeCycleAware.cs">
+      <Link>TimedLifeCycleAware.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\TimedLifeCycleManager.cs">
+      <Link>TimedLifeCycleManager.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\YearWeek.cs">
+      <Link>YearWeek.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
