@@ -49,7 +49,7 @@
     <None Include="KdSoft.Utils.Shared.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\QLine\QCarePortal\External\KdSoft.Utils.VeryPortable\KdSoft.Utils.VeryPortable.csproj">
+    <ProjectReference Include="..\KdSoft.Utils.VeryPortable\KdSoft.Utils.VeryPortable.csproj">
       <Project>{e8344381-1ce4-4dd9-b51e-3f654cf7984a}</Project>
       <Name>KdSoft.Utils.VeryPortable</Name>
     </ProjectReference>
