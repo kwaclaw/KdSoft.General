@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>KdSoft.Utils.Shared.pfx</AssemblyOriginatorKeyFile>
@@ -39,34 +39,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AsyncTaskResult.cs" />
     <Compile Include="BufferPool.cs" />
-    <Compile Include="BulkObservableCollection.cs" />
     <Compile Include="ConcurrentTimedLifeCycleManager.cs" />
-    <Compile Include="ListSegment.cs" />
     <Compile Include="RangeObservableCollection.cs" />
-    <Compile Include="DateEnumerators.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="EventArgs.cs" />
-    <Compile Include="Grouping.cs" />
-    <Compile Include="Holder.cs" />
-    <Compile Include="LambdaComparer.cs" />
-    <Compile Include="LifeCycle.cs" />
-    <Compile Include="LinqExtensions.cs" />
-    <Compile Include="MiscExtensions.cs" />
-    <Compile Include="Common.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SortedRingQueue.cs" />
-    <Compile Include="TaskAwaiter.cs" />
-    <Compile Include="TaskExtensions.cs" />
     <Compile Include="TaskWaiter.cs" />
-    <Compile Include="TimedLifeCycle.cs" />
-    <Compile Include="TimedLifeCycleAware.cs" />
-    <Compile Include="TimedLifeCycleManager.cs" />
-    <Compile Include="YearWeek.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="KdSoft.Utils.Shared.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\QLine\QCarePortal\External\KdSoft.Utils.VeryPortable\KdSoft.Utils.VeryPortable.csproj">
+      <Project>{e8344381-1ce4-4dd9-b51e-3f654cf7984a}</Project>
+      <Name>KdSoft.Utils.VeryPortable</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

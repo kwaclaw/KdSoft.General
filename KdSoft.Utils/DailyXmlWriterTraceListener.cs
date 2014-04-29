@@ -26,7 +26,10 @@ namespace KdSoft.Utils
     /// Initializes a new instance of the <see cref="DailyXmlWriterTraceListener"/> class by specifying the trace file
     /// name.
     /// </summary>
-    /// <param name="filename">The trace file name.</param>
+    /// <param name="filename">The trace file name or path.</param>
+    /// <remarks>If the trace file path starts with "~\" then it will be considered a relative path to the current 
+    ///   application domain's base directory.
+    /// </remarks>
     public DailyXmlWriterTraceListener(string filename) : base(filename) {
       Initialize(filename);
     }
@@ -43,6 +46,9 @@ namespace KdSoft.Utils
 
     void Initialize(string fileName) {
       this.activeUtcFileDate = DateTime.UtcNow.Date;
+      if (fileName.StartsWith(@"~\")) {
+        fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName.Substring(2));
+      }
       this.baseTraceFileName = fileName;
 
       // create a new file stream and a new stream writer and pass it to the listener

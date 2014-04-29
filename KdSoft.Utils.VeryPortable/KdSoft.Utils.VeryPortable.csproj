@@ -39,8 +39,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\KdSoft.Utils.Portable\AsyncEventHandlerWrapper.cs">
+      <Link>AsyncEventHandlerWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\KdSoft.Utils.Portable\AsyncTaskResult.cs">
       <Link>AsyncTaskResult.cs</Link>
+    </Compile>
+    <Compile Include="..\KdSoft.Utils.Portable\AsyncUtils.cs">
+      <Link>AsyncUtils.cs</Link>
     </Compile>
     <Compile Include="..\KdSoft.Utils.Portable\Common.cs">
       <Link>Common.cs</Link>

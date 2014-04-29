@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace KdSoft.Services
+namespace KdSoft.Utils
 {
   /// <summary>
   /// Wrapper for <see cref="Task"/> that can be used to implement the APM pattern.
