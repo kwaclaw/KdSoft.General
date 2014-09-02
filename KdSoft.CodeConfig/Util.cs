@@ -1,10 +1,10 @@
-﻿using System;
+﻿using KdSoft.Reflection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
-using KdSoft.Reflection;
 
 namespace KdSoft.Config
 {
@@ -54,7 +54,8 @@ namespace KdSoft.Config
     /// <param name="baseDir">Base directory where source and referenced files are located.</param>
     /// <param name="configFileCs">Source file for generating assembly that contains the configurator class.</param>
     /// <param name="outFileDll">File name for assembly to be generated. Can be null or empty.</param>
-    /// <param name="deleteCs">Indicates if source file should be deleted after successful compilation.</param>
+    /// <param name="deleteCs">Indicates if source file should be deleted after successful compilation.
+    ///    If <c>false</c>, then file will be renamed by adding the extension ".loaded".</param>
     /// <returns>Configurator instance as <see cref="IConfigurator{T}"/> interface, or <c>null</c> if source file cannot be found.</returns>
     [SecurityCritical]
     public static IConfigurator<T> GetConfigurator<T>(string baseDir, string configFileCs, string outFileDll, bool deleteCs) where T: class {
@@ -66,6 +67,12 @@ namespace KdSoft.Config
       Assembly configAssembly = Compile.CompileLibrary(baseDir, outFileDll, mappedRefs, configFileCs);
       if (deleteCs)
         File.Delete(configSource);
+      else {
+        string configSourceLoaded = configSource + ".loaded";
+        if (File.Exists(configSourceLoaded))
+          File.Delete(configSourceLoaded);
+        File.Move(configSource, configSourceLoaded);
+      }
       return GetConfigurator<T>(configAssembly);
     }
 
