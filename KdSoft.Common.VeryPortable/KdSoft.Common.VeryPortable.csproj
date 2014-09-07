@@ -38,12 +38,6 @@
     <Compile Include="UpdatableBase.cs" />
     <Compile Include="WebExtensions.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KdSoft.Utils.VeryPortable\KdSoft.Utils.VeryPortable.csproj">
-      <Project>{e8344381-1ce4-4dd9-b51e-3f654cf7984a}</Project>
-      <Name>KdSoft.Utils.VeryPortable</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
