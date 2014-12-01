@@ -180,5 +180,30 @@ namespace KdSoft.Utils
     {
       return SortedGroupBy<TElement, TKey, TElement>(elements, keySelector, el => el, comparer);
     }
+
+    /// <summary>
+    /// Like <see cref="List{T}.RemoveAll"/>, but for <see cref="IList{T}"/>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="match"></param>
+    /// <returns></returns>
+    public static int RemoveAll<T>(this IList<T> list, Predicate<T> match) {
+      int endIndx = 0;
+      for (int indx = 0; indx < list.Count; indx++) {
+        var item = list[indx];
+        if (!match(item)) {
+          if (endIndx < indx)
+            list[endIndx] = item;
+          endIndx++;
+        }
+      }
+      int result = list.Count - endIndx;
+      for (int lastIndx = list.Count - 1; lastIndx >= endIndx; lastIndx--) {
+        list.RemoveAt(lastIndx);  // lastIndx is always equal to the current (list.Count - 1)
+      }
+      return result;
+    }
+
   }
 }
