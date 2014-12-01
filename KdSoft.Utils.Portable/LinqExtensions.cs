@@ -182,12 +182,13 @@ namespace KdSoft.Utils
     }
 
     /// <summary>
+    /// Removes all list elements matching a predicate.
     /// Like <see cref="List{T}.RemoveAll"/>, but for <see cref="IList{T}"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="list"></param>
-    /// <param name="match"></param>
-    /// <returns></returns>
+    /// <typeparam name="T">Element type of list.</typeparam>
+    /// <param name="list"><see cref="IList{T}"/> instance to operate on.</param>
+    /// <param name="match">Predicate to match against list elements.</param>
+    /// <returns>Number of removed elements.</returns>
     public static int RemoveAll<T>(this IList<T> list, Predicate<T> match) {
       int endIndx = 0;
       for (int indx = 0; indx < list.Count; indx++) {
