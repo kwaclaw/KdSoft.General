@@ -1,0 +1,40 @@
+div.code
+{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
+  overflow: auto;
+  background: #F7F7FF;
+  border-top: solid 1px #FFFFFF;
+  padding-left: 15px;
+  padding-right: 5px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+div.code pre
+{
+  font-family: Monospace, Courier New, Courier;
+  font-size: 85%;
+  color: #000066;
+}
+
+code
+{
+  font-family: Monospace, Courier New, Courier;
+  color: #000066;
+  white-space: nowrap;
+}
+
+table.handler tbody tr td
+{
+  vertical-align: middle;
+  padding: 5px;
+}
+
+table.handler thead tr th
+{
+  padding: 5px;
+}
+

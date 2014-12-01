@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<?xml-stylesheet href="Products1MMPush.xsl" type="text/xsl"?>
+<inventory>
+	<region area="Northwest">
+		<product>
+			<prodid>V123049</prodid>
+			<name>Bendable Sunglasses</name>
+			<price>30</price>
+			<quantity>1030</quantity>
+		</product>
+		<product>
+			<prodid>C039890</prodid>
+			<name>Sports Wrist Watch</name>
+			<price>60</price>
+			<quantity>1430</quantity>
+		</product>
+		<product>
+			<prodid>M392829</prodid>
+			<name>AutoPilot Road Navigator</name>
+			<price>19</price>
+			<quantity>129</quantity>
+		</product>
+		<product>
+			<prodid>D190315</prodid>
+			<name>StealthFinder GPS for Laptop</name>
+			<price>100</price>
+			<quantity>45</quantity>
+		</product>
+	</region>
+	<region area="SouthWest">
+		<product>
+			<prodid>E938393</prodid>
+			<name>Frye Folding Leather Shopper</name>
+			<price>89</price>
+			<quantity>230</quantity>
+		</product>
+		<product>
+			<prodid>V392839</prodid>
+			<name>Pachislo Slot Machine</name>
+			<price>595</price>
+			<quantity>95</quantity>
+		</product>
+		<product>
+			<prodid>K928379</prodid>
+			<name>Sterling Cross Necklace</name>
+			<price>100</price>
+			<quantity>329</quantity>
+		</product>
+		<product>
+			<prodid>I303920</prodid>
+			<name>World Time Calculator</name>
+			<price>30</price>
+			<quantity>698</quantity>
+		</product>
+	</region>
+	<region area="SouthEast">
+		<product>
+			<prodid>U3923839</prodid>
+			<name>Rock n Roll Supercart</name>
+			<price>150</price>
+			<quantity>200</quantity>
+		</product>
+		<product>
+			<prodid>V667320</prodid>
+			<name>Battery Pack</name>
+			<price>20</price>
+			<quantity>178</quantity>
+		</product>
+		<product>
+			<prodid>V392039</prodid>
+			<name>Womens Bracelet Watch</name>
+			<price>175</price>
+			<quantity>335</quantity>
+		</product>
+		<product>
+			<prodid>L930389</prodid>
+			<name>Tobshiba Portable DVD Player</name>
+			<price>1299</price>
+			<quantity>30</quantity>
+		</product>
+		<product>
+			<prodid>V123049</prodid>
+			<name>Screen-Top Monitor Shelf</name>
+			<price>59</price>
+			<quantity>30</quantity>
+		</product>
+		<product>
+			<prodid>M382932</prodid>
+			<name>CD Visor Organizer</name>
+			<price>19</price>
+			<quantity>129</quantity>
+		</product>
+	</region>
+	<region area="NorthEast">
+		<product>
+			<prodid>Q3929302</prodid>
+			<name>Digital Tire Guage</name>
+			<price>40</price>
+			<quantity>623</quantity>
+		</product>
+		<product>
+			<prodid>P9392393</prodid>
+			<name>Personalized Travel Mug</name>
+			<price>30</price>
+			<quantity>3230</quantity>
+		</product>
+		<product>
+			<prodid>P8228829</prodid>
+			<name>Auto Map Light</name>
+			<price>18</price>
+			<quantity>129</quantity>
+		</product>
+		<product>
+			<prodid>Y7829232</prodid>
+			<name>PowerTip Signal Booser</name>
+			<price>19</price>
+			<quantity>299</quantity>
+		</product>
+		<product>
+			<prodid>M7382393</prodid>
+			<name>Star Gazer Watch Pendant</name>
+			<price>30</price>
+			<quantity>1198</quantity>
+		</product>
+		<product>
+			<prodid>L2329303</prodid>
+			<name>Personalized Credit Card Lighter</name>
+			<price>20</price>
+			<quantity>2450</quantity>
+		</product>
+		<product>
+			<prodid>E2930230</prodid>
+			<name>Manicure Set</name>
+			<price>30</price>
+			<quantity>299</quantity>
+		</product>
+		<product>
+			<prodid>I3029320</prodid>
+			<name>Backgammon Box game set</name>
+			<price>55</price>
+			<quantity>3450</quantity>
+		</product>
+	</region>
+</inventory>

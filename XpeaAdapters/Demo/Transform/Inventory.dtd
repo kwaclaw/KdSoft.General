@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT inventory (region+)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT prodid (#PCDATA)>
+<!ELEMENT product (prodid, name, price, quantity)>
+<!ELEMENT quantity (#PCDATA)>
+<!ELEMENT region (product+)>
+<!ATTLIST region
+	area (NorthEast | Northwest | SouthEast | SouthWest) #REQUIRED
+>
