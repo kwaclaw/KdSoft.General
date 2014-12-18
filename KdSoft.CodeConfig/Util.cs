@@ -57,6 +57,8 @@ namespace KdSoft.Config
     /// <param name="deleteCs">Indicates if source file should be deleted after successful compilation.
     ///    If <c>false</c>, then file will be renamed by adding the extension ".loaded".</param>
     /// <returns>Configurator instance as <see cref="IConfigurator{T}"/> interface, or <c>null</c> if source file cannot be found.</returns>
+    /// <remarks>When the compilation fails, error information will be written to a new file with the name of
+    ///   the source file and the extension ".error".</remarks>
     [SecurityCritical]
     public static IConfigurator<T> GetConfigurator<T>(string baseDir, string configFileCs, string outFileDll, bool deleteCs) where T: class {
       string configSource = Path.Combine(baseDir, configFileCs);
@@ -64,7 +66,23 @@ namespace KdSoft.Config
         return null;
       HashSet<string> references = Compile.ParseReferences(configSource);
       List<string> mappedRefs = Compile.MapLoadedReferences(AppDomain.CurrentDomain, references);
-      Assembly configAssembly = Compile.CompileLibrary(baseDir, outFileDll, mappedRefs, configFileCs);
+      Assembly configAssembly;
+      try {
+        configAssembly = Compile.CompileLibrary(baseDir, outFileDll, mappedRefs, configFileCs);
+      }
+      catch (Exception ex) {
+        string errorFile = configSource + ".error";
+        if (File.Exists(errorFile))
+          File.Delete(errorFile);
+        using (var sw = File.CreateText(errorFile)) {
+          sw.WriteLine(ex.Message ?? "Compile Error.");
+          if (!string.IsNullOrEmpty(ex.StackTrace)) {
+            sw.WriteLine();
+            sw.Write(ex.StackTrace);
+          }
+        }
+        throw;
+      }
       if (deleteCs)
         File.Delete(configSource);
       else {
