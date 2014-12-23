@@ -3,7 +3,7 @@
     <metadata>
         <id>KdSoft.Utils.Portable</id>
         <version>1.0.0</version>
-        <title>KdSoft.PortableUtils</title>
+        <title>KdSoft.Utils.Portable</title>
         <authors>KD Soft</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>KdSoft utility libraries - portable across newer .NET versions.</description>

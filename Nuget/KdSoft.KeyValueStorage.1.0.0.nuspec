@@ -6,7 +6,7 @@
         <title>KdSoft.KeyValueStorage</title>
         <authors>KD Soft</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Provides Key/Value based storage services.</description>
+        <description>Provides Key/Value based storage services</description>
         <copyright>Copyright © Karl Waclawek 2007</copyright>
         <language />
     </metadata>

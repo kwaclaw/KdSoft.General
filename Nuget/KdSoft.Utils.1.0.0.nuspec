@@ -3,10 +3,10 @@
     <metadata>
         <id>KdSoft.Utils</id>
         <version>1.0.0</version>
-        <title>KD Soft Utils</title>
+        <title>KdSoft.Utils</title>
         <authors>KD Soft</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>KdSoft utility library for full .NET framework.</description>
+        <description>KdSoft utility libraries for full .NET framework</description>
         <copyright>Copyright © Karl Waclawek 2010</copyright>
         <language />
     </metadata>
