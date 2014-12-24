@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>KdSoft.VeryPortable</id>
+        <version>1.0.0</version>
+        <title>KdSoft.VeryPortable</title>
+        <authors>KD Soft</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>KdSoft utility libraries - very portable</description>
+        <copyright>Copyright © Karl Waclawek 2013</copyright>
+        <language>en</language>
+    </metadata>
+    <files>
+        <file src="..\KdSoft.Common.VeryPortable\bin\Release\KdSoft.Common.VeryPortable.dll" target="lib\portable-net403+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\KdSoft.Common.VeryPortable.dll" />
+        <file src="..\KdSoft.Utils.VeryPortable\bin\Release\KdSoft.Utils.VeryPortable.dll" target="lib\portable-net403+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\KdSoft.Utils.VeryPortable.dll" />
+    </files>
+</package>
