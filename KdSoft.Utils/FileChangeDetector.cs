@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace KdSoft.Utils
 {
+  /// <summary>
+  /// Wrapper for FileSystemWatcher. Accumulates changes and allows for changes to settle before they are reported.
+  /// Reports only the last change of a set of changes that are observed together.
+  /// </summary>
   public class FileChangeDetector: IDisposable
   {
     object syncObj = new object();
@@ -226,6 +230,7 @@ namespace KdSoft.Utils
       lock (syncObj) {
         if (cts == null)
           return;
+        //TODO replace this with cts.CancelAfter(timeout); for .NET 4.5 and later
         var delayedCts = cts;
         Delay(timeout).ContinueWith(_ => delayedCts.Cancel());
         cts = null;
