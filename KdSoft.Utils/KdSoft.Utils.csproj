@@ -43,6 +43,7 @@
     <Compile Include="Crc64.cs" />
     <Compile Include="CryptUtils.cs" />
     <Compile Include="DailyXmlWriterTraceListener.cs" />
+    <Compile Include="FileChangeDetector.cs" />
     <Compile Include="KeyOnlyComparer.cs" />
     <Compile Include="PathUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
