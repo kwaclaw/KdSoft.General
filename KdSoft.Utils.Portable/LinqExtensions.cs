@@ -38,7 +38,7 @@ namespace KdSoft.Utils
     ///             a full outer join (with the restriction that the sort has no duplicates).</item>
     ///         <item><c>outerSelector != null (other selectors are null)</c>: Set Difference, returns result
     ///             elements for all those elements in outer that do not have a matching an element in inner.
-    ///         <item><c>outerSelector != null &amp;&amp; matchSelector == null</c>: Left Outer Join, returns
+    ///         <item><c>outerSelector != null &amp;&amp; matchSelector != null</c>: Left Outer Join, returns
     ///             result elements for all elements in outer, but only for matching elements in inner.
     ///         <item><c>innerSelector != null (other selectors are null)</c>: Set difference, returns
     ///             result elements for all those elements in inner that do not have a matching element in outer.
