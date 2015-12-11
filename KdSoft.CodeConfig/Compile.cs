@@ -26,7 +26,7 @@ namespace KdSoft.Config
           line = line.Trim();
           if (line == String.Empty)  // skip empty lines
             continue;
-          if (line.StartsWith(refStart, StringComparison.InvariantCultureIgnoreCase))
+          if (line.StartsWith(refStart, StringComparison.OrdinalIgnoreCase))
             result.Add(line.Substring(refStart.Length));
           else  // first line not matching indicates end of 'references' section
             break;
@@ -89,8 +89,8 @@ namespace KdSoft.Config
       List<string> result = new List<string>();
       foreach (string reference in references) {
         string refNoExtension = reference;
-        if (reference.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase) || 
-            reference.EndsWith(".exe", StringComparison.InvariantCultureIgnoreCase))
+        if (reference.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) || 
+            reference.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
           refNoExtension = Path.GetFileNameWithoutExtension(reference);
         AssemblyName refName = CheckDisplayName(refNoExtension);
         if (refName != null) {

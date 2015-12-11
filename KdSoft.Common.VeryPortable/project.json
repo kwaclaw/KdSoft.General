@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0-*",
+  "description": "KdSoft.Common Class Library",
+  "authors": [ "karl@waclawek.net" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+    "frameworks": {
+        "net403": { },
+        "dotnet5.1": {
+            "compilationOptions": { "define": [ "COREFX" ] },
+            "dependencies": {
+                "Microsoft.CSharp": "4.0.1-*",
+                "System.Collections": "4.0.11-*",
+                "System.Net.Requests": "4.0.11-*",
+                "System.Runtime": "4.0.21-*",
+                "System.Reflection.Extensions": "4.0.1-*",
+                "System.Reflection.TypeExtensions": "4.0.1-*",
+                "System.Linq": "4.0.1-*"
+            }
+        }
+    }
+}
