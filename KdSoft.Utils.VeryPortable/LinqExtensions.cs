@@ -208,7 +208,7 @@ namespace KdSoft.Utils
         /// <typeparam name="T">Element type.</typeparam>
         /// <param name="sequence">IEnumerable to append to.</param>
         /// <param name="toAppend">Element to append.</param>
-        /// <returns></returns>
+        /// <returns>The original enumeration with a single element appended at the end.</returns>
         public static IEnumerable<T> Append<T>(this IEnumerable<T> sequence, T toAppend) {
             if (sequence == null) throw new ArgumentNullException("sequence");
             return AppendImpl(sequence, toAppend);
@@ -228,7 +228,7 @@ namespace KdSoft.Utils
         /// <typeparam name="T">Element type.</typeparam>
         /// <param name="sequence">IEnumerable to prepend to.</param>
         /// <param name="toPrepend">Element to prepend.</param>
-        /// <returns></returns>
+        /// <returns>The original enumeration with a single element inserted at the start.</returns>
         public static IEnumerable<T> Prepend<T>(this IEnumerable<T> sequence, T toPrepend) {
             if (sequence == null) throw new ArgumentNullException("sequence");
             return PrependImpl(sequence, toPrepend);
@@ -239,6 +239,35 @@ namespace KdSoft.Utils
             foreach (T item in sequence) {
                 yield return item;
             }
+        }
+
+        /// <summary>
+        /// Partitions an IEnumerable{T} into batches of equal size (except for the last, which might be smaller).
+        /// </summary>
+        /// <typeparam name="T">Element type.</typeparam>
+        /// <param name="source">IEnumerable to partition.</param>
+        /// <param name="size">Number of items in each batch.</param>
+        /// <returns>An enumeration of IEnumerable{T} batches.</returns>
+        public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int size) {
+            T[] bucket = null;
+            var count = 0;
+
+            foreach (var item in source) {
+                if (bucket == null)
+                    bucket = new T[size];
+                bucket[count++] = item;
+                if (count != size)
+                    continue;
+
+                yield return bucket;
+
+                bucket = null;
+                count = 0;
+            }
+
+            // Return the last bucket with all remaining elements
+            if (bucket != null && count > 0)
+                yield return bucket.Take(count);
         }
     }
 }
