@@ -7,11 +7,18 @@
     "licenseUrl": "",
     "frameworks": {
         "net403": { },
-        "dotnet5.1": {
+        "dotnet5.3": {
             "dependencies": {
-                "Microsoft.CSharp": "4.0.1-beta-23405",
-                "System.Threading.Timer": "4.0.1-beta-23405"
+                "Microsoft.CSharp": "4.0.1-*",
+                "System.Globalization": "4.0.11-*",
+                "System.Linq": "4.0.1-*",
+                "System.Threading": "4.0.11-*",
+                "System.Threading.Timer": "4.0.1-*",
+                "System.Runtime": "4.0.21-*",
+                "System.Runtime.InteropServices": "4.0.21-*",
+                "System.Runtime.Extensions": "4.0.11-*"
             }
         }
-    }
+    },
+    "dependencies": {    }
 }

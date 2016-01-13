@@ -7,7 +7,7 @@
     "licenseUrl": "",
     "frameworks": {
         "net403": { },
-        "dotnet5.2": {
+        "dotnet5.3": {
             "dependencies": {
                 "System.Collections.Concurrent": "4.0.11-*"
             }

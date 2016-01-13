@@ -16,9 +16,6 @@ namespace KdSoft.Common
 #if !COREFX
             var props = this.GetType().GetProperties(
               BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-#else
-            var props = this.GetType().GetRuntimeProperties();
-#endif
             foreach (var prop in props) {
                 var getMethod = prop.GetGetMethod();
                 var setMethod = prop.GetSetMethod();
@@ -27,6 +24,17 @@ namespace KdSoft.Common
                 if (getMethod.IsPublic && setMethod.IsPublic)
                     publicProperties.Add(prop);
             }
+#else
+            var props = this.GetType().GetRuntimeProperties();
+            foreach (var prop in props) {
+                var getMethod = prop.GetMethod;
+                var setMethod = prop.SetMethod;
+                if (getMethod == null || setMethod == null)
+                    continue;
+                if (getMethod.IsPublic && setMethod.IsPublic)
+                    publicProperties.Add(prop);
+            }
+#endif
         }
 
         UpdatableBase original;
