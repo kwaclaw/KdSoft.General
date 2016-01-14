@@ -48,12 +48,12 @@ namespace KdSoft.Utils
         /// Must be called whenever the object is used/activated to "renew its lease on life".
         /// </summary>
         /// <returns>The time of use, or <c>null</c> when object has already expired.</returns>
-        DateTime? Used();
+        DateTimeOffset? Used();
 
         /// <summary>
         /// Returns the time of last use.
         /// </summary>
-        DateTime LastUsed { get; }
+        DateTimeOffset LastUsed { get; }
     }
 
     /// <summary>

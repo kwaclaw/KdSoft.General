@@ -14,8 +14,6 @@ namespace KdSoft.Utils
     /// </summary>
     /// <typeparam name="K">Type of key that identifies tracked objects.</typeparam>
     /// <typeparam name="O">Type of <see cref="ILifeCycleAware"/> objects being tracked.</typeparam>
-    /// <remarks>Not thread-safe by default, external synchronization should be performed against the
-    /// <c>syncObj</c> paramter passed to the constructor.</remarks>
     public class ConcurrentTimedLifeCycleManager<K, O>: IDisposable where O : KdSoft.Utils.ILifeCycleAware<ITimedLifeCycle>
     {
         ConcurrentDictionary<K, O> objectMap;
