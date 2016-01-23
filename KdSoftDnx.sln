@@ -21,6 +21,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.TransientStorage", "
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.Utils.Tests", "KdSoft.Utils.Tests\KdSoft.Utils.Tests.xproj", "{85D0131A-72F7-42AA-BDA1-80AB2000EEDD}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.Reflection.Portable", "KdSoft.Reflection.Portable\KdSoft.Reflection.Portable.xproj", "{7CFAC2E5-2BFE-4860-B474-CD72FF83254B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{85D0131A-72F7-42AA-BDA1-80AB2000EEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85D0131A-72F7-42AA-BDA1-80AB2000EEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85D0131A-72F7-42AA-BDA1-80AB2000EEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CFAC2E5-2BFE-4860-B474-CD72FF83254B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CFAC2E5-2BFE-4860-B474-CD72FF83254B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CFAC2E5-2BFE-4860-B474-CD72FF83254B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CFAC2E5-2BFE-4860-B474-CD72FF83254B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

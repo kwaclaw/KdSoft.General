@@ -231,34 +231,57 @@ namespace KdSoft.Reflection
             return result;
         }
 
-        static PropertyAccessor[] CreatePropertyAccessors(Type type) {
-            var props = type.GetProperties();
-            var result = new PropertyAccessor[props.Length];
+#if COREFX
+        static MethodInfo GetterMethod(PropertyInfo propInfo) {
+            return propInfo.GetMethod;
+        }
 
-            int pindx = 0;
-            for (int indx = 0; indx < props.Length; indx++) {
-                var pi = props[indx];
+        static MethodInfo SetterMethod(PropertyInfo propInfo) {
+            return propInfo.SetMethod;
+        }
+#else
+        static MethodInfo GetterMethod(PropertyInfo propInfo) {
+            return propInfo.GetGetMethod();
+        }
+
+        static MethodInfo SetterMethod(PropertyInfo propInfo) {
+            return propInfo.GetSetMethod();
+        }
+#endif
+
+        static PropertyAccessor[] CreatePropertyAccessors(Type type) {
+#if COREFX
+            var props = type.GetRuntimeProperties();
+#else
+            var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+#endif
+            var result = new List<PropertyAccessor>();
+
+            foreach (var pi in props) {
                 Func<object, object> propGetter = null;
                 Action<object, object> propSetter = null;
-                if (pi.CanRead && pi.GetGetMethod().GetParameters().Length == 0) {
-                    propGetter = CreatePropertyGetter(pi);
+                if (pi.CanRead) {
+                    var mget = GetterMethod(pi);
+                    if (mget.IsPublic && mget.GetParameters().Length == 0)
+                        propGetter = CreatePropertyGetter(pi);
                 }
-                if (pi.CanWrite && pi.GetSetMethod().GetParameters().Length == 1) {
-                    propSetter = CreatePropertySetter(pi);
+                if (pi.CanWrite) {
+                    var mset = SetterMethod(pi);
+                    if (mset.IsPublic && mset.GetParameters().Length == 1)
+                        propSetter = CreatePropertySetter(pi);
                 }
-                
+
                 if (propGetter != null || propSetter != null) {
-                    result[pindx++] = new PropertyAccessor(pi.Name, propGetter, propSetter);
+                    result.Add(new PropertyAccessor(pi.Name, propGetter, propSetter));
                 }
             }
 
-            Array.Resize(ref result, pindx);
-            return result;
+            return result.ToArray();
         }
 
         public static Func<object, object> CreatePropertyGetter(PropertyInfo prop, Type reflectedType = null) {
             var instance = Expression.Parameter(typeof(object), "i");
-            var instCast = prop.GetGetMethod(false).IsStatic ? null : Expression.Convert(instance, reflectedType ?? prop.DeclaringType);
+            var instCast = GetterMethod(prop).IsStatic ? null : Expression.Convert(instance, reflectedType ?? prop.DeclaringType);
 
             var propAcc = Expression.Property(instCast, prop);
             var castProp = Expression.Convert(propAcc, typeof(object));
@@ -272,7 +295,7 @@ namespace KdSoft.Reflection
                 throw new ArgumentException();
             }
             var instance = Expression.Parameter(propertyInfo.DeclaringType, "i");
-            var instCast = propertyInfo.GetGetMethod(false).IsStatic ? null : Expression.Convert(instance, propertyInfo.DeclaringType);
+            var instCast = GetterMethod(propertyInfo).IsStatic ? null : Expression.Convert(instance, propertyInfo.DeclaringType);
 
             var propAcc = Expression.Property(instCast, propertyInfo);
             var castProp = Expression.Convert(propAcc, typeof(object));
@@ -294,12 +317,12 @@ namespace KdSoft.Reflection
 
         public static Action<object, object> CreatePropertySetter(PropertyInfo prop, Type reflectedType = null) {
             var instance = Expression.Parameter(typeof(object), "i");
-            var instCast = prop.GetSetMethod(false).IsStatic ? null : Expression.Convert(instance, reflectedType ?? prop.DeclaringType);
+            var instCast = SetterMethod(prop).IsStatic ? null : Expression.Convert(instance, reflectedType ?? prop.DeclaringType);
 
             var argument = Expression.Parameter(typeof(object), "a");
             var castArg = Expression.Convert(argument, prop.PropertyType);
 
-            var setterCall = Expression.Call(instCast, prop.GetSetMethod(), castArg);
+            var setterCall = Expression.Call(instCast, SetterMethod(prop), castArg);
             return Expression.Lambda<Action<object, object>>(setterCall, instance, argument).Compile();
         }
 
@@ -313,7 +336,7 @@ namespace KdSoft.Reflection
             var argument = Expression.Parameter(typeof(object), "a");
             var castArg = Expression.Convert(argument, propertyInfo.PropertyType);
 
-            var setterCall = Expression.Call(instance, propertyInfo.GetSetMethod(), castArg);
+            var setterCall = Expression.Call(instance, SetterMethod(propertyInfo), castArg);
             return Expression.Lambda<Action<T, object>>(setterCall, instance, argument).Compile();
         }
 
@@ -331,28 +354,32 @@ namespace KdSoft.Reflection
             return Expression.Lambda<Action<T, object>>(setterCall, instance, argument).Compile();
         }
 
-        public static IEnumerable<PropertyInfo> GetPublicDeclaredGetSetProperties(this Type tp) {
-            PropertyInfo[] properties = tp.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+        public static IEnumerable<PropertyInfo> GetPublicGetSetProperties(this Type type) {
+#if COREFX
+            var props = type.GetRuntimeProperties();
+#else
+            var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+#endif
 
-            foreach (PropertyInfo propInfo in properties) {
+            foreach (PropertyInfo propInfo in props) {
                 // must be readable and writable
                 if (!propInfo.CanWrite || !propInfo.CanRead)
                     continue;
 
                 // Get and set methods have to be public
-                var mget = propInfo.GetGetMethod(false);
-                var mset = propInfo.GetSetMethod(false);
-                if (mget == null)
+                var mget = GetterMethod(propInfo);
+                if (mget == null || !mget.IsPublic)
                     continue;
-                if (mset == null)
+                var mset = GetterMethod(propInfo);
+                if (mset == null || !mset.IsPublic)
                     continue;
 
                 yield return propInfo;
             }
         }
 
-        public static string[] GetPublicGetSetPropertyNames(this Type tp) {
-            return GetPublicDeclaredGetSetProperties(tp).Select(pi => pi.Name).ToArray();
+        public static string[] GetPublicGetSetPropertyNames(this Type type) {
+            return GetPublicGetSetProperties(type).Select(pi => pi.Name).ToArray();
         }
     }
 }
