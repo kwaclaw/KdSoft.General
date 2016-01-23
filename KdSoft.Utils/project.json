@@ -1,10 +1,10 @@
 {
-  "version": "2.0.0-*",
-  "description": "KdSoft.Utils Class Library",
+    "version": "2.0.0-*",
+    "description": "KdSoft.Utils Class Library",
     "authors": [ "karl@waclawek.net" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
     "frameworks": {
         "net403": { },
         "dotnet5.4": {
@@ -20,6 +20,4 @@
             }
         }
     },
-    "dependencies": {
-    }
 }

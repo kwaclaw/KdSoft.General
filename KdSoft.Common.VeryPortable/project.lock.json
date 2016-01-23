@@ -2,6 +2,7 @@
   "locked": false,
   "version": 2,
   "targets": {
+    ".NETFramework,Version=v4.0.3": {},
     ".NETPlatform,Version=v5.1": {
       "Microsoft.CSharp/4.0.1-rc2-23623": {
         "type": "package",
@@ -150,7 +151,8 @@
         }
       }
     },
-    ".NETFramework,Version=v4.0.3": {},
+    ".NETFramework,Version=v4.0.3/win7-x86": {},
+    ".NETFramework,Version=v4.0.3/win7-x64": {},
     ".NETPlatform,Version=v5.1/win7-x86": {
       "Microsoft.CSharp/4.0.1-rc2-23623": {
         "type": "package",
@@ -458,9 +460,7 @@
           "ref/dotnet/System.Threading.Tasks.dll": {}
         }
       }
-    },
-    ".NETFramework,Version=v4.0.3/win7-x86": {},
-    ".NETFramework,Version=v4.0.3/win7-x64": {}
+    }
   },
   "libraries": {
     "Microsoft.CSharp/4.0.1-rc2-23623": {
@@ -1256,6 +1256,7 @@
   },
   "projectFileDependencyGroups": {
     "": [],
+    ".NETFramework,Version=v4.0.3": [],
     ".NETPlatform,Version=v5.1": [
       "Microsoft.CSharp >= 4.0.1-*",
       "System.Net.Requests >= 4.0.11-*",
@@ -1263,7 +1264,6 @@
       "System.Reflection >= 4.1.0-*",
       "System.Reflection.Extensions >= 4.0.1-*",
       "System.Linq >= 4.0.1-*"
-    ],
-    ".NETFramework,Version=v4.0.3": []
+    ]
   }
 }

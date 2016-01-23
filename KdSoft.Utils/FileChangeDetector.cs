@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-#if NET403
+#if !COREFX
 using System.Threading.Tasks;
 #endif
 
@@ -222,7 +222,7 @@ namespace KdSoft.Utils
             return true;
         }
 
-#if NET403
+#if !COREFX
         static Task Delay(TimeSpan timeout) {
             var tcs = new TaskCompletionSource<object>();
             new Timer(_ => tcs.SetResult(null), null, (int)timeout.TotalMilliseconds, -1);
@@ -234,7 +234,7 @@ namespace KdSoft.Utils
             lock (syncObj) {
                 if (cts == null)
                     return;
-#if NET403
+#if !COREFX
                 var delayedCts = cts;
                 Delay(timeout).ContinueWith(_ => delayedCts.Cancel());
 #else

@@ -6,6 +6,7 @@
     "projectUrl": "",
     "licenseUrl": "",
     "frameworks": {
+        "net403": { },
         "dotnet5.1": {
             "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
@@ -16,8 +17,7 @@
                 "System.Reflection.Extensions": "4.0.1-*",
                 "System.Linq": "4.0.1-*"
             }
-        },
-        "net403": { }
+        }
     },
     "dependencies": {
     }
