@@ -1,19 +1,25 @@
 {
-    "version": "2.0.1-*",
+    "version": "3.0.0-*",
     "description": "KdSoft.Utils.Portable Class Library",
-    "authors": [ "kwaclaw" ],
+    "authors": [ "karl@waclawek.net" ],
     "tags": [ "" ],
     "projectUrl": "",
     "licenseUrl": "",
     "frameworks": {
         "net403": { },
         "dotnet5.3": {
+            "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "System.Collections.Concurrent": "4.0.11-*"
+                "Microsoft.CSharp": "4.0.1-*",
+                "System.Collections.Concurrent": "4.0.11-*",
+                "System.Globalization": "4.0.11-*",
+                "System.Linq": "4.0.1-*",
+                "System.Runtime": "4.0.21-*",
+                "System.Runtime.Extensions": "4.0.11-*",
+                "System.Runtime.InteropServices": "4.0.21-*",
+                "System.Threading": "4.0.11-*",
+                "System.Threading.Timer": "4.0.1-*"
             }
         }
-    },
-    "dependencies": {
-        "KdSoft.Utils.VeryPortable": "2.0.0-*"
     }
 }

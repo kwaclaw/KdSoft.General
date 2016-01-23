@@ -2,27 +2,8 @@
   "locked": false,
   "version": 2,
   "targets": {
-    ".NETFramework,Version=v4.0.3": {
-      "KdSoft.Utils.VeryPortable/2.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.0.3"
-      }
-    },
+    ".NETFramework,Version=v4.0.3": {},
     ".NETPlatform,Version=v5.3": {
-      "KdSoft.Utils.VeryPortable/2.0.0": {
-        "type": "project",
-        "framework": ".NETPlatform,Version=v5.3",
-        "dependencies": {
-          "Microsoft.CSharp": "4.0.1",
-          "System.Globalization": "4.0.11",
-          "System.Linq": "4.0.1",
-          "System.Runtime": "4.0.21",
-          "System.Runtime.Extensions": "4.0.11",
-          "System.Runtime.InteropServices": "4.0.21",
-          "System.Threading": "4.0.11",
-          "System.Threading.Timer": "4.0.1"
-        }
-      },
       "Microsoft.CSharp/4.0.1-rc2-23623": {
         "type": "package",
         "dependencies": {
@@ -198,33 +179,9 @@
         }
       }
     },
-    ".NETFramework,Version=v4.0.3/win7-x86": {
-      "KdSoft.Utils.VeryPortable/2.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.0.3"
-      }
-    },
-    ".NETFramework,Version=v4.0.3/win7-x64": {
-      "KdSoft.Utils.VeryPortable/2.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.0.3"
-      }
-    },
+    ".NETFramework,Version=v4.0.3/win7-x86": {},
+    ".NETFramework,Version=v4.0.3/win7-x64": {},
     ".NETPlatform,Version=v5.3/win7-x86": {
-      "KdSoft.Utils.VeryPortable/2.0.0": {
-        "type": "project",
-        "framework": ".NETPlatform,Version=v5.3",
-        "dependencies": {
-          "Microsoft.CSharp": "4.0.1",
-          "System.Globalization": "4.0.11",
-          "System.Linq": "4.0.1",
-          "System.Runtime": "4.0.21",
-          "System.Runtime.Extensions": "4.0.11",
-          "System.Runtime.InteropServices": "4.0.21",
-          "System.Threading": "4.0.11",
-          "System.Threading.Timer": "4.0.1"
-        }
-      },
       "Microsoft.CSharp/4.0.1-rc2-23623": {
         "type": "package",
         "dependencies": {
@@ -413,20 +370,6 @@
       }
     },
     ".NETPlatform,Version=v5.3/win7-x64": {
-      "KdSoft.Utils.VeryPortable/2.0.0": {
-        "type": "project",
-        "framework": ".NETPlatform,Version=v5.3",
-        "dependencies": {
-          "Microsoft.CSharp": "4.0.1",
-          "System.Globalization": "4.0.11",
-          "System.Linq": "4.0.1",
-          "System.Runtime": "4.0.21",
-          "System.Runtime.Extensions": "4.0.11",
-          "System.Runtime.InteropServices": "4.0.21",
-          "System.Threading": "4.0.11",
-          "System.Threading.Timer": "4.0.1"
-        }
-      },
       "Microsoft.CSharp/4.0.1-rc2-23623": {
         "type": "package",
         "dependencies": {
@@ -616,10 +559,6 @@
     }
   },
   "libraries": {
-    "KdSoft.Utils.VeryPortable/2.0.0": {
-      "type": "project",
-      "path": "../KdSoft.Utils.VeryPortable/project.json"
-    },
     "Microsoft.CSharp/4.0.1-rc2-23623": {
       "type": "package",
       "serviceable": true,
@@ -1602,12 +1541,18 @@
     }
   },
   "projectFileDependencyGroups": {
-    "": [
-      "KdSoft.Utils.VeryPortable >= 2.0.0-*"
-    ],
+    "": [],
     ".NETFramework,Version=v4.0.3": [],
     ".NETPlatform,Version=v5.3": [
-      "System.Collections.Concurrent >= 4.0.11-*"
+      "Microsoft.CSharp >= 4.0.1-*",
+      "System.Collections.Concurrent >= 4.0.11-*",
+      "System.Globalization >= 4.0.11-*",
+      "System.Linq >= 4.0.1-*",
+      "System.Runtime >= 4.0.21-*",
+      "System.Runtime.Extensions >= 4.0.11-*",
+      "System.Runtime.InteropServices >= 4.0.21-*",
+      "System.Threading >= 4.0.11-*",
+      "System.Threading.Timer >= 4.0.1-*"
     ]
   }
 }
