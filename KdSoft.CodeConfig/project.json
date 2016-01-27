@@ -11,6 +11,6 @@
         "net46": { }
     },
     "dependencies": {
-        "KdSoft.Reflection": "2.0.0-*"
+        "KdSoft.Reflection": "2.0.1-*"
     }
 }

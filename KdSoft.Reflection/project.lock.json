@@ -1318,7 +1318,7 @@
     "Microsoft.Extensions.PlatformAbstractions/1.0.0-rc2-16530": {
       "type": "package",
       "serviceable": true,
-      "sha512": "i0A2u45fUekro8uEiAWL/gr7LxFJNen0pGhW+nMag4XBb8+S2/GKMNcoDBLVG0MokrsHjFZnT1wy8t1n3TMkdw==",
+      "sha512": "a9qCsSfAaHR5o8FTxqLzBWQuXmmVWnzW0dkZXsk39uFlEf9AismmanNCxu3waTmba4qK+P24FXDwS9zo2eoMeQ==",
       "files": [
         "lib/dotnet5.4/Microsoft.Extensions.PlatformAbstractions.dll",
         "lib/net451/Microsoft.Extensions.PlatformAbstractions.dll",
@@ -2519,7 +2519,7 @@
     },
     "System.Text.Encoding/4.0.0": {
       "type": "package",
-      "sha512": "k4kc8Xq2Bs4x11WWtt6XMa+igtLrZAwJx1ZaB4D3/Sm4LFHSzT4mOOJIDOHa/ePyojOUtwLQdT0ywEnV5nl/9g==",
+      "sha512": "AMxFNOXpA6Ab8swULbXuJmoT2K5w6TnV3ObF5wsmEcIHQUJghoZtDVfVHb08O2wW15mOSI1i9Wg0Dx0pY13o8g==",
       "files": [
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",

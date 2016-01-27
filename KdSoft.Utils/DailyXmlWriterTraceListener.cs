@@ -50,9 +50,9 @@ namespace KdSoft.Utils
         void Initialize(string fileName) {
             this.activeUtcFileDate = DateTime.UtcNow.Date;
             if (fileName.StartsWith(@"~\")) {
-#if NET403 || NET451 || NET452
+#if NET403
                 var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-#elif DNX451
+#elif DNX451 || NET451 || NET452
                 var baseDir = (string)AppDomain.CurrentDomain.GetData("APP_CONTEXT_BASE_DIRECTORY");
 #else
                 var baseDir = AppContext.BaseDirectory;
