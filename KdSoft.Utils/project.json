@@ -1,5 +1,5 @@
 {
-    "version": "2.0.0-*",
+    "version": "2.0.1-*",
     "description": "KdSoft.Utils Class Library",
     "authors": [ "karl@waclawek.net" ],
     "tags": [ "" ],
@@ -11,12 +11,12 @@
         "dotnet5.4": {
             "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "System.Collections.Concurrent": "4.0.11-*",
-                "System.Diagnostics.TraceSource": "4.0.0-*",
+                "System.Collections.Concurrent": "4.0.11-rc2-*",
+                "System.Diagnostics.TraceSource": "4.0.0-rc2-*",
                 "System.IO.FileSystem": "4.0.1-rc2-*",
-                "System.IO.FileSystem.Watcher": "4.0.0-*",
-                "System.Linq": "4.1.0-*",
-                "System.Security.Cryptography.Algorithms": "4.0.0-*",
+                "System.IO.FileSystem.Watcher": "4.0.0-rc2-*",
+                "System.Linq": "4.1.0-rc2-*",
+                "System.Security.Cryptography.Algorithms": "4.0.0-rc2-*",
                 "System.Threading.Timer": "4.0.1-rc2-*"
             }
         }

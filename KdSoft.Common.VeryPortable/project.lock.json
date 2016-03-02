@@ -36,7 +36,7 @@
           "ref/dotnet/System.IO.dll": {}
         }
       },
-      "System.Linq/4.0.1-rc3-23819": {
+      "System.Linq/4.0.1-rc2-23623": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -193,7 +193,7 @@
           "ref/dotnet/System.IO.dll": {}
         }
       },
-      "System.Linq/4.0.1-rc3-23819": {
+      "System.Linq/4.0.1-rc2-23623": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -348,7 +348,7 @@
           "ref/dotnet/System.IO.dll": {}
         }
       },
-      "System.Linq/4.0.1-rc3-23819": {
+      "System.Linq/4.0.1-rc2-23623": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -677,12 +677,11 @@
         "System.IO.nuspec"
       ]
     },
-    "System.Linq/4.0.1-rc3-23819": {
+    "System.Linq/4.0.1-rc2-23623": {
       "type": "package",
       "serviceable": true,
-      "sha512": "9o3cv3NlH66ocNoe2A5R7Ld2nqEXjrAOPtedsUjK8Z8uPvYJ5f+Js4M+aGRjoY2qNILULs9sQIIt0XOTCDQwDA==",
+      "sha512": "MDTKzq4KjW1pw2xavgJeVEcc9peCe2bId9r75hBavr+dX45HlCJYUJFd07hW5dCRR/3LoFoK+42b3tO1xWQKNg==",
       "files": [
-        "dotnet_library_license.txt",
         "lib/dotnet5.4/System.Linq.dll",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
@@ -723,10 +722,9 @@
         "ref/wpa81/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
-        "System.Linq.4.0.1-rc3-23819.nupkg",
-        "System.Linq.4.0.1-rc3-23819.nupkg.sha512",
-        "System.Linq.nuspec",
-        "ThirdPartyNotices.txt"
+        "System.Linq.4.0.1-rc2-23623.nupkg",
+        "System.Linq.4.0.1-rc2-23623.nupkg.sha512",
+        "System.Linq.nuspec"
       ]
     },
     "System.Linq.Expressions/4.0.0": {
@@ -1244,11 +1242,11 @@
     "": [],
     ".NETFramework,Version=v4.0.3": [],
     ".NETPlatform,Version=v5.1": [
-      "System.Net.Requests >= 4.0.11-*",
+      "System.Net.Requests >= 4.0.11-rc2-*",
       "System.Reflection >= 4.1.0-rc2-*",
       "System.Reflection.Extensions >= 4.0.1-rc2-*",
-      "System.Dynamic.Runtime >= 4.0.11-*",
-      "System.Linq >= 4.0.1-*"
+      "System.Dynamic.Runtime >= 4.0.11-rc2-*",
+      "System.Linq >= 4.0.1-rc2-*"
     ]
   }
 }

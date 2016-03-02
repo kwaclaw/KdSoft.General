@@ -1,5 +1,5 @@
 {
-    "version": "2.0.0-*",
+    "version": "2.0.1-*",
     "description": "KdSoft.Common Class Library",
     "authors": [ "karl@waclawek.net" ],
     "tags": [ "" ],
@@ -10,11 +10,11 @@
         "dotnet5.1": {
             "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "System.Net.Requests": "4.0.11-*",
+                "System.Net.Requests": "4.0.11-rc2-*",
                 "System.Reflection": "4.1.0-rc2-*",
                 "System.Reflection.Extensions": "4.0.1-rc2-*",
-                "System.Dynamic.Runtime": "4.0.11-*",
-                "System.Linq": "4.0.1-*"
+                "System.Dynamic.Runtime": "4.0.11-rc2-*",
+                "System.Linq": "4.0.1-rc2-*"
             }
         }
     },
