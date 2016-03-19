@@ -6,19 +6,17 @@
     "projectUrl": "",
     "licenseUrl": "",
     "frameworks": {
-        "net403": { },
-        "dotnet5.3": {
+        "net451": { },
+        "netstandard1.3": {
             "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "System.Collections.Concurrent": "4.0.11-rc2-*",
-                "System.Dynamic.Runtime": "4.0.11-rc2-*",
-                "System.Globalization": "4.0.11-rc2-*",
-                "System.Linq": "4.1.0-rc2-*",
-                "System.Runtime.Extensions": "4.0.11-rc2-*",
-                "System.Runtime.InteropServices": "4.0.21-rc2-*",
-                "System.Threading": "4.0.11-rc2-*",
-                "System.Threading.Timer": "4.0.1-rc2-*"
-            }
+                "NETStandard.Library": "1.0.0-*",
+                "System.Dynamic.Runtime": "4.0.11-*"
+            },
+            "imports": [
+                "dnxcore50",
+                "portable-net451+win8"
+            ]
         }
     }
 }

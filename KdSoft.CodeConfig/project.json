@@ -6,8 +6,7 @@
     "projectUrl": "",
     "licenseUrl": "",
     "frameworks": {
-        "net403": { },
-        "net452": { },
+        "net451": { },
         "net46": { }
     },
     "dependencies": {

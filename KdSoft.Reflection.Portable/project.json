@@ -5,18 +5,18 @@
     "tags": [ "" ],
     "projectUrl": "",
     "licenseUrl": "",
-
     "frameworks": {
-        "net403": { },
-        "dotnet5.1": {
+        "net451": { },
+        "netstandard1.3": {
             "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "System.Reflection.Extensions": "4.0.1-rc2-*",
-                "System.Linq": "4.1.0-rc2-*",
-                "System.Linq.Expressions": "4.0.11-rc2-*",
-                "System.Threading": "4.0.11-rc2-*",
-                "System.Collections": "4.0.11-rc2-*"
-            }
+                "NETStandard.Library": "1.0.0-*",
+                "System.Dynamic.Runtime": "4.0.11-*"
+            },
+            "imports": [
+                "dnxcore50",
+                "portable-net451+win8"
+            ]
         }
     }
 }

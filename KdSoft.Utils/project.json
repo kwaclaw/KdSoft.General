@@ -6,19 +6,20 @@
     "projectUrl": "",
     "licenseUrl": "",
     "frameworks": {
-        "net403": { },
-        "dnx452": { },
-        "dotnet5.4": {
+        "net451": { },
+        "netstandard1.3": {
             "compilationOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "System.Collections.Concurrent": "4.0.11-rc2-*",
-                "System.Diagnostics.TraceSource": "4.0.0-rc2-*",
-                "System.IO.FileSystem": "4.0.1-rc2-*",
-                "System.IO.FileSystem.Watcher": "4.0.0-rc2-*",
-                "System.Linq": "4.1.0-rc2-*",
-                "System.Security.Cryptography.Algorithms": "4.0.0-rc2-*",
-                "System.Threading.Timer": "4.0.1-rc2-*"
-            }
+                "NETStandard.Library": "1.0.0-*",
+                "System.Diagnostics.TraceSource": "4.0.0-*",
+                "System.Dynamic.Runtime": "4.0.11-*",
+                "System.IO.FileSystem.Watcher": "4.0.0-*",
+                "System.Security.Cryptography.Algorithms": "4.0.0-*"
+            },
+            "imports": [
+                "dnxcore50",
+                "portable-net451+win8"
+            ]
         }
-    },
+    }
 }
