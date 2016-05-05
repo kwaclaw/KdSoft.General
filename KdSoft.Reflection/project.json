@@ -1,20 +1,24 @@
 {
-    "version": "2.0.1-*",
+    "version": "2.0.2-*",
     "description": "KdSoft.Reflection Class Library",
     "authors": [ "karl@waclawek.net" ],
-    "tags": [ "" ],
-    "projectUrl": "",
-    "licenseUrl": "",
+
+    "buildOptions": {
+        "preserveCompilationContext": true
+    },
+
     "frameworks": {
         "net451": { },
         "netstandard1.3": {
-            "compilationOptions": { "define": [ "COREFX" ] },
-            "imports": [ "dnxcore50", "portable-net45+win8" ],
+            "buildOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "NETStandard.Library": "1.0.0-*",
-                "Microsoft.Extensions.PlatformAbstractions.Dnx": "1.0.0-*",
-                "System.Reflection.TypeExtensions": "4.1.0-*"
-            }
+                "NETStandard.Library": "1.5.0-*",
+                "Microsoft.Extensions.DependencyModel": "1.0.0-*"
+            },
+            "imports": [
+                "dnxcore50",
+                "portable-net451+win8"
+            ]
         }
     }
 }

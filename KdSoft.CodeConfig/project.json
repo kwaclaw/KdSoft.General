@@ -1,15 +1,13 @@
 ﻿{
-    "version": "2.0.1-*",
+    "version": "2.0.2-*",
     "description": "KdSoft.CodeConfig Class Library",
     "authors": [ "karl@waclawek.net" ],
-    "tags": [ "" ],
-    "projectUrl": "",
-    "licenseUrl": "",
+
     "frameworks": {
         "net451": { },
         "net46": { }
     },
     "dependencies": {
-        "KdSoft.Reflection": "2.0.1-*"
+        "KdSoft.Reflection": "2.0.2-*"
     }
 }

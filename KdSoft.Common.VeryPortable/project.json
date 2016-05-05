@@ -1,23 +1,16 @@
 {
-    "version": "2.0.1-*",
+    "version": "2.0.2-*",
     "description": "KdSoft.Common.VeryPortable Class Library",
     "authors": [ "karl@waclawek.net" ],
-    "tags": [ "" ],
-    "projectUrl": "",
-    "licenseUrl": "",
+
     "frameworks": {
         "net451": { },
         "netstandard1.3": {
-            "compilationOptions": { "define": [ "COREFX" ] },
+            "buildOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "NETStandard.Library": "1.0.0-*",
-                "System.Net.Requests": "4.0.11-*",
-                "System.Dynamic.Runtime": "4.0.11-*"
-            },
-            "imports": [
-                "dnxcore50",
-                "portable-net451+win8"
-            ]
+                "NETStandard.Library": "1.5.0-*",
+                "System.Net.Requests": "4.0.11-*"
+            }
         }
     }
 }

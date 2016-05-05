@@ -104,6 +104,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.AppContext.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.AppContext.dll": {}
         }
       },
       "System.Buffers/4.0.0-rc3-24105-00": {
@@ -129,6 +132,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Collections.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Collections.Concurrent/4.0.12-rc3-24105-00": {
@@ -170,6 +176,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Diagnostics.Debug.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Diagnostics.DiagnosticSource/4.0.0-rc3-24105-00": {
@@ -195,6 +204,35 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Diagnostics.Tools.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
+        }
+      },
+      "System.Diagnostics.TraceSource/4.0.0-rc3-24105-00": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-rc3-24105-00",
+          "System.Diagnostics.Debug": "4.0.11-rc3-24105-00",
+          "System.Globalization": "4.0.11-rc3-24105-00",
+          "System.Resources.ResourceManager": "4.0.1-rc3-24105-00",
+          "System.Runtime": "4.1.0-rc3-24105-00",
+          "System.Runtime.Extensions": "4.1.0-rc3-24105-00",
+          "System.Threading": "4.0.11-rc3-24105-00",
+          "runtime.native.System": "4.0.0-rc3-24105-00"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Diagnostics.TraceSource.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Diagnostics.TraceSource.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Diagnostics.TraceSource.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.Diagnostics.Tracing/4.1.0-rc3-24105-00": {
@@ -204,6 +242,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Diagnostics.Tracing.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81/_._": {}
         }
       },
       "System.Globalization/4.0.11-rc3-24105-00": {
@@ -213,6 +254,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Globalization.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Globalization.Calendars/4.0.1-rc3-24105-00": {
@@ -234,6 +278,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.IO.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.IO.Compression/4.1.0-rc3-24105-00": {
@@ -255,6 +302,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.IO.Compression.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81/_._": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard1.3/System.IO.Compression.dll": {
@@ -313,6 +363,43 @@
           "lib/netstandard1.3/System.IO.FileSystem.Primitives.dll": {}
         }
       },
+      "System.IO.FileSystem.Watcher/4.0.0-rc3-24105-00": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.Primitives": "4.0.1-rc3-24105-00",
+          "System.Collections": "4.0.11-rc3-24105-00",
+          "System.IO.FileSystem": "4.0.1-rc3-24105-00",
+          "System.IO.FileSystem.Primitives": "4.0.1-rc3-24105-00",
+          "System.Resources.ResourceManager": "4.0.1-rc3-24105-00",
+          "System.Runtime": "4.1.0-rc3-24105-00",
+          "System.Runtime.Extensions": "4.1.0-rc3-24105-00",
+          "System.Runtime.Handles": "4.0.1-rc3-24105-00",
+          "System.Runtime.InteropServices": "4.1.0-rc3-24105-00",
+          "System.Text.Encoding": "4.0.11-rc3-24105-00",
+          "System.Threading": "4.0.11-rc3-24105-00",
+          "System.Threading.Overlapped": "4.0.1-rc3-24105-00",
+          "System.Threading.Tasks": "4.0.11-rc3-24105-00",
+          "System.Threading.Thread": "4.0.0-rc3-24105-00",
+          "runtime.native.System": "4.0.0-rc3-24105-00"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.IO.FileSystem.Watcher.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/netstandard1.3/System.IO.FileSystem.Watcher.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/osx/lib/netstandard1.3/System.IO.FileSystem.Watcher.dll": {
+            "assetType": "runtime",
+            "rid": "osx"
+          },
+          "runtimes/win/lib/netstandard1.3/System.IO.FileSystem.Watcher.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Linq/4.1.0-rc3-24105-00": {
         "type": "package",
         "dependencies": {
@@ -321,6 +408,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Linq.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.Linq.dll": {}
         }
       },
       "System.Net.Http/4.1.0-rc3-24105-00": {
@@ -348,7 +438,14 @@
         "compile": {
           "ref/netstandard1.3/System.Net.Http.dll": {}
         },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81/_._": {}
+        },
         "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.4/System.Net.Http.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
           "runtimes/win/lib/netstandard1.3/System.Net.Http.dll": {
             "assetType": "runtime",
             "rid": "win"
@@ -363,36 +460,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Primitives.dll": {}
-        }
-      },
-      "System.Net.Requests/4.0.11-rc3-24105-00": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.11-rc3-24105-00",
-          "System.Diagnostics.Debug": "4.0.11-rc3-24105-00",
-          "System.Diagnostics.Tracing": "4.1.0-rc3-24105-00",
-          "System.Globalization": "4.0.11-rc3-24105-00",
-          "System.IO": "4.1.0-rc3-24105-00",
-          "System.Net.Http": "4.1.0-rc3-24105-00",
-          "System.Net.Primitives": "4.0.11-rc3-24105-00",
-          "System.Net.WebHeaderCollection": "4.0.1-rc3-24105-00",
-          "System.Resources.ResourceManager": "4.0.1-rc3-24105-00",
-          "System.Runtime": "4.1.0-rc3-24105-00",
-          "System.Threading": "4.0.11-rc3-24105-00",
-          "System.Threading.Tasks": "4.0.11-rc3-24105-00"
         },
-        "compile": {
-          "ref/netstandard1.3/System.Net.Requests.dll": {}
-        },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netstandard1.3/System.Net.Requests.dll": {
-            "assetType": "runtime",
-            "rid": "unix"
-          },
-          "runtimes/win/lib/netstandard1.3/System.Net.Requests.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Net.Sockets/4.1.0-rc3-24105-00": {
@@ -405,21 +475,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Sockets.dll": {}
-        }
-      },
-      "System.Net.WebHeaderCollection/4.0.1-rc3-24105-00": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.11-rc3-24105-00",
-          "System.Resources.ResourceManager": "4.0.1-rc3-24105-00",
-          "System.Runtime": "4.1.0-rc3-24105-00",
-          "System.Runtime.Extensions": "4.1.0-rc3-24105-00"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
         }
       },
       "System.ObjectModel/4.0.12-rc3-24105-00": {
@@ -447,6 +502,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Reflection.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Reflection.Extensions/4.0.1-rc3-24105-00": {
@@ -457,6 +515,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Reflection.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Reflection.Primitives/4.0.1-rc3-24105-00": {
@@ -466,6 +527,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Reflection.Primitives.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Resources.ResourceManager/4.0.1-rc3-24105-00": {
@@ -477,12 +541,18 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Resources.ResourceManager.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Runtime/4.1.0-rc3-24105-00": {
         "type": "package",
         "compile": {
           "ref/netstandard1.3/System.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp80+wpa81/_._": {}
         }
       },
       "System.Runtime.Extensions/4.1.0-rc3-24105-00": {
@@ -492,6 +562,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Runtime.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Runtime.Handles/4.0.1-rc3-24105-00": {
@@ -513,6 +586,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Runtime.InteropServices.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81/_._": {}
         }
       },
       "System.Runtime.InteropServices.RuntimeInformation/4.0.0-rc3-24105-00": {
@@ -622,6 +698,16 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Security.Cryptography.X509Certificates.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.4/System.Security.Cryptography.X509Certificates.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.4/System.Security.Cryptography.X509Certificates.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.Text.Encoding/4.0.11-rc3-24105-00": {
@@ -631,6 +717,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Text.Encoding.Extensions/4.0.11-rc3-24105-00": {
@@ -641,6 +730,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Text.RegularExpressions/4.1.0-rc3-24105-00": {
@@ -650,6 +742,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.RegularExpressions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.Text.RegularExpressions.dll": {}
         }
       },
       "System.Threading/4.0.11-rc3-24105-00": {
@@ -665,6 +760,27 @@
           "lib/netstandard1.3/System.Threading.dll": {}
         }
       },
+      "System.Threading.Overlapped/4.0.1-rc3-24105-00": {
+        "type": "package",
+        "dependencies": {
+          "System.Resources.ResourceManager": "4.0.1-rc3-24105-00",
+          "System.Runtime": "4.1.0-rc3-24105-00",
+          "System.Runtime.Handles": "4.0.1-rc3-24105-00"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Threading.Overlapped.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Threading.Overlapped.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Threading.Tasks/4.0.11-rc3-24105-00": {
         "type": "package",
         "dependencies": {
@@ -672,6 +788,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.0.0-rc3-24105-00": {
@@ -686,6 +805,18 @@
         },
         "runtime": {
           "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll": {}
+        }
+      },
+      "System.Threading.Thread/4.0.0-rc3-24105-00": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.1.0-rc3-24105-00"
+        },
+        "compile": {
+          "ref/netstandard1.3/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Threading.Thread.dll": {}
         }
       },
       "System.Threading.Timer/4.0.1-rc3-24105-00": {
@@ -1215,6 +1346,44 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "System.Diagnostics.TraceSource/4.0.0-rc3-24105-00": {
+      "sha512": "rFMsUhRFlu4epLAU0hqHsMk2x74IvlIxOEy2UVvb1Kyo0vWPOpt/0K9WvMW9/YEmQrTU9TTVsQMetQ919JWrXg==",
+      "type": "package",
+      "files": [
+        "System.Diagnostics.TraceSource.4.0.0-rc3-24105-00.nupkg.sha512",
+        "System.Diagnostics.TraceSource.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Diagnostics.TraceSource.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Diagnostics.TraceSource.dll",
+        "ref/netstandard1.3/System.Diagnostics.TraceSource.dll",
+        "ref/netstandard1.3/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/de/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/es/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/fr/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/it/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/ja/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/ko/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/ru/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/zh-hans/System.Diagnostics.TraceSource.xml",
+        "ref/netstandard1.3/zh-hant/System.Diagnostics.TraceSource.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/unix/lib/netstandard1.3/System.Diagnostics.TraceSource.dll",
+        "runtimes/win/lib/net46/System.Diagnostics.TraceSource.dll",
+        "runtimes/win/lib/netstandard1.3/System.Diagnostics.TraceSource.dll"
+      ]
+    },
     "System.Diagnostics.Tracing/4.1.0-rc3-24105-00": {
       "sha512": "wOa7X3JTk/2JxOAhWwDu+VSdFHglD6+tLXabcyQwsODn1bVA2HL1WF2kCD0pXQORL6PnTgFMAAgrF/X9UcdwkQ==",
       "type": "package",
@@ -1655,6 +1824,46 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "System.IO.FileSystem.Watcher/4.0.0-rc3-24105-00": {
+      "sha512": "veOrcDZJ3ymgu2Ttb1HuXpNha+xudU+tsnuZr+IBEpQ/z5yBUmR7+QMRyCLnurtK5t836GhmwVY8T7BLbWIdtQ==",
+      "type": "package",
+      "files": [
+        "System.IO.FileSystem.Watcher.4.0.0-rc3-24105-00.nupkg.sha512",
+        "System.IO.FileSystem.Watcher.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.IO.FileSystem.Watcher.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.IO.FileSystem.Watcher.dll",
+        "ref/netstandard1.3/System.IO.FileSystem.Watcher.dll",
+        "ref/netstandard1.3/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/de/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/es/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/fr/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/it/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/ja/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/ko/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/ru/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/zh-hans/System.IO.FileSystem.Watcher.xml",
+        "ref/netstandard1.3/zh-hant/System.IO.FileSystem.Watcher.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/linux/lib/netstandard1.3/System.IO.FileSystem.Watcher.dll",
+        "runtimes/osx/lib/netstandard1.3/System.IO.FileSystem.Watcher.dll",
+        "runtimes/win/lib/net46/System.IO.FileSystem.Watcher.dll",
+        "runtimes/win/lib/netstandard1.3/System.IO.FileSystem.Watcher.dll",
+        "runtimes/win7/lib/netcore50/_._"
+      ]
+    },
     "System.Linq/4.1.0-rc3-24105-00": {
       "sha512": "rwvCD1jABPOUVkFv1kXlE7E3rcvTli/9VLsbMVfMIsv8lQ5WhsCkMFtkd8QbwvSIt1nA/X5wAfI7hMk/X4cKPw==",
       "type": "package",
@@ -1879,86 +2088,6 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.Net.Requests/4.0.11-rc3-24105-00": {
-      "sha512": "yoLTq4HH0ZJUT0SyxaPIxKAWFCyajY2uaF30U+PatVI1wsoz+eHkuWtFan7toh/jjMZl7lD6HP+SAEuL6ZOSDg==",
-      "type": "package",
-      "files": [
-        "System.Net.Requests.4.0.11-rc3-24105-00.nupkg.sha512",
-        "System.Net.Requests.nuspec",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net45/_._",
-        "lib/portable-net45+win8+wp8+wpa81/_._",
-        "lib/win8/_._",
-        "lib/wp80/_._",
-        "lib/wpa81/_._",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net45/_._",
-        "ref/net46/_._",
-        "ref/netcore50/System.Net.Requests.dll",
-        "ref/netcore50/System.Net.Requests.xml",
-        "ref/netcore50/de/System.Net.Requests.xml",
-        "ref/netcore50/es/System.Net.Requests.xml",
-        "ref/netcore50/fr/System.Net.Requests.xml",
-        "ref/netcore50/it/System.Net.Requests.xml",
-        "ref/netcore50/ja/System.Net.Requests.xml",
-        "ref/netcore50/ko/System.Net.Requests.xml",
-        "ref/netcore50/ru/System.Net.Requests.xml",
-        "ref/netcore50/zh-hans/System.Net.Requests.xml",
-        "ref/netcore50/zh-hant/System.Net.Requests.xml",
-        "ref/netstandard1.0/System.Net.Requests.dll",
-        "ref/netstandard1.0/System.Net.Requests.xml",
-        "ref/netstandard1.0/de/System.Net.Requests.xml",
-        "ref/netstandard1.0/es/System.Net.Requests.xml",
-        "ref/netstandard1.0/fr/System.Net.Requests.xml",
-        "ref/netstandard1.0/it/System.Net.Requests.xml",
-        "ref/netstandard1.0/ja/System.Net.Requests.xml",
-        "ref/netstandard1.0/ko/System.Net.Requests.xml",
-        "ref/netstandard1.0/ru/System.Net.Requests.xml",
-        "ref/netstandard1.0/zh-hans/System.Net.Requests.xml",
-        "ref/netstandard1.0/zh-hant/System.Net.Requests.xml",
-        "ref/netstandard1.1/System.Net.Requests.dll",
-        "ref/netstandard1.1/System.Net.Requests.xml",
-        "ref/netstandard1.1/de/System.Net.Requests.xml",
-        "ref/netstandard1.1/es/System.Net.Requests.xml",
-        "ref/netstandard1.1/fr/System.Net.Requests.xml",
-        "ref/netstandard1.1/it/System.Net.Requests.xml",
-        "ref/netstandard1.1/ja/System.Net.Requests.xml",
-        "ref/netstandard1.1/ko/System.Net.Requests.xml",
-        "ref/netstandard1.1/ru/System.Net.Requests.xml",
-        "ref/netstandard1.1/zh-hans/System.Net.Requests.xml",
-        "ref/netstandard1.1/zh-hant/System.Net.Requests.xml",
-        "ref/netstandard1.3/System.Net.Requests.dll",
-        "ref/netstandard1.3/System.Net.Requests.xml",
-        "ref/netstandard1.3/de/System.Net.Requests.xml",
-        "ref/netstandard1.3/es/System.Net.Requests.xml",
-        "ref/netstandard1.3/fr/System.Net.Requests.xml",
-        "ref/netstandard1.3/it/System.Net.Requests.xml",
-        "ref/netstandard1.3/ja/System.Net.Requests.xml",
-        "ref/netstandard1.3/ko/System.Net.Requests.xml",
-        "ref/netstandard1.3/ru/System.Net.Requests.xml",
-        "ref/netstandard1.3/zh-hans/System.Net.Requests.xml",
-        "ref/netstandard1.3/zh-hant/System.Net.Requests.xml",
-        "ref/portable-net45+win8+wp8+wpa81/_._",
-        "ref/win8/_._",
-        "ref/wp80/_._",
-        "ref/wpa81/_._",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "runtimes/unix/lib/netstandard1.3/System.Net.Requests.dll",
-        "runtimes/win/lib/net46/_._",
-        "runtimes/win/lib/netstandard1.3/System.Net.Requests.dll"
-      ]
-    },
     "System.Net.Sockets/4.1.0-rc3-24105-00": {
       "sha512": "0AUUHaBkYvjyN3RDvVHjrLXeNTEiZw+qQ+h5GovutHfOMcKkrbmp+EtSKSTLbR0e/UObkEBtyMVy80vpq3Yj+A==",
       "type": "package",
@@ -1988,42 +2117,6 @@
         "ref/netstandard1.3/ru/System.Net.Sockets.xml",
         "ref/netstandard1.3/zh-hans/System.Net.Sockets.xml",
         "ref/netstandard1.3/zh-hant/System.Net.Sockets.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._"
-      ]
-    },
-    "System.Net.WebHeaderCollection/4.0.1-rc3-24105-00": {
-      "sha512": "ec/uBz86QE5bBsLn8gXq0w+LZbzR0gxClG37CEUKbmXe+GszDUcj1NNw73oZQupDM68fJJ6UeIVdNJ/USDy4gg==",
-      "type": "package",
-      "files": [
-        "System.Net.WebHeaderCollection.4.0.1-rc3-24105-00.nupkg.sha512",
-        "System.Net.WebHeaderCollection.nuspec",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/_._",
-        "lib/netstandard1.3/System.Net.WebHeaderCollection.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/_._",
-        "ref/netstandard1.3/System.Net.WebHeaderCollection.dll",
-        "ref/netstandard1.3/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/de/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/es/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/fr/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/it/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/ja/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/ko/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/ru/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/zh-hans/System.Net.WebHeaderCollection.xml",
-        "ref/netstandard1.3/zh-hant/System.Net.WebHeaderCollection.xml",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
@@ -3141,6 +3234,33 @@
         "runtimes/aot/lib/netcore50/System.Threading.dll"
       ]
     },
+    "System.Threading.Overlapped/4.0.1-rc3-24105-00": {
+      "sha512": "gWc1Xg135irqXt41fuVDdDN3l7LXm4gW4I9WAtV9olyjPPoCZbWWMWTFdEx65TtTJE7q9FLUlmfv+OJjroeTrQ==",
+      "type": "package",
+      "files": [
+        "System.Threading.Overlapped.4.0.1-rc3-24105-00.nupkg.sha512",
+        "System.Threading.Overlapped.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/net46/System.Threading.Overlapped.dll",
+        "ref/net46/System.Threading.Overlapped.dll",
+        "ref/netstandard1.3/System.Threading.Overlapped.dll",
+        "ref/netstandard1.3/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/de/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/es/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/fr/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/it/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/ja/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/ko/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/ru/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/zh-hans/System.Threading.Overlapped.xml",
+        "ref/netstandard1.3/zh-hant/System.Threading.Overlapped.xml",
+        "runtimes/unix/lib/netstandard1.3/System.Threading.Overlapped.dll",
+        "runtimes/win/lib/net46/System.Threading.Overlapped.dll",
+        "runtimes/win/lib/netcore50/System.Threading.Overlapped.dll",
+        "runtimes/win/lib/netstandard1.3/System.Threading.Overlapped.dll"
+      ]
+    },
     "System.Threading.Tasks/4.0.11-rc3-24105-00": {
       "sha512": "FyQQ7k7L16PK3SezISxRGmpy+hX3IH0AkyeCsxCH4JIeolKVyGjqOFj7z+Vh4trJdCmrroBFwI81ty4VgL+/hQ==",
       "type": "package",
@@ -3218,6 +3338,43 @@
         "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
         "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
         "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml"
+      ]
+    },
+    "System.Threading.Thread/4.0.0-rc3-24105-00": {
+      "sha512": "wvJe4Eyj8yd1yD8BfKUUNMDDbYb/nK2MxAxh2AaUNY2qV/cBGxa/D98HznFjO4M03tQrjB/lwz4ZLJrVNlOmuw==",
+      "type": "package",
+      "files": [
+        "System.Threading.Thread.4.0.0-rc3-24105-00.nupkg.sha512",
+        "System.Threading.Thread.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Threading.Thread.dll",
+        "lib/netcore50/_._",
+        "lib/netstandard1.3/System.Threading.Thread.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Threading.Thread.dll",
+        "ref/netstandard1.3/System.Threading.Thread.dll",
+        "ref/netstandard1.3/System.Threading.Thread.xml",
+        "ref/netstandard1.3/de/System.Threading.Thread.xml",
+        "ref/netstandard1.3/es/System.Threading.Thread.xml",
+        "ref/netstandard1.3/fr/System.Threading.Thread.xml",
+        "ref/netstandard1.3/it/System.Threading.Thread.xml",
+        "ref/netstandard1.3/ja/System.Threading.Thread.xml",
+        "ref/netstandard1.3/ko/System.Threading.Thread.xml",
+        "ref/netstandard1.3/ru/System.Threading.Thread.xml",
+        "ref/netstandard1.3/zh-hans/System.Threading.Thread.xml",
+        "ref/netstandard1.3/zh-hant/System.Threading.Thread.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._"
       ]
     },
     "System.Threading.Timer/4.0.1-rc3-24105-00": {
@@ -3412,7 +3569,8 @@
     ".NETFramework,Version=v4.5.1": [],
     ".NETStandard,Version=v1.3": [
       "NETStandard.Library >= 1.5.0-*",
-      "System.Net.Requests >= 4.0.11-*"
+      "System.Diagnostics.TraceSource >= 4.0.0-*",
+      "System.IO.FileSystem.Watcher >= 4.0.0-*"
     ]
   },
   "tools": {},

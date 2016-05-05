@@ -1,24 +1,16 @@
 {
-    "version": "1.0.1-*",
+    "version": "1.0.2-*",
     "description": "KdSoft.Utils.Tests Class Library",
     "authors": [ "kwaclaw" ],
-    "tags": [ "" ],
-    "projectUrl": "",
-    "licenseUrl": "",
+
     "frameworks": {
-        "netstandardapp1.5": {
-            "compilationOptions": { "define": [ "COREFX" ] },
-            "NETStandard.Library": "1.0.0-*",
-            "imports": [
-                "dnxcore50",
-                "portable-net45+win8"
-            ]
-        }
+        "net451": { }
     },
     "dependencies": {
-        "KdSoft.Reflection.Portable": "1.0.1-*",
-        "xunit": "2.2.0-*",
-        "dotnet-test-xunit": "1.0.0-*"
+        "KdSoft.Reflection.Portable": "1.0.2-*",
+        "xunit": "2.1.0-*",
+        "dotnet-test-xunit": "1.0.0-*",
+        "xunit.netcore.extensions": "1.0.0-*"
     },
     "testRunner": "xunit"
 }

@@ -1,5 +1,6 @@
-﻿#if COREFX
-using Microsoft.Extensions.PlatformAbstractions;
+﻿
+#if COREFX
+using Microsoft.Extensions.DependencyModel;
 #endif
 using System;
 using System.Collections.Generic;
@@ -37,12 +38,12 @@ namespace KdSoft.Reflection
         }
 
 #if COREFX
-        public static IList<AssemblyName> FindAssemblies(this ILibraryManager libMgr, string matchName) {
+        public static IList<AssemblyName> FindAssemblies(this DependencyContext deps, string matchName) {
             var result = new List<AssemblyName>();
-            foreach (var lib in libMgr.GetLibraries()) {
-                foreach (var assemblyName in lib.Assemblies) {
-                    if (string.Compare(assemblyName.Name, matchName, StringComparison.OrdinalIgnoreCase) == 0) {
-                        result.Add(assemblyName);
+            foreach (var lib in deps.RuntimeLibraries) {
+                foreach (var runtimeLib in lib.Assemblies) {
+                    if (string.Compare(runtimeLib.Name.Name, matchName, StringComparison.OrdinalIgnoreCase) == 0) {
+                        result.Add(runtimeLib.Name);
                     }
                 }
             }
