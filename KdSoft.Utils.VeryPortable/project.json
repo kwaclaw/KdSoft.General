@@ -2,7 +2,6 @@
     "version": "2.0.2-*",
     "description": "KdSoft.Utils.VeryPortable Class Library",
     "authors": [ "karl@waclawek.net" ],
-
     "frameworks": {
         "net451": { },
         "netstandard1.3": {
@@ -16,5 +15,8 @@
             ]
         }
     },
-    "dependencies": { }
+    "dependencies": { },
+    "buildOptions": {
+        "xmlDoc": true
+    }
 }

@@ -2,7 +2,6 @@
     "version": "2.0.2-*",
     "description": "KdSoft.Utils Class Library",
     "authors": [ "karl@waclawek.net" ],
-
     "frameworks": {
         "net451": { },
         "netstandard1.3": {
@@ -17,5 +16,8 @@
                 "portable-net451+win8"
             ]
         }
+    },
+    "buildOptions": {
+        "xmlDoc": true
     }
 }

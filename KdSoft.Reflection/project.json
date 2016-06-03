@@ -4,7 +4,8 @@
     "authors": [ "karl@waclawek.net" ],
 
     "buildOptions": {
-        "preserveCompilationContext": true
+        "preserveCompilationContext": true,
+        "xmlDoc": true
     },
 
     "frameworks": {
