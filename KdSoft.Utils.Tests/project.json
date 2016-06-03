@@ -9,8 +9,7 @@
     "dependencies": {
         "KdSoft.Reflection.Portable": "1.0.2-*",
         "xunit": "2.1.0-*",
-        "dotnet-test-xunit": "1.0.0-*",
-        "xunit.netcore.extensions": "1.0.0-*"
+        "dotnet-test-xunit": "1.0.0-*"
     },
     "testRunner": "xunit"
 }
