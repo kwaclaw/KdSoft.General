@@ -1,13 +1,12 @@
 {
     "version": "2.0.2-*",
-    "description": "KdSoft.Common.VeryPortable Class Library",
-    "authors": [ "karl@waclawek.net" ],
+
     "frameworks": {
         "net451": { },
         "netstandard1.3": {
             "buildOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "NETStandard.Library": "1.5.0-*",
+                "NETStandard.Library": "1.6.0-*",
                 "System.Net.Requests": "4.0.11-*"
             }
         }

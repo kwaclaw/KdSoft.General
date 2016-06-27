@@ -1,7 +1,6 @@
 {
     "version": "2.0.2-*",
-    "description": "KdSoft.CodeConfig Class Library",
-    "authors": [ "karl@waclawek.net" ],
+
     "frameworks": {
         "net451": { },
         "net46": { }

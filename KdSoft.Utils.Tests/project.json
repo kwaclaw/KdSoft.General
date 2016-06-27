@@ -1,15 +1,13 @@
 {
     "version": "1.0.2-*",
-    "description": "KdSoft.Utils.Tests Class Library",
-    "authors": [ "kwaclaw" ],
 
     "frameworks": {
         "net451": { }
     },
     "dependencies": {
         "KdSoft.Reflection.Portable": "1.0.2-*",
-        "xunit": "2.1.0-*",
-        "dotnet-test-xunit": "1.0.0-*"
+        "xunit": "2.2.0-*",
+        "dotnet-test-xunit": "2.2.0-*"
     },
     "testRunner": "xunit"
 }
