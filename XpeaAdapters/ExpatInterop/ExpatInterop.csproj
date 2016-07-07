@@ -1,44 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D71704E6-2AFE-4699-8CC0-C4F7E924BCE2}</ProjectGuid>
+    <ProjectGuid>{032666AE-8621-4DD3-B1F7-C0D883E932CA}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Basic</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyName>ExpatInterop</AssemblyName>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>Xpea.Demo.Basic</RootNamespace>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Kds.Xml.Expat</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;EXPAT_1_95_8_UP</DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +66,6 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -61,9 +74,8 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DefineConstants>TRACE;EXPAT_1_95_8_UP</DefineConstants>
+    <DocumentationFile>bin\Release\ExpatInterop.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -76,68 +88,37 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ExpatKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
-    <Reference Include="System.Drawing">
-      <Name>System.Drawing</Name>
-    </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-    </Reference>
-    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ExpatHelpers.cs" />
+    <Compile Include="ExpatParser.cs" />
+    <Compile Include="LibExpat.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainFrm.cs">
-      <SubType>Form</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Org.System.Xml\Org.System.Xml.csproj">
-      <Project>{dd083e56-281d-4b52-aa6e-f50cbee5b56f}</Project>
-      <Name>Org.System.Xml</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\SAX\Sax.csproj">
-      <Project>{a05d2163-80ff-4aea-b23d-1c9715a306af}</Project>
-      <Name>Sax</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Text\KdsText.csproj">
+    <None Include="..\SaxExpatKey.snk">
+      <Link>SaxExpatKey.snk</Link>
+    </None>
+    <None Include="ExpatKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Text\KdsText.csproj">
       <Project>{37510af2-0f14-4d27-ab49-3d11b1f2c9b9}</Project>
       <Name>KdsText</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Xpea\XpeaImpl\XpeaImpl.csproj">
-      <Project>{61d11504-f954-4948-8ff2-349637a42bc3}</Project>
-      <Name>XpeaImpl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Xpea\Xpea\Xpea.csproj">
-      <Project>{ac1ced04-8049-4d89-8fd7-b5f165b4ca66}</Project>
-      <Name>Xpea</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\XpeaSax\XpeaSax.csproj">
-      <Project>{0c59c483-8834-42a3-b35a-932eddc63fc7}</Project>
-      <Name>XpeaSax</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\XpeaXmlReader\XpeaXmlReader.csproj">
-      <Project>{c364f368-8c65-4b3c-a38a-88b964df7bbe}</Project>
-      <Name>XpeaXmlReader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{92DF73E7-FA00-4F0A-A261-24269985100E}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MainFrm.resx">
-      <DependentUpon>MainFrm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
