@@ -47,10 +47,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Sax, Version=1.5.0.0, Culture=neutral, PublicKeyToken=be21d24d19a1d110, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XpeaSax\Sax.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -71,6 +67,10 @@
     <ProjectReference Include="..\..\..\Org.System.Xml\Org.System.Xml.csproj">
       <Project>{dd083e56-281d-4b52-aa6e-f50cbee5b56f}</Project>
       <Name>Org.System.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\SAX\Sax.csproj">
+      <Project>{a05d2163-80ff-4aea-b23d-1c9715a306af}</Project>
+      <Name>Sax</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Text\KdsText.csproj">
       <Project>{37510af2-0f14-4d27-ab49-3d11b1f2c9b9}</Project>
