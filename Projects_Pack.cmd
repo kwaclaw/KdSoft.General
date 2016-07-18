@@ -7,7 +7,7 @@ dotnet pack -o artifacts KdSoft.StorageBase
 dotnet pack -o artifacts KdSoft.TransientStorage
 dotnet pack -o artifacts KdSoft.Utils
 dotnet pack -o artifacts KdSoft.Utils.Portable
-dotnet pack -o artifacts KdSoft.Utils.VeryPortable
+REM dotnet pack -o artifacts KdSoft.Utils.VeryPortable
 
 pause
 

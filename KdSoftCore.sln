@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.Reflection", "KdSoft.Reflection\KdSoft.Reflection.xproj", "{271385C7-CB41-40FE-A7D8-C32399365D36}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.CodeConfig", "KdSoft.CodeConfig\KdSoft.CodeConfig.xproj", "{F0764048-CEFC-454C-8B29-6447E21024FA}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.Utils.VeryPortable", "KdSoft.Utils.VeryPortable\KdSoft.Utils.VeryPortable.xproj", "{DD34DC07-EE45-4B02-A18E-14D22E028EAF}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdSoft.Utils.Portable", "KdSoft.Utils.Portable\KdSoft.Utils.Portable.xproj", "{602B0319-376C-4EB6-A2E2-B093F8670F36}"
 EndProject
@@ -43,10 +41,6 @@ Global
 		{F0764048-CEFC-454C-8B29-6447E21024FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0764048-CEFC-454C-8B29-6447E21024FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0764048-CEFC-454C-8B29-6447E21024FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD34DC07-EE45-4B02-A18E-14D22E028EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD34DC07-EE45-4B02-A18E-14D22E028EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD34DC07-EE45-4B02-A18E-14D22E028EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD34DC07-EE45-4B02-A18E-14D22E028EAF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{602B0319-376C-4EB6-A2E2-B093F8670F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{602B0319-376C-4EB6-A2E2-B093F8670F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{602B0319-376C-4EB6-A2E2-B093F8670F36}.Release|Any CPU.ActiveCfg = Release|Any CPU

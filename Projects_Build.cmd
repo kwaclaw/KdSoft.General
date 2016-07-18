@@ -5,7 +5,7 @@ dotnet build KdSoft.Reflection.Portable
 dotnet build KdSoft.TransientStorage
 dotnet build KdSoft.Utils
 dotnet build KdSoft.Utils.Portable
-dotnet build KdSoft.Utils.VeryPortable
+REM dotnet build KdSoft.Utils.VeryPortable
 
 pause
 
