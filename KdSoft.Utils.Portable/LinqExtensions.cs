@@ -51,12 +51,13 @@ namespace KdSoft.Utils
         ///     </list>
         /// </remarks>
         public static IEnumerable<TResult> SortedMerge<TOuter, TInner, TResult>(
-        this IEnumerable<TOuter> outer,
-        IEnumerable<TInner> inner,
-        Func<TOuter, TInner, int> comparer,
-        Func<TOuter, TResult> outerSelector,
-        Func<TInner, TResult> innerSelector,
-        Func<TOuter, TInner, TResult> matchSelector) {
+            this IEnumerable<TOuter> outer,
+            IEnumerable<TInner> inner,
+            Func<TOuter, TInner, int> comparer,
+            Func<TOuter, TResult> outerSelector,
+            Func<TInner, TResult> innerSelector,
+            Func<TOuter, TInner, TResult> matchSelector
+        ) {
             if (outer == null)
                 throw new ArgumentNullException("outer");
             if (inner == null)
@@ -64,48 +65,50 @@ namespace KdSoft.Utils
             if (comparer == null)
                 throw new ArgumentNullException("comparer");
 
-            var outerator = outer.GetEnumerator();
-            var innerator = inner.GetEnumerator();
+            using (var outerator = outer.GetEnumerator()) {
+                using (var innerator = inner.GetEnumerator()) {
 
-            bool hasOuter = outerator.MoveNext();
-            bool hasInner = innerator.MoveNext();
+                    bool hasOuter = outerator.MoveNext();
+                    bool hasInner = innerator.MoveNext();
 
-            while (true) {
-                if (hasOuter && hasInner) {
-                    var outerItem = outerator.Current;
-                    var innerItem = innerator.Current;
-                    int compValue = comparer(outerItem, innerItem);
-                    if (compValue < 0) {
-                        if (outerSelector != null)
-                            yield return outerSelector(outerItem);
-                        hasOuter = outerator.MoveNext();
-                    }
-                    else if (compValue > 0) {
-                        if (innerSelector != null)
-                            yield return innerSelector(innerItem);
-                        hasInner = innerator.MoveNext();
-                    }
-                    else {
-                        if (matchSelector != null)
-                            yield return matchSelector(outerItem, innerItem);
-                        hasOuter = outerator.MoveNext();
-                        hasInner = innerator.MoveNext();
+                    while (true) {
+                        if (hasOuter && hasInner) {
+                            var outerItem = outerator.Current;
+                            var innerItem = innerator.Current;
+                            int compValue = comparer(outerItem, innerItem);
+                            if (compValue < 0) {
+                                if (outerSelector != null)
+                                    yield return outerSelector(outerItem);
+                                hasOuter = outerator.MoveNext();
+                            }
+                            else if (compValue > 0) {
+                                if (innerSelector != null)
+                                    yield return innerSelector(innerItem);
+                                hasInner = innerator.MoveNext();
+                            }
+                            else {
+                                if (matchSelector != null)
+                                    yield return matchSelector(outerItem, innerItem);
+                                hasOuter = outerator.MoveNext();
+                                hasInner = innerator.MoveNext();
+                            }
+                        }
+                        else if (hasOuter) {
+                            if (outerSelector == null)  // we are done
+                                yield break;
+                            yield return outerSelector(outerator.Current);
+                            hasOuter = outerator.MoveNext();
+                        }
+                        else if (hasInner) {
+                            if (innerSelector == null)  // we are done
+                                yield break;
+                            yield return innerSelector(innerator.Current);
+                            hasInner = innerator.MoveNext();
+                        }
+                        else
+                            yield break;
                     }
                 }
-                else if (hasOuter) {
-                    if (outerSelector == null)  // we are done
-                        break;
-                    yield return outerSelector(outerator.Current);
-                    hasOuter = outerator.MoveNext();
-                }
-                else if (hasInner) {
-                    if (innerSelector == null)  // we are done
-                        break;
-                    yield return innerSelector(innerator.Current);
-                    hasInner = innerator.MoveNext();
-                }
-                else
-                    break;
             }
         }
 
@@ -121,43 +124,45 @@ namespace KdSoft.Utils
         /// <param name="comparer">Equality comparer for the keys.</param>
         /// <returns>Collection of groups.</returns>
         public static IEnumerable<IGrouping<TKey, TElement>> SortedGroupBy<TSource, TKey, TElement>(
-          this IEnumerable<TSource> source,
-          Func<TSource, TKey> keySelector,
-          Func<TSource, TElement> elementSelector,
-          IEqualityComparer<TKey> comparer = null) {
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
+            Func<TSource, TElement> elementSelector,
+            IEqualityComparer<TKey> comparer = null
+        ) {
             if (source == null)
                 throw new ArgumentNullException("source");
-            var enumerator = source.GetEnumerator();
-            if (!enumerator.MoveNext())
-                yield break;
-            if (keySelector == null)
-                throw new ArgumentNullException("keySelector");
-            if (elementSelector == null)
-                throw new ArgumentNullException("elementSelector");
-            if (comparer == null)
-                comparer = EqualityComparer<TKey>.Default;
+            using (var enumerator = source.GetEnumerator()) {
+                if (!enumerator.MoveNext())
+                    yield break;
+                if (keySelector == null)
+                    throw new ArgumentNullException("keySelector");
+                if (elementSelector == null)
+                    throw new ArgumentNullException("elementSelector");
+                if (comparer == null)
+                    comparer = EqualityComparer<TKey>.Default;
 
-            var group = new List<TElement>();
-            group.Add(elementSelector(enumerator.Current));
-            var key = keySelector(enumerator.Current);
+                var group = new List<TElement>();
+                group.Add(elementSelector(enumerator.Current));
+                var key = keySelector(enumerator.Current);
 
-            while (enumerator.MoveNext()) {
-                var currentKey = keySelector(enumerator.Current);
-                var currentElement = elementSelector(enumerator.Current);
-                if (comparer.Equals(key, currentKey))
-                    group.Add(currentElement);
-                else {
-                    var grouping = new Grouping<TKey, TElement>(key, group.ToArray());
-                    group.Clear();
-                    group.Add(currentElement);
-                    key = currentKey;
-                    yield return grouping;
+                while (enumerator.MoveNext()) {
+                    var currentKey = keySelector(enumerator.Current);
+                    var currentElement = elementSelector(enumerator.Current);
+                    if (comparer.Equals(key, currentKey))
+                        group.Add(currentElement);
+                    else {
+                        var grouping = new Grouping<TKey, TElement>(key, group.ToArray());
+                        group.Clear();
+                        group.Add(currentElement);
+                        key = currentKey;
+                        yield return grouping;
+                    }
                 }
-            }
 
-            if (group.Count > 0) {
-                group.TrimExcess();
-                yield return new Grouping<TKey, TElement>(key, group);
+                if (group.Count > 0) {
+                    group.TrimExcess();
+                    yield return new Grouping<TKey, TElement>(key, group);
+                }
             }
         }
 
@@ -171,9 +176,10 @@ namespace KdSoft.Utils
         /// <param name="comparer">Equality comparer for the keys.</param>
         /// <returns>Collection of groups.</returns>
         public static IEnumerable<IGrouping<TKey, TElement>> SortedGroupBy<TElement, TKey>(
-          this IEnumerable<TElement> elements,
-          Func<TElement, TKey> keySelector,
-          IEqualityComparer<TKey> comparer = null) {
+            this IEnumerable<TElement> elements,
+            Func<TElement, TKey> keySelector,
+            IEqualityComparer<TKey> comparer = null
+        ) {
             return SortedGroupBy<TElement, TKey, TElement>(elements, keySelector, el => el, comparer);
         }
 
