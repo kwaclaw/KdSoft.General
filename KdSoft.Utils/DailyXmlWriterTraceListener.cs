@@ -53,7 +53,7 @@ namespace KdSoft.Utils
 #if NET403
                 var baseDir = AppDomain.CurrentDomain.BaseDirectory;
 #elif DNX451 || NET451 || NET452
-                var baseDir = (string)AppDomain.CurrentDomain.GetData("APP_CONTEXT_BASE_DIRECTORY");
+                var baseDir = (string)AppDomain.CurrentDomain.GetData("APP_CONTEXT_BASE_DIRECTORY") ?? AppDomain.CurrentDomain.BaseDirectory;
 #else
                 var baseDir = AppContext.BaseDirectory;
 #endif
