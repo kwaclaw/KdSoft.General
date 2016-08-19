@@ -488,7 +488,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/1.0.1": {
-      "sha512": "kCjZ2rtgEEbKbj/gpFSFzxIQTur+ERBKP6PzZoi/fyY8fExfmGYGx1V7N5i3NASK5CX0/QlPq/w7sAL6fppEdw==",
+      "sha512": "w9OiIE6AGYjD45WfvIxK3V9e3iMLcVAx81SixSJgnesgnMXXJYCWSWwrL+E903Qms7uuRPTwiSjd09VRpronQQ==",
       "type": "package",
       "path": "Microsoft.NETCore.Platforms/1.0.1",
       "files": [
@@ -618,7 +618,7 @@
       ]
     },
     "System.Collections.Immutable/1.2.0": {
-      "sha512": "g/0n28s3CYhSFDH5j2qh5voY7XW7n1luu3k+MrqRqx/OSEX4QyIdAE2NMd0VvSuJwOp8q/UaWpX4r4IVrittrw==",
+      "sha512": "qlNaK2HWfhgJmLQzHO+Nbs7tfXBB8rq/O4anQuBN9BG6Gzvqvuaqd1lQIVJpVkN6lBwQgeTkeaAACwQtJcda8w==",
       "type": "package",
       "path": "System.Collections.Immutable/1.2.0",
       "files": [
@@ -633,7 +633,7 @@
       ]
     },
     "System.Diagnostics.Debug/4.0.11": {
-      "sha512": "fY5vg01X4KbASCPmHpsQoz6nB5yJIHx2dZcXEgFoN4jNzXDcVgYaIs3rN8taXme4NGYql9ewu+2YiJkrNLgG+Q==",
+      "sha512": "iJL6F4Ojb8FlU3jNMo2D+CVYmAqusHn6j6SSj+x/UinLIdB7qAjvyc9D9fz2aN68x+gcfX/M6dLJtr/AhdivkA==",
       "type": "package",
       "path": "System.Diagnostics.Debug/4.0.11",
       "files": [
@@ -699,7 +699,7 @@
       ]
     },
     "System.Reflection.Metadata/1.3.0": {
-      "sha512": "savEmWz4NcSg/hGb+jmqh/6Sq5o1uAn9fpCgY3QQq60U1LYp49jrw4Z6dNdnnzJ8OIg4DdyCKLTEEwLW4IW8sA==",
+      "sha512": "IDNPRHN4MvNRpiL69lSvBBVttwFQjXh6L1QKQlmLZeMfBgnTErX+xyL/+CN3HhxnL2hZkqdg7+4RAwzc97j0dw==",
       "type": "package",
       "path": "System.Reflection.Metadata/1.3.0",
       "files": [
@@ -714,7 +714,7 @@
       ]
     },
     "System.Runtime/4.1.0": {
-      "sha512": "cZ5b0BhRGR3ExX9VKIasOe6bxI/Jh9DD3jtSPOWQdqgHGy7LKddnbn3HP8Ya8j4GlKuDYcdnA980lBCvhTshDw==",
+      "sha512": "/KeR273OioQ6oJzGsLcve0HrVY7TSjCEhw/MKYwtQTbjqTjE01sPpzDvwQtIeGwfNOLurzrwCt3TjI5qh3AOvA==",
       "type": "package",
       "path": "System.Runtime/4.1.0",
       "files": [
@@ -804,7 +804,7 @@
       ]
     },
     "System.Runtime.InteropServices/4.1.0": {
-      "sha512": "R22IUhDO4K+iL8cDBOVk+U+nWWqnSUpCQgzAZCF9r1hK336hR/un4MPDLswF78euBcDQDg0F/vcDVChlAtaXIw==",
+      "sha512": "sxLWv7jBk8PXLXj2XxjBr//FNgTMTcgpYOQPaoikyQ1SkFXXvzkBKfy//Rhywv9sER6WYTLN2a1VQ3PhqGHOXA==",
       "type": "package",
       "path": "System.Runtime.InteropServices/4.1.0",
       "files": [
