@@ -262,12 +262,12 @@ namespace KdSoft.Reflection
                 Action<object, object> propSetter = null;
                 if (pi.CanRead) {
                     var mget = GetterMethod(pi);
-                    if (mget.IsPublic && mget.GetParameters().Length == 0)
+                    if (mget != null && mget.IsPublic && mget.GetParameters().Length == 0)
                         propGetter = CreatePropertyGetter(pi);
                 }
                 if (pi.CanWrite) {
                     var mset = SetterMethod(pi);
-                    if (mset.IsPublic && mset.GetParameters().Length == 1)
+                    if (mset != null && mset.IsPublic && mset.GetParameters().Length == 1)
                         propSetter = CreatePropertySetter(pi);
                 }
 
@@ -370,7 +370,7 @@ namespace KdSoft.Reflection
                 var mget = GetterMethod(propInfo);
                 if (mget == null || !mget.IsPublic)
                     continue;
-                var mset = GetterMethod(propInfo);
+                var mset = SetterMethod(propInfo);
                 if (mset == null || !mset.IsPublic)
                     continue;
 
