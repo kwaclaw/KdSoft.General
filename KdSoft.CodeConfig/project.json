@@ -1,12 +1,12 @@
 {
-    "version": "2.0.2-*",
+    "version": "2.0.2",
 
     "frameworks": {
         "net451": { },
         "net46": { }
     },
     "dependencies": {
-        "KdSoft.Reflection": "2.0.2-*"
+        "KdSoft.Reflection": "2.0.2"
     },
     "buildOptions": {
         "xmlDoc": true

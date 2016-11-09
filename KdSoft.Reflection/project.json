@@ -1,5 +1,5 @@
 {
-    "version": "2.0.2-*",
+    "version": "2.0.2",
 
     "buildOptions": {
         "preserveCompilationContext": true,
@@ -11,7 +11,7 @@
         "netstandard1.6": {
             "buildOptions": { "define": [ "COREFX" ] },
             "dependencies": {
-                "NETStandard.Library": "1.6.0-*",
+                "NETStandard.Library": "1.6.1-*",
                 "Microsoft.Extensions.DependencyModel": "1.0.1-*"
             },
             "imports": [
