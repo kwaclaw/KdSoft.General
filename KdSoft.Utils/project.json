@@ -1,5 +1,5 @@
 {
-    "version": "2.0.2",
+    "version": "2.0.3",
 
     "frameworks": {
         "net451": { },
@@ -7,8 +7,8 @@
             "buildOptions": { "define": [ "COREFX" ] },
             "dependencies": {
                 "NETStandard.Library": "1.6.1-*",
-                "System.Diagnostics.TraceSource": "4.0.0-*",
-                "System.IO.FileSystem.Watcher": "4.0.0-*"
+                "System.Diagnostics.TraceSource": "4.0.1-*",
+                "System.IO.FileSystem.Watcher": "4.0.1-*"
             },
             "imports": [
                 "portable-net451+win8"

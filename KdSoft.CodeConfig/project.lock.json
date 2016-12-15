@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.5.1": {
-      "KdSoft.Reflection/2.0.2": {
+      "KdSoft.Reflection/2.0.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "compile": {
@@ -15,7 +15,7 @@
       }
     },
     ".NETFramework,Version=v4.6": {
-      "KdSoft.Reflection/2.0.2": {
+      "KdSoft.Reflection/2.0.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "compile": {
@@ -28,7 +28,7 @@
     }
   },
   "libraries": {
-    "KdSoft.Reflection/2.0.2": {
+    "KdSoft.Reflection/2.0.3": {
       "type": "project",
       "path": "../KdSoft.Reflection/project.json",
       "msbuildProject": "../KdSoft.Reflection/KdSoft.Reflection.xproj"
@@ -36,7 +36,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "KdSoft.Reflection >= 2.0.2"
+      "KdSoft.Reflection >= 2.0.3"
     ],
     ".NETFramework,Version=v4.5.1": [],
     ".NETFramework,Version=v4.6": []

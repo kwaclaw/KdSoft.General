@@ -384,7 +384,7 @@
   },
   "libraries": {
     "dotnet-test-xunit/99.99.99-dev": {
-      "sha512": "pWOqnTl++mkCYb6W7G6HF9LGpDO5nYnjWyDllYU6XSgpZZtaRLVKi1+52BvYbTvhkjWpOinxWEoHXzHkrlBkgw==",
+      "sha512": "fG/Pog7PJg80D/Mqf4uhR1chlvEPjTb1YpAc/a/1PRHT5gJGgQCxLhMx2BS6KusD92fnXUwKbv0BNVmjwQbKsg==",
       "type": "package",
       "path": "dotnet-test-xunit/99.99.99-dev",
       "files": [
@@ -397,18 +397,18 @@
       ]
     },
     "Microsoft.DiaSymReader/1.0.8": {
-      "sha512": "ABLULVhCAiyBFLBT5xX6vB4NhZDgwUylGRQK+zW5nZn2rbh1f8LOnFZ9gVSxzL6qOzPNb32Nu3QZ43iZerHOxA==",
+      "sha512": "HAhTmRgU+nnDVYxMZFAS1iwqg6CudbsSMZfSY9UJj4AJO4L69xZCtTOPKC5rW8+egNBWjDb0iBZV4ZdNI6dZnA==",
       "type": "package",
       "path": "Microsoft.DiaSymReader/1.0.8",
       "files": [
+        "Microsoft.DiaSymReader.1.0.8.nupkg.sha512",
+        "Microsoft.DiaSymReader.nuspec",
         "lib/net20/Microsoft.DiaSymReader.dll",
         "lib/net20/Microsoft.DiaSymReader.xml",
         "lib/netstandard1.1/Microsoft.DiaSymReader.dll",
         "lib/netstandard1.1/Microsoft.DiaSymReader.xml",
         "lib/portable-net45+win8/Microsoft.DiaSymReader.dll",
-        "lib/portable-net45+win8/Microsoft.DiaSymReader.xml",
-        "microsoft.diasymreader.1.0.8.nupkg.sha512",
-        "microsoft.diasymreader.nuspec"
+        "lib/portable-net45+win8/Microsoft.DiaSymReader.xml"
       ]
     },
     "Microsoft.DiaSymReader.Native/1.4.0-rc2": {
@@ -416,9 +416,9 @@
       "type": "package",
       "path": "Microsoft.DiaSymReader.Native/1.4.0-rc2",
       "files": [
+        "Microsoft.DiaSymReader.Native.1.4.0-rc2.nupkg.sha512",
+        "Microsoft.DiaSymReader.Native.nuspec",
         "build/Microsoft.DiaSymReader.Native.props",
-        "microsoft.diasymreader.native.1.4.0-rc2.nupkg.sha512",
-        "microsoft.diasymreader.native.nuspec",
         "runtimes/win-x64/native/Microsoft.DiaSymReader.Native.amd64.dll",
         "runtimes/win-x86/native/Microsoft.DiaSymReader.Native.x86.dll",
         "runtimes/win/native/Microsoft.DiaSymReader.Native.amd64.dll",
@@ -432,10 +432,10 @@
       "type": "package",
       "path": "Microsoft.DotNet.InternalAbstractions/1.0.0",
       "files": [
+        "Microsoft.DotNet.InternalAbstractions.1.0.0.nupkg.sha512",
+        "Microsoft.DotNet.InternalAbstractions.nuspec",
         "lib/net451/Microsoft.DotNet.InternalAbstractions.dll",
-        "lib/netstandard1.3/Microsoft.DotNet.InternalAbstractions.dll",
-        "microsoft.dotnet.internalabstractions.1.0.0.nupkg.sha512",
-        "microsoft.dotnet.internalabstractions.nuspec"
+        "lib/netstandard1.3/Microsoft.DotNet.InternalAbstractions.dll"
       ]
     },
     "Microsoft.DotNet.ProjectModel/1.0.0-rc3-003121": {
@@ -443,10 +443,10 @@
       "type": "package",
       "path": "Microsoft.DotNet.ProjectModel/1.0.0-rc3-003121",
       "files": [
+        "Microsoft.DotNet.ProjectModel.1.0.0-rc3-003121.nupkg.sha512",
+        "Microsoft.DotNet.ProjectModel.nuspec",
         "lib/net451/Microsoft.DotNet.ProjectModel.dll",
-        "lib/netstandard1.6/Microsoft.DotNet.ProjectModel.dll",
-        "microsoft.dotnet.projectmodel.1.0.0-rc3-003121.nupkg.sha512",
-        "microsoft.dotnet.projectmodel.nuspec"
+        "lib/netstandard1.6/Microsoft.DotNet.ProjectModel.dll"
       ]
     },
     "Microsoft.Extensions.DependencyModel/1.0.0": {
@@ -454,10 +454,10 @@
       "type": "package",
       "path": "Microsoft.Extensions.DependencyModel/1.0.0",
       "files": [
+        "Microsoft.Extensions.DependencyModel.1.0.0.nupkg.sha512",
+        "Microsoft.Extensions.DependencyModel.nuspec",
         "lib/net451/Microsoft.Extensions.DependencyModel.dll",
-        "lib/netstandard1.6/Microsoft.Extensions.DependencyModel.dll",
-        "microsoft.extensions.dependencymodel.1.0.0.nupkg.sha512",
-        "microsoft.extensions.dependencymodel.nuspec"
+        "lib/netstandard1.6/Microsoft.Extensions.DependencyModel.dll"
       ]
     },
     "Microsoft.Extensions.Testing.Abstractions/1.0.0-preview2-003121": {
@@ -465,22 +465,22 @@
       "type": "package",
       "path": "Microsoft.Extensions.Testing.Abstractions/1.0.0-preview2-003121",
       "files": [
+        "Microsoft.Extensions.Testing.Abstractions.1.0.0-preview2-003121.nupkg.sha512",
+        "Microsoft.Extensions.Testing.Abstractions.nuspec",
         "lib/net451/Microsoft.Extensions.Testing.Abstractions.dll",
-        "lib/netstandard1.6/Microsoft.Extensions.Testing.Abstractions.dll",
-        "microsoft.extensions.testing.abstractions.1.0.0-preview2-003121.nupkg.sha512",
-        "microsoft.extensions.testing.abstractions.nuspec"
+        "lib/netstandard1.6/Microsoft.Extensions.Testing.Abstractions.dll"
       ]
     },
     "Microsoft.NETCore.Platforms/1.0.1": {
-      "sha512": "cGzpptVaG5LVqQwxgV9NEk5hJWgRjaCJqcDaJrIR7EE6D30EytMbaFgm9h3m79IWZUKAxwvQ1MDe8/2l3biNaw==",
+      "sha512": "2G6OjjJzwBfNOO8myRV/nFrbTw5iA+DEm0N+qUqhrOmaVtn4pC77h38I1jsXGw5VH55+dPfQsqHD0We9sCl9FQ==",
       "type": "package",
       "path": "Microsoft.NETCore.Platforms/1.0.1",
       "files": [
+        "Microsoft.NETCore.Platforms.1.0.1.nupkg.sha512",
+        "Microsoft.NETCore.Platforms.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.1.0.1.nupkg.sha512",
-        "microsoft.netcore.platforms.nuspec",
         "runtime.json"
       ]
     },
@@ -489,6 +489,8 @@
       "type": "package",
       "path": "Newtonsoft.Json/9.0.1",
       "files": [
+        "Newtonsoft.Json.9.0.1.nupkg.sha512",
+        "Newtonsoft.Json.nuspec",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
@@ -503,8 +505,6 @@
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.9.0.1.nupkg.sha512",
-        "newtonsoft.json.nuspec",
         "tools/install.ps1"
       ]
     },
@@ -513,12 +513,12 @@
       "type": "package",
       "path": "NuGet.Common/3.5.0-beta2-1484",
       "files": [
+        "NuGet.Common.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.Common.nuspec",
         "lib/net45/NuGet.Common.dll",
         "lib/net45/NuGet.Common.xml",
         "lib/netstandard1.3/NuGet.Common.dll",
-        "lib/netstandard1.3/NuGet.Common.xml",
-        "nuget.common.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.common.nuspec"
+        "lib/netstandard1.3/NuGet.Common.xml"
       ]
     },
     "NuGet.Frameworks/3.5.0-beta2-1484": {
@@ -526,14 +526,14 @@
       "type": "package",
       "path": "NuGet.Frameworks/3.5.0-beta2-1484",
       "files": [
+        "NuGet.Frameworks.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.Frameworks.nuspec",
         "lib/net40-client/NuGet.Frameworks.dll",
         "lib/net40-client/NuGet.Frameworks.xml",
         "lib/net45/NuGet.Frameworks.dll",
         "lib/net45/NuGet.Frameworks.xml",
         "lib/netstandard1.3/NuGet.Frameworks.dll",
-        "lib/netstandard1.3/NuGet.Frameworks.xml",
-        "nuget.frameworks.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.frameworks.nuspec"
+        "lib/netstandard1.3/NuGet.Frameworks.xml"
       ]
     },
     "NuGet.Packaging/3.5.0-beta2-1484": {
@@ -541,12 +541,12 @@
       "type": "package",
       "path": "NuGet.Packaging/3.5.0-beta2-1484",
       "files": [
+        "NuGet.Packaging.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.Packaging.nuspec",
         "lib/net45/NuGet.Packaging.dll",
         "lib/net45/NuGet.Packaging.xml",
         "lib/netstandard1.3/NuGet.Packaging.dll",
-        "lib/netstandard1.3/NuGet.Packaging.xml",
-        "nuget.packaging.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.packaging.nuspec"
+        "lib/netstandard1.3/NuGet.Packaging.xml"
       ]
     },
     "NuGet.Packaging.Core/3.5.0-beta2-1484": {
@@ -554,12 +554,12 @@
       "type": "package",
       "path": "NuGet.Packaging.Core/3.5.0-beta2-1484",
       "files": [
+        "NuGet.Packaging.Core.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.Packaging.Core.nuspec",
         "lib/net45/NuGet.Packaging.Core.dll",
         "lib/net45/NuGet.Packaging.Core.xml",
         "lib/netstandard1.3/NuGet.Packaging.Core.dll",
-        "lib/netstandard1.3/NuGet.Packaging.Core.xml",
-        "nuget.packaging.core.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.packaging.core.nuspec"
+        "lib/netstandard1.3/NuGet.Packaging.Core.xml"
       ]
     },
     "NuGet.Packaging.Core.Types/3.5.0-beta2-1484": {
@@ -567,12 +567,12 @@
       "type": "package",
       "path": "NuGet.Packaging.Core.Types/3.5.0-beta2-1484",
       "files": [
+        "NuGet.Packaging.Core.Types.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.Packaging.Core.Types.nuspec",
         "lib/net45/NuGet.Packaging.Core.Types.dll",
         "lib/net45/NuGet.Packaging.Core.Types.xml",
         "lib/netstandard1.3/NuGet.Packaging.Core.Types.dll",
-        "lib/netstandard1.3/NuGet.Packaging.Core.Types.xml",
-        "nuget.packaging.core.types.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.packaging.core.types.nuspec"
+        "lib/netstandard1.3/NuGet.Packaging.Core.Types.xml"
       ]
     },
     "NuGet.RuntimeModel/3.5.0-beta2-1484": {
@@ -580,12 +580,12 @@
       "type": "package",
       "path": "NuGet.RuntimeModel/3.5.0-beta2-1484",
       "files": [
+        "NuGet.RuntimeModel.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.RuntimeModel.nuspec",
         "lib/net45/NuGet.RuntimeModel.dll",
         "lib/net45/NuGet.RuntimeModel.xml",
         "lib/netstandard1.3/NuGet.RuntimeModel.dll",
-        "lib/netstandard1.3/NuGet.RuntimeModel.xml",
-        "nuget.runtimemodel.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.runtimemodel.nuspec"
+        "lib/netstandard1.3/NuGet.RuntimeModel.xml"
       ]
     },
     "NuGet.Versioning/3.5.0-beta2-1484": {
@@ -593,34 +593,36 @@
       "type": "package",
       "path": "NuGet.Versioning/3.5.0-beta2-1484",
       "files": [
+        "NuGet.Versioning.3.5.0-beta2-1484.nupkg.sha512",
+        "NuGet.Versioning.nuspec",
         "lib/net45/NuGet.Versioning.dll",
         "lib/net45/NuGet.Versioning.xml",
         "lib/netstandard1.0/NuGet.Versioning.dll",
-        "lib/netstandard1.0/NuGet.Versioning.xml",
-        "nuget.versioning.3.5.0-beta2-1484.nupkg.sha512",
-        "nuget.versioning.nuspec"
+        "lib/netstandard1.0/NuGet.Versioning.xml"
       ]
     },
     "System.Collections.Immutable/1.2.0": {
-      "sha512": "xSMdbmOfDqiJrpV5kwInnq3SRRX3iA8glnXAQFoFeykXA4DhVf1+TKSkPk2oqK+JUf+zG2teKL32CT+edGnxdQ==",
+      "sha512": "Cma8cBW6di16ZLibL8LYQ+cLjGzoKxpOTu/faZfDcx94ZjAGq6Nv5RO7+T1YZXqEXTZP9rt1wLVEONVpURtUqw==",
       "type": "package",
       "path": "System.Collections.Immutable/1.2.0",
       "files": [
+        "System.Collections.Immutable.1.2.0.nupkg.sha512",
+        "System.Collections.Immutable.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/System.Collections.Immutable.dll",
         "lib/netstandard1.0/System.Collections.Immutable.xml",
         "lib/portable-net45+win8+wp8+wpa81/System.Collections.Immutable.dll",
-        "lib/portable-net45+win8+wp8+wpa81/System.Collections.Immutable.xml",
-        "system.collections.immutable.1.2.0.nupkg.sha512",
-        "system.collections.immutable.nuspec"
+        "lib/portable-net45+win8+wp8+wpa81/System.Collections.Immutable.xml"
       ]
     },
     "System.Diagnostics.Debug/4.0.11": {
-      "sha512": "gcbRMxRUQi00b4lLW0+xg6wwtdMKww0qn13bwC5pk6bN8B4u2L2dW2EwuF+jmUSV6zEaK5SsesPmSgs17CbnFg==",
+      "sha512": "w5U95fVKHY4G8ASs/K5iK3J5LY+/dLFd4vKejsnI/ZhBsWS9hQakfx3Zr7lRWKg4tAw9r4iktyvsTagWkqYCiw==",
       "type": "package",
       "path": "System.Diagnostics.Debug/4.0.11",
       "files": [
+        "System.Diagnostics.Debug.4.0.11.nupkg.sha512",
+        "System.Diagnostics.Debug.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -677,31 +679,31 @@
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.diagnostics.debug.4.0.11.nupkg.sha512",
-        "system.diagnostics.debug.nuspec"
+        "ref/xamarinwatchos10/_._"
       ]
     },
     "System.Reflection.Metadata/1.3.0": {
-      "sha512": "Qml0hIlEX6Xq+bguQKcAd3XbugsyNRTD9mukvy4yPbJD1wk41/83SGZNHZd7GSmCT6W0K40R9mqko8ZPma6xFA==",
+      "sha512": "jMSCxA4LSyKBGRDm/WtfkO03FkcgRzHxwvQRib1bm2GZ8ifKM1MX1al6breGCEQK280mdl9uQS7JNPXRYk90jw==",
       "type": "package",
       "path": "System.Reflection.Metadata/1.3.0",
       "files": [
+        "System.Reflection.Metadata.1.3.0.nupkg.sha512",
+        "System.Reflection.Metadata.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.1/System.Reflection.Metadata.dll",
         "lib/netstandard1.1/System.Reflection.Metadata.xml",
         "lib/portable-net45+win8/System.Reflection.Metadata.dll",
-        "lib/portable-net45+win8/System.Reflection.Metadata.xml",
-        "system.reflection.metadata.1.3.0.nupkg.sha512",
-        "system.reflection.metadata.nuspec"
+        "lib/portable-net45+win8/System.Reflection.Metadata.xml"
       ]
     },
     "System.Runtime/4.1.0": {
-      "sha512": "kX/C4DklIMOpMfdsYoMbOf0lK9vgGbSKqhd8009mza1p1Kp8PgoUPhl8p5ZxZ7P2rjzjM4Hg7VdSNnIo2D6rsw==",
+      "sha512": "v6c/4Yaa9uWsq+JMhnOFewrYkgdNHNG2eMKuNqRn8P733rNXeRCGvV5FkkjBXn2dbVkPXOsO0xjsEeM1q2zC0g==",
       "type": "package",
       "path": "System.Runtime/4.1.0",
       "files": [
+        "System.Runtime.4.1.0.nupkg.sha512",
+        "System.Runtime.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -782,16 +784,16 @@
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.runtime.4.1.0.nupkg.sha512",
-        "system.runtime.nuspec"
+        "ref/xamarinwatchos10/_._"
       ]
     },
     "System.Runtime.InteropServices/4.1.0": {
-      "sha512": "owzfsaoEaFJbR1MNk31IRaUOTXLC0FEBZz98o7tx2zge/Lhd61GwyH0IfMxj6Zd/w+NSOftak8ovEkNAiBMD2g==",
+      "sha512": "16eu3kjHS633yYdkjwShDHZLRNMKVi/s0bY8ODiqJ2RfMhDMAwxZaUaWVnZ2P71kr/or+X9o/xFWtNqz8ivieQ==",
       "type": "package",
       "path": "System.Runtime.InteropServices/4.1.0",
       "files": [
+        "System.Runtime.InteropServices.4.1.0.nupkg.sha512",
+        "System.Runtime.InteropServices.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -870,9 +872,7 @@
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.runtime.interopservices.4.1.0.nupkg.sha512",
-        "system.runtime.interopservices.nuspec"
+        "ref/xamarinwatchos10/_._"
       ]
     },
     "xunit/2.2.0-beta4-build3444": {
