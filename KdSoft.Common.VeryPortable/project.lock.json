@@ -520,22 +520,22 @@
           "ref/netstandard1.3/System.Net.Primitives.dll": {}
         }
       },
-      "System.Net.Requests/4.3.0-preview1-24530-03": {
+      "System.Net.Requests/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0-preview1-24530-03",
-          "System.Collections": "4.3.0-preview1-24530-03",
-          "System.Diagnostics.Debug": "4.3.0-preview1-24530-03",
-          "System.Diagnostics.Tracing": "4.3.0-preview1-24530-03",
-          "System.Globalization": "4.3.0-preview1-24530-03",
-          "System.IO": "4.3.0-preview1-24530-03",
-          "System.Net.Http": "4.3.0-preview1-24530-03",
-          "System.Net.Primitives": "4.3.0-preview1-24530-03",
-          "System.Net.WebHeaderCollection": "4.3.0-preview1-24530-03",
-          "System.Resources.ResourceManager": "4.3.0-preview1-24530-03",
-          "System.Runtime": "4.3.0-preview1-24530-03",
-          "System.Threading": "4.3.0-preview1-24530-03",
-          "System.Threading.Tasks": "4.3.0-preview1-24530-03"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Tracing": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Net.Http": "4.3.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Net.WebHeaderCollection": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Requests.dll": {}
@@ -565,13 +565,13 @@
           "ref/netstandard1.3/System.Net.Sockets.dll": {}
         }
       },
-      "System.Net.WebHeaderCollection/4.3.0-preview1-24530-03": {
+      "System.Net.WebHeaderCollection/4.3.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.3.0-preview1-24530-03",
-          "System.Resources.ResourceManager": "4.3.0-preview1-24530-03",
-          "System.Runtime": "4.3.0-preview1-24530-03",
-          "System.Runtime.Extensions": "4.3.0-preview1-24530-03"
+          "System.Collections": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
@@ -2298,12 +2298,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.Net.Requests/4.3.0-preview1-24530-03": {
-      "sha512": "k7xzRVShffQSusQhiwp+d4IBxheW8fEe5F/YMpVFKuogk/eP8vTVKv6X6qtU6EGFDq3nOupvDO6JgFs8FTEovg==",
+    "System.Net.Requests/4.3.0": {
+      "sha512": "OZNUuAs0kDXUzm7U5NZ1ojVta5YFZmgT2yxBqsQ7Eseq5Ahz88LInGRuNLJ/NP2F8W1q7tse1pKDthj3reF5QA==",
       "type": "package",
-      "path": "System.Net.Requests/4.3.0-preview1-24530-03",
+      "path": "System.Net.Requests/4.3.0",
       "files": [
-        "System.Net.Requests.4.3.0-preview1-24530-03.nupkg.sha512",
+        "System.Net.Requests.4.3.0.nupkg.sha512",
         "System.Net.Requests.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -2415,12 +2415,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.Net.WebHeaderCollection/4.3.0-preview1-24530-03": {
-      "sha512": "ZFh3l3LsmHmJp8ydaxDXjT2uGrvolDpIbUEmSfII48GzcJwsVcOEsLtuRihaCL3AmQ+Sd83MsLP3SPLrjXLN1g==",
+    "System.Net.WebHeaderCollection/4.3.0": {
+      "sha512": "XZrXYG3c7QV/GpWeoaRC02rM6LH2JJetfVYskf35wdC/w2fFDFMphec4gmVH2dkll6abtW14u9Rt96pxd9YH2A==",
       "type": "package",
-      "path": "System.Net.WebHeaderCollection/4.3.0-preview1-24530-03",
+      "path": "System.Net.WebHeaderCollection/4.3.0",
       "files": [
-        "System.Net.WebHeaderCollection.4.3.0-preview1-24530-03.nupkg.sha512",
+        "System.Net.WebHeaderCollection.4.3.0.nupkg.sha512",
         "System.Net.WebHeaderCollection.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -3867,8 +3867,8 @@
     "": [],
     ".NETFramework,Version=v4.5.1": [],
     ".NETStandard,Version=v1.3": [
-      "NETStandard.Library >= 1.6.1-*",
-      "System.Net.Requests >= 4.0.12-*"
+      "NETStandard.Library >= 1.6.1",
+      "System.Net.Requests >= 4.3.0"
     ]
   },
   "tools": {},

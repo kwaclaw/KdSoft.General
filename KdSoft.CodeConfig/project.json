@@ -1,14 +1,19 @@
 {
     "version": "2.0.3",
+    "description": "KdSoft.CodeConfig Class Library",
+    "authors": [ "Karl Waclawek" ],
 
     "frameworks": {
-        "net451": { },
-        "net46": { }
+        "net451": {},
+        "net46": {}
     },
     "dependencies": {
         "KdSoft.Reflection": "2.0.3"
     },
     "buildOptions": {
+        "compile": {
+            "includeFiles": [ "../SharedAssemblyInfo.cs" ]
+        },
         "xmlDoc": true
     }
 }

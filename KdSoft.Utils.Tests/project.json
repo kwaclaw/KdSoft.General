@@ -1,13 +1,20 @@
 {
     "version": "1.0.3",
+    "description": "KdSoft.Utils.Tests Class Library",
+    "authors": [ "Karl Waclawek" ],
 
     "frameworks": {
-        "net451": { }
+        "net451": {}
     },
     "dependencies": {
         "KdSoft.Reflection.Portable": "1.0.3",
         "xunit": "2.2.0-*",
         "dotnet-test-xunit": "99.99.99-dev"
     },
-    "testRunner": "xunit"
+    "testRunner": "xunit",
+    "buildOptions": {
+        "compile": {
+            "includeFiles": [ "../SharedAssemblyInfo.cs" ]
+        }
+    }
 }

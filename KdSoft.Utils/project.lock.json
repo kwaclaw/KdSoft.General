@@ -336,18 +336,18 @@
           "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
-      "System.Diagnostics.TraceSource/4.3.0-preview1-24530-03": {
+      "System.Diagnostics.TraceSource/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0-preview1-24530-03",
-          "System.Collections": "4.3.0-preview1-24530-03",
-          "System.Diagnostics.Debug": "4.3.0-preview1-24530-03",
-          "System.Globalization": "4.3.0-preview1-24530-03",
-          "System.Resources.ResourceManager": "4.3.0-preview1-24530-03",
-          "System.Runtime": "4.3.0-preview1-24530-03",
-          "System.Runtime.Extensions": "4.3.0-preview1-24530-03",
-          "System.Threading": "4.3.0-preview1-24530-03",
-          "runtime.native.System": "4.3.0-preview1-24530-03"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "runtime.native.System": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.Diagnostics.TraceSource.dll": {}
@@ -503,25 +503,25 @@
           "lib/netstandard1.3/System.IO.FileSystem.Primitives.dll": {}
         }
       },
-      "System.IO.FileSystem.Watcher/4.3.0-preview1-24530-03": {
+      "System.IO.FileSystem.Watcher/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0-preview1-24530-03",
-          "Microsoft.Win32.Primitives": "4.3.0-preview1-24530-03",
-          "System.Collections": "4.3.0-preview1-24530-03",
-          "System.IO.FileSystem": "4.3.0-preview1-24530-03",
-          "System.IO.FileSystem.Primitives": "4.3.0-preview1-24530-03",
-          "System.Resources.ResourceManager": "4.3.0-preview1-24530-03",
-          "System.Runtime": "4.3.0-preview1-24530-03",
-          "System.Runtime.Extensions": "4.3.0-preview1-24530-03",
-          "System.Runtime.Handles": "4.3.0-preview1-24530-03",
-          "System.Runtime.InteropServices": "4.3.0-preview1-24530-03",
-          "System.Text.Encoding": "4.3.0-preview1-24530-03",
-          "System.Threading": "4.3.0-preview1-24530-03",
-          "System.Threading.Overlapped": "4.3.0-preview1-24530-03",
-          "System.Threading.Tasks": "4.3.0-preview1-24530-03",
-          "System.Threading.Thread": "4.3.0-preview1-24530-03",
-          "runtime.native.System": "4.3.0-preview1-24530-03"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.Win32.Primitives": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.IO.FileSystem.Primitives": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Overlapped": "4.3.0",
+          "System.Threading.Tasks": "4.3.0",
+          "System.Threading.Thread": "4.3.0",
+          "runtime.native.System": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.IO.FileSystem.Watcher.dll": {}
@@ -932,13 +932,13 @@
           "lib/netstandard1.3/System.Threading.dll": {}
         }
       },
-      "System.Threading.Overlapped/4.3.0-preview1-24530-03": {
+      "System.Threading.Overlapped/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0-preview1-24530-03",
-          "System.Resources.ResourceManager": "4.3.0-preview1-24530-03",
-          "System.Runtime": "4.3.0-preview1-24530-03",
-          "System.Runtime.Handles": "4.3.0-preview1-24530-03"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Handles": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/_._": {}
@@ -982,10 +982,10 @@
           "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
-      "System.Threading.Thread/4.3.0-preview1-24530-03": {
+      "System.Threading.Thread/4.3.0": {
         "type": "package",
         "dependencies": {
-          "System.Runtime": "4.3.0-preview1-24530-03"
+          "System.Runtime": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/_._": {}
@@ -1660,12 +1660,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.Diagnostics.TraceSource/4.3.0-preview1-24530-03": {
-      "sha512": "aWxfGyXpBsvVH5Os5Tmv0+RBIcHHGD48ZQcP4xKCccGrKyIRjCuefVm2R/CFLzF4+uOYiPCLdMc/t9ulRdwa9Q==",
+    "System.Diagnostics.TraceSource/4.3.0": {
+      "sha512": "VnYp1NxGx8Ww731y2LJ1vpfb/DKVNKEZ8Jsh5SgQTZREL/YpWRArgh9pI8CDLmgHspZmLL697CaLvH85qQpRiw==",
       "type": "package",
-      "path": "System.Diagnostics.TraceSource/4.3.0-preview1-24530-03",
+      "path": "System.Diagnostics.TraceSource/4.3.0",
       "files": [
-        "System.Diagnostics.TraceSource.4.3.0-preview1-24530-03.nupkg.sha512",
+        "System.Diagnostics.TraceSource.4.3.0.nupkg.sha512",
         "System.Diagnostics.TraceSource.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -2147,12 +2147,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.IO.FileSystem.Watcher/4.3.0-preview1-24530-03": {
-      "sha512": "AxDCBSAK9uCZHb6pIYZVkD3j+wNVsW8NFqNmC1KIWaO5IdcaE8lDfmQXv5E5Y064K96JdQUNr7472FqOgYR1oA==",
+    "System.IO.FileSystem.Watcher/4.3.0": {
+      "sha512": "37IDFU2w6LJ4FrohcVlV1EXviUmAOJIbejVgOUtNaPQyeZW2D/0QSkH8ykehoOd19bWfxp3RRd0xj+yRRIqLhw==",
       "type": "package",
-      "path": "System.IO.FileSystem.Watcher/4.3.0-preview1-24530-03",
+      "path": "System.IO.FileSystem.Watcher/4.3.0",
       "files": [
-        "System.IO.FileSystem.Watcher.4.3.0-preview1-24530-03.nupkg.sha512",
+        "System.IO.FileSystem.Watcher.4.3.0.nupkg.sha512",
         "System.IO.FileSystem.Watcher.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -3671,12 +3671,12 @@
         "runtimes/aot/lib/netcore50/System.Threading.dll"
       ]
     },
-    "System.Threading.Overlapped/4.3.0-preview1-24530-03": {
-      "sha512": "oxpdkJHUuM/6R9owkfMxvX02buqlr1k8WFjBix76YUZ4etN2XHLBlZP5/mmFHtPYbFqmRS7zQLRIFvM0NDu2aQ==",
+    "System.Threading.Overlapped/4.3.0": {
+      "sha512": "m3HQ2dPiX/DSTpf+yJt8B0c+SRvzfqAJKx+QDWi+VLhz8svLT23MVjEOHPF/KiSLeArKU/iHescrbLd3yVgyNg==",
       "type": "package",
-      "path": "System.Threading.Overlapped/4.3.0-preview1-24530-03",
+      "path": "System.Threading.Overlapped/4.3.0",
       "files": [
-        "System.Threading.Overlapped.4.3.0-preview1-24530-03.nupkg.sha512",
+        "System.Threading.Overlapped.4.3.0.nupkg.sha512",
         "System.Threading.Overlapped.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -3780,12 +3780,12 @@
         "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml"
       ]
     },
-    "System.Threading.Thread/4.3.0-preview1-24530-03": {
-      "sha512": "GHczCIcQtULRqi8DQe+kMO8tNUoXNMajxYROcfdTXADPVE6eWfuF4CESH9pX8lRrmOP+gLPdhwGSJiIp3DDsQA==",
+    "System.Threading.Thread/4.3.0": {
+      "sha512": "OHmbT+Zz065NKII/ZHcH9XO1dEuLGI1L2k7uYss+9C1jLxTC9kTZZuzUOyXHayRk+dft9CiDf3I/QZ0t8JKyBQ==",
       "type": "package",
-      "path": "System.Threading.Thread/4.3.0-preview1-24530-03",
+      "path": "System.Threading.Thread/4.3.0",
       "files": [
-        "System.Threading.Thread.4.3.0-preview1-24530-03.nupkg.sha512",
+        "System.Threading.Thread.4.3.0.nupkg.sha512",
         "System.Threading.Thread.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -4014,9 +4014,9 @@
     "": [],
     ".NETFramework,Version=v4.5.1": [],
     ".NETStandard,Version=v1.3": [
-      "NETStandard.Library >= 1.6.1-*",
-      "System.Diagnostics.TraceSource >= 4.0.1-*",
-      "System.IO.FileSystem.Watcher >= 4.0.1-*"
+      "NETStandard.Library >= 1.6.1",
+      "System.Diagnostics.TraceSource >= 4.3.0",
+      "System.IO.FileSystem.Watcher >= 4.3.0"
     ]
   },
   "tools": {},
