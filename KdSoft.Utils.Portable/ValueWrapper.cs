@@ -11,7 +11,7 @@ namespace KdSoft.Utils
     public interface IValueWrapper
     {
         object Unwrap();
-        Type ValueType { get; }
+        Type GetValueType();
     }
 
     /// <summary>
@@ -31,11 +31,10 @@ namespace KdSoft.Utils
             return Value;
         }
 
-        public Type ValueType {
-            get { return typeof(T); }
+        public Type GetValueType() {
+            return typeof(T);
         }
     }
-
 
     /// <summary>
     /// Helper routines for ValueWrapper{T}.
