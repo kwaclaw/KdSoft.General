@@ -17,7 +17,7 @@
             "buildOptions": { "define": [ "COREFX" ] },
             "dependencies": {
                 "NETStandard.Library": "1.6.1",
-                "Microsoft.Extensions.DependencyModel": "1.0.1"
+                "Microsoft.Extensions.DependencyModel": "1.1.0"
             },
             "imports": [
                 "portable-net451+win8"

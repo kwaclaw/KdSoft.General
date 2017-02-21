@@ -5,7 +5,7 @@
 
     "frameworks": {
         "net451": {},
-        "net46": {}
+        "net461": {}
     },
     "dependencies": {
         "KdSoft.Reflection": "2.0.3"
