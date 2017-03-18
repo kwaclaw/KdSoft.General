@@ -128,5 +128,55 @@ namespace KdSoft.Utils
             int distinctCount = distinctIndx + 1;
             list.RemoveRange(distinctCount, list.Count - distinctCount);
         }
+
+        static int FindIndexImpl<T>(IList<T> source, int startIndex, int endIndex, Predicate<T> match) {
+            for (int i = startIndex; i < endIndex; i++) {
+                if (match(source[i])) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Searches an <see cref="IList{T}"/> for an element that matches the conditions defined
+        /// by the specified predicate, and returns the zero-based index of the first occurrence
+        /// within the specified search range.
+        /// </summary>
+        /// <typeparam name="T">Type of list items.</typeparam>
+        /// <param name="source"><see cref="IList{T}"/> to search.</param>
+        /// <param name="startIndex">Index to start searching at.</param>
+        /// <param name="count">Number of items to check following the startIndex.</param>
+        /// <param name="match">The Predicate{T} to use for matching the list items.</param>
+        /// <returns></returns>
+        public static int FindIndex<T>(this List<T> source, int startIndex, int count, Predicate<T> match) {
+            return FindIndexImpl(source, startIndex, startIndex + count, match);
+        }
+
+        /// <summary>
+        /// Searches an <see cref="IList{T}"/> for an element that matches the conditions defined
+        /// by the specified predicate, and returns the zero-based index of the first occurrence
+        /// after the specified start index.
+        /// </summary>
+        /// <typeparam name="T">Type of list items.</typeparam>
+        /// <param name="source"><see cref="IList{T}"/> to search.</param>
+        /// <param name="startIndex">Index to start searching at.</param>
+        /// <param name="match">The Predicate{T} to use for matching the list items.</param>
+        /// <returns></returns>
+        public static int FindIndex<T>(this IList<T> source, int startIndex, Predicate<T> match) {
+            return FindIndexImpl(source, startIndex, source.Count, match);
+        }
+
+        /// <summary>
+        /// Searches an <see cref="IList{T}"/> for an element that matches the conditions defined
+        /// by the specified predicate, and returns the zero-based index of the first occurrence.
+        /// </summary>
+        /// <typeparam name="T">Type of list items.</typeparam>
+        /// <param name="source"><see cref="IList{T}"/> to search.</param>
+        /// <param name="match">The Predicate{T} to use for matching the list items.</param>
+        /// <returns></returns>
+        public static int FindIndex<T>(this IList<T> source, Predicate<T> match) {
+            return FindIndexImpl(source, 0, source.Count, match);
+        }
     }
 }

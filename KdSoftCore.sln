@@ -5,10 +5,10 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}"
 	ProjectSection(SolutionItems) = preProject
+		CollectPackages.cmd = CollectPackages.cmd
 		MyFeed_push_all.cmd = MyFeed_push_all.cmd
 		NuGet.Config = NuGet.Config
 		Projects_Clear.cmd = Projects_Clear.cmd
-		Projects_CollectPackages.cmd = Projects_CollectPackages.cmd
 		QLineFeed_push_all.cmd = QLineFeed_push_all.cmd
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 	EndProjectSection
