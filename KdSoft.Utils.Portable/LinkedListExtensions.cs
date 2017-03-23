@@ -11,7 +11,7 @@ namespace KdSoft.Utils
     public static class LinkedListExtensions
     {
         /// <summary>
-        /// Enumerates the <see cref="LinkedListNode{Task}"/> instances of the linked list.
+        /// Enumerates the <see cref="LinkedListNode{T}"/> instances of the linked list.
         /// </summary>
         /// <typeparam name="T">Type of list items.</typeparam>
         /// <param name="list"><see cref="LinkedList{T}"/> to enumerate the nodes from.</param>

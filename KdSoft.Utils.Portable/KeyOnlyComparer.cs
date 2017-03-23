@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace KdSoft.Utils
 {
@@ -7,9 +6,6 @@ namespace KdSoft.Utils
     /// This class can be used as comparer when a <see cref="SortedSet{T}"/> instance is to be used like a dictionary.
     /// It compares the key part of the items only.
     /// </summary>
-#if !COREFX
-    [Serializable]
-#endif
     public class KeyOnlyComparer<TKey, TValue>: Comparer<KeyValuePair<TKey, TValue>>
     {
         internal IComparer<TKey> keyComparer;

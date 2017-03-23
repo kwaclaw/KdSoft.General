@@ -4,7 +4,7 @@
     <Description>KdSoft.Utils.Tests Class Library</Description>
     <VersionPrefix>1.0.3</VersionPrefix>
     <Authors>Karl Waclawek</Authors>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFrameworks>net452;netcoreapp1.1</TargetFrameworks>
     <AssemblyName>KdSoft.Utils.Tests</AssemblyName>
     <PackageId>KdSoft.Utils.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>

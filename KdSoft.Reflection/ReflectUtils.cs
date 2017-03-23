@@ -1,7 +1,5 @@
 ﻿
-#if COREFX
 using Microsoft.Extensions.DependencyModel;
-#endif
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,7 +35,13 @@ namespace KdSoft.Reflection
                 return assemblyDisplayName.Substring(0, commaIndx);
         }
 
-#if COREFX
+        /// <summary>
+        /// Finds assemblies in the <see cref="DependencyContext"/> of an assmebly, given an assembly "simple name".
+        /// The comparison is not case-sensitive.
+        /// </summary>
+        /// <param name="deps">DependencyContext to search.</param>
+        /// <param name="matchName">Simple name of the assembly, to match against.</param>
+        /// <returns>List of <see cref="AssemblyName"/> instances.</returns>
         public static IList<AssemblyName> FindAssemblies(this DependencyContext deps, string matchName) {
             var result = new List<AssemblyName>();
             foreach (var lib in deps.RuntimeLibraries) {
@@ -49,7 +53,8 @@ namespace KdSoft.Reflection
             }
             return result;
         }
-#else
+
+#if !COREFX
         /// <summary>
         /// Finds assembly loaded into AppDomain given a full or partial assembly name.
         /// </summary>

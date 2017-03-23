@@ -4,7 +4,7 @@
     <Description>KdSoft.Reflection.Portable Class Library</Description>
     <VersionPrefix>1.0.3</VersionPrefix>
     <Authors>Karl Waclawek</Authors>
-    <TargetFrameworks>net451;netstandard1.3</TargetFrameworks>
+    <TargetFramework>netstandard1.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>KdSoft.Reflection.Portable</AssemblyName>
     <PackageId>KdSoft.Reflection.Portable</PackageId>
@@ -20,11 +20,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
     <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
   </ItemGroup>
 
