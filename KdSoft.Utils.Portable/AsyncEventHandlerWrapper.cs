@@ -1,10 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace KdSoft.Utils
 {
-  public class AsyncEventHandlerWrapper<T> where T: EventArgs
+  public class AsyncEventHandlerWrapper<T> where T : EventArgs
   {
     public EventHandler<T> Handler { get; private set; }
     public TaskScheduler Scheduler { get; private set; }

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace KdSoft.Utils
 {
-  public class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
+  public class Grouping<TKey, TElement>: IGrouping<TKey, TElement>
   {
     TKey key;
     IEnumerable<TElement> elements;

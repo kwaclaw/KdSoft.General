@@ -11,8 +11,7 @@ namespace KdSoft.Utils
     /// <typeparam name="T"></typeparam>
     /// <param name="handler"></param>
     /// <returns></returns>
-    public static EventHandler WrapAsync(EventHandler handler)
-    {
+    public static EventHandler WrapAsync(EventHandler handler) {
       var wrapper = new AsyncEventHandlerWrapper<EventArgs>(new EventHandler<EventArgs>(handler));
       return wrapper.Invoke;
     }
@@ -23,8 +22,7 @@ namespace KdSoft.Utils
     /// <typeparam name="T"></typeparam>
     /// <param name="handler"></param>
     /// <returns></returns>
-    public static EventHandler<T> WrapAsync<T>(EventHandler<T> handler) where T: EventArgs
-    {
+    public static EventHandler<T> WrapAsync<T>(EventHandler<T> handler) where T : EventArgs {
       var wrapper = new AsyncEventHandlerWrapper<T>(handler);
       return wrapper.Invoke;
     }
@@ -34,8 +32,7 @@ namespace KdSoft.Utils
     /// </summary>
     /// <param name="handler"></param>
     /// <returns></returns>
-    public static PropertyChangedEventHandler WrapAsync(PropertyChangedEventHandler handler)
-    {
+    public static PropertyChangedEventHandler WrapAsync(PropertyChangedEventHandler handler) {
       var wrapper = new AsyncEventHandlerWrapper<PropertyChangedEventArgs>(new EventHandler<PropertyChangedEventArgs>(handler));
       return wrapper.Invoke;
     }

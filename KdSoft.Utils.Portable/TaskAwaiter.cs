@@ -19,8 +19,8 @@ namespace KdSoft.Utils
     public TaskAwaiter(
       TaskEnumerator<T> getTaskEnumerator,
       CancellationToken cancelToken = new CancellationToken(),
-      TaskScheduler scheduler = null)
-    {
+      TaskScheduler scheduler = null
+    ) {
       this.taskCompletion = new TaskCompletionSource<T>();
       this.cancelToken = cancelToken;
       this.scheduler = scheduler;
@@ -30,8 +30,8 @@ namespace KdSoft.Utils
     public TaskAwaiter(
       TaskEnumerable<T> getTaskEnumerable,
       CancellationToken cancelToken = new CancellationToken(),
-      TaskScheduler scheduler = null)
-    {
+      TaskScheduler scheduler = null
+    ) {
       this.taskCompletion = new TaskCompletionSource<T>();
       this.cancelToken = cancelToken;
       this.scheduler = scheduler;

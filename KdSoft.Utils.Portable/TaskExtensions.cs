@@ -56,8 +56,8 @@ namespace KdSoft.Utils
       Func<AsyncCallback, object, IAsyncResult> beginMethod,
       Action<IAsyncResult> endMethod,
       object state,
-      CancellationToken cancelToken)
-    {
+      CancellationToken cancelToken
+    ) {
       AsyncCallback callback = null;
       if (beginMethod == null) {
         throw new ArgumentNullException("beginMethod");
@@ -71,7 +71,7 @@ namespace KdSoft.Utils
         cancelToken.Register(() => tcs.TrySetCanceled());
       try {
         if (callback == null) {
-          callback = delegate(IAsyncResult iar) { FromAsyncCoreLogic(iar, endMethod, tcs); };
+          callback = delegate (IAsyncResult iar) { FromAsyncCoreLogic(iar, endMethod, tcs); };
         }
         beginMethod(callback, state);
       }
@@ -85,8 +85,8 @@ namespace KdSoft.Utils
     static void FromAsyncCoreLogic<TResult>(
       IAsyncResult iar,
       Func<IAsyncResult, TResult> endMethod,
-      TaskCompletionSource<TResult> tcs)
-    {
+      TaskCompletionSource<TResult> tcs
+    ) {
       Exception exception = null;
       OperationCanceledException exception2 = null;
       TResult result = default(TResult);
@@ -117,8 +117,8 @@ namespace KdSoft.Utils
       Func<AsyncCallback, object, IAsyncResult> beginMethod,
       Func<IAsyncResult, TResult> endMethod,
       object state,
-      CancellationToken cancelToken)
-    {
+      CancellationToken cancelToken
+    ) {
       AsyncCallback callback = null;
       if (beginMethod == null) {
         throw new ArgumentNullException("beginMethod");
@@ -132,7 +132,7 @@ namespace KdSoft.Utils
         cancelToken.Register(() => tcs.TrySetCanceled());
       try {
         if (callback == null) {
-          callback = delegate(IAsyncResult iar) { FromAsyncCoreLogic(iar, endMethod, tcs); };
+          callback = delegate (IAsyncResult iar) { FromAsyncCoreLogic(iar, endMethod, tcs); };
         }
         beginMethod(callback, state);
       }
@@ -153,7 +153,7 @@ namespace KdSoft.Utils
       if (dueTime < -1) {
         throw new ArgumentOutOfRangeException("dueTime");
       }
-      Timer timer = new Timer(delegate(object self) {
+      Timer timer = new Timer(delegate (object self) {
         ((IDisposable)self).Dispose();
         try {
           source.Cancel();
@@ -166,8 +166,8 @@ namespace KdSoft.Utils
     public static Task<T> Await<T>(
       TaskEnumerator<T> getTaskEnumerator,
       CancellationToken cancelToken = new CancellationToken(),
-      TaskScheduler scheduler = null) 
-    {
+      TaskScheduler scheduler = null
+    ) {
       var awaiter = new TaskAwaiter<T>(getTaskEnumerator, cancelToken, scheduler);
       return awaiter.Await();
     }
@@ -175,8 +175,8 @@ namespace KdSoft.Utils
     public static Task<T> Await<T>(
       TaskEnumerable<T> getTaskEnumerable,
       CancellationToken cancelToken = new CancellationToken(),
-      TaskScheduler scheduler = null) 
-    {
+      TaskScheduler scheduler = null
+    ) {
       var awaiter = new TaskAwaiter<T>(getTaskEnumerable, cancelToken, scheduler);
       return awaiter.Await();
     }

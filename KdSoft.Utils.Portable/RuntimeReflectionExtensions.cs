@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace System.Reflection
 {
-    // Copy of RuntimeReflectionExtensions from .NET 4.5.
-    // Does not work on Mono because System.RuntimeType and System.RuntimeMethodInfo do not exist there.
-    // It seems System.MonoType takes the role of System.RuntimeType, but IsInstanceOfType(runtimeType) still does not work.
+  // Copy of RuntimeReflectionExtensions from .NET 4.5.
+  // Does not work on Mono because System.RuntimeType and System.RuntimeMethodInfo do not exist there.
+  // It seems System.MonoType takes the role of System.RuntimeType, but IsInstanceOfType(runtimeType) still does not work.
 #if NET40 || NET403
     public static class RuntimeReflectionExtensions
     {

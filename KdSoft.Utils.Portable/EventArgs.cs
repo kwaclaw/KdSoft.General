@@ -3,7 +3,7 @@
 namespace KdSoft.Utils
 {
   // This class goes nicely with EventHandler<T>. Strangely, it does not exist in the framework.
-  public class EventArgs<T> : EventArgs
+  public class EventArgs<T>: EventArgs
   {
     public EventArgs(T value) {
       Value = value;
@@ -14,7 +14,7 @@ namespace KdSoft.Utils
         new EventArgs<T>(default(T));
   }
 
-  public class EventArgs<T, U> : EventArgs<T>
+  public class EventArgs<T, U>: EventArgs<T>
   {
     public EventArgs(T value, U otherValue) : base(value) {
       OtherValue = otherValue;

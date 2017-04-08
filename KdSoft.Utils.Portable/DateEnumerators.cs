@@ -6,7 +6,7 @@ namespace KdSoft.Utils
   /// <summary>
   /// Enumerates all dates in the date range - excluding the end date.
   /// </summary>
-  public class DateEnumerable : IEnumerable<DateTime>
+  public class DateEnumerable: IEnumerable<DateTime>
   {
     public readonly DateTime StartDate, EndDate;
 
@@ -26,7 +26,7 @@ namespace KdSoft.Utils
     }
   }
 
-  public sealed class DateEnumerator : IEnumerator<DateTime>
+  public sealed class DateEnumerator: IEnumerator<DateTime>
   {
     DateEnumerable enumerable;
     DateTime? current;
@@ -85,7 +85,7 @@ namespace KdSoft.Utils
   /// Enumerates a number of weeks with the start date's week day interpreted as "first day of week".
   /// The DateTime values returned have the same day of week as the start date.
   /// </summary>
-  public class WeekEnumerable : IEnumerable<DateTime>
+  public class WeekEnumerable: IEnumerable<DateTime>
   {
     public readonly DateTime StartDate;
     public readonly int DayCount;
@@ -106,7 +106,7 @@ namespace KdSoft.Utils
     }
   }
 
-  public sealed class WeekEnumerator : IEnumerator<DateTime>
+  public sealed class WeekEnumerator: IEnumerator<DateTime>
   {
     WeekEnumerable enumerable;
     DateTime? current;
@@ -165,7 +165,7 @@ namespace KdSoft.Utils
   /// Enumerates all months that the given data range (excluding the end date) touches.
   /// The DateTime values returned always have "1" for the Day value.
   /// </summary>
-  public class MonthEnumerable : IEnumerable<DateTime>
+  public class MonthEnumerable: IEnumerable<DateTime>
   {
     public readonly DateTime StartDate, EndDate;
 
@@ -186,7 +186,7 @@ namespace KdSoft.Utils
   }
 
   // enumerates all months that are covered by the input date range
-  public sealed class MonthEnumerator : IEnumerator<DateTime>
+  public sealed class MonthEnumerator: IEnumerator<DateTime>
   {
     MonthEnumerable enumerable;
     DateTime? current;

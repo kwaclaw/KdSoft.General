@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace KdSoft.Utils
 {
-  public struct YearWeek : IComparable, IComparable<YearWeek>, IEquatable<YearWeek>
+  public struct YearWeek: IComparable, IComparable<YearWeek>, IEquatable<YearWeek>
   {
     static Calendar cal = CultureInfo.InvariantCulture.Calendar;
 

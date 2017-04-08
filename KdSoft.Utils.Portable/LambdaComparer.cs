@@ -32,7 +32,7 @@ namespace KdSoft.Utils
     }
 
     public int Compare(T x, T y) {
-      return compare(x, y); ;
+      return compare(x, y);
     }
   }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
@@ -10,7 +9,7 @@ namespace KdSoft.Utils
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <remarks>This class is re-entrant. Because of this, any bulk operation will trigger a notification of the 'Reset' type.</remarks>
-  public class BulkObservableCollection<T> : ObservableCollection<T>
+  public class BulkObservableCollection<T>: ObservableCollection<T>
   {
     int bulkOperationCount;
     bool collectionChangedDuringBulkOperation;
