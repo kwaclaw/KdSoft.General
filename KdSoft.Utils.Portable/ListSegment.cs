@@ -7,7 +7,7 @@ namespace KdSoft.Utils
   /// <summary>
   /// This is a read-only <see cref="IList{T}"/> implementation representing a segment of a list. Similar to <see cref="ArraySegment{T}"/>.
   /// </summary>
-  public class ListSegment<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
+  public class ListSegment<T>: IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
   {
     IList<T> list;
     int offset;
@@ -47,20 +47,6 @@ namespace KdSoft.Utils
         throw new IndexOutOfRangeException();
       return new ListSegment<T>(list, this.offset + offset, count);
     }
-
-    //public int BinarySearch(T item) {
-    //  return BinarySearch(item, Comparer<T>.Default);
-    //}
-
-    //public int BinarySearch(T item, IComparer<T> comparer) {
-    //  return list.BinarySearch(offset, count, item, comparer);
-    //}
-
-    //public int BinarySearch(int index, int count, T item, IComparer<T> comparer) {
-    //  if (index >= this.count || index + count > this.count)
-    //    throw new IndexOutOfRangeException();
-    //  return list.BinarySearch(offset + index, count, item, comparer);
-    //}
 
     public bool Contains(T item) {
       return IndexOf(item) >= 0;
@@ -129,7 +115,7 @@ namespace KdSoft.Utils
     }
 
     public T FindLast(Predicate<T> match) {
-      for (int i = offset + count; --i >= offset; )
+      for (int i = offset + count; --i >= offset;)
         if (match(list[i])) return list[i];
       return default(T);
     }
