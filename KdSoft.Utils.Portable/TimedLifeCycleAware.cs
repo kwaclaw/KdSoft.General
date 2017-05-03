@@ -7,7 +7,7 @@ namespace KdSoft.Utils
   /// </summary>
   public class TimedLifeCycleAware: ILifeCycleAware<ITimedLifeCycle>
   {
-    TimedLifeCycle lifeCycle;
+    readonly TimedLifeCycle lifeCycle;
 
     public TimedLifeCycleAware(TimeSpan lifeSpan) {
       lifeCycle = new TimedLifeCycle(lifeSpan);

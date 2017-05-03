@@ -18,7 +18,7 @@ namespace KdSoft.Utils
   public class TimedLifeCycleManager<K, O>: IDisposable where O : ILifeCycleAware<ITimedLifeCycle>
   {
     public readonly object SyncObj;
-    Dictionary<K, O> objectMap;
+    readonly Dictionary<K, O> objectMap;
     Timer lifeCycleTimer;
 
     /// <summary>

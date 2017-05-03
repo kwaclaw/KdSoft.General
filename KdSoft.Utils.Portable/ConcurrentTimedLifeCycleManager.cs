@@ -16,7 +16,7 @@ namespace KdSoft.Utils
   /// <typeparam name="O">Type of <see cref="ILifeCycleAware{ITimedLifeCycle}"/> objects being tracked.</typeparam>
   public class ConcurrentTimedLifeCycleManager<K, O>: IDisposable where O : ILifeCycleAware<ITimedLifeCycle>
   {
-    ConcurrentDictionary<K, O> objectMap;
+    readonly ConcurrentDictionary<K, O> objectMap;
     Timer lifeCycleTimer;
 
     /// <summary>
@@ -31,14 +31,13 @@ namespace KdSoft.Utils
     // must not throw exceptions
     static void LifeCycleHandler(object state) {
       var lfMgr = (ConcurrentTimedLifeCycleManager<K, O>)state;
-      var keyList = new List<K>();
       var termHandler = lfMgr.Terminated;
       foreach (var objectEntry in lfMgr.objectMap) {
         var lc = objectEntry.Value.GetLifeCycle();
         if (!lc.CheckAlive()) {  // not supposed to throw exception
           O value;
           if (lfMgr.objectMap.TryRemove(objectEntry.Key, out value))
-            termHandler(lfMgr, new EventArgs<K, O>(objectEntry.Key, value));
+            termHandler?.Invoke(lfMgr, new EventArgs<K, O>(objectEntry.Key, value));
         }
       }
     }
@@ -69,13 +68,15 @@ namespace KdSoft.Utils
 
     struct ReplacementProvider
     {
-      O newObj;
+      readonly O newObj;
 
       public ReplacementProvider(O newObj) {
         this.newObj = newObj;
       }
 
+#pragma warning disable S1172 // Unused method parameters should be removed
       public O GetValue(K key, O oldObj) {
+#pragma warning restore S1172 // Unused method parameters should be removed
         var lc = oldObj.GetLifeCycle();
         lc.Terminate();
         return newObj;
@@ -118,13 +119,15 @@ namespace KdSoft.Utils
 
     struct ValueProvider
     {
-      O newObj;
+      readonly O newObj;
 
       public ValueProvider(O newObj) {
         this.newObj = newObj;
       }
 
+#pragma warning disable S1172 // Unused method parameters should be removed
       public O GetValue(K key, O oldObj) {
+#pragma warning restore S1172 // Unused method parameters should be removed
         var lc = oldObj.GetLifeCycle();
         if (lc.CheckAlive()) {
           lc.Used(); // restart life-cycle
@@ -154,7 +157,7 @@ namespace KdSoft.Utils
 
     struct FuncProvider
     {
-      Func<K, O> getNew;
+      readonly Func<K, O> getNew;
 
       public FuncProvider(Func<K, O> getNew) {
         this.getNew = getNew;
