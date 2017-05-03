@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Projects_Clear.cmd = Projects_Clear.cmd
 		QLineFeed_push_all.cmd = QLineFeed_push_all.cmd
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+		Solution.ruleset = Solution.ruleset
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.Reflection", "KdSoft.Reflection\KdSoft.Reflection.csproj", "{271385C7-CB41-40FE-A7D8-C32399365D36}"

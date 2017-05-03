@@ -13,6 +13,7 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <CodeAnalysisRuleSet>..\Solution.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
