@@ -5,8 +5,6 @@
     <VersionPrefix>1.0.3</VersionPrefix>
     <Authors>Karl Waclawek</Authors>
     <TargetFrameworks>net452;netcoreapp1.1</TargetFrameworks>
-    <AssemblyName>KdSoft.Utils.Tests</AssemblyName>
-    <PackageId>KdSoft.Utils.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
