@@ -482,6 +482,10 @@ namespace KdSoft.Serialization.Buffer
       reverse = byteOrder != SystemByteOrder;
     }
 
+    public ByteConverter(bool reverse = false) {
+      this.reverse = reverse;
+    }
+
     #region Not CLS-Compliant
 
     /// <summary>Serializes <c>UInt16</c> values.</summary>
@@ -909,6 +913,140 @@ namespace KdSoft.Serialization.Buffer
       }
       DecimalLongUnion union = new DecimalLongUnion(long0, long1);
       return union.DecimalValue;
+    }
+
+    #endregion
+
+    #region Convenience Methods
+
+    /// <inheritdoc/>
+    [CLSCompliant(false)]
+    public byte[] ToBytes(UInt16 value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(UInt16)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    [CLSCompliant(false)]
+    public byte[] ToBytes(UInt32 value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(UInt32)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    [CLSCompliant(false)]
+    public byte[] ToBytes(UInt64 value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(UInt64)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    [CLSCompliant(false)]
+    public byte[] ToBytes(UInt16[] value, int start = 0, int count = -1) {
+      int index = 0;
+      if (count == -1) count = value.Length;
+      byte[] result = new byte[sizeof(UInt16) * count];
+      ToBytes(value, start, count, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    [CLSCompliant(false)]
+    public byte[] ToBytes(UInt32[] value, int start = 0, int count = -1) {
+      int index = 0;
+      if (count == -1) count = value.Length;
+      byte[] result = new byte[sizeof(UInt32) * count];
+      ToBytes(value, start, count, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Int16 value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Int16)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Char value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Char)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Int32 value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Int32)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Int64 value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Int64)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Single value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Single)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Double value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Double)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Decimal value) {
+      int index = 0;
+      byte[] result = new byte[sizeof(Decimal)];
+      ToBytes(value, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Int16[] value, int start = 0, int count = -1) {
+      int index = 0;
+      if (count == -1) count = value.Length;
+      byte[] result = new byte[sizeof(Int16) * count];
+      ToBytes(value, start, count, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Char[] value, int start = 0, int count = -1) {
+      int index = 0;
+      if (count == -1) count = value.Length;
+      byte[] result = new byte[sizeof(Char) * count];
+      ToBytes(value, start, count, result, ref index);
+      return result;
+    }
+
+    /// <inheritdoc/>
+    public byte[] ToBytes(Int32[] value, int start = 0, int count = -1) {
+      int index = 0;
+      if (count == -1) count = value.Length;
+      byte[] result = new byte[sizeof(Int32) * count];
+      ToBytes(value, start, count, result, ref index);
+      return result;
     }
 
     #endregion
