@@ -47,10 +47,10 @@ namespace KdSoft.Utils
     public bool AddingComplete {
       get {
 #if NET40 || NET403
-                Thread.MemoryBarrier();
-                bool doneAdding = _doneAdding != 0;
-                Thread.MemoryBarrier();
-                return doneAdding;
+        Thread.MemoryBarrier();
+        bool doneAdding = _doneAdding != 0;
+        Thread.MemoryBarrier();
+        return doneAdding;
 #else
         Interlocked.MemoryBarrier();
         bool doneAdding = _doneAdding != 0;
