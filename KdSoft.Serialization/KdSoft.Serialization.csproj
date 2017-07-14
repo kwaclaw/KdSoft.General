@@ -22,8 +22,4 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
 </Project>

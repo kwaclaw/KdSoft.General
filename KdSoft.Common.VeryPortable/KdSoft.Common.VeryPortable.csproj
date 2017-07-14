@@ -20,8 +20,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
-    <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
+  <PropertyGroup>
+    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard1.1' ">COREFX</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
