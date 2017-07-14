@@ -6,7 +6,6 @@
     <Authors>Karl Waclawek</Authors>
     <TargetFrameworks>net451;netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -21,8 +20,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
+  <PropertyGroup>
+    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard1.3' ">COREFX</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
