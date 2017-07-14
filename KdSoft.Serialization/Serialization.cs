@@ -14,7 +14,7 @@ namespace KdSoft.Serialization
 {
   /// <summary>
   /// A concrete implementation of this abstract base-class, together with corresponding
-  /// implementations of <see cref="ValueField&lt;T, S>"/> and <see cref="ReferenceField&lt;T, S>"/>
+  /// implementations of <see cref="ValueField{T, S}"/> and <see cref="ReferenceField{T, S}"/>
   /// is used to serialize and deserialize an object graph.
   /// </summary>
   /// <remarks>
@@ -22,7 +22,7 @@ namespace KdSoft.Serialization
   /// object graph, but also the output target, like - for instance a stream or memory buffer.
   /// </remarks>
   /// <typeparam name="F">Recursive type parameter that helps using the
-  /// correct subclasses of <c>Formatter</c> and <see cref="Field&lt;T, F>"/> together.</typeparam>
+  /// correct subclasses of <c>Formatter</c> and <see cref="Field{T, F}"/> together.</typeparam>
   public abstract class Formatter<F> where F: Formatter<F>
   {
     /// <summary>Writes a <c>SerialStatus</c> value to the serialization target.</summary>
@@ -82,25 +82,25 @@ namespace KdSoft.Serialization
     /// these objects must be exactly the same for serialization and deserialization.</param>
     public abstract void SetPermanentReferences(params object[] objects);
 
-    /// <summary>Retrieves the <see cref="Field&lt;T, F>"/> instance registered for
+    /// <summary>Retrieves the <see cref="Field{T, F}"/> instance registered for
     /// serializing a specific data type.</summary>
     /// <typeParam name="T">Data type to be serialized or deserialized.</typeParam>
-    /// <returns><see cref="Field&lt;T, F>"/> instance associated with data type.</returns>
+    /// <returns><see cref="Field{T, F}"/> instance associated with data type.</returns>
     /// <seealso cref="RegisterField{T}(Field{T, F})"/>
     public abstract Field<T, F> GetField<T>();
 
     /// <summary>Override to implement the actual field registration.</summary>
-    /// <seealso cref="RegisterField{T}(Field&lt;T, F>)"/>
+    /// <seealso cref="RegisterField{T}(Field{T, F})"/>
     /// <typeparam name="T">Data type associated with field.</typeparam>
-    /// <param name="field"><see cref="Field&lt;T, F>"/> instance to be registered.</param>
+    /// <param name="field"><see cref="Field{T, F}"/> instance to be registered.</param>
     /// <returns><c>true</c> if the field instance was successfully registered, <c>false</c>
     /// if another field instance was already registered for data type <c>T</c>.</returns>
     protected abstract bool InternalRegisterField<T>(Field<T, F> field);
 
-    /// <summary>Registers a <see cref="Field&lt;T, F>"/> instance to be used as the
+    /// <summary>Registers a <see cref="Field{T, F}"/> instance to be used as the
     /// default field to serialize and deserialize a given data type <c>T</c>.</summary>
     /// <typeparam name="T">Data type to serialize.</typeparam>
-    /// <param name="field"><see cref="Field&lt;T, F>"/> instance associated with data type.</param>
+    /// <param name="field"><see cref="Field{T, F}"/> instance associated with data type.</param>
     internal void RegisterField<T>(Field<T, F> field) {
       if (!InternalRegisterField<T>(field)) {
         string msg = "A default field is already registered for type '{0}'.";
@@ -116,10 +116,10 @@ namespace KdSoft.Serialization
 
     /// <overloads>
     /// <summary>On deserialization, skips a specific data type.</summary>
-    /// <remarks>Never call this method outside of a <see cref="Field&lt;T, F>.SkipValue"/>
+    /// <remarks>Never call this method outside of a <see cref="Field{T, F}.SkipValue"/>
     /// override, as it needs the initialization performed by <see cref="SkipMembers{T}"/>.</remarks>
     /// </overloads>
-    /// <summary>Uses a specified <see cref="Field&lt;T, F>"/> instance instead of the default.</summary>
+    /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="field">Field associated with data type of member to skip.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
@@ -137,7 +137,7 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Uses the default <see cref="Field&lt;T, F>"/> instance.</summary>
+    /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type to skip.</typeparam>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
     public bool Skip<T>() {
@@ -168,10 +168,10 @@ namespace KdSoft.Serialization
 
     /// <overloads>
     /// <summary>On deserialization, skips sequences of a specific data type.</summary>
-    /// <remarks>Never call this method outside of a <see cref="Field&lt;T, F>.SkipValue"/>
+    /// <remarks>Never call this method outside of a <see cref="Field{T, F}.SkipValue"/>
     /// override, as it needs the initialization performed by <see cref="SkipMembers{T}"/>.</remarks>
     /// </overloads>
-    /// <summary>Uses a specified <see cref="Field&lt;T, F>"/> instance instead of the default.</summary>
+    /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="field">Field associated with data type of sequence elements to skip.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
@@ -189,7 +189,7 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Uses the default <see cref="Field&lt;T, F>"/> instance.</summary>
+    /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type of sequence elements to skip.</typeparam>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
     public bool SkipSequence<T>() {
@@ -250,7 +250,7 @@ namespace KdSoft.Serialization
     /// </code>
     /// </example>
     /// </overloads>
-    /// <summary>Uses a specified <see cref="Field&lt;T, F>"/> instance instead of the default.</summary>
+    /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="field">Field associated with root object in graph.</param>
     /// <param name="path">Path in the graph which is to be skipped. Node indexes
@@ -264,7 +264,7 @@ namespace KdSoft.Serialization
       return path[path.Length - 1] < 0;
     }
 
-    /// <summary>Uses the default <see cref="Field&lt;T, F>"/> instance.</summary>
+    /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="path">Path in the graph which is to be skipped.</param>
     /// <returns><c>true</c> if successful, <c>false</c> if path is invalid.</returns>
@@ -369,7 +369,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes reference types.</summary>
-    /// <returns>New object instance.</remarks>
+    /// <returns>New object instance.</returns>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
     public T DeserializeObject<T>()
       where T: class
@@ -905,7 +905,7 @@ namespace KdSoft.Serialization
   /// implementation of <see cref="KdSoft.Serialization.Formatter&lt;F>"/>, are used to serialize
   /// and deserialize an object graph.
   /// </summary>
-  /// <remarks>A concrete subclass of <see cref="Field&lt;T, F>"/> is intended to
+  /// <remarks>A concrete subclass of <see cref="Field{T, F}"/> is intended to
   /// serialize/deserialize one specific class or value type.</remarks>
   /// <typeparam name="T">Data type to be serialized and deserialized.</typeparam>
   /// <typeparam name="F">Subclass of <see cref="KdSoft.Serialization.Formatter&lt;F>"/>

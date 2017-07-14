@@ -25,7 +25,7 @@ namespace KdSoft.StreamUtils
     /// <summary>
     /// Offset from starting position at which the IO operation was started.
     /// If the value is <c>&lt; 0</c> then the operation was not performed, the reason depends on context:
-    /// for instance, a reason could be that a write was requested after writing was already completed.</c>
+    /// for instance, a reason could be that a write was requested after writing was already completed.
     /// If the value of <see cref="Count"/> is <c>0</c>, then the Offset may be meaningless, depending on
     /// the implementation it is used in. In some cases it can indicate the closest available data offset.
     /// </summary>

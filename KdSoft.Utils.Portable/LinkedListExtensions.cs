@@ -12,7 +12,7 @@ namespace KdSoft.Utils
     /// </summary>
     /// <typeparam name="T">Type of list items.</typeparam>
     /// <param name="list"><see cref="LinkedList{T}"/> to enumerate the nodes from.</param>
-    /// <returns><see cref="IEnumerable{LinkedListNode{T}}"/>.</returns>
+    /// <returns><see cref="IEnumerable{L}"/> where <c>L is <see cref="LinkedListNode{T}"/></c>.</returns>
     public static IEnumerable<LinkedListNode<T>> Nodes<T>(this LinkedList<T> list) {
       var node = list.First;
       while (node != null) {

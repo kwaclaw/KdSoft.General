@@ -436,11 +436,11 @@ namespace KdSoft.Serialization.Buffer
     [FieldOffset(0)]
     public readonly Decimal DecimalValue;
 
-    /// <summary><c>First <c>UInt64</c> part of the value.</summary>
+    /// <summary>First <c>UInt64</c> part of the value.</summary>
     [FieldOffset(0), CLSCompliant(false)]
     public readonly UInt64 Long0;
 
-    /// <summary><c>Second <c>UInt64</c> part of the value.</summary>
+    /// <summary>Second <c>UInt64</c> part of the value.</summary>
     [FieldOffset(sizeof(ulong)), CLSCompliant(false)]
     public readonly UInt64 Long1;
 

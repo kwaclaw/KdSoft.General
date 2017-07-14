@@ -107,7 +107,7 @@ namespace KdSoft.Serialization.Buffer
 
     #region Implementation Overrides
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.WriteStatus"/>
+    /// <inheritdoc />
     protected internal override void WriteStatus(SerialStatus value) {
       unchecked {
         int byteIndex = statusIndx >> 2;
@@ -126,17 +126,17 @@ namespace KdSoft.Serialization.Buffer
       statusIndx++;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.WriteObjRef"/>
+    /// <inheritdoc />
     protected internal override void WriteObjRef(Int64 value) {
       converter.ToBytes((int)value, valueBuffer, ref valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.WriteCount"/>
+    /// <inheritdoc />
     protected internal override void WriteCount(int value) {
       converter.ToBytes(value, valueBuffer, ref valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.ReadStatus"/>
+    /// <inheritdoc />
     protected internal override SerialStatus ReadStatus() {
       SerialStatus result;
       unchecked {
@@ -150,22 +150,22 @@ namespace KdSoft.Serialization.Buffer
       return result;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.ReadObjRef"/>
+    /// <inheritdoc />
     protected internal override Int64 ReadObjRef() {
       return (long)converter.ToInt32(valueBuffer, ref valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.SkipObjRef"/>
+    /// <inheritdoc />
     protected internal override void SkipObjRef() {
       valueIndx += sizeof(int);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.ReadCount"/>
+    /// <inheritdoc />
     protected internal override int ReadCount() {
       return converter.ToInt32(valueBuffer, ref valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.OpenReference"/>
+    /// <inheritdoc />
     protected internal override bool OpenReference(object obj, out Int64 handle) {
       int hndl;
       if (openObjMap.TryGetValue(obj, out hndl)) {
@@ -183,12 +183,12 @@ namespace KdSoft.Serialization.Buffer
       }
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.GetReference"/>
+    /// <inheritdoc />
     protected internal override object GetReference(Int64 handle) {
       return openObjects[handle];
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.InternalRegisterField"/>
+    /// <inheritdoc />
     protected override bool InternalRegisterField<T>(Field<T, Formatter> field) {
       bool result = !fieldRegistry.ContainsKey(typeof(T));
       if (result)
@@ -196,7 +196,7 @@ namespace KdSoft.Serialization.Buffer
       return result;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.SetPermanentReferences"/>
+    /// <inheritdoc />
     public override void SetPermanentReferences(params object[] objects) {
       foreach (object obj in objects) {
         if (permanentObjects.Contains(obj))
@@ -205,7 +205,6 @@ namespace KdSoft.Serialization.Buffer
       }
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Formatter{F}.GetField{T}"/>
     public override Field<T, Formatter> GetField<T>() {
       object field;
       Type dataType = typeof(T);
@@ -1136,17 +1135,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public ByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref byte value) {
       Fmt.valueBuffer[Fmt.valueIndx++] = value;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref byte value) {
       value = Fmt.valueBuffer[Fmt.valueIndx++];
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx++;
     }
@@ -1158,17 +1157,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public BoolField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref bool value) {
       Fmt.valueBuffer[Fmt.valueIndx++] = value ? (byte)0xFF : (byte)0;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref bool value) {
       value = Fmt.valueBuffer[Fmt.valueIndx++] == 0 ? false : true;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx++;
     }
@@ -1183,17 +1182,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public SByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref sbyte value) {
       Fmt.valueBuffer[Fmt.valueIndx++] = unchecked((byte)(-value));
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref sbyte value) {
       value = unchecked((sbyte)-Fmt.valueBuffer[Fmt.valueIndx++]);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx++;
     }
@@ -1205,17 +1204,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public UShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref ushort value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref ushort value) {
       value = Fmt.Converter.ToUInt16(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(ushort);
     }
@@ -1229,17 +1228,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public ShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref short value) {
       Fmt.Converter.ToBytes(unchecked((short)-value), Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref short value) {
       value = unchecked((short)-Fmt.Converter.ToInt16(Fmt.valueBuffer, ref Fmt.valueIndx));
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(short);
     }
@@ -1250,17 +1249,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public CharField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref char value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref char value) {
       value = Fmt.Converter.ToChar(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(ushort);
     }
@@ -1272,17 +1271,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public UIntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref uint value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref uint value) {
       value = Fmt.Converter.ToUInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(uint);
     }
@@ -1296,17 +1295,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public IntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref int value) {
       Fmt.Converter.ToBytes(-value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref int value) {
       value = -Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(int);
     }
@@ -1318,17 +1317,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public ULongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref ulong value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref ulong value) {
       value = Fmt.Converter.ToUInt64(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(ulong);
     }
@@ -1342,17 +1341,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public LongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref long value) {
       Fmt.Converter.ToBytes(-value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref long value) {
       value = -Fmt.Converter.ToInt64(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(long);
     }
@@ -1366,17 +1365,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public DecimalField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref decimal value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref decimal value) {
       value = Fmt.Converter.ToDecimal(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += 4 * sizeof(UInt32);  // serialized as four 32bit values
     }
@@ -1388,17 +1387,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public SingleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref float value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref float value) {
       value = Fmt.Converter.ToSingle(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(UInt32);  // serialized as 32bit value
     }
@@ -1410,17 +1409,17 @@ namespace KdSoft.Serialization.Buffer
   {
     public DoubleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref double value) {
       Fmt.Converter.ToBytes(value, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref double value) {
       value = Fmt.Converter.ToDouble(Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(UInt64);  // serialized as 64bit value
     }
@@ -1435,18 +1434,18 @@ namespace KdSoft.Serialization.Buffer
   {
     public DateTimeField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ref DateTime value) {
       Fmt.Converter.ToBytes(value.Ticks, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ValueField{T, F}.DeserializeValue"/>
+    /// <inheritdoc />
     protected override void DeserializeValue(ref DateTime value) {
       long ticks = Fmt.Converter.ToInt64(Fmt.valueBuffer, ref Fmt.valueIndx);
       value = new DateTime(ticks, DateTimeKind.Utc);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += sizeof(long);
     }
@@ -1483,27 +1482,27 @@ namespace KdSoft.Serialization.Buffer
   {
     public BlobField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(byte[] value) {
       Fmt.Converter.ToBytes(value.Length, ValueBuffer, ref Fmt.valueIndx);
       System.Buffer.BlockCopy(value, 0, ValueBuffer, Fmt.valueIndx, value.Length);
       Fmt.valueIndx += value.Length;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref byte[] instance) {
       int len = Fmt.Converter.ToInt32(ValueBuffer, ref Fmt.valueIndx);
       if (instance == null || instance.Length != len)
         instance = new byte[len];
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeMembers"/>
+    /// <inheritdoc />
     protected override void DeserializeMembers(byte[] value) {
       System.Buffer.BlockCopy(Fmt.valueBuffer, Fmt.valueIndx, value, 0, value.Length);
       Fmt.valueIndx += value.Length;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(ValueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
@@ -1525,7 +1524,7 @@ namespace KdSoft.Serialization.Buffer
       get { return size; }
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(byte[] value) {
       int len = value.Length;
       if (len > size)
@@ -1538,7 +1537,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.valueIndx = valIndx;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref byte[] instance) {
       if (instance == null || instance.Length != size)
         instance = new byte[size];
@@ -1546,7 +1545,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.valueIndx += size;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += size;
     }
@@ -1564,7 +1563,7 @@ namespace KdSoft.Serialization.Buffer
       utf8 = new UTF8Encoding();
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(string value) {
       int valIndx = Fmt.valueIndx + sizeof(uint);  // make space for length prefix
       int len = utf8.GetBytes(value, 0, value.Length, Fmt.valueBuffer, valIndx);
@@ -1574,14 +1573,14 @@ namespace KdSoft.Serialization.Buffer
       Fmt.valueIndx = valIndx + len;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref string instance) {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       instance = utf8.GetString(Fmt.valueBuffer, Fmt.valueIndx, len);
       Fmt.valueIndx += len;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
@@ -1594,7 +1593,7 @@ namespace KdSoft.Serialization.Buffer
   {
     public UShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(ushort[] value) {
       int len = value.Length * sizeof(ushort);
       // write length prefix
@@ -1602,7 +1601,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToBytes(value, 0, value.Length, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref ushort[] instance) {
       int count = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       count = count / sizeof(ushort);
@@ -1610,7 +1609,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToUInt16Array(instance, 0, count, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
@@ -1624,7 +1623,7 @@ namespace KdSoft.Serialization.Buffer
   {
     public CharArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(char[] value) {
       int len = value.Length * sizeof(char);
       // write length prefix
@@ -1632,7 +1631,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToBytes(value, 0, value.Length, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref char[] instance) {
       int count = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       count = count / sizeof(char);
@@ -1640,7 +1639,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToCharArray(instance, 0, count, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
@@ -1657,7 +1656,7 @@ namespace KdSoft.Serialization.Buffer
       this.size = size;
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(char[] value) {
       int count = value.Length;
       if (count > size)
@@ -1674,14 +1673,14 @@ namespace KdSoft.Serialization.Buffer
       }
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref char[] instance) {
       if (instance == null || instance.Length != size)
         instance = new char[size];
       Fmt.Converter.ToCharArray(instance, 0, size, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       Fmt.valueIndx += size * sizeof(char);
     }
@@ -1692,7 +1691,7 @@ namespace KdSoft.Serialization.Buffer
   {
     public ShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(short[] value) {
       int len = value.Length * sizeof(short);
       // write length prefix
@@ -1700,7 +1699,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToBytes(value, 0, value.Length, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref short[] instance) {
       int count = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       count = count / sizeof(short);
@@ -1708,7 +1707,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToInt16Array(instance, 0, count, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
@@ -1721,7 +1720,7 @@ namespace KdSoft.Serialization.Buffer
   {
     public UIntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(uint[] value) {
       int len = value.Length * sizeof(uint);
       // write length prefix
@@ -1729,7 +1728,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToBytes(value, 0, value.Length, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref uint[] instance) {
       int count = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       count = count / sizeof(uint);
@@ -1737,7 +1736,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToUInt32Array(instance, 0, count, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
@@ -1749,7 +1748,7 @@ namespace KdSoft.Serialization.Buffer
   {
     public IntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.SerializeValue"/>
+    /// <inheritdoc />
     protected override void SerializeValue(int[] value) {
       int len = value.Length * sizeof(int);
       // write length prefix
@@ -1757,7 +1756,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToBytes(value, 0, value.Length, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.ReferenceField{T, F}.DeserializeInstance"/>
+    /// <inheritdoc />
     protected override void DeserializeInstance(ref int[] instance) {
       int count = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       count = count / sizeof(int);
@@ -1765,7 +1764,7 @@ namespace KdSoft.Serialization.Buffer
       Fmt.Converter.ToInt32Array(instance, 0, count, Fmt.valueBuffer, ref Fmt.valueIndx);
     }
 
-    /// <inheritdoc cref="KdSoft.Serialization.Field{T, F}.SkipValue"/>
+    /// <inheritdoc />
     protected override void SkipValue() {
       int len = Fmt.Converter.ToInt32(Fmt.valueBuffer, ref Fmt.valueIndx);
       Fmt.valueIndx += len;
