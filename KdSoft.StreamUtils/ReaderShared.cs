@@ -30,7 +30,7 @@ namespace KdSoft.StreamUtils
     /// <param name="count">Maximum number of bytes to read.</param>
     /// <returns><see cref="IOResult"/> instance.</returns>
     /// <remarks><list type="bullet">
-    /// <item>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></item>
+    /// <item><description>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></description></item>
     /// </list></remarks>
     IOResult Read(byte[] buffer, int start, int count);
   }
@@ -50,7 +50,7 @@ namespace KdSoft.StreamUtils
     /// <returns>Scheduled task instance that can be waited on, or <c>null</c> if reading is already complete (end of data encountered).
     /// Task result contains <see cref="IOResult"/> details.</returns>
     /// <remarks><list type="bullet">
-    /// <item>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></item>
+    /// <item><description>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></description></item>
     /// </list></remarks>
     Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options);
   }
@@ -70,10 +70,10 @@ namespace KdSoft.StreamUtils
     /// <param name="sourceOffset">Position in underlying entity to start reading from.</param>
     /// <returns><see cref="IOResult"/> instance.</returns>
     /// <remarks><list type="bullet">
-    /// <item>Implementation may limit the range of positions to read from, e.g. limited to XX bytes before the last
-    /// sequentially read position. The returned offset and count can be affected - see <see cref="IOResult"/>.</item>
-    /// <item>If the result has <c>Count == 0</c>, then the returned offset will indicate the nearest offset
-    /// to the request offset that still contains data.</item>
+    /// <item><description>Implementation may limit the range of positions to read from, e.g. limited to XX bytes before the last
+    /// sequentially read position. The returned offset and count can be affected - see <see cref="IOResult"/>.</description></item>
+    /// <item><description>If the result has <c>Count == 0</c>, then the returned offset will indicate the nearest offset
+    /// to the request offset that still contains data.</description></item>
     /// </list></remarks>
     IOResult Read(byte[] buffer, int start, int count, long sourceOffset);
   }
@@ -94,10 +94,10 @@ namespace KdSoft.StreamUtils
     /// <param name="options">Task creation options to use.</param>
     /// <returns>Scheduled task instance that can be waited on (never <c>null</c>). Task result contains <see cref="IOResult"/> details.</returns>
     /// <remarks><list type="bullet">
-    /// <item>Implementation may limit the range of positions to read from, e.g. limited to XX bytes before the last
-    /// sequentially read position. The returned offset and count can be affected - see <see cref="IOResult"/>.</item>
-    /// <item>If the result has <c>Count == 0</c>, then the returned offset will indicate the nearest offset
-    /// to the request offset that still contains data.</item>
+    /// <item><description>Implementation may limit the range of positions to read from, e.g. limited to XX bytes before the last
+    /// sequentially read position. The returned offset and count can be affected - see <see cref="IOResult"/>.</description></item>
+    /// <item><description>If the result has <c>Count == 0</c>, then the returned offset will indicate the nearest offset
+    /// to the request offset that still contains data.</description></item>
     /// </list></remarks>
     Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options);
   }

@@ -18,15 +18,15 @@ namespace KdSoft.Serialization.Buffer
   /// that uses a byte buffer as serialization/deserialization target.
   /// </summary>
   /// <remarks><list type="bullet">
-  /// <item>The cooperating descendants of <see cref="ValueField{T}"/> and
+  /// <item><description>The cooperating descendants of <see cref="ValueField{T}"/> and
   ///   <see cref="ReferenceField{T}"/> are designed to generate serialized representations
-  ///   that can be used for lexical sorting.</item>
-  /// <item>The serialization API exposed by <see cref="Formatter{F}"/> is not sufficent by itself,
+  ///   that can be used for lexical sorting.</description></item>
+  /// <item><description>The serialization API exposed by <see cref="Formatter{F}"/> is not sufficent by itself,
   ///   as it contains no notion of the serialization medium - e.g. a stream or buffer.
   ///   Any implementation of this API has to add medium related methods. In this case
   ///   the methods are <see cref="InitSerialization(byte[], int)"/>, <see cref="FinishSerialization()"/>,
   ///   <see cref="InitDeserialization(byte[], int)"/> and <see cref="FinishDeserialization()"/>.
-  ///   Check the example for how they are used.</item>
+  ///   Check the example for how they are used.</description></item>
   /// </list></remarks>
   /// <example>Basic usage of byte buffer oriented serialization:
   /// <code>

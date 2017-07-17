@@ -211,9 +211,9 @@ namespace KdSoft.StreamUtils
     /// Task result contains <see cref="IOResult"/> details.
     /// </returns>
     /// <remarks><list type="bullet">
-    /// 	<item>If the concurrency level exceeds the maximum, this method will not block but return the new concurrency level.</item>
-    /// 	<item>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></item>
-    /// 	<item>However, in this implementation a read task will wait until it can read all requested data, except when it is the end of data.</item>
+    /// 	<item><description>If the concurrency level exceeds the maximum, this method will not block but return the new concurrency level.</description></item>
+    /// 	<item><description>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></description></item>
+    /// 	<item><description>However, in this implementation a read task will wait until it can read all requested data, except when it is the end of data.</description></item>
     /// </list></remarks>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
       TaskCompletionSource<IOResult> taskSource = null;
@@ -320,9 +320,9 @@ namespace KdSoft.StreamUtils
     /// Scheduled task instance that can be waited on (never <c>null</c>). Task result contains <see cref="IOResult"/> details.
     /// </returns>
     /// <remarks><list type="bullet">
-    /// 		<item>If the concurrency level exceeds the maximum, this method will not block but just return the new concurrency level.</item>
-    /// 		<item>Implementation may limit the range of positions to read from, e.g. limited to XX bytes before the last
-    /// sequentially read position. The returned offset and count can be affected - see <see cref="IOResult"/>.</item>
+    /// 		<item><description>If the concurrency level exceeds the maximum, this method will not block but just return the new concurrency level.</description></item>
+    /// 		<item><description>Implementation may limit the range of positions to read from, e.g. limited to XX bytes before the last
+    /// sequentially read position. The returned offset and count can be affected - see <see cref="IOResult"/>.</description></item>
     /// 	</list></remarks>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options) {
       var taskSource = new TaskCompletionSource<IOResult>(options);

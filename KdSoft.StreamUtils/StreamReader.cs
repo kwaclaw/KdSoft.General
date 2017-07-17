@@ -35,8 +35,8 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>The correctness of operations relies on the stream position not being modified
-  /// outside of this <see cref="SerialStreamReader{T}"/> instance.</item>
+  /// <item><description>The correctness of operations relies on the stream position not being modified
+  /// outside of this <see cref="SerialStreamReader{T}"/> instance.</description></item>
   /// </list></remarks>
   public class SerialStreamReader<T> : StreamReader<T>, ISerialReader where T : Stream
   {
@@ -79,8 +79,8 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>The correctness of operations relies on the stream position not being modified
-  /// outside of this <see cref="SerialAsyncStreamReader{T}"/> instance.</item>
+  /// <item><description>The correctness of operations relies on the stream position not being modified
+  /// outside of this <see cref="SerialAsyncStreamReader{T}"/> instance.</description></item>
   /// </list></remarks>
   public class SerialAsyncStreamReader<T>: StreamReader<T>, ISerialAsyncReader where T : Stream
   {
@@ -128,8 +128,8 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
-  /// so that it can be used concurrently with a <see cref="SerialStreamReader{T}"/> instance on the same underlying stream.</item>
+  /// <item><description>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
+  /// so that it can be used concurrently with a <see cref="SerialStreamReader{T}"/> instance on the same underlying stream.</description></item>
   /// </list></remarks>
   public class RandomStreamReader<T> : StreamReader<T>, IRandomReader where T : Stream
   {
@@ -176,8 +176,8 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
-  /// so that it can be used concurrently with a <see cref="SerialAsyncStreamReader{T}"/> instance on the same underlying stream.</item>
+  /// <item><description>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
+  /// so that it can be used concurrently with a <see cref="SerialAsyncStreamReader{T}"/> instance on the same underlying stream.</description></item>
   /// </list></remarks>
   public class RandomAsyncStreamReader<T> : StreamReader<T>, IRandomAsyncReader where T : Stream
   {

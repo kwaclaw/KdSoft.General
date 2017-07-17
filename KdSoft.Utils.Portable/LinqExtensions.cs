@@ -32,22 +32,22 @@ namespace KdSoft.Utils
     /// <remarks>
     ///     Depending on which selectors are <c>null</c>, certain types of set operations or joins can be achieved:
     ///     <list type="bullet">
-    ///         <item>All selectors are <c>!= null</c>: Set Union, returns result elements
+    ///         <item><description>All selectors are <c>!= null</c>: Set Union, returns result elements
     ///             for all elements from both sets, in sorted order. This can also be considered 
-    ///             a full outer join (with the restriction that the sort has no duplicates).</item>
-    ///         <item><c>outerSelector != null (other selectors are null)</c>: Set Difference, returns result
-    ///             elements for all those elements in outer that do not have a matching an element in inner.</item>
-    ///         <item><c>outerSelector != null &amp;&amp; matchSelector != null</c>: Left Outer Join, returns
-    ///             result elements for all elements in outer, but only for matching elements in inner.</item>
-    ///         <item><c>innerSelector != null (other selectors are null)</c>: Set difference, returns
-    ///             result elements for all those elements in inner that do not have a matching element in outer.</item>
-    ///         <item><c>innerSelector != null &amp;&amp; matchSelector != null</c>: Right Outer Join, returns
-    ///             result elements for all elements in inner, but only for matching elements in outer.</item>
-    ///         <item><c>matchSelector != null (other selectors are null)</c>: Set Intersection,
+    ///             a full outer join (with the restriction that the sort has no duplicates).</description></item>
+    ///         <item><description><c>outerSelector != null (other selectors are null)</c>: Set Difference, returns result
+    ///             elements for all those elements in outer that do not have a matching an element in inner.</description></item>
+    ///         <item><description><c>outerSelector != null &amp;&amp; matchSelector != null</c>: Left Outer Join, returns
+    ///             result elements for all elements in outer, but only for matching elements in inner.</description></item>
+    ///         <item><description><c>innerSelector != null (other selectors are null)</c>: Set difference, returns
+    ///             result elements for all those elements in inner that do not have a matching element in outer.</description></item>
+    ///         <item><description><c>innerSelector != null &amp;&amp; matchSelector != null</c>: Right Outer Join, returns
+    ///             result elements for all elements in inner, but only for matching elements in outer.</description></item>
+    ///         <item><description><c>matchSelector != null (other selectors are null)</c>: Set Intersection,
     ///             returns result elements only for matching elements in outer and inner.
-    ///             This can also be considered an inner join (but without duplicates).</item>
-    ///         <item><c>matchSelector == null (other selectors are not null)</c>: Symmetric Difference,
-    ///             opposite of intersection, returns result elements only for unmatched elements.</item>
+    ///             This can also be considered an inner join (but without duplicates).</description></item>
+    ///         <item><description><c>matchSelector == null (other selectors are not null)</c>: Symmetric Difference,
+    ///             opposite of intersection, returns result elements only for unmatched elements.</description></item>
     ///     </list>
     /// </remarks>
     public static IEnumerable<TResult> SortedMerge<TOuter, TInner, TResult>(

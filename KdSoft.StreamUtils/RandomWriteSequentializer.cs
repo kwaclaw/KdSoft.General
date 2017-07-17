@@ -9,11 +9,11 @@ namespace KdSoft.StreamUtils
   /// This is achieved by buffering and re-ordering them into a sorted set.
   /// </summary>
   /// <remarks><list type="">
-  /// <item>Thread-safe. Outgoing writes will be ordered and never run concurrently.</item>
-  /// <item>Writes may overlap, but the overlapping portions of data will not be written to the target.</item>
-  /// <item>This implementation will complete itself automatically after <see cref="EndWrite"/> was called once
+  /// <item><description>Thread-safe. Outgoing writes will be ordered and never run concurrently.</description></item>
+  /// <item><description>Writes may overlap, but the overlapping portions of data will not be written to the target.</description></item>
+  /// <item><description>This implementation will complete itself automatically after <see cref="EndWrite"/> was called once
   /// there are no more pending write requests. It will not be necessary to call <see cref="SetComplete"/>, and if
-  /// it is called with <c>abort == false</c> before all write requests are satisfied, an exception will be thrown.</item>
+  /// it is called with <c>abort == false</c> before all write requests are satisfied, an exception will be thrown.</description></item>
   /// </list></remarks>
   public class RandomWriteSequentializer : IRandomWriter
   {

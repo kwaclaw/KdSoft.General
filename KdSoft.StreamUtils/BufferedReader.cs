@@ -77,9 +77,9 @@ namespace KdSoft.StreamUtils
     /// Occurs when a random *asynchronous* read request cannot fully be satisfied from the buffer.
     /// </summary>
     /// <remarks>><list type="bullet">
-    ///   <item>Random *synchronous* read requests will never call this handler.</item>
-    ///   <item>This class will pass any task faults returned from the event handler to the
-    ///   <see cref="ReadAsync">originating random read request</see></item>.
+    ///   <item><description>Random *synchronous* read requests will never call this handler.</description></item>
+    ///   <item><description>This class will pass any task faults returned from the event handler to the
+    ///   <see cref="ReadAsync">originating random read request</see></description></item>.
     /// </list></remarks>
     public RandomDataRequestHandler RandomDataRequested { get; set; }
 
@@ -304,10 +304,10 @@ namespace KdSoft.StreamUtils
     /// Task result contains <see cref="IOResult"/> details.
     /// </returns>
     /// <remarks><list type="bullet">
-    ///   <item>This implementation will actually run synchronously.</item>
-    ///   <item>If the task result returns a count of <c>0</c>, but does not indicate the end of data, then this means
-    ///   that currently the buffer is exhausted, but more data may be available in the future.</item>
-    ///   <item>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></item>
+    ///   <item><description>This implementation will actually run synchronously.</description></item>
+    ///   <item><description>If the task result returns a count of <c>0</c>, but does not indicate the end of data, then this means
+    ///   that currently the buffer is exhausted, but more data may be available in the future.</description></item>
+    ///   <item><description>If the returned count is less than requested this does not mean that the end of the data was reached - see <see cref="IOResult"/></description></item>
     /// </list></remarks>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
       TaskCompletionSource<IOResult> taskSource = null;
@@ -345,11 +345,11 @@ namespace KdSoft.StreamUtils
     /// Scheduled task instance that can be waited on (never <c>null</c>). Task result contains <see cref="IOResult"/> details.
     /// </returns>
     /// <remarks><list type="bullet">
-    ///   <item>This implementation will run synchronously when all the requested data is available from the buffer. If some of the data
-    ///   are not in the buffer (anymore), it will delegate the request to the asynchronous <see cref="RandomDataRequested"/> handler.</item>
-    /// 	<item>If no <see cref="RandomDataRequested"/> handler is set, then the implementation will limit the range of positions to read from,
-    /// 	based on the amount of buffered data. The returned offset and count can be affected - see <see cref="IOResult"/>.</item>
-    /// 	<item>Serial data request errors are ignored, but errors in the <see cref="RandomDataRequested"/> handler are passed to the caller.</item>
+    ///   <item><description>This implementation will run synchronously when all the requested data is available from the buffer. If some of the data
+    ///   are not in the buffer (anymore), it will delegate the request to the asynchronous <see cref="RandomDataRequested"/> handler.</description></item>
+    /// 	<item><description>If no <see cref="RandomDataRequested"/> handler is set, then the implementation will limit the range of positions to read from,
+    /// 	based on the amount of buffered data. The returned offset and count can be affected - see <see cref="IOResult"/>.</description></item>
+    /// 	<item><description>Serial data request errors are ignored, but errors in the <see cref="RandomDataRequested"/> handler are passed to the caller.</description></item>
     /// </list></remarks>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options) {
       try {

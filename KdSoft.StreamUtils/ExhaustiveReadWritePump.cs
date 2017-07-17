@@ -102,9 +102,9 @@ namespace KdSoft.StreamUtils
     /// <returns>Task instance that can be waited on, or <c>null</c> if already in a completed state. The task result
     /// indicates if the more data are available (<c>true</c>) or if the end of data was reached (<c>false</c>).</returns>
     /// <remarks><list type="bullet">
-    ///   <item>This is useful for reading from a buffer that could be temporarily exhausted.</item>
-    ///   <item>The behaviour might be unpredictable if pump tasks are executing concurrently, it is best
-    ///   to wait for the previous PumpData task's completion before calling PumpData again.</item>
+    ///   <item><description>This is useful for reading from a buffer that could be temporarily exhausted.</description></item>
+    ///   <item><description>The behaviour might be unpredictable if pump tasks are executing concurrently, it is best
+    ///   to wait for the previous PumpData task's completion before calling PumpData again.</description></item>
     /// </list></remarks>
     public Task<bool> PumpData(TaskCreationOptions options, bool waitForWrites) {
       if (IsComplete)

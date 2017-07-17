@@ -82,7 +82,7 @@ namespace KdSoft.StreamUtils
     /// <returns>Scheduled task instance that can be waited on, or <c>null</c> if in a completed state - usually if
     /// <see cref="FinalWriteAsync"/>  was  called already. Task result contains <see cref="IOResult"/> details.</returns>
     /// <remarks><list type="bullet">
-    /// <item>Implementation may limit write capacity, the returned count can be affected - see <see cref="IOResult"/>.</item>
+    /// <item><description>Implementation may limit write capacity, the returned count can be affected - see <see cref="IOResult"/>.</description></item>
     /// </list></remarks>
     Task<IOResult> WriteAsync(byte[] buffer, int start, int count, TaskCreationOptions options);
 
@@ -115,10 +115,10 @@ namespace KdSoft.StreamUtils
     /// <param name="targetOffset">Position in underlying entity to start writing to.</param>
     /// <returns><c>true</c> if call was successful, <c>false</c> if call was redundant.</returns>
     /// <remarks><list type="bullet">
-    /// <item>Writing beyond the end boundaries of the writable range may result in error, this is left to the implementation.
-    /// The end of the range is only known after <see cref="EndWrite"/> was called.</item>
-    /// <item>The implementation may decide to consider the data complete once all data in the range was written at least once,
-    /// and then do nothing for subsequent write requests.</item>
+    /// <item><description>Writing beyond the end boundaries of the writable range may result in error, this is left to the implementation.
+    /// The end of the range is only known after <see cref="EndWrite"/> was called.</description></item>
+    /// <item><description>The implementation may decide to consider the data complete once all data in the range was written at least once,
+    /// and then do nothing for subsequent write requests.</description></item>
     /// </list></remarks>
     bool Write(byte[] buffer, int start, int count, long targetOffset);
 
@@ -131,12 +131,12 @@ namespace KdSoft.StreamUtils
     /// <param name="targetOffset">Position in underlying entity to start writing to.</param>
     /// <returns><c>true</c> if call was successful, <c>false</c> if already in a completed state.</returns>
     /// <remarks><list type="bullet">
-    /// <item>This can be called at any time, that is, even before other writes have been performed.</item>
-    /// <item>If the data stream already extends beyond the end position (targetOffset + count) then
+    /// <item><description>This can be called at any time, that is, even before other writes have been performed.</description></item>
+    /// <item><description>If the data stream already extends beyond the end position (targetOffset + count) then
     /// the implementation may, but does not have to, throw an exception. If it does not throw, then
-    /// the data stream will be truncated at the end position.</item>
-    /// <item>If the completed state was reached by calling <see cref="ISerialWriter.FinalWrite"/>  on the same
-    /// underlying entity, then this may do nothing  - and return <c>false</c> - even on the first call.</item>
+    /// the data stream will be truncated at the end position.</description></item>
+    /// <item><description>If the completed state was reached by calling <see cref="ISerialWriter.FinalWrite"/>  on the same
+    /// underlying entity, then this may do nothing  - and return <c>false</c> - even on the first call.</description></item>
     /// </list></remarks>
     bool EndWrite(byte[] buffer, int start, int count, long targetOffset);
 
@@ -166,10 +166,10 @@ namespace KdSoft.StreamUtils
     /// <param name="options">Task creation options to use.</param>
     /// <returns>Scheduled task instance that can be waited on, or <c>null</c> if in a completed state.</returns>
     /// <remarks><list type="bullet">
-    /// <item>Writing beyond the end boundaries of the writable range may result in error, this is left to the implementation.
-    /// The end of the range is only known after <see cref="EndWriteAsync"/> was called.</item>
-    /// <item>The implementation may decide to consider the data complete once all data in the range was written at least once,
-    /// and then return <c>null</c> for subsequent write requests.</item>
+    /// <item><description>Writing beyond the end boundaries of the writable range may result in error, this is left to the implementation.
+    /// The end of the range is only known after <see cref="EndWriteAsync"/> was called.</description></item>
+    /// <item><description>The implementation may decide to consider the data complete once all data in the range was written at least once,
+    /// and then return <c>null</c> for subsequent write requests.</description></item>
     /// </list></remarks>
     Task WriteAsync(byte[] buffer, int start, int count, long targetOffset, TaskCreationOptions options);
 
@@ -183,12 +183,12 @@ namespace KdSoft.StreamUtils
     /// <param name="options">Task creation options to use.</param>
     /// <returns>Scheduled task instance that can be waited on, or <c>null</c> if in a completed state.</returns>
     /// <remarks><list type="bullet">
-    /// <item>This can be called at any time, that is, even before other writes have been performed.</item>
-    /// <item>If the data stream already extends beyond the end position (targetOffset + count) then
+    /// <item><description>This can be called at any time, that is, even before other writes have been performed.</description></item>
+    /// <item><description>If the data stream already extends beyond the end position (targetOffset + count) then
     /// the implementation may, but does not have to, throw an exception. If it does not throw, then
-    /// the data stream will be truncated at the end position.</item>
-    /// <item>If the completed state was reached by calling <see cref="ISerialAsyncWriter.FinalWriteAsync"/>  on the same
-    /// underlying entity, then this may return <c>null</c> even on the first call.</item>
+    /// the data stream will be truncated at the end position.</description></item>
+    /// <item><description>If the completed state was reached by calling <see cref="ISerialAsyncWriter.FinalWriteAsync"/>  on the same
+    /// underlying entity, then this may return <c>null</c> even on the first call.</description></item>
     /// </list></remarks>
     Task EndWriteAsync(byte[] buffer, int start, int count, long targetOffset, TaskCreationOptions options);
 

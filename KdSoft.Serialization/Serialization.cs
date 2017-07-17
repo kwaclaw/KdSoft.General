@@ -204,14 +204,14 @@ namespace KdSoft.Serialization
     /// </summary>
     /// <remarks>There are several restrictions to consider:
     /// <list type="bullet">
-    /// <item>One must not skip a member which is referenced in the part of
+    /// <item><description>One must not skip a member which is referenced in the part of
     ///   the graph that needs to be deserialized, as the object reference would not
     ///   be matched to a deserialized object. This might throw an invalid cast
-    ///   exception when deserializing the rest, or worse, return with no error.</item>
-    /// <item>A sequence (serialized array or collection) counts as one field, that
-    ///   is, it is not possible to skip into the middle of a sequence.</item>
-    /// <item>Call <c>SkipMembers</c> only for the root object, and only once
-    ///   for a given deserialization.</item>
+    ///   exception when deserializing the rest, or worse, return with no error.</description></item>
+    /// <item><description>A sequence (serialized array or collection) counts as one field, that
+    ///   is, it is not possible to skip into the middle of a sequence.</description></item>
+    /// <item><description>Call <c>SkipMembers</c> only for the root object, and only once
+    ///   for a given deserialization.</description></item>
     /// </list>
     /// </remarks>
     /// <example>How to determine the path to a given member of a child object is best

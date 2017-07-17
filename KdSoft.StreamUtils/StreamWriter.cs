@@ -49,8 +49,8 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>The correctness of operations relies on the stream position not being modified
-  /// outside of this <see cref="SerialStreamWriter{T}"/> instance.</item>
+  /// <item><description>The correctness of operations relies on the stream position not being modified
+  /// outside of this <see cref="SerialStreamWriter{T}"/> instance.</description></item>
   /// </list></remarks>
   public class SerialStreamWriter<T> : StreamWriter<T>, ISerialWriter where T : Stream
   {
@@ -92,8 +92,8 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>The correctness of operations relies on the stream position not being modified
-  /// outside of this <see cref="SerialAsyncStreamWriter{T}"/> instance.</item>
+  /// <item><description>The correctness of operations relies on the stream position not being modified
+  /// outside of this <see cref="SerialAsyncStreamWriter{T}"/> instance.</description></item>
   /// </list></remarks>
   public class SerialAsyncStreamWriter<T> : StreamWriter<T>, ISerialAsyncWriter where T : Stream
   {
@@ -158,9 +158,9 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
-  /// so that it can be used concurrently with a <see cref="SerialStreamWriter{T}"/> instance on the same underlying stream.</item>
-  /// <item>This implementations allows multiple writes to the same range in the target stream.</item>
+  /// <item><description>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
+  /// so that it can be used concurrently with a <see cref="SerialStreamWriter{T}"/> instance on the same underlying stream.</description></item>
+  /// <item><description>This implementations allows multiple writes to the same range in the target stream.</description></item>
   /// </list></remarks>
   public class RandomStreamWriter<T> : StreamWriter<T>, IRandomWriter where T : Stream 
   {
@@ -256,9 +256,9 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>><list type="bullet">
-  /// <item>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
-  /// so that it can be used concurrently with a <see cref="SerialAsyncStreamWriter{T}"/> instance on the same underlying stream.</item>
-  /// <item>This implementations allows multiple writes to the same range in the target stream.</item>
+  /// <item><description>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
+  /// so that it can be used concurrently with a <see cref="SerialAsyncStreamWriter{T}"/> instance on the same underlying stream.</description></item>
+  /// <item><description>This implementations allows multiple writes to the same range in the target stream.</description></item>
   /// </list></remarks>
   public class RandomAsyncStreamWriter<T> : StreamWriter<T>, IRandomAsyncWriter, IDisposable where T : Stream
   {
