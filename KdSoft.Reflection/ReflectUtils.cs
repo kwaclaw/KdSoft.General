@@ -36,7 +36,7 @@ namespace KdSoft.Reflection
         }
 
         /// <summary>
-        /// Finds assemblies in the <see cref="DependencyContext"/> of an assmebly, given an assembly "simple name".
+        /// Finds assemblies in the <see cref="DependencyContext"/> of an assembly, given an assembly "simple name".
         /// The comparison is not case-sensitive.
         /// </summary>
         /// <param name="deps">DependencyContext to search.</param>
