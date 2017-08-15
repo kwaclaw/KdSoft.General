@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.DotNet.PlatformAbstractions;
 #if !COREFX
 using System.Security;
 using System.Security.Permissions;
@@ -44,11 +45,9 @@ namespace KdSoft.Reflection
         /// <returns>List of <see cref="AssemblyName"/> instances.</returns>
         public static IList<AssemblyName> FindAssemblies(this DependencyContext deps, string matchName) {
             var result = new List<AssemblyName>();
-            foreach (var lib in deps.RuntimeLibraries) {
-                foreach (var runtimeLib in lib.Assemblies) {
-                    if (string.Compare(runtimeLib.Name.Name, matchName, StringComparison.OrdinalIgnoreCase) == 0) {
-                        result.Add(runtimeLib.Name);
-                    }
+            foreach (var assName in deps.GetRuntimeAssemblyNames(RuntimeEnvironment.GetRuntimeIdentifier())) {
+                if (string.Compare(assName.Name, matchName, StringComparison.OrdinalIgnoreCase) == 0) {
+                    result.Add(assName);
                 }
             }
             return result;

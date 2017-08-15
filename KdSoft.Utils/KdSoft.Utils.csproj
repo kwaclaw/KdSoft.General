@@ -4,7 +4,7 @@
     <Description>KdSoft.Utils Class Library</Description>
     <VersionPrefix>2.0.3</VersionPrefix>
     <Authors>Karl Waclawek</Authors>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
