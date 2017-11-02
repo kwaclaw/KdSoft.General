@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ConfigUtil
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ConfigUtil
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Config.ConfigUtil">
+  
+  
+  <h1 id="KdSoft_Config_ConfigUtil" data-uid="KdSoft.Config.ConfigUtil" class="text-break">Class ConfigUtil
+  </h1>
+  <div class="markdown level0 summary"><p>Configurator helper routines.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ConfigUtil</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Config.html">KdSoft.Config</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.CodeConfig.dll</h6>
+  <h5 id="KdSoft_Config_ConfigUtil_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[PermissionSet(SecurityAction.Assert, Unrestricted = true)]
+public static class ConfigUtil</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_Config_ConfigUtil_CheckConfigurator_" data-uid="KdSoft.Config.ConfigUtil.CheckConfigurator*"></a>
+  <h4 id="KdSoft_Config_ConfigUtil_CheckConfigurator__1_System_String_System_Boolean_System_Boolean_" data-uid="KdSoft.Config.ConfigUtil.CheckConfigurator``1(System.String,System.Boolean,System.Boolean)">CheckConfigurator&lt;T&gt;(String, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Supports configuration update and re-compile logic (in current AppDomain) by recompiling
+the configuration assembly if a matching source file is present (optional deletion of source file).
+If no source file is found, an already existing configuration assembly will be loaded.
+If no configuration assembly can be found, the behaviour depends on the &apos;throwIfMissing&apos; parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IConfigurator&lt;T&gt; CheckConfigurator&lt;T&gt;(string assemblyName, bool throwIfMissing, bool deleteCs)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">assemblyName</span></td>
+        <td><p>Configuration assembly simple name. No extension!</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">throwIfMissing</span></td>
+        <td><p>Indicates if a missing configuration assembly should trigger an exception,
+or if the method should simply return <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">deleteCs</span></td>
+        <td><p>Indicates if the configuration source file (if present) should be deleted.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator</a>&lt;T&gt;</td>
+        <td><p>Configurator instance as <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a> interface, or <code>null</code> if no
+configuration assembly was found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type to configure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Config_ConfigUtil_GetConfigurator_" data-uid="KdSoft.Config.ConfigUtil.GetConfigurator*"></a>
+  <h4 id="KdSoft_Config_ConfigUtil_GetConfigurator__1_System_AppDomain_System_Reflection_AssemblyName_" data-uid="KdSoft.Config.ConfigUtil.GetConfigurator``1(System.AppDomain,System.Reflection.AssemblyName)">GetConfigurator&lt;T&gt;(AppDomain, AssemblyName)</h4>
+  <div class="markdown level1 summary"><p>Instantiates a configurator class in the specified <span class="xref">System.AppDomain</span> for the given class type <code>T</code>.
+Looks for the first class in the given assembly that implements <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[SecurityCritical]
+public static IConfigurator&lt;T&gt; GetConfigurator&lt;T&gt;(AppDomain domain, AssemblyName assemblyName)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.AppDomain</span></td>
+        <td><span class="parametername">domain</span></td>
+        <td><p><span class="xref">System.AppDomain</span> into which to load the assembly.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Reflection.AssemblyName</span></td>
+        <td><span class="parametername">assemblyName</span></td>
+        <td><p>Name for assembly to load.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator</a>&lt;T&gt;</td>
+        <td><p>Configurator instance as <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a> interface.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type for which to load configurator - parameter for <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Config_ConfigUtil_GetConfigurator__1_System_AppDomain_System_Reflection_AssemblyName__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the application domain is not the current domain, then the configurator class should be
+accessible across domains, e.g. by being serializable, or by deriving from <span class="xref">System.MarshalByRefObject</span>.</p>
+</div>
+  
+  
+  <a id="KdSoft_Config_ConfigUtil_GetConfigurator_" data-uid="KdSoft.Config.ConfigUtil.GetConfigurator*"></a>
+  <h4 id="KdSoft_Config_ConfigUtil_GetConfigurator__1_System_Reflection_Assembly_" data-uid="KdSoft.Config.ConfigUtil.GetConfigurator``1(System.Reflection.Assembly)">GetConfigurator&lt;T&gt;(Assembly)</h4>
+  <div class="markdown level1 summary"><p>Instantiates a configurator class for the given class type <code>T</code>. Looks for
+the first class in the given assembly that implements <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IConfigurator&lt;T&gt; GetConfigurator&lt;T&gt;(Assembly configAssembly)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.Assembly</span></td>
+        <td><span class="parametername">configAssembly</span></td>
+        <td><p>Assembly to load configurator from.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator</a>&lt;T&gt;</td>
+        <td><p>Configurator instance as <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a> interface.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type for which to load configurator - parameter for <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Config_ConfigUtil_GetConfigurator_" data-uid="KdSoft.Config.ConfigUtil.GetConfigurator*"></a>
+  <h4 id="KdSoft_Config_ConfigUtil_GetConfigurator__1_System_String_System_String_System_String_System_Boolean_" data-uid="KdSoft.Config.ConfigUtil.GetConfigurator``1(System.String,System.String,System.String,System.Boolean)">GetConfigurator&lt;T&gt;(String, String, String, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Compiles a given source file (C#) into an assembly and instantiates a configurator class in
+that assembly for type T. Looks for the first class that implements <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[SecurityCritical]
+public static IConfigurator&lt;T&gt; GetConfigurator&lt;T&gt;(string baseDir, string configFileCs, string outFileDll, bool deleteCs)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">baseDir</span></td>
+        <td><p>Base directory where source and referenced files are located.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">configFileCs</span></td>
+        <td><p>Source file for generating assembly that contains the configurator class.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">outFileDll</span></td>
+        <td><p>File name for assembly to be generated. Can be null or empty.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">deleteCs</span></td>
+        <td><p>Indicates if source file should be deleted after successful compilation.
+   If <code>false</code>, then file will be renamed by adding the extension &quot;.loaded&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator</a>&lt;T&gt;</td>
+        <td><p>Configurator instance as <a class="xref" href="KdSoft.Config.IConfigurator-1.html">IConfigurator&lt;T&gt;</a> interface, or <code>null</code> if source file cannot be found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Config_ConfigUtil_GetConfigurator__1_System_String_System_String_System_String_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When the compilation fails, error information will be written to a new file with the name of
+  the source file and the extension &quot;.error&quot;.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

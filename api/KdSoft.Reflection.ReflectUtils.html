@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ReflectUtils
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ReflectUtils
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Reflection.ReflectUtils">
+  
+  
+  <h1 id="KdSoft_Reflection_ReflectUtils" data-uid="KdSoft.Reflection.ReflectUtils" class="text-break">Class ReflectUtils
+  </h1>
+  <div class="markdown level0 summary"><p>Reflection helper routines.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ReflectUtils</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Reflection.html">KdSoft.Reflection</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.Reflection.dll</h6>
+  <h5 id="KdSoft_Reflection_ReflectUtils_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[PermissionSet(SecurityAction.Assert, Unrestricted = true)]
+public static class ReflectUtils</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_AddStrongNames_" data-uid="KdSoft.Reflection.ReflectUtils.AddStrongNames*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_AddStrongNames_System_Reflection_Assembly_System_Boolean_System_Collections_Generic_HashSet_System_Security_Policy_StrongName__" data-uid="KdSoft.Reflection.ReflectUtils.AddStrongNames(System.Reflection.Assembly,System.Boolean,System.Collections.Generic.HashSet{System.Security.Policy.StrongName})">AddStrongNames(Assembly, Boolean, HashSet&lt;StrongName&gt;)</h4>
+  <div class="markdown level1 summary"><p>Gets all strong names for an assembly and its referenced assemblies and adds them
+to an existing array. Does not include assemblies not loaded (yet), unless <code>load</code> is true;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddStrongNames(this Assembly assembly, bool load, HashSet&lt;StrongName&gt; strongNames)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.Assembly</span></td>
+        <td><span class="parametername">assembly</span></td>
+        <td><p>Strong named assembly. <em>Not</em> checked if really strong named!</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">load</span></td>
+        <td><p>If <code>true</code> forces loading of assembly.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.HashSet</span>&lt;<span class="xref">System.Security.Policy.StrongName</span>&gt;</td>
+        <td><span class="parametername">strongNames</span></td>
+        <td><p>Array of strong names to which to append the result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_ExtractSimpleName_" data-uid="KdSoft.Reflection.ReflectUtils.ExtractSimpleName*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_ExtractSimpleName_System_String_" data-uid="KdSoft.Reflection.ReflectUtils.ExtractSimpleName(System.String)">ExtractSimpleName(String)</h4>
+  <div class="markdown level1 summary"><p>Extracts the simple assembly name from an assembly&apos;s display name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ExtractSimpleName(string assemblyDisplayName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">assemblyDisplayName</span></td>
+        <td><p>Assembly display name to extract from.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Extracted simple name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_FindAssemblies_" data-uid="KdSoft.Reflection.ReflectUtils.FindAssemblies*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_FindAssemblies_Microsoft_Extensions_DependencyModel_DependencyContext_System_String_" data-uid="KdSoft.Reflection.ReflectUtils.FindAssemblies(Microsoft.Extensions.DependencyModel.DependencyContext,System.String)">FindAssemblies(DependencyContext, String)</h4>
+  <div class="markdown level1 summary"><p>Finds assemblies in the <span class="xref">Microsoft.Extensions.DependencyModel.DependencyContext</span> of an assembly, given an assembly &quot;simple name&quot;.
+The comparison is not case-sensitive.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IList&lt;AssemblyName&gt; FindAssemblies(this DependencyContext deps, string matchName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.DependencyModel.DependencyContext</span></td>
+        <td><span class="parametername">deps</span></td>
+        <td><p>DependencyContext to search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">matchName</span></td>
+        <td><p>Simple name of the assembly, to match against.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<span class="xref">System.Reflection.AssemblyName</span>&gt;</td>
+        <td><p>List of <span class="xref">System.Reflection.AssemblyName</span> instances.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_FindAssembly_" data-uid="KdSoft.Reflection.ReflectUtils.FindAssembly*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_FindAssembly_System_AppDomain_System_Reflection_AssemblyName_" data-uid="KdSoft.Reflection.ReflectUtils.FindAssembly(System.AppDomain,System.Reflection.AssemblyName)">FindAssembly(AppDomain, AssemblyName)</h4>
+  <div class="markdown level1 summary"><p>Finds assembly loaded into AppDomain&apos;s Execution context given a full or partial assembly name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Assembly FindAssembly(this AppDomain domain, AssemblyName matchName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.AppDomain</span></td>
+        <td><span class="parametername">domain</span></td>
+        <td><p>AppDomain to search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Reflection.AssemblyName</span></td>
+        <td><span class="parametername">matchName</span></td>
+        <td><p>Name to match against loaded assemblies.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.Assembly</span></td>
+        <td><p>Matching assembly or <code>null</code>, if not found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_FindAssembly_" data-uid="KdSoft.Reflection.ReflectUtils.FindAssembly*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_FindAssembly_System_AppDomain_System_Reflection_AssemblyName_System_Boolean_" data-uid="KdSoft.Reflection.ReflectUtils.FindAssembly(System.AppDomain,System.Reflection.AssemblyName,System.Boolean)">FindAssembly(AppDomain, AssemblyName, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Finds assembly loaded into AppDomain given a full or partial assembly name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Assembly FindAssembly(this AppDomain domain, AssemblyName matchName, bool reflectionOnly)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.AppDomain</span></td>
+        <td><span class="parametername">domain</span></td>
+        <td><p>AppDomain to search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Reflection.AssemblyName</span></td>
+        <td><span class="parametername">matchName</span></td>
+        <td><p>Name to match against loaded assemblies.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">reflectionOnly</span></td>
+        <td><p><code>true</code> if assemblies loaded into the ReflectionOnly context should be returned,
+<code>false</code> if assemblies loaded into the Execution context should be returned.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.Assembly</span></td>
+        <td><p>Matching assembly or <code>null</code>, if not found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_FindSubClasses_" data-uid="KdSoft.Reflection.ReflectUtils.FindSubClasses*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_FindSubClasses_System_Reflection_Assembly_System_Type_System_Boolean_" data-uid="KdSoft.Reflection.ReflectUtils.FindSubClasses(System.Reflection.Assembly,System.Type,System.Boolean)">FindSubClasses(Assembly, Type, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Finds all classes that derive from a given class or implement a given interface.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; FindSubClasses(this Assembly assembly, Type superType, bool publicOnly)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.Assembly</span></td>
+        <td><span class="parametername">assembly</span></td>
+        <td><p>Assembly to search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">superType</span></td>
+        <td><p>Super type to search for in classes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">publicOnly</span></td>
+        <td><p>Indicates if only public types should be searched.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>List of classes that derive from the given class or that implement the given interface.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_GetSingletonInstance_" data-uid="KdSoft.Reflection.ReflectUtils.GetSingletonInstance*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_GetSingletonInstance_System_Type_System_String_" data-uid="KdSoft.Reflection.ReflectUtils.GetSingletonInstance(System.Type,System.String)">GetSingletonInstance(Type, String)</h4>
+  <div class="markdown level1 summary"><p>Returns the singleton instance for a given class type, if it exists.
+The instance must be exposed through a public static property or field with the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object GetSingletonInstance(this Type type, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>Type to get singleton instance for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name for public static property or field. String comparison is <em>not</em> case sensitive.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>Singleton instance, or <code>null</code> if no matching property or field is found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_GetTypes_" data-uid="KdSoft.Reflection.ReflectUtils.GetTypes*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_GetTypes_System_Object___" data-uid="KdSoft.Reflection.ReflectUtils.GetTypes(System.Object[])">GetTypes(Object[])</h4>
+  <div class="markdown level1 summary"><p>Returns type objects for a given set of object instances. If an instance reference is <code>null</code>,
+the type <span class="xref">System.Object</span> is assumed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Type[] GetTypes(params object[] objs)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span>[]</td>
+        <td><span class="parametername">objs</span></td>
+        <td><p>Object instances to return types for. Can be <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><p>Array of <span class="xref">System.Type</span> instances, which can be empty, but will not be <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Reflection_ReflectUtils_ReflectionOnlyLoad_" data-uid="KdSoft.Reflection.ReflectUtils.ReflectionOnlyLoad*"></a>
+  <h4 id="KdSoft_Reflection_ReflectUtils_ReflectionOnlyLoad_System_String_System_String_" data-uid="KdSoft.Reflection.ReflectUtils.ReflectionOnlyLoad(System.String,System.String)">ReflectionOnlyLoad(String, String)</h4>
+  <div class="markdown level1 summary"><p>Loads assembly into reflection-only context from display name, and as fall-back uses an optional base Uri to construct a CodeBase.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Assembly ReflectionOnlyLoad(string name, string baseUri)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Assembly display name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">baseUri</span></td>
+        <td><p>Base Uri for resolving assembly code base. Can be <code>null</code> or empty.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.Assembly</span></td>
+        <td><p>Assembly loaded into reflection-only context</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Reflection_ReflectUtils_ReflectionOnlyLoad_System_String_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Gives preference to Codebase, but will try loading by display name if loading from CodeBase fails.
+Should not be used when a Codebase for the assembly is already available.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

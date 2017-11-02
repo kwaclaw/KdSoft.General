@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IRandomAsyncWriter
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IRandomAsyncWriter
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter">
+  
+  
+  <h1 id="KdSoft_StreamUtils_IRandomAsyncWriter" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter" class="text-break">Interface IRandomAsyncWriter
+  </h1>
+  <div class="markdown level0 summary"><p>Asynchronous interface for writing randomly to a data sink.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.StreamUtils.html">KdSoft.StreamUtils</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.StreamUtils.dll</h6>
+  <h5 id="KdSoft_StreamUtils_IRandomAsyncWriter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IRandomAsyncWriter : IWriter</code></pre>
+  </div>
+  <h5 id="KdSoft_StreamUtils_IRandomAsyncWriter_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Intended to completely fill the underlying data entity without gaps. The implementaion may,
+but does not have to, ignore parts of a write operation that would overlap with already written data.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_StreamUtils_IRandomAsyncWriter_EndWriteAsync_" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter.EndWriteAsync*"></a>
+  <h4 id="KdSoft_StreamUtils_IRandomAsyncWriter_EndWriteAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions_" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter.EndWriteAsync(System.Byte[],System.Int32,System.Int32,System.Int64,System.Threading.Tasks.TaskCreationOptions)">EndWriteAsync(Byte[], Int32, Int32, Int64, TaskCreationOptions)</h4>
+  <div class="markdown level1 summary"><p>Writes end buffer to the underlying data sink, thus determining the final size of the target data stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task EndWriteAsync(byte[] buffer, int start, int count, long targetOffset, TaskCreationOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer to write the data from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Position in buffer to start reading from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Number of bytes to write.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">targetOffset</span></td>
+        <td><p>Position in underlying entity to start writing to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.TaskCreationOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Task creation options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Scheduled task instance that can be waited on, or <code>null</code> if in a completed state.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_IRandomAsyncWriter_EndWriteAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><ul><li>This can be called at any time, that is, even before other writes have been performed.</li><li>If the data stream already extends beyond the end position (targetOffset + count) then
+    the implementation may, but does not have to, throw an exception. If it does not throw, then
+    the data stream will be truncated at the end position.</li><li>If the completed state was reached by calling <a class="xref" href="KdSoft.StreamUtils.ISerialAsyncWriter.html#KdSoft_StreamUtils_ISerialAsyncWriter_FinalWriteAsync_System_Byte___System_Int32_System_Int32_System_Threading_Tasks_TaskCreationOptions_">FinalWriteAsync(Byte[], Int32, Int32, TaskCreationOptions)</a>  on the same
+    underlying entity, then this may return <code>null</code> even on the first call.</li></ul></div>
+  
+  
+  <a id="KdSoft_StreamUtils_IRandomAsyncWriter_SetComplete_" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter.SetComplete*"></a>
+  <h4 id="KdSoft_StreamUtils_IRandomAsyncWriter_SetComplete_System_Boolean_System_Threading_Tasks_TaskCreationOptions_" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter.SetComplete(System.Boolean,System.Threading.Tasks.TaskCreationOptions)">SetComplete(Boolean, TaskCreationOptions)</h4>
+  <div class="markdown level1 summary"><p>Indicates that no more writes will be requested, and that the underlying entity can be processed.
+Will throw exception if <a class="xref" href="KdSoft.StreamUtils.IRandomAsyncWriter.html#KdSoft_StreamUtils_IRandomAsyncWriter_EndWriteAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions_">EndWriteAsync(Byte[], Int32, Int32, Int64, TaskCreationOptions)</a> has not been called yet, unless the abort flag is passed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task SetComplete(bool abort, TaskCreationOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">abort</span></td>
+        <td><p>Indicates that writing will be stopped, even if the stream is not in a valid state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.TaskCreationOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Task creation options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Task instance that can be waited on, or <code>null</code> if in a completed state.
+The task completes once all write tasks have finished.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_IRandomAsyncWriter_WriteAsync_" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter.WriteAsync*"></a>
+  <h4 id="KdSoft_StreamUtils_IRandomAsyncWriter_WriteAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions_" data-uid="KdSoft.StreamUtils.IRandomAsyncWriter.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Int64,System.Threading.Tasks.TaskCreationOptions)">WriteAsync(Byte[], Int32, Int32, Int64, TaskCreationOptions)</h4>
+  <div class="markdown level1 summary"><p>Writes buffer to the underlying data sink at a given offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task WriteAsync(byte[] buffer, int start, int count, long targetOffset, TaskCreationOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer to write the data from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Position in buffer to start reading from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Number of bytes to write.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">targetOffset</span></td>
+        <td><p>Position in underlying entity to start writing to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.TaskCreationOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Task creation options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Scheduled task instance that can be waited on, or <code>null</code> if in a completed state.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_IRandomAsyncWriter_WriteAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><ul><li>Writing beyond the end boundaries of the writable range may result in error, this is left to the implementation.
+    The end of the range is only known after <a class="xref" href="KdSoft.StreamUtils.IRandomAsyncWriter.html#KdSoft_StreamUtils_IRandomAsyncWriter_EndWriteAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions_">EndWriteAsync(Byte[], Int32, Int32, Int64, TaskCreationOptions)</a> was called.</li><li>The implementation may decide to consider the data complete once all data in the range was written at least once,
+    and then return <code>null</code> for subsequent write requests.</li></ul></div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValues_System_Object_">PropertyUtils.GetPropertyValues(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValue_System_Object_System_String_">PropertyUtils.GetPropertyValue(Object, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_SetPropertyValue_System_Object_System_String_System_Object_">PropertyUtils.SetPropertyValue(Object, String, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyPathValue_System_Object_System_String_">PropertyUtils.GetPropertyPathValue(Object, String)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

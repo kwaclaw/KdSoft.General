@@ -1,0 +1,704 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LinqExtensions
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LinqExtensions
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Utils.LinqExtensions">
+  
+  
+  <h1 id="KdSoft_Utils_LinqExtensions" data-uid="KdSoft.Utils.LinqExtensions" class="text-break">Class LinqExtensions
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">LinqExtensions</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Utils.html">KdSoft.Utils</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.Utils.Portable.dll</h6>
+  <h5 id="KdSoft_Utils_LinqExtensions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class LinqExtensions</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_Append_" data-uid="KdSoft.Utils.LinqExtensions.Append*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_Append__1_System_Collections_Generic_IEnumerable___0____0_" data-uid="KdSoft.Utils.LinqExtensions.Append``1(System.Collections.Generic.IEnumerable{``0},``0)">Append&lt;T&gt;(IEnumerable&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Appends a single element to an IEnumerable{T}.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; Append&lt;T&gt;(this IEnumerable&lt;T&gt; sequence, T toAppend)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">sequence</span></td>
+        <td><p>IEnumerable to append to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">toAppend</span></td>
+        <td><p>Element to append.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><p>The original enumeration with a single element appended at the end.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Element type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_Batch_" data-uid="KdSoft.Utils.LinqExtensions.Batch*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_Batch__1_System_Collections_Generic_IEnumerable___0__System_Int32_" data-uid="KdSoft.Utils.LinqExtensions.Batch``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">Batch&lt;T&gt;(IEnumerable&lt;T&gt;, Int32)</h4>
+  <div class="markdown level1 summary"><p>Partitions an IEnumerable{T} into batches of equal size (except for the last, which might be smaller).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IEnumerable&lt;T&gt;&gt; Batch&lt;T&gt;(this IEnumerable&lt;T&gt; source, int size)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">source</span></td>
+        <td><p>IEnumerable to partition.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">size</span></td>
+        <td><p>Number of items in each batch.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td><p>An enumeration of IEnumerable{T} batches.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Element type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_Prepend_" data-uid="KdSoft.Utils.LinqExtensions.Prepend*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_Prepend__1_System_Collections_Generic_IEnumerable___0____0_" data-uid="KdSoft.Utils.LinqExtensions.Prepend``1(System.Collections.Generic.IEnumerable{``0},``0)">Prepend&lt;T&gt;(IEnumerable&lt;T&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Prepends a single element to an IEnumerable{T}.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; Prepend&lt;T&gt;(this IEnumerable&lt;T&gt; sequence, T toPrepend)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">sequence</span></td>
+        <td><p>IEnumerable to prepend to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">toPrepend</span></td>
+        <td><p>Element to prepend.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><p>The original enumeration with a single element inserted at the start.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Element type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_RemoveAll_" data-uid="KdSoft.Utils.LinqExtensions.RemoveAll*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_RemoveAll__1_System_Collections_Generic_IList___0__System_Predicate___0__" data-uid="KdSoft.Utils.LinqExtensions.RemoveAll``1(System.Collections.Generic.IList{``0},System.Predicate{``0})">RemoveAll&lt;T&gt;(IList&lt;T&gt;, Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all list elements matching a predicate.
+Like <span class="xref">System.Collections.Generic.List`1.RemoveAll(System.Predicate{`0})</span>, but for <span class="xref">System.Collections.Generic.IList&lt;T&gt;</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int RemoveAll&lt;T&gt;(this IList&lt;T&gt; list, Predicate&lt;T&gt; match)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IList&lt;T&gt;</span> instance to operate on.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">match</span></td>
+        <td><p>Predicate to match against list elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Number of removed elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Element type of list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_SortedGroupBy_" data-uid="KdSoft.Utils.LinqExtensions.SortedGroupBy*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_SortedGroupBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__System_Collections_Generic_IEqualityComparer___1__" data-uid="KdSoft.Utils.LinqExtensions.SortedGroupBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">SortedGroupBy&lt;TElement, TKey&gt;(IEnumerable&lt;TElement&gt;, Func&lt;TElement, TKey&gt;, IEqualityComparer&lt;TKey&gt;)</h4>
+  <div class="markdown level1 summary"><p>Like <span class="xref">System.Linq.Enumerable.GroupBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})</span>, but takes advantage of an existing sort order on the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IGrouping&lt;TKey, TElement&gt;&gt; SortedGroupBy&lt;TElement, TKey&gt;(this IEnumerable&lt;TElement&gt; elements, Func&lt;TElement, TKey&gt; keySelector, IEqualityComparer&lt;TKey&gt; comparer = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TElement&gt;</td>
+        <td><span class="parametername">elements</span></td>
+        <td><p>Collection to be grouped.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TElement, TKey&gt;</td>
+        <td><span class="parametername">keySelector</span></td>
+        <td><p>Extracts key from element.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEqualityComparer</span>&lt;TKey&gt;</td>
+        <td><span class="parametername">comparer</span></td>
+        <td><p>Equality comparer for the keys.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Linq.IGrouping</span>&lt;TKey, TElement&gt;&gt;</td>
+        <td><p>Collection of groups.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TElement</span></td>
+        <td><p>Element type of collection to be grouped.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TKey</span></td>
+        <td><p>Type of key that the collection is sorted on.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_SortedGroupBy_" data-uid="KdSoft.Utils.LinqExtensions.SortedGroupBy*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_SortedGroupBy__3_System_Collections_Generic_IEnumerable___0__System_Func___0___1__System_Func___0___2__System_Collections_Generic_IEqualityComparer___1__" data-uid="KdSoft.Utils.LinqExtensions.SortedGroupBy``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">SortedGroupBy&lt;TSource, TKey, TElement&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, TKey&gt;, Func&lt;TSource, TElement&gt;, IEqualityComparer&lt;TKey&gt;)</h4>
+  <div class="markdown level1 summary"><p>Like <span class="xref">System.Linq.Enumerable.GroupBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})</span>, but takes advantage of an existing sort order on the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IGrouping&lt;TKey, TElement&gt;&gt; SortedGroupBy&lt;TSource, TKey, TElement&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TSource, TElement&gt; elementSelector, IEqualityComparer&lt;TKey&gt; comparer = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TSource&gt;</td>
+        <td><span class="parametername">source</span></td>
+        <td><p>Source collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TSource, TKey&gt;</td>
+        <td><span class="parametername">keySelector</span></td>
+        <td><p>Extracts key from source element.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TSource, TElement&gt;</td>
+        <td><span class="parametername">elementSelector</span></td>
+        <td><p>Extract result element from source element.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEqualityComparer</span>&lt;TKey&gt;</td>
+        <td><span class="parametername">comparer</span></td>
+        <td><p>Equality comparer for the keys.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Linq.IGrouping</span>&lt;TKey, TElement&gt;&gt;</td>
+        <td><p>Collection of groups.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TSource</span></td>
+        <td><p>Element type of source collection to be grouped.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TKey</span></td>
+        <td><p>Type of key that the collection is sorted on.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TElement</span></td>
+        <td><p>Type of element to return.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_LinqExtensions_SortedMerge_" data-uid="KdSoft.Utils.LinqExtensions.SortedMerge*"></a>
+  <h4 id="KdSoft_Utils_LinqExtensions_SortedMerge__3_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable___1__System_Func___0___1_System_Int32__System_Func___0___2__System_Func___1___2__System_Func___0___1___2__" data-uid="KdSoft.Utils.LinqExtensions.SortedMerge``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Int32},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``2})">SortedMerge&lt;TOuter, TInner, TResult&gt;(IEnumerable&lt;TOuter&gt;, IEnumerable&lt;TInner&gt;, Func&lt;TOuter, TInner, Int32&gt;, Func&lt;TOuter, TResult&gt;, Func&lt;TInner, TResult&gt;, Func&lt;TOuter, TInner, TResult&gt;)</h4>
+  <div class="markdown level1 summary"><p>Merges two collections that are sorted by the same key criteria and produces a sorted collection.
+The collections must be sets, that is, they must not have duplicates according to the sort criteria.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TResult&gt; SortedMerge&lt;TOuter, TInner, TResult&gt;(this IEnumerable&lt;TOuter&gt; outer, IEnumerable&lt;TInner&gt; inner, Func&lt;TOuter, TInner, int&gt; comparer, Func&lt;TOuter, TResult&gt; outerSelector, Func&lt;TInner, TResult&gt; innerSelector, Func&lt;TOuter, TInner, TResult&gt; matchSelector)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TOuter&gt;</td>
+        <td><span class="parametername">outer</span></td>
+        <td><p>Outer or &quot;left&quot; collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TInner&gt;</td>
+        <td><span class="parametername">inner</span></td>
+        <td><p>Inner or &quot;right&quot; collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TOuter, TInner, <span class="xref">System.Int32</span>&gt;</td>
+        <td><span class="parametername">comparer</span></td>
+        <td><p>Delegate to compare two collection elements.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TOuter, TResult&gt;</td>
+        <td><span class="parametername">outerSelector</span></td>
+        <td><p>Result selector to apply when only an outer element is available (no matching inner element).
+If <code>null</code>, then no unmatched outer elements will be returned.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TInner, TResult&gt;</td>
+        <td><span class="parametername">innerSelector</span></td>
+        <td><p>Result selector to apply when only an inner element is available (no matching outer element).
+If <code>null</code>, then no unmatched inner elements will be returned.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TOuter, TInner, TResult&gt;</td>
+        <td><span class="parametername">matchSelector</span></td>
+        <td><p>Result selector to apply when matching outer and inner elements are available.
+If <code>null</code>, then no matched outer/outer elements will be returned.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TResult&gt;</td>
+        <td><p>Sorted collection of result type elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOuter</span></td>
+        <td><p>Element type of outer collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TInner</span></td>
+        <td><p>Element type of inner collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TResult</span></td>
+        <td><p>Result type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Utils_LinqExtensions_SortedMerge__3_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable___1__System_Func___0___1_System_Int32__System_Func___0___2__System_Func___1___2__System_Func___0___1___2___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Depending on which selectors are <code>null</code>, certain types of set operations or joins can be achieved:
+<ul><li>All selectors are <code>!= null</code>: Set Union, returns result elements
+        for all elements from both sets, in sorted order. This can also be considered 
+        a full outer join (with the restriction that the sort has no duplicates).</li><li><code>outerSelector != null (other selectors are null)</code>: Set Difference, returns result
+        elements for all those elements in outer that do not have a matching an element in inner.</li><li><code>outerSelector != null &amp;&amp; matchSelector != null</code>: Left Outer Join, returns
+        result elements for all elements in outer, but only for matching elements in inner.</li><li><code>innerSelector != null (other selectors are null)</code>: Set difference, returns
+        result elements for all those elements in inner that do not have a matching element in outer.</li><li><code>innerSelector != null &amp;&amp; matchSelector != null</code>: Right Outer Join, returns
+        result elements for all elements in inner, but only for matching elements in outer.</li><li><code>matchSelector != null (other selectors are null)</code>: Set Intersection,
+        returns result elements only for matching elements in outer and inner.
+        This can also be considered an inner join (but without duplicates).</li><li><code>matchSelector == null (other selectors are not null)</code>: Symmetric Difference,
+        opposite of intersection, returns result elements only for unmatched elements.</li></ul></p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

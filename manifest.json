@@ -1,0 +1,2082 @@
+{
+  "homepages": [],
+  "source_base_path": "F:/Work/Private/KdSoft.General/docfx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "source_relative_path": "../KdSoft.Serialization/Serialization of Object Graphs.html",
+      "output": {
+        "resource": {
+          "relative_path": "KdSoft.Serialization/Serialization of Object Graphs.html"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Common.BindableBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Common.BindableBase.html",
+          "hash": "VMoVwYCOn0wUogoTIv9aPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Common.UpdatableBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Common.UpdatableBase.html",
+          "hash": "bBWAlFZMRSxt7L4NEltaDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Common.WebExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Common.WebExtensions.html",
+          "hash": "j7MEvocgoUaLvwyFLZP8QA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Common.html",
+          "hash": "MfT5fjQ7vOJsfytjA8pOLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Config.Compile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Config.Compile.html",
+          "hash": "kE8oYZnVLfOx7qQtU8bXLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Config.ConfigUtil.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Config.ConfigUtil.html",
+          "hash": "xbou/cIPTBSwHK1v+CLEBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Config.Configurator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Config.Configurator.html",
+          "hash": "ItUjD+S1O0zy8iZDWxKXnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Config.IConfigurator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Config.IConfigurator-1.html",
+          "hash": "auZXjyrqvlFDtymBNowGpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Config.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Config.html",
+          "hash": "T72MAbeR6CBryo8fbkIJpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.IIdentifiable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.IIdentifiable-1.html",
+          "hash": "5NG8l5hhNFd0XMcY/5+D9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Reflection.PropertyUtils.PropertyAccessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Reflection.PropertyUtils.PropertyAccessor.html",
+          "hash": "d6MIUVBQL9dRFHMComykng=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Reflection.PropertyUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Reflection.PropertyUtils.html",
+          "hash": "g8DMsWxO6eSC4/SWTGJYnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Reflection.ReflectUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Reflection.ReflectUtils.html",
+          "hash": "2KPuCOUxa08W4c+MLZgi0A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Reflection.Reflection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Reflection.Reflection.html",
+          "hash": "jA55w/ZR4HrscaU7Syl6Kg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Reflection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Reflection.html",
+          "hash": "7fsfQknSKE+9v/m3gXzqHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.AddItem-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.AddItem-2.html",
+          "hash": "h4RsAVcHYl83CD6YKATANw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.AddValueItem-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.AddValueItem-2.html",
+          "hash": "pfFg3q1tqKpUseKNLzFuWg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.BinaryField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.BinaryField.html",
+          "hash": "H7ZaZUtm7aReVUs14nHHJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.BlobField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.BlobField.html",
+          "hash": "SgOF9NJdsZVegnjHtxb/FQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.BoolField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.BoolField.html",
+          "hash": "7kBozbgtWMQ1dL9I2mnnLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ByteConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ByteConverter.html",
+          "hash": "Qpj+44bPHAy/KrJ3VZYMFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ByteField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ByteField.html",
+          "hash": "QCh4ebb99ZCrRrgqlZuMCA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ByteOrder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ByteOrder.html",
+          "hash": "6ekWl3TyQuxb3UPQZrS1Vw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.CharArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.CharArrayField.html",
+          "hash": "L7h2usMwgN3KQAXxVj04ag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.CharField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.CharField.html",
+          "hash": "5jpUPaBKhVAWLmxDA7SYUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.DateTimeField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.DateTimeField.html",
+          "hash": "jPSlM2NCY7OopeyHxQ2ehw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.DecimalField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.DecimalField.html",
+          "hash": "wTj4DpZCfD1zjFYbndWa4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.DecimalLongUnion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.DecimalLongUnion.html",
+          "hash": "7O3SpEbPBkndn6HqlrfgcQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.DoubleField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.DoubleField.html",
+          "hash": "RFOKmT3LBt/T6oRjKohOLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.FixedCharArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.FixedCharArrayField.html",
+          "hash": "GzGJ5nM2XKCCUgigChE8rg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.Formatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.Formatter.html",
+          "hash": "b6lt5QU30mZmU24aW3OpDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.IntArrayField.html",
+          "hash": "LFZKvL9a3Noa35GdYm9azQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntArrayUnion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.IntArrayUnion.html",
+          "hash": "Egej8li0Hu9cGgSr5QipsA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntBytes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.IntBytes.html",
+          "hash": "w+GAOAuItwAxIC8SSPvUpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.IntField.html",
+          "hash": "zuXAN2f3e/tREsZpL0GoeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.LongBytes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.LongBytes.html",
+          "hash": "rypYPjFXeOsUhx7jxtiz2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.LongField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.LongField.html",
+          "hash": "p6Q0zgN9OpTxeQ5voad5HQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ReferenceField-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ReferenceField-1.html",
+          "hash": "JOL2PlqZq0X5XAdP3z8ivw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.SByteField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.SByteField.html",
+          "hash": "22PH0Ds/L8RKd2kj0byO0g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayField.html",
+          "hash": "JbmSquwWzZ2RbZcdlSpS9A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayUnion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayUnion.html",
+          "hash": "AfNY5Dj1NiGDvyYhUrb0sQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortBytes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ShortBytes.html",
+          "hash": "0BlryZAIuyFaanCGeY2qgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ShortField.html",
+          "hash": "3jWo8G/FUczkGWtgX5WpxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.SingleField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.SingleField.html",
+          "hash": "ktrP0YFNTjxNnCiHZ/syMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.StdFormatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.StdFormatter.html",
+          "hash": "Z6FvZ/cK8u195PxTy92XYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.StringField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.StringField.html",
+          "hash": "6HZORgtzyzGAytyGxSOWdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.UIntArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.UIntArrayField.html",
+          "hash": "TCsrljkXwv3g1VSptsmuRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.UIntField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.UIntField.html",
+          "hash": "vY3wQtUV4N74djBs0QReYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ULongField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ULongField.html",
+          "hash": "31vmMKqq20oenzTx4mNxbQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.UShortArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.UShortArrayField.html",
+          "hash": "7snOooKtf6eVoCJXHj43+w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.UShortField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.UShortField.html",
+          "hash": "0ESlV5/Yz2JIOivGpzMZ/g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.ValueField-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.ValueField-1.html",
+          "hash": "giBHDGYlLPDkZJAMpsvlwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Buffer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Buffer.html",
+          "hash": "c7yGQp7TvBF7i6qM6Rqf+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Field-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Field-2.html",
+          "hash": "/1VVzjHxPTM8lsYwiJ8q6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Formatter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Formatter-1.html",
+          "hash": "B4CTpTa1847OCEPhngGMwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.InitSequence-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.InitSequence-2.html",
+          "hash": "UuGfW3eoPtBQQRuIb3EJOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.InitValueSequence-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.InitValueSequence-2.html",
+          "hash": "PFaHl42am0+2b3ix7uePgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ReferenceField-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ReferenceField-2.html",
+          "hash": "CjdUi7gbyXEY0juQQ233mQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.SerialStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.SerialStatus.html",
+          "hash": "Ahd2L8cdjb2jh9dAnIqFbw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.SerializationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.SerializationException.html",
+          "hash": "defPkuwMHGpeUyZfFt381g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ValueField-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ValueField-2.html",
+          "hash": "+DctiqbbJ8X5X0k5QGWmxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.html",
+          "hash": "b5zvioRI9EHsAK9oX2CBuA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.AsyncBufferedReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.AsyncBufferedReader.html",
+          "hash": "nUiibIbpMG5VoJ9VnmGdkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.AsyncReadWritePump.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.AsyncReadWritePump.html",
+          "hash": "kFPRWSGcIDLUr17q3/Kxiw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.BufferedReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.BufferedReader.html",
+          "hash": "Nksf2p6LYQp3VZVWLK/wuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.Constants.html",
+          "hash": "6JoKf7y/+zgW6Au+SJfJPQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.CryptoWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.CryptoWriter.html",
+          "hash": "E0AYY8C61u8of1MHvcxVvA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.ExhaustiveReadWritePump.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.ExhaustiveReadWritePump.html",
+          "hash": "CAhAAJK70bn2aKY62WdZRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.FilterStreamWriter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.FilterStreamWriter-1.html",
+          "hash": "SV27q2lGlEzIP8/fj2X/nA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IFilterWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IFilterWriter.html",
+          "hash": "08dkTpLpPPceMGatkuBX0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IOResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IOResult.html",
+          "hash": "0VBMu1dHnz+1QOwc7YoV0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IRandomAsyncReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IRandomAsyncReader.html",
+          "hash": "kxpbFvcEgnrYGNy0n8DT8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IRandomAsyncWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IRandomAsyncWriter.html",
+          "hash": "VQnp1QhWgdmfQWF84qXdIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IRandomReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IRandomReader.html",
+          "hash": "Ncw+MM1edDT4Yx4aQuG2yw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IRandomWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IRandomWriter.html",
+          "hash": "PMDjVg2myv/v0bPpgyNZsg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IReader.html",
+          "hash": "YewXGewer4kZuZSHYWCWow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.ISerialAsyncReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.ISerialAsyncReader.html",
+          "hash": "4P0SmqrEw7tkuHA3+hbziA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.ISerialAsyncWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.ISerialAsyncWriter.html",
+          "hash": "tulOAD9Nk8w33tOhNIo6YQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.ISerialReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.ISerialReader.html",
+          "hash": "bOemJgECtBRcQvWWdfnfJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.ISerialWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.ISerialWriter.html",
+          "hash": "OF9W9/UXStxGVHz6WOBcXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.IWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.IWriter.html",
+          "hash": "uKEVYvWvQcf2ToJymaW3jQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.MemoryReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.MemoryReader.html",
+          "hash": "o7pOQD4NGkYt4jXbxPl48w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomAsyncStreamReader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomAsyncStreamReader-1.html",
+          "hash": "2rS8RUyRzww1sb1+dZd0Lw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomAsyncStreamWriter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomAsyncStreamWriter-1.html",
+          "hash": "8hnHqm5+6hvLI8dXUGvtrQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomDataRequestHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomDataRequestHandler.html",
+          "hash": "dQmjsMq80vbcJfTUyUaRrw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomFileAsyncStreamReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomFileAsyncStreamReader.html",
+          "hash": "NW8rScewpFHqcaDAEQpiEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomFileAsyncStreamWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomFileAsyncStreamWriter.html",
+          "hash": "l76ol/XKgM+8KDo1Czs1iA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomFileStreamReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomFileStreamReader.html",
+          "hash": "rMrK9Uhu9CICM4+0FYThTg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomFileStreamWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomFileStreamWriter.html",
+          "hash": "pweIuYdh3PD7y0dwpBnk4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomStreamReader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomStreamReader-1.html",
+          "hash": "3xZvijMNVpg7QIUVnxE69A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomStreamWriter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomStreamWriter-1.html",
+          "hash": "7cB07hv/oGcp8/5hceVWZg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RandomWriteSequentializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RandomWriteSequentializer.html",
+          "hash": "PJUxLOs5YgxDp+0WnLIw4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.RingBuffer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.RingBuffer-1.html",
+          "hash": "XRMuDLureW79ggp4eU2Kkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialAsyncStreamReader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialAsyncStreamReader-1.html",
+          "hash": "IdIItQbTGTzel6oNoMKtFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialAsyncStreamWriter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialAsyncStreamWriter-1.html",
+          "hash": "ZRF5t6Bur0db0AmIM9HbTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialDataRequestHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialDataRequestHandler.html",
+          "hash": "cbfHzML/OmfmcDc2dsVVFQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialFileAsyncStreamReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialFileAsyncStreamReader.html",
+          "hash": "qITtpLQHs6Gsb/AeOdVM7w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialFileAsyncStreamWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialFileAsyncStreamWriter.html",
+          "hash": "HXDWCrzvRy8zgBk+T58H9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialFileStreamReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialFileStreamReader.html",
+          "hash": "NtYoCT9hvi+iMVvB+NdP9w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialFileStreamWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialFileStreamWriter.html",
+          "hash": "/gsRLsHpn3r4DGnF1bqaHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialFilterWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialFilterWriter.html",
+          "hash": "15CV/Ww0Y4Xg+BcJslFZlQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialStreamReader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialStreamReader-1.html",
+          "hash": "8jzxThFZ2KwWqcQ3jzh5pg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialStreamWriter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialStreamWriter-1.html",
+          "hash": "i++rlvMBB8/HAhPeiItyaQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.SerialWriterException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.SerialWriterException.html",
+          "hash": "2dDsFN/JSKrbXoUXPygzAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.StreamReader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.StreamReader-1.html",
+          "hash": "cIT7FA1cfiNAlXkTbvQz9g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.StreamWriter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.StreamWriter-1.html",
+          "hash": "5a7s5MSxIaqiumOALnT9IA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.TransformFilterWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.TransformFilterWriter.html",
+          "hash": "N3qXekAuXEkbYJHJpIBwRg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.StreamUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.StreamUtils.html",
+          "hash": "zkH2CKsNEVAjewQWPtfMmg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.AsyncEventHandlerWrapper-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.AsyncEventHandlerWrapper-1.html",
+          "hash": "nZArUcK5h/id/X85ivSCTA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.AsyncTaskResult-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.AsyncTaskResult-2.html",
+          "hash": "5tTxfrsKFao/2bgPi62hzQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.AsyncUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.AsyncUtils.html",
+          "hash": "r9Bij01Ss5qTu4zQ93RV3g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.BufferPool.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.BufferPool.html",
+          "hash": "SuaISgJ9dhEfB3r5ETl/Zg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.BulkObservableCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.BulkObservableCollection-1.html",
+          "hash": "+wrCNkwsH0hKMc0hM9KxsQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.Common.html",
+          "hash": "JDwkaowNloZ6DkZ5qzU+2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.html",
+          "hash": "wc4hc+bOnJ4B3334c+h7Pw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.Crc64.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.Crc64.html",
+          "hash": "zyDya0qfd1b/iAMqebZCJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.CryptUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.CryptUtils.html",
+          "hash": "BDGHw6TD1NHh9lWbHWVAZw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.DailyXmlWriterTraceListener.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.DailyXmlWriterTraceListener.html",
+          "hash": "4W+R+AuQJSDqbWzajxrVSg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.DateEnumerable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.DateEnumerable.html",
+          "hash": "Nbr1Cxh2F7H0k22aUfYEJg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.DateEnumerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.DateEnumerator.html",
+          "hash": "CQUGIegvcXR3hLHtNXPBIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.DateTimeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.DateTimeExtensions.html",
+          "hash": "gM0odJvtr6fl/HJMds6DFw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.EventArgs-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.EventArgs-1.html",
+          "hash": "p0es+1T/zXxFSGvsBp/ccQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.EventArgs-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.EventArgs-2.html",
+          "hash": "CssXqVekELDMMqm57MzD7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.FileChangeDetector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.FileChangeDetector.html",
+          "hash": "DTErGmMOs4OTftcAIBa5Xg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.Grouping-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.Grouping-2.html",
+          "hash": "hG6TWcvZUfs8RmH87GRIdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.Holder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.Holder-1.html",
+          "hash": "Ro2DB6mkVPRH817nbAxgoQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ILifeCycle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ILifeCycle.html",
+          "hash": "LjKLN5EPZHtnnhMaP0IDAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ILifeCycleAware-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ILifeCycleAware-1.html",
+          "hash": "dH4S8BNveoWf2+nKbNakIw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.IRefCountLifeCycle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.IRefCountLifeCycle.html",
+          "hash": "dIIME/+P2ascApCIt6nd5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ITimedLifeCycle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ITimedLifeCycle.html",
+          "hash": "1+IvzNEw8Lv8mLt6bLMTGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.IValueWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.IValueWrapper.html",
+          "hash": "l3RDkIMIGvDhKa0g6O4+gg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.KeyOnlyComparer-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.KeyOnlyComparer-2.html",
+          "hash": "rVJFfwQR4cwOTKEtHvv88Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.LambdaComparer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.LambdaComparer-1.html",
+          "hash": "AgtEJDBzuwqQtzTXRpimhw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.LinkedListExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.LinkedListExtensions.html",
+          "hash": "w4eXkprZj8DNwi9xIlb+xA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.LinqExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.LinqExtensions.html",
+          "hash": "pLl/UMQB4aheX+DCmiMsFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ListExtensions.PickFirst-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ListExtensions.PickFirst-1.html",
+          "hash": "O3PhdbbuGqmjZUCKLUXWQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ListExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ListExtensions.html",
+          "hash": "SXxW79ocnXbTq74K7s8e2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ListSegment-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ListSegment-1.html",
+          "hash": "dxMO0tf9Yr19Gsd+NOQFag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.MiscExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.MiscExtensions.html",
+          "hash": "UkmgdAyEIEG4Q6MFz8Xnfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.MonthEnumerable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.MonthEnumerable.html",
+          "hash": "iXOvLBvON5KVgH5M1PKU8w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.MonthEnumerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.MonthEnumerator.html",
+          "hash": "KrZS+l5H5YvM7LjvruT/NQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ObjectPool-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ObjectPool-1.html",
+          "hash": "WUGAObh2q4uuDHU1O0QfVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.PathUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.PathUtils.html",
+          "hash": "h8WP168jZ0092qYAErCJCQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.RangeObservableCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.RangeObservableCollection-1.html",
+          "hash": "3jjCCABCU7SeBh7Mc8a37A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.SortedRingQueue-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.SortedRingQueue-1.html",
+          "hash": "OjQb5BIOACYvLeSCclXigA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TaskAwaiter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TaskAwaiter-1.html",
+          "hash": "AoKhQojc+e6fIF/ZQLm14A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TaskEnumerable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TaskEnumerable-1.html",
+          "hash": "rvy/1rpIgNZ+CDWme2NffA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TaskEnumerator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TaskEnumerator-1.html",
+          "hash": "oZvtFlUkkGzEP/lb0wd75w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TaskEx.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TaskEx.html",
+          "hash": "E+rBzKgnk0EUHujM3tkTWg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TaskWaiter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TaskWaiter.html",
+          "hash": "UH8+j8Ws8YilRhA2DPKUyQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TimeSpanExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TimeSpanExtensions.html",
+          "hash": "uEw9n8Gf/f7ac5JtfPlaRw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TimedLifeCycle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TimedLifeCycle.html",
+          "hash": "iD9lvOXVFR41hw2ShkiUIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TimedLifeCycleAware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TimedLifeCycleAware.html",
+          "hash": "HdMNlH/kYDfyp26bJ/Rl5g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TimedLifeCycleManager-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TimedLifeCycleManager-2.html",
+          "hash": "Pp7OjiFiColknEElkzRCAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.TraceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.TraceExtensions.html",
+          "hash": "PqpJVYE1leIkzDImUYxHbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ValueWrapper-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ValueWrapper-1.html",
+          "hash": "G+gqnvVCW6fbiO4A279UBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.ValueWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.ValueWrapper.html",
+          "hash": "DkCeSq/5rEM40sTcB5CFrQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.WeekEnumerable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.WeekEnumerable.html",
+          "hash": "iZGV9rh4p9yCmPg9kT9d1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.WeekEnumerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.WeekEnumerator.html",
+          "hash": "Z+SbMFO4Y3HG7//N/kpGVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.YearWeek.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.YearWeek.html",
+          "hash": "xqJ03A/HyWwurL5NWQ9nzQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.html",
+          "hash": "qM0j77romqGOWIWp4sweRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.html",
+          "hash": "csdhB1jmDLY6cmKUqdagGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "GZHtjeS1+mqSaiHC7gt2pw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "4WmH642mUnpnA9UCm7xE7w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/builddocs.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/builddocs.html",
+          "hash": "gCKCYbWSd0gYOeuFowIdzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "p/ulkod7g0jnTCtp2MT2mA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "3KrIuptDCY0Zy484ejQZ2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "PVzVqw2uQjIuFzToGdc/rw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: it's disabled.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

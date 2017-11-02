@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class StdFormatter
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class StdFormatter
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Serialization.Buffer.StdFormatter">
+  
+  
+  <h1 id="KdSoft_Serialization_Buffer_StdFormatter" data-uid="KdSoft.Serialization.Buffer.StdFormatter" class="text-break">Class StdFormatter
+  </h1>
+  <div class="markdown level0 summary"><p><a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html">Formatter</a> subclass with default fields pre-registered
+    for the basic types.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter</a>&lt;<a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html">Formatter</a>&gt;</div>
+    <div class="level2"><a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html">Formatter</a></div>
+    <div class="level3"><span class="xref">StdFormatter</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_Converter">Formatter.Converter</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_ResetOpenObjects">Formatter.ResetOpenObjects()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_twoBitIndexMask">Formatter.twoBitIndexMask</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_slotMasks">Formatter.slotMasks</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_clearMasks">Formatter.clearMasks</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_WriteStatus_KdSoft_Serialization_SerialStatus_">Formatter.WriteStatus(SerialStatus)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_WriteObjRef_System_Int64_">Formatter.WriteObjRef(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_WriteCount_System_Int32_">Formatter.WriteCount(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_ReadStatus">Formatter.ReadStatus()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_ReadObjRef">Formatter.ReadObjRef()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_SkipObjRef">Formatter.SkipObjRef()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_ReadCount">Formatter.ReadCount()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_OpenReference_System_Object_System_Int64__">Formatter.OpenReference(Object, Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_GetReference_System_Int64_">Formatter.GetReference(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_InternalRegisterField__1_KdSoft_Serialization_Field___0_KdSoft_Serialization_Buffer_Formatter__">Formatter.InternalRegisterField&lt;T&gt;(Field&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_SetPermanentReferences_System_Object___">Formatter.SetPermanentReferences(Object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_GetField__1">Formatter.GetField&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_InitSerialization_System_Byte___System_Int32_">Formatter.InitSerialization(Byte[], Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_FinishSerialization">Formatter.FinishSerialization()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_InitDeserialization_System_Byte___System_Int32_">Formatter.InitDeserialization(Byte[], Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html#KdSoft_Serialization_Buffer_Formatter_FinishDeserialization">Formatter.FinishDeserialization()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_Skip__1_KdSoft_Serialization_Field___0__0__">Formatter&lt;Formatter&gt;.Skip&lt;T&gt;(Field&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_Skip__1">Formatter&lt;Formatter&gt;.Skip&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SkipSequence__1_KdSoft_Serialization_Field___0__0__">Formatter&lt;Formatter&gt;.SkipSequence&lt;T&gt;(Field&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SkipSequence__1">Formatter&lt;Formatter&gt;.SkipSequence&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SkipMembers__1_KdSoft_Serialization_Field___0__0__System_Int32___">Formatter&lt;Formatter&gt;.SkipMembers&lt;T&gt;(Field&lt;T, Formatter&gt;, Int32[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SkipMembers__1_System_Int32___">Formatter&lt;Formatter&gt;.SkipMembers&lt;T&gt;(Int32[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Nullable___0__">Formatter&lt;Formatter&gt;.SerializeStruct&lt;T&gt;(Nullable&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1___0__">Formatter&lt;Formatter&gt;.SerializeStruct&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1___0_">Formatter&lt;Formatter&gt;.SerializeStruct&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeNull">Formatter&lt;Formatter&gt;.SerializeNull()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObject__1___0_">Formatter&lt;Formatter&gt;.SerializeObject&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1">Formatter&lt;Formatter&gt;.DeserializeStruct&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1___0__System_Boolean__">Formatter&lt;Formatter&gt;.DeserializeStruct&lt;T&gt;(T, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObject__1___0__">Formatter&lt;Formatter&gt;.DeserializeObject&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObject__1">Formatter&lt;Formatter&gt;.DeserializeObject&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(T[], ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(T[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Nullable___0____KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(Nullable&lt;T&gt;[], ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Nullable___0____">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(Nullable&lt;T&gt;[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IList___0__KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(IList&lt;T&gt;, ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IList___0__">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(IList&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IEnumerable___0__KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(IEnumerable&lt;T&gt;, ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IEnumerable___0__">Formatter&lt;Formatter&gt;.SerializeStructs&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T&gt;(T[], ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T&gt;(T[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_Nullable___0_____KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T&gt;(Nullable&lt;T&gt;[], ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_Nullable___0_____">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T&gt;(Nullable&lt;T&gt;[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitValueSequence___0___1____1__KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T, C&gt;(InitValueSequence&lt;T, C&gt;, C, ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitValueSequence___0___1____1__">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T, C&gt;(InitValueSequence&lt;T, C&gt;, C)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitSequence_System_Nullable___0____1____1__KdSoft_Serialization_ValueField___0__0__">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T, C&gt;(InitSequence&lt;Nullable&lt;T&gt;, C&gt;, C, ValueField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitSequence_System_Nullable___0____1____1__">Formatter&lt;Formatter&gt;.DeserializeStructs&lt;T, C&gt;(InitSequence&lt;Nullable&lt;T&gt;, C&gt;, C)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1___0___KdSoft_Serialization_ReferenceField___0__0__">Formatter&lt;Formatter&gt;.SerializeObjects&lt;T&gt;(T[], ReferenceField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1___0___">Formatter&lt;Formatter&gt;.SerializeObjects&lt;T&gt;(T[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IList___0__KdSoft_Serialization_ReferenceField___0__0__">Formatter&lt;Formatter&gt;.SerializeObjects&lt;T&gt;(IList&lt;T&gt;, ReferenceField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IList___0__">Formatter&lt;Formatter&gt;.SerializeObjects&lt;T&gt;(IList&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IEnumerable___0__KdSoft_Serialization_ReferenceField___0__0__">Formatter&lt;Formatter&gt;.SerializeObjects&lt;T&gt;(IEnumerable&lt;T&gt;, ReferenceField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IEnumerable___0__">Formatter&lt;Formatter&gt;.SerializeObjects&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObjects__1___0____KdSoft_Serialization_ReferenceField___0__0__">Formatter&lt;Formatter&gt;.DeserializeObjects&lt;T&gt;(T[], ReferenceField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObjects__1___0____">Formatter&lt;Formatter&gt;.DeserializeObjects&lt;T&gt;(T[])</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObjects__2_KdSoft_Serialization_InitSequence___0___1____1__KdSoft_Serialization_ReferenceField___0__0__">Formatter&lt;Formatter&gt;.DeserializeObjects&lt;T, C&gt;(InitSequence&lt;T, C&gt;, C, ReferenceField&lt;T, Formatter&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObjects__2_KdSoft_Serialization_InitSequence___0___1____1__">Formatter&lt;Formatter&gt;.DeserializeObjects&lt;T, C&gt;(InitSequence&lt;T, C&gt;, C)</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Serialization.Buffer.html">KdSoft.Serialization.Buffer</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.Serialization.dll</h6>
+  <h5 id="KdSoft_Serialization_Buffer_StdFormatter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class StdFormatter : Formatter</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_StdFormatter__ctor_" data-uid="KdSoft.Serialization.Buffer.StdFormatter.#ctor*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_StdFormatter__ctor_KdSoft_Serialization_Buffer_ByteOrder_" data-uid="KdSoft.Serialization.Buffer.StdFormatter.#ctor(KdSoft.Serialization.Buffer.ByteOrder)">StdFormatter(ByteOrder)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StdFormatter(ByteOrder byteOrder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ByteOrder.html">ByteOrder</a></td>
+        <td><span class="parametername">byteOrder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValues_System_Object_">PropertyUtils.GetPropertyValues(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValue_System_Object_System_String_">PropertyUtils.GetPropertyValue(Object, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_SetPropertyValue_System_Object_System_String_System_Object_">PropertyUtils.SetPropertyValue(Object, String, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyPathValue_System_Object_System_String_">PropertyUtils.GetPropertyPathValue(Object, String)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

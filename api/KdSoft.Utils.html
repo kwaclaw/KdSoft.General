@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace KdSoft.Utils
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace KdSoft.Utils
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Utils">
+  
+  <h1 id="KdSoft_Utils" data-uid="KdSoft.Utils" class="text-break">Namespace KdSoft.Utils
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="KdSoft.Utils.AsyncEventHandlerWrapper-1.html">AsyncEventHandlerWrapper&lt;T&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.AsyncTaskResult-2.html">AsyncTaskResult&lt;T, C&gt;</a></h4>
+      <section><p>Wrapper for <a class="xref" href="KdSoft.Utils.AsyncTaskResult-2.html#KdSoft_Utils_AsyncTaskResult_2_Task">Task</a> that can be used to implement the APM pattern.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.AsyncUtils.html">AsyncUtils</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.BufferPool.html">BufferPool</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.BulkObservableCollection-1.html">BulkObservableCollection&lt;T&gt;</a></h4>
+      <section><p><span class="xref">System.Collections.ObjectModel.ObservableCollection&lt;T&gt;</span> subclass that adds range modification methods.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.Common.html">Common</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.html">ConcurrentTimedLifeCycleManager&lt;K, O&gt;</a></h4>
+      <section><p>Manages and tracks the life-cycle of objects implementing <a class="xref" href="KdSoft.Utils.ILifeCycleAware-1.html">ILifeCycleAware&lt;T&gt;</a>.
+When an object&apos;s life-cycle has expired and no other objects have a reference to it then
+it will be removed from the internal object map and consequently will be available for
+garbage collection. On the other hand, an object will be kept un-collected as long
+as its life-cycle has not expired, which is useful for stateful server objects.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.Crc64.html">Crc64</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.CryptUtils.html">CryptUtils</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.DailyXmlWriterTraceListener.html">DailyXmlWriterTraceListener</a></h4>
+      <section><p>An extended XmlWriterTraceListener that starts a new file for every day.
+<example><p>
+<pre><code><sharedlisteners>
+<add type="KdSoft.Utils.DailyXmlWriterTraceListener, KdSoft.Utils" name="MyTraceListener" traceoutputoptions="None" initializedata="C:\Logs\MyTraceFileName.svclog"></add>
+</sharedlisteners></code></pre>
+<p></example></p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.DateEnumerable.html">DateEnumerable</a></h4>
+      <section><p>Enumerates all dates in the date range - excluding the end date.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.DateEnumerator.html">DateEnumerator</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.DateTimeExtensions.html">DateTimeExtensions</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.EventArgs-1.html">EventArgs&lt;T&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.EventArgs-2.html">EventArgs&lt;T, U&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.FileChangeDetector.html">FileChangeDetector</a></h4>
+      <section><p>Wrapper for FileSystemWatcher. Accumulates changes and allows for changes to settle before they are reported.
+Reports only the last change of a set of changes that are observed together.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.Grouping-2.html">Grouping&lt;TKey, TElement&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.Holder-1.html">Holder&lt;T&gt;</a></h4>
+      <section><p>Helper class that can serve as a reference holder for values that get set later.
+This is useful in asynchronous programming.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.KeyOnlyComparer-2.html">KeyOnlyComparer&lt;TKey, TValue&gt;</a></h4>
+      <section><p>This class can be used as comparer when a <span class="xref">System.Collections.Generic.SortedSet`1</span> instance is to be used like a dictionary.
+It compares the key part of the items only.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.LinkedListExtensions.html">LinkedListExtensions</a></h4>
+      <section><p><span class="xref">System.Collections.Generic.LinkedList&lt;T&gt;</span> extension methods.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.LinqExtensions.html">LinqExtensions</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.ListExtensions.html">ListExtensions</a></h4>
+      <section><p><span class="xref">System.Collections.Generic.List&lt;T&gt;</span> extension methods. </p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.ListSegment-1.html">ListSegment&lt;T&gt;</a></h4>
+      <section><p>This is a read-only <span class="xref">System.Collections.Generic.IList&lt;T&gt;</span> implementation representing a segment of a list. Similar to <span class="xref">System.ArraySegment`1</span>.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.MiscExtensions.html">MiscExtensions</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.MonthEnumerable.html">MonthEnumerable</a></h4>
+      <section><p>Enumerates all months that the given data range (excluding the end date) touches.
+The DateTime values returned always have &quot;1&quot; for the Day value.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.MonthEnumerator.html">MonthEnumerator</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.ObjectPool-1.html">ObjectPool&lt;T&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.PathUtils.html">PathUtils</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.RangeObservableCollection-1.html">RangeObservableCollection&lt;T&gt;</a></h4>
+      <section><p><span class="xref">System.Collections.ObjectModel.ObservableCollection&lt;T&gt;</span> subclass that adds range modification methods.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.SortedRingQueue-1.html">SortedRingQueue&lt;T&gt;</a></h4>
+      <section><p>Very basic ring queue of fixed size that relies on having elements added
+in sort order, so that binary search can be used.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.TaskAwaiter-1.html">TaskAwaiter&lt;T&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.TaskEx.html">TaskEx</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.TaskWaiter.html">TaskWaiter</a></h4>
+      <section><p>Allows to wait for, or be notified of, the completion of a dynamic set of tasks.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.TimedLifeCycle.html">TimedLifeCycle</a></h4>
+      <section><p>Implementation of <a class="xref" href="KdSoft.Utils.ITimedLifeCycle.html">ITimedLifeCycle</a>.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.TimedLifeCycleAware.html">TimedLifeCycleAware</a></h4>
+      <section><p>Life cycle aware base class. Useful when one needs life cycle management.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.TimedLifeCycleManager-2.html">TimedLifeCycleManager&lt;K, O&gt;</a></h4>
+      <section><p>Manages and tracks the life-cycle of objects implementing <a class="xref" href="KdSoft.Utils.ILifeCycleAware-1.html">ILifeCycleAware&lt;T&gt;</a>.
+When an object&apos;s life-cycle has expired and no other objects have a reference to it then
+it will be removed from the internal object map and consequently will be available for
+garbage collection. On the other hand, an object will be kept un-collected as long
+as its life-cycle has not expired, which is useful for stateful server objects.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.TimeSpanExtensions.html">TimeSpanExtensions</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.TraceExtensions.html">TraceExtensions</a></h4>
+      <section><p>These TraceSource extensions allow creation of the trace arguments and message to be deferred until after
+the SourceSwitch has determined that they are needed. This has the advantage that for those trace levels 
+that are turned off, no trace arguments will be created. This is especially an improvement for formatted strings.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.ValueWrapper.html">ValueWrapper</a></h4>
+      <section><p>Helper routines for ValueWrapper{T}.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.ValueWrapper-1.html">ValueWrapper&lt;T&gt;</a></h4>
+      <section><p>Wraps a value for the purpose of exposing it as a named property.
+This can be useful in serialization scenarios, where types but not properties can be annotated.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.WeekEnumerable.html">WeekEnumerable</a></h4>
+      <section><p>Enumerates a number of weeks with the start date&apos;s week day interpreted as &quot;first day of week&quot;.
+The DateTime values returned have the same day of week as the start date.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.WeekEnumerator.html">WeekEnumerator</a></h4>
+      <section></section>
+    <h3 id="structs">Structs
+  </h3>
+      <h4><a class="xref" href="KdSoft.Utils.LambdaComparer-1.html">LambdaComparer&lt;T&gt;</a></h4>
+      <section><p>Exposes a <span class="xref">System.Comparison&lt;T&gt;</span> through an <span class="xref">System.Collections.Generic.IComparer&lt;T&gt;</span> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.YearWeek.html">YearWeek</a></h4>
+      <section></section>
+    <h3 id="interfaces">Interfaces
+  </h3>
+      <h4><a class="xref" href="KdSoft.Utils.ILifeCycle.html">ILifeCycle</a></h4>
+      <section><p>Interface for managing object life cycle</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.ILifeCycleAware-1.html">ILifeCycleAware&lt;T&gt;</a></h4>
+      <section><p>Interface that a life-cycle aware object must implement.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.IRefCountLifeCycle.html">IRefCountLifeCycle</a></h4>
+      <section><p>Interface for objects that are reference-counted.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.ITimedLifeCycle.html">ITimedLifeCycle</a></h4>
+      <section><p>Interface for objects that have a &quot;non-activity time-out&quot; based life-cycle.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.IValueWrapper.html">IValueWrapper</a></h4>
+      <section><p>Allows access to the wrapped value in ValueWrapper{T}.</p>
+</section>
+    <h3 id="delegates">Delegates
+  </h3>
+      <h4><a class="xref" href="KdSoft.Utils.ListExtensions.PickFirst-1.html">ListExtensions.PickFirst&lt;T&gt;</a></h4>
+      <section><p>Delegate to be used for picking one of two arguments.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Utils.TaskEnumerable-1.html">TaskEnumerable&lt;T&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.Utils.TaskEnumerator-1.html">TaskEnumerator&lt;T&gt;</a></h4>
+      <section></section>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

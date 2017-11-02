@@ -1,0 +1,816 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BufferedReader
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BufferedReader
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.StreamUtils.BufferedReader">
+  
+  
+  <h1 id="KdSoft_StreamUtils_BufferedReader" data-uid="KdSoft.StreamUtils.BufferedReader" class="text-break">Class BufferedReader
+  </h1>
+  <div class="markdown level0 summary"><p>Implements <a class="xref" href="KdSoft.StreamUtils.IReader.html">IReader</a> based interfaces through a read cache. Buffers a specified amount of data in a contiguous cache
+and allows most (random) re-read requests to be satisfied from this cache, while other random read requests must be satisfied
+through a callback to a <a class="xref" href="KdSoft.StreamUtils.RandomDataRequestHandler.html">RandomDataRequestHandler</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">BufferedReader</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="KdSoft.StreamUtils.ISerialReader.html">ISerialReader</a></div>
+    <div><a class="xref" href="KdSoft.StreamUtils.ISerialAsyncReader.html">ISerialAsyncReader</a></div>
+    <div><a class="xref" href="KdSoft.StreamUtils.IRandomReader.html">IRandomReader</a></div>
+    <div><a class="xref" href="KdSoft.StreamUtils.IRandomAsyncReader.html">IRandomAsyncReader</a></div>
+    <div><a class="xref" href="KdSoft.StreamUtils.IReader.html">IReader</a></div>
+    <div><a class="xref" href="KdSoft.StreamUtils.IFilterWriter.html">IFilterWriter</a></div>
+    <div><a class="xref" href="KdSoft.StreamUtils.IWriter.html">IWriter</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.StreamUtils.html">KdSoft.StreamUtils</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.StreamUtils.dll</h6>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BufferedReader : ISerialReader, ISerialAsyncReader, IRandomReader, IRandomAsyncReader, IReader, IFilterWriter, IWriter</code></pre>
+  </div>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Thread-safe, reads and writes are serialized through locks, but writes must maintain the proper order of data buffers.</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader__ctor_" data-uid="KdSoft.StreamUtils.BufferedReader.#ctor*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader__ctor_System_Int32_System_Int32_" data-uid="KdSoft.StreamUtils.BufferedReader.#ctor(System.Int32,System.Int32)">BufferedReader(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BufferedReader(int bufferSize, int requestThreshold)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">bufferSize</span></td>
+        <td><p>Amount of data to buffer.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">requestThreshold</span></td>
+        <td><p>Threshold value that triggers a request for more serial data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_BufferSize_" data-uid="KdSoft.StreamUtils.BufferedReader.BufferSize*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_BufferSize" data-uid="KdSoft.StreamUtils.BufferedReader.BufferSize">BufferSize</h4>
+  <div class="markdown level1 summary"><p>Size of buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BufferSize { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_DataRequestError_" data-uid="KdSoft.StreamUtils.BufferedReader.DataRequestError*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_DataRequestError" data-uid="KdSoft.StreamUtils.BufferedReader.DataRequestError">DataRequestError</h4>
+  <div class="markdown level1 summary"><p>Last error returned by a <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_SerialDataRequested">SerialDataRequested</a> handler task.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Exception DataRequestError { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_IsComplete_" data-uid="KdSoft.StreamUtils.BufferedReader.IsComplete*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_IsComplete" data-uid="KdSoft.StreamUtils.BufferedReader.IsComplete">IsComplete</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance has completed writing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsComplete { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if this instance is complete; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_RandomDataRequested_" data-uid="KdSoft.StreamUtils.BufferedReader.RandomDataRequested*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_RandomDataRequested" data-uid="KdSoft.StreamUtils.BufferedReader.RandomDataRequested">RandomDataRequested</h4>
+  <div class="markdown level1 summary"><p>Occurs when a random <em>asynchronous</em> read request cannot fully be satisfied from the buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RandomDataRequestHandler RandomDataRequested { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.StreamUtils.RandomDataRequestHandler.html">RandomDataRequestHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_RandomDataRequested_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><blockquote><ul><li>Random <em>synchronous</em> read requests will never call this handler.</li><li>This class will pass any task faults returned from the event handler to the
+<a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_ReadAsync_System_Byte___System_Int32_System_Int32_System_Threading_Tasks_TaskCreationOptions_">ReadAsync(Byte[], Int32, Int32, TaskCreationOptions)</a></li></ul></blockquote>
+</div>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_RequestThreshold_" data-uid="KdSoft.StreamUtils.BufferedReader.RequestThreshold*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_RequestThreshold" data-uid="KdSoft.StreamUtils.BufferedReader.RequestThreshold">RequestThreshold</h4>
+  <div class="markdown level1 summary"><p>Request threshold. When consuming data through sequential reading, new data should be written
+once the read offset approaches the write offset, so that we don&apos;t run out of data to read.
+When the level of readable data drops below the request threshold, a data request will be triggered.
+See <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_SerialDataRequested">SerialDataRequested</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int RequestThreshold { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The request threshold.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_SerialDataRequested_" data-uid="KdSoft.StreamUtils.BufferedReader.SerialDataRequested*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_SerialDataRequested" data-uid="KdSoft.StreamUtils.BufferedReader.SerialDataRequested">SerialDataRequested</h4>
+  <div class="markdown level1 summary"><p>Occurs when sequential (not random!) reading consumes sufficient data to let the size of the data
+remaining in the buffer drop below the <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_RequestThreshold">RequestThreshold</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SerialDataRequestHandler SerialDataRequested { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.StreamUtils.SerialDataRequestHandler.html">SerialDataRequestHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_SerialDataRequested_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Task faults returned from the event handler will set the <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_DataRequestError">DataRequestError</a>
+property, which will cause further serial (but not random) reads to fail.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_FinalWrite_" data-uid="KdSoft.StreamUtils.BufferedReader.FinalWrite*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_FinalWrite_System_Byte___System_Int32_System_Int32_" data-uid="KdSoft.StreamUtils.BufferedReader.FinalWrite(System.Byte[],System.Int32,System.Int32)">FinalWrite(Byte[], Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Supplies sequential data to the buffer, indicating the last buffer and completing write operations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FinalWrite(byte[] buffer, int start, int count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer that contains the data to write.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Start index of data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Amount of data to write.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_GetSize_" data-uid="KdSoft.StreamUtils.BufferedReader.GetSize*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_GetSize_System_Int64__" data-uid="KdSoft.StreamUtils.BufferedReader.GetSize(System.Int64@)">GetSize(out Int64)</h4>
+  <div class="markdown level1 summary"><p>Inidicates if the size of the data is known and returns it if true.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GetSize(out long size)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">size</span></td>
+        <td><p>Total size of data - same as last stream position. Only valid if result is <code>true</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the data size is known; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_GetSize_System_Int64___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Implementation may decide to return the largest known size, if result is <code>false</code>.</p>
+</div>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_Read_" data-uid="KdSoft.StreamUtils.BufferedReader.Read*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_Read_System_Byte___System_Int32_System_Int32_" data-uid="KdSoft.StreamUtils.BufferedReader.Read(System.Byte[],System.Int32,System.Int32)">Read(Byte[], Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IOResult Read(byte[] buffer, int start, int count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_Read_" data-uid="KdSoft.StreamUtils.BufferedReader.Read*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_Read_System_Byte___System_Int32_System_Int32_System_Int64_" data-uid="KdSoft.StreamUtils.BufferedReader.Read(System.Byte[],System.Int32,System.Int32,System.Int64)">Read(Byte[], Int32, Int32, Int64)</h4>
+  <div class="markdown level1 summary"><p>Reads <code>count</code> bytes from underlying entity (e.g. stream) starting at position <code>sourceOffset</code>. Called synchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IOResult Read(byte[] buffer, int start, int count, long sourceOffset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer to write the data into.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Position in buffer to start writing to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Number of bytes to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">sourceOffset</span></td>
+        <td><p>Position in underlying entity to start reading from.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a></td>
+        <td><p>An <a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a> instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_Read_System_Byte___System_Int32_System_Int32_System_Int64__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This implementation will limit - if applicable -  the range of positions to read from.  Based on the amount of buffered
+data, the returned offset and count can be affected - see <a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a>. It ignores serial data request errors.</p>
+</div>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_ReadAsync_" data-uid="KdSoft.StreamUtils.BufferedReader.ReadAsync*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_ReadAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions_" data-uid="KdSoft.StreamUtils.BufferedReader.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Int64,System.Threading.Tasks.TaskCreationOptions)">ReadAsync(Byte[], Int32, Int32, Int64, TaskCreationOptions)</h4>
+  <div class="markdown level1 summary"><p>Reads <code>count</code> bytes from underlying entity (e.g. stream) starting at position <code>sourceOffset</code>. Called asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IOResult&gt; ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer to write the data into.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Position in buffer to start writing to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Number of bytes to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">sourceOffset</span></td>
+        <td><p>Position in underlying entity to start reading from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.TaskCreationOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Task creation options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a>&gt;</td>
+        <td><p>Scheduled task instance that can be waited on (never <code>null</code>). Task result contains <a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a> details.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_ReadAsync_System_Byte___System_Int32_System_Int32_System_Int64_System_Threading_Tasks_TaskCreationOptions__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><ul><li>This implementation will run synchronously when all the requested data is available from the buffer. If some of the data
+      are not in the buffer (anymore), it will delegate the request to the asynchronous <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_RandomDataRequested">RandomDataRequested</a> handler.</li><li>If no <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_RandomDataRequested">RandomDataRequested</a> handler is set, then the implementation will limit the range of positions to read from,
+        based on the amount of buffered data. The returned offset and count can be affected - see <a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a>.</li><li>Serial data request errors are ignored, but errors in the <a class="xref" href="KdSoft.StreamUtils.BufferedReader.html#KdSoft_StreamUtils_BufferedReader_RandomDataRequested">RandomDataRequested</a> handler are passed to the caller.</li></ul></div>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_ReadAsync_" data-uid="KdSoft.StreamUtils.BufferedReader.ReadAsync*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_ReadAsync_System_Byte___System_Int32_System_Int32_System_Threading_Tasks_TaskCreationOptions_" data-uid="KdSoft.StreamUtils.BufferedReader.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.Tasks.TaskCreationOptions)">ReadAsync(Byte[], Int32, Int32, TaskCreationOptions)</h4>
+  <div class="markdown level1 summary"><p>Reads up to <code>count</code> bytes sequentially from underlying entity (e.g. stream). Called asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IOResult&gt; ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer to write the data into.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Position in buffer to start writing to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Maximum number of bytes to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.TaskCreationOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Task creation options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a>&gt;</td>
+        <td><p>Scheduled task instance that can be waited on, or <code>null</code> if reading is already complete (end of data encountered).
+Task result contains <a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a> details.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_StreamUtils_BufferedReader_ReadAsync_System_Byte___System_Int32_System_Int32_System_Threading_Tasks_TaskCreationOptions__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><ul><li>This implementation will actually run synchronously.</li><li>If the task result returns a count of <code>0</code>, but does not indicate the end of data, then this means
+      that currently the buffer is exhausted, but more data may be available in the future.</li><li>If the returned count is less than requested this does not mean that the end of the data was reached - see <a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a></li></ul></div>
+  
+  
+  <a id="KdSoft_StreamUtils_BufferedReader_Write_" data-uid="KdSoft.StreamUtils.BufferedReader.Write*"></a>
+  <h4 id="KdSoft_StreamUtils_BufferedReader_Write_System_Byte___System_Int32_System_Int32_" data-uid="KdSoft.StreamUtils.BufferedReader.Write(System.Byte[],System.Int32,System.Int32)">Write(Byte[], Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Supplies sequential data to the buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Write(byte[] buffer, int start, int count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Byte buffer that contains the data to write.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>Start index of data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>Amount of data to write.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Number of bytes written. May be less that <code>count</code> if the
+buffer does not have sufficient free space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.ISerialReader.html">ISerialReader</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.ISerialAsyncReader.html">ISerialAsyncReader</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.IRandomReader.html">IRandomReader</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.IRandomAsyncReader.html">IRandomAsyncReader</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.IReader.html">IReader</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.IFilterWriter.html">IFilterWriter</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.StreamUtils.IWriter.html">IWriter</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValues_System_Object_">PropertyUtils.GetPropertyValues(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValue_System_Object_System_String_">PropertyUtils.GetPropertyValue(Object, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_SetPropertyValue_System_Object_System_String_System_Object_">PropertyUtils.SetPropertyValue(Object, String, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyPathValue_System_Object_System_String_">PropertyUtils.GetPropertyPathValue(Object, String)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

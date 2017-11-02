@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace KdSoft.StreamUtils
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace KdSoft.StreamUtils
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.StreamUtils">
+  
+  <h1 id="KdSoft_StreamUtils" data-uid="KdSoft.StreamUtils" class="text-break">Namespace KdSoft.StreamUtils
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="KdSoft.StreamUtils.AsyncBufferedReader.html">AsyncBufferedReader</a></h4>
+      <section><p><a class="xref" href="KdSoft.StreamUtils.IRandomAsyncReader.html">IRandomAsyncReader</a> implementation that buffers a specified amount of data in a contiguous cache
+and allows random read requests to be satisfied from this cache.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.AsyncReadWritePump.html">AsyncReadWritePump</a></h4>
+      <section><p>&quot;Data Pump&quot; that reads sequentially, but asynchronously, from a (<a class="xref" href="KdSoft.StreamUtils.ISerialAsyncReader.html">ISerialAsyncReader</a> and writes randomly
+to an <a class="xref" href="KdSoft.StreamUtils.IRandomWriter.html">IRandomWriter</a>, as the read requests may complete out of order.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.BufferedReader.html">BufferedReader</a></h4>
+      <section><p>Implements <a class="xref" href="KdSoft.StreamUtils.IReader.html">IReader</a> based interfaces through a read cache. Buffers a specified amount of data in a contiguous cache
+and allows most (random) re-read requests to be satisfied from this cache, while other random read requests must be satisfied
+through a callback to a <a class="xref" href="KdSoft.StreamUtils.RandomDataRequestHandler.html">RandomDataRequestHandler</a>.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.Constants.html">Constants</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.CryptoWriter.html">CryptoWriter</a></h4>
+      <section><p><a class="xref" href="KdSoft.StreamUtils.TransformFilterWriter.html">TransformFilterWriter</a> that encrypts a data stream.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.ExhaustiveReadWritePump.html">ExhaustiveReadWritePump</a></h4>
+      <section><p>Pumps data from reader to writer until read count is less than requested.
+This operation be repeated until the end of data is reached.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.FilterStreamWriter-1.html">FilterStreamWriter&lt;T&gt;</a></h4>
+      <section><p>Convenience class wrapping Stream to implement <a class="xref" href="KdSoft.StreamUtils.IFilterWriter.html">IFilterWriter</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.MemoryReader.html">MemoryReader</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomAsyncStreamReader-1.html">RandomAsyncStreamReader&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.IRandomAsyncReader.html">IRandomAsyncReader</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomAsyncStreamWriter-1.html">RandomAsyncStreamWriter&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.IRandomAsyncWriter.html">IRandomAsyncWriter</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomFileAsyncStreamReader.html">RandomFileAsyncStreamReader</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomFileAsyncStreamWriter.html">RandomFileAsyncStreamWriter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomFileStreamReader.html">RandomFileStreamReader</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomFileStreamWriter.html">RandomFileStreamWriter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomStreamReader-1.html">RandomStreamReader&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.IRandomReader.html">IRandomReader</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomStreamWriter-1.html">RandomStreamWriter&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.IRandomWriter.html">IRandomWriter</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomWriteSequentializer.html">RandomWriteSequentializer</a></h4>
+      <section><p>Converts random synchronous writes into sequential synchronous writes to an <a class="xref" href="KdSoft.StreamUtils.IFilterWriter.html">IFilterWriter</a> instance.
+This is achieved by buffering and re-ordering them into a sorted set.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RingBuffer-1.html">RingBuffer&lt;T&gt;</a></h4>
+      <section><p>Circular generic buffer with fixed capacity. Not thread-safe.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialAsyncStreamReader-1.html">SerialAsyncStreamReader&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.ISerialAsyncReader.html">ISerialAsyncReader</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialAsyncStreamWriter-1.html">SerialAsyncStreamWriter&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.ISerialAsyncWriter.html">ISerialAsyncWriter</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialFileAsyncStreamReader.html">SerialFileAsyncStreamReader</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialFileAsyncStreamWriter.html">SerialFileAsyncStreamWriter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialFileStreamReader.html">SerialFileStreamReader</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialFileStreamWriter.html">SerialFileStreamWriter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialFilterWriter.html">SerialFilterWriter</a></h4>
+      <section><p>Exposes an <a class="xref" href="KdSoft.StreamUtils.ISerialAsyncWriter.html">ISerialAsyncWriter</a> as <a class="xref" href="KdSoft.StreamUtils.IFilterWriter.html">IFilterWriter</a>.
+Will raise errors if not all data could be written, or for any other async write errors.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialStreamReader-1.html">SerialStreamReader&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.ISerialReader.html">ISerialReader</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialStreamWriter-1.html">SerialStreamWriter&lt;T&gt;</a></h4>
+      <section><p>Wrapper for <span class="xref">System.IO.Stream</span> that exposes an <a class="xref" href="KdSoft.StreamUtils.ISerialWriter.html">ISerialWriter</a> interface.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialWriterException.html">SerialWriterException</a></h4>
+      <section></section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.StreamReader-1.html">StreamReader&lt;T&gt;</a></h4>
+      <section><p>Base class for stream reader implementations.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.StreamWriter-1.html">StreamWriter&lt;T&gt;</a></h4>
+      <section><p>Base class for stream writer implementations.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.TransformFilterWriter.html">TransformFilterWriter</a></h4>
+      <section><p>Base class for push-style data transformations on data streams.</p>
+</section>
+    <h3 id="structs">Structs
+  </h3>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IOResult.html">IOResult</a></h4>
+      <section><p>Result returned from an IO operation.</p>
+</section>
+    <h3 id="interfaces">Interfaces
+  </h3>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IFilterWriter.html">IFilterWriter</a></h4>
+      <section><p>Synchronous interface for writing data, to be used for stream-like push processing, transforming or filtering.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IRandomAsyncReader.html">IRandomAsyncReader</a></h4>
+      <section><p>Asynchronous interface for reading randomly from a data source. Allows multiple reads of the same data.
+<remarks>Data must not change once read - the underlying entity is assumed to be constant while open.</remarks></p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IRandomAsyncWriter.html">IRandomAsyncWriter</a></h4>
+      <section><p>Asynchronous interface for writing randomly to a data sink.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IRandomReader.html">IRandomReader</a></h4>
+      <section><p>Synchronous interface for reading randomly from a data source. Allows multiple reads of the same data.
+<remarks>Data must not change once read - the underlying entity is assumed to be constant while open.</remarks></p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IRandomWriter.html">IRandomWriter</a></h4>
+      <section><p>Synchronous interface for writing randomly to a data sink.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IReader.html">IReader</a></h4>
+      <section><p>Base interface for data readers.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.ISerialAsyncReader.html">ISerialAsyncReader</a></h4>
+      <section><p>Asynchronous interface for reading sequentially from a data source.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.ISerialAsyncWriter.html">ISerialAsyncWriter</a></h4>
+      <section><p>Asynchronous interface for writing sequentially to a data sink.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.ISerialReader.html">ISerialReader</a></h4>
+      <section><p>Synchronous interface for reading sequentially from a data source.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.ISerialWriter.html">ISerialWriter</a></h4>
+      <section><p>Synchronous interface for writing sequentially to a data sink.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.IWriter.html">IWriter</a></h4>
+      <section><p>Base interface for writers.</p>
+</section>
+    <h3 id="delegates">Delegates
+  </h3>
+      <h4><a class="xref" href="KdSoft.StreamUtils.RandomDataRequestHandler.html">RandomDataRequestHandler</a></h4>
+      <section><p>Delegate for initiating asynchronous random data requests.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.StreamUtils.SerialDataRequestHandler.html">SerialDataRequestHandler</a></h4>
+      <section><p>Delegate for initiating asynchronous serial data requests.</p>
+</section>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

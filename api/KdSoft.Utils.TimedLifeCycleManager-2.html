@@ -1,0 +1,711 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TimedLifeCycleManager&lt;K, O&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TimedLifeCycleManager&lt;K, O&gt;
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Utils.TimedLifeCycleManager`2">
+  
+  
+  <h1 id="KdSoft_Utils_TimedLifeCycleManager_2" data-uid="KdSoft.Utils.TimedLifeCycleManager`2" class="text-break">Class TimedLifeCycleManager&lt;K, O&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Manages and tracks the life-cycle of objects implementing <a class="xref" href="KdSoft.Utils.ILifeCycleAware-1.html">ILifeCycleAware&lt;T&gt;</a>.
+When an object&apos;s life-cycle has expired and no other objects have a reference to it then
+it will be removed from the internal object map and consequently will be available for
+garbage collection. On the other hand, an object will be kept un-collected as long
+as its life-cycle has not expired, which is useful for stateful server objects.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">TimedLifeCycleManager&lt;K, O&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.IDisposable</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Utils.html">KdSoft.Utils</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.Utils.Portable.dll</h6>
+  <h5 id="KdSoft_Utils_TimedLifeCycleManager_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TimedLifeCycleManager&lt;K, O&gt; : IDisposable where O : ILifeCycleAware&lt;ITimedLifeCycle&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">K</span></td>
+        <td><p>Type of key that identifies tracked objects.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">O</span></td>
+        <td><p>Type of <a class="xref" href="KdSoft.Utils.ILifeCycleAware-1.html">ILifeCycleAware&lt;T&gt;</a> objects being tracked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Utils_TimedLifeCycleManager_2_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Not thread-safe by default, external synchronization should be performed against the
+<code>syncObj</code> parameter passed to the constructor.</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2__ctor_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.#ctor*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2__ctor_System_TimeSpan_System_Object_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.#ctor(System.TimeSpan,System.Object)">TimedLifeCycleManager(TimeSpan, Object)</h4>
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimedLifeCycleManager(TimeSpan reapPeriod, object syncObj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.TimeSpan</span></td>
+        <td><span class="parametername">reapPeriod</span></td>
+        <td><p>Time interval for periodic life-cycle checking.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">syncObj</span></td>
+        <td><p>Synchronization object for external locking. The internal timer handler
+will lock on this object when calling the <a class="xref" href="KdSoft.Utils.TimedLifeCycleManager-2.html#KdSoft_Utils_TimedLifeCycleManager_2_Terminated">Terminated</a> event handler.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_SyncObj" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.SyncObj">SyncObj</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly object SyncObj</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_Add_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Add*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_Add__0__1_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Add(`0,`1)">Add(K, O)</h4>
+  <div class="markdown level1 summary"><p>Adds new object to life-cycle management and tracking.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(K key, O obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object can be identified.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Object instance to track.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_AddOrUpdate_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.AddOrUpdate*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_AddOrUpdate__0__1_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.AddOrUpdate(`0,`1)">AddOrUpdate(K, O)</h4>
+  <div class="markdown level1 summary"><p>Adds new object to life-cycle management and tracking, or replaces existing one.
+Does not check the life-cycle of the new object. Terminates existing object&apos;s life-cycle, if applicable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddOrUpdate(K key, O obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object can be identified.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>New object instance to track.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_Dispose_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Dispose*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_Dispose" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_Dispose_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Dispose*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_Dispose_System_Boolean_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">disposing</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_GetOrAdd_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.GetOrAdd*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_GetOrAdd__0__1_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.GetOrAdd(`0,`1)">GetOrAdd(K, O)</h4>
+  <div class="markdown level1 summary"><p>Returns &quot;live&quot; object matching the key. This can be an existing object as long as it is still &quot;alive&quot;,
+or the new object passed as argument, in which case the new object would be added to life-cycle management and tracking.
+Makes sure that life-cycle of existing object gets restarted if applicable, calling <a class="xref" href="KdSoft.Utils.ITimedLifeCycle.html#KdSoft_Utils_ITimedLifeCycle_Used">Used()</a>.
+Calls <a class="xref" href="KdSoft.Utils.ILifeCycle.html#KdSoft_Utils_ILifeCycle_Terminate">Terminate()</a> on existing object if it&apos;s life-cycle has ended, and removes it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public O GetOrAdd(K key, O obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object can be identified.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>New object instance to track. Only used if none exists for the key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><p>&quot;live&quot; object, matching the key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_GetOrAdd_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.GetOrAdd*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_GetOrAdd__0_System_Func__0__1__" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.GetOrAdd(`0,System.Func{`0,`1})">GetOrAdd(K, Func&lt;K, O&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns &quot;live&quot; object matching the key. This can be an existing object as long as it is still &quot;alive&quot;, or a new object
+returned from the &quot;getNew&quot; callback, in which case the new object would be added to life-cycle management and tracking.
+Makes sure that life-cycle of existing object gets restarted if applicable, calling <a class="xref" href="KdSoft.Utils.ITimedLifeCycle.html#KdSoft_Utils_ITimedLifeCycle_Used">Used()</a>.
+Calls <a class="xref" href="KdSoft.Utils.ILifeCycle.html#KdSoft_Utils_ILifeCycle_Terminate">Terminate()</a> on existing object if it&apos;s life-cycle has ended, and removes it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public O GetOrAdd(K key, Func&lt;K, O&gt; getNew)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object can be identified.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;K, O&gt;</td>
+        <td><span class="parametername">getNew</span></td>
+        <td><p>Delegate to call when new object must be retrieved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><p>&quot;live&quot; object, matching the key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_Remove_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Remove*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_Remove__0_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Remove(`0)">Remove(K)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(K key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_Terminate_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Terminate*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_Terminate__0_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Terminate(`0)">Terminate(K)</h4>
+  <div class="markdown level1 summary"><p>Terminates life cycle for a given object and removes it from object map immediately.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Terminate(K key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object can be identified.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if object was found and terminated, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_TerminateAll_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.TerminateAll*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_TerminateAll" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.TerminateAll">TerminateAll()</h4>
+  <div class="markdown level1 summary"><p>Terminates all object lifecycles managed by this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TerminateAll()</code></pre>
+  </div>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_TryAdd_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.TryAdd*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_TryAdd__0__1_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.TryAdd(`0,`1)">TryAdd(K, O)</h4>
+  <div class="markdown level1 summary"><p>Adds new object to life-cycle management and tracking. Does not check the life-cycle of the new object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAdd(K key, O obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object is identified.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Object instance to track.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the object was added successfuly, <code>false</code> if an entry for the key already exists.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Utils_TimedLifeCycleManager_2_TryGetValue_" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.TryGetValue*"></a>
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_TryGetValue__0__1__" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.TryGetValue(`0,`1@)">TryGetValue(K, out O)</h4>
+  <div class="markdown level1 summary"><p>Returns &quot;live&quot; object from object map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetValue(K key, out O obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Key by which object can be identified.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">O</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Object to return.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if &quot;live&quot; object was found, <code>false</code> otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  
+  
+  <h4 id="KdSoft_Utils_TimedLifeCycleManager_2_Terminated" data-uid="KdSoft.Utils.TimedLifeCycleManager`2.Terminated">Terminated</h4>
+  <div class="markdown level1 summary"><p>Called when a list of objects is terminated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&lt;IList&lt;K&gt;&gt;&gt; Terminated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="KdSoft.Utils.EventArgs-1.html">EventArgs</a>&lt;<span class="xref">System.Collections.Generic.IList</span>&lt;K&gt;&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Utils_TimedLifeCycleManager_2_Terminated_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Must not throw exceptions.</p>
+</div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.IDisposable</span>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValues_System_Object_">PropertyUtils.GetPropertyValues(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValue_System_Object_System_String_">PropertyUtils.GetPropertyValue(Object, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_SetPropertyValue_System_Object_System_String_System_Object_">PropertyUtils.SetPropertyValue(Object, String, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyPathValue_System_Object_System_String_">PropertyUtils.GetPropertyPathValue(Object, String)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,2705 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Formatter&lt;F&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Formatter&lt;F&gt;
+   ">
+    <meta name="generator" content="docfx 2.26.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Serialization.Formatter`1">
+  
+  
+  <h1 id="KdSoft_Serialization_Formatter_1" data-uid="KdSoft.Serialization.Formatter`1" class="text-break">Class Formatter&lt;F&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A concrete implementation of this abstract base-class, together with corresponding
+implementations of <a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField&lt;T, F&gt;</a> and <a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField&lt;T, F&gt;</a>
+is used to serialize and deserialize an object graph.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Formatter&lt;F&gt;</span></div>
+      <div class="level2"><a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html">Formatter</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Serialization.html">KdSoft.Serialization</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.Serialization.dll</h6>
+  <h5 id="KdSoft_Serialization_Formatter_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class Formatter&lt;F&gt;
+    where F : Formatter&lt;F&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">F</span></td>
+        <td><p>Recursive type parameter that helps using the
+correct subclasses of <code>Formatter</code> and <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> together.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>The concrete subclass determines not only the binary layout of the serialized
+object graph, but also the output target, like - for instance a stream or memory buffer.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeObject_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObject*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeObject__1" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObject``1">DeserializeObject&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Deserializes reference types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T DeserializeObject&lt;T&gt;()where T : class</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>New object instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Reference type that is to be deserialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeObject_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObject*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeObject__1___0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObject``1(``0@)">DeserializeObject&lt;T&gt;(ref T)</h4>
+  <div class="markdown level1 summary"><p>Deserializes reference types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeObject&lt;T&gt;(ref T obj)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Object to deserialize, or <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Reference type that is to be deserialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_DeserializeObject__1___0___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If a <code>null</code> argument is passed in, then a new object will be instantiated.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeObjects__1___0____" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects``1(``0[]@)">DeserializeObjects&lt;T&gt;(ref T[])</h4>
+  <div class="markdown level1 summary"><p>Deserializes reference type arrays using the default
+<a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeObjects&lt;T&gt;(ref T[] obj)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Reference type array to deserialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeObjects__1___0____KdSoft_Serialization_ReferenceField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects``1(``0[]@,KdSoft.Serialization.ReferenceField{``0,`0})">DeserializeObjects&lt;T&gt;(ref T[], ReferenceField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Deserializes reference type arrays using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeObjects&lt;T&gt;(ref T[] value, ReferenceField&lt;T, F&gt; field)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Reference type array to deserialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that deserializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeObjects__2_KdSoft_Serialization_InitSequence___0___1____1__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects``2(KdSoft.Serialization.InitSequence{``0,``1},``1@)">DeserializeObjects&lt;T, C&gt;(InitSequence&lt;T, C&gt;, ref C)</h4>
+  <div class="markdown level1 summary"><p>Deserializes any kind of reference type collection through call-backs
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeObjects&lt;T, C&gt;(InitSequence&lt;T, C&gt; initSequence, ref C collection)where T : class where C : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.InitSequence-2.html">InitSequence</a>&lt;T, C&gt;</td>
+        <td><span class="parametername">initSequence</span></td>
+        <td><p>Call-back delegate to instantiate/initialize collection.
+Returns another delegate to add sequence elements to the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">C</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>Reference to collection. Can be null, in which case
+<code>initSequence()</code> must create a new instance for a non-null deserialization.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">C</span></td>
+        <td><p>Type of collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeObjects__2_KdSoft_Serialization_InitSequence___0___1____1__KdSoft_Serialization_ReferenceField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeObjects``2(KdSoft.Serialization.InitSequence{``0,``1},``1@,KdSoft.Serialization.ReferenceField{``0,`0})">DeserializeObjects&lt;T, C&gt;(InitSequence&lt;T, C&gt;, ref C, ReferenceField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Deserializes any kind of reference type collection through call-backs
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeObjects&lt;T, C&gt;(InitSequence&lt;T, C&gt; initSequence, ref C collection, ReferenceField&lt;T, F&gt; field)where T : class where C : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.InitSequence-2.html">InitSequence</a>&lt;T, C&gt;</td>
+        <td><span class="parametername">initSequence</span></td>
+        <td><p>Call-back delegate to instantiate/initialize collection.
+Returns a delegate to add sequence elements to the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">C</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>Reference to collection. Can be null, in which case
+<code>initSequence()</code> must create a new instance for a non-null deserialization.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that deserializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">C</span></td>
+        <td><p>Type of collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStruct_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStruct*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStruct__1" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStruct``1">DeserializeStruct&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Deserializes nullable value types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T? DeserializeStruct&lt;T&gt;()where T : struct</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Value type that is to be deserialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_DeserializeStruct__1_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>One can cast the return value to the non-nullable value type.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStruct_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStruct*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStruct__1___0__System_Boolean__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStruct``1(``0@,System.Boolean@)">DeserializeStruct&lt;T&gt;(ref T, out Boolean)</h4>
+  <div class="markdown level1 summary"><p>Deserializes large value types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStruct&lt;T&gt;(ref T value, out bool isNull)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value to serialize, passed by reference.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isNull</span></td>
+        <td><p>Indicates <code>null</code>. If this parameter returns <code>true</code>
+then the <code>value</code> has not been modified.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Value type that is to be deserialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_DeserializeStruct__1___0__System_Boolean___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Value type copying is avoided due to the use of a &apos;ref&apos; parameter.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``1(``0[]@)">DeserializeStructs&lt;T&gt;(ref T[])</h4>
+  <div class="markdown level1 summary"><p>Deserializes value type arrays using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a>
+instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T&gt;(ref T[] value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type to deserialize. Passed  by reference
+to avoid copying overhead - suitable for large value types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``1(``0[]@,KdSoft.Serialization.ValueField{``0,`0})">DeserializeStructs&lt;T&gt;(ref T[], ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Deserializes value type arrays using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T&gt;(ref T[] value, ValueField&lt;T, F&gt; field)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type to deserialize. Passed  by reference
+to avoid copying overhead - suitable for large value types.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that deserializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_Nullable___0_____" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``1(System.Nullable{``0}[]@)">DeserializeStructs&lt;T&gt;(ref Nullable&lt;T&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Deserializes arrays of nullable value types using the default
+<a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T&gt;(ref T? [] value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;T&gt;[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type to deserialize. Passed  by reference
+to avoid copying overhead - suitable for large value types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_Nullable___0_____KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``1(System.Nullable{``0}[]@,KdSoft.Serialization.ValueField{``0,`0})">DeserializeStructs&lt;T&gt;(ref Nullable&lt;T&gt;[], ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Deserializes arrays of nullable value types using a specific
+<a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T&gt;(ref T? [] value, ValueField&lt;T, F&gt; field)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;T&gt;[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type to deserialize. Passed  by reference
+to avoid copying overhead - suitable for large value types.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that deserializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitSequence_System_Nullable___0____1____1__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``2(KdSoft.Serialization.InitSequence{System.Nullable{``0},``1},``1@)">DeserializeStructs&lt;T, C&gt;(InitSequence&lt;Nullable&lt;T&gt;, C&gt;, ref C)</h4>
+  <div class="markdown level1 summary"><p>Deserializes any kind of nullable value type collection through call-backs
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T, C&gt;(InitSequence&lt;T? , C&gt; initSequence, ref C collection)where T : struct where C : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.InitSequence-2.html">InitSequence</a>&lt;<span class="xref">System.Nullable</span>&lt;T&gt;, C&gt;</td>
+        <td><span class="parametername">initSequence</span></td>
+        <td><p>Call-back delegate to instantiate/initialize collection.
+Returns a delegate to add sequence elements to the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">C</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>Reference to collection. Can be null, in which case
+<code>initSequence()</code> must create a new instance for a non-null deserialization.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">C</span></td>
+        <td><p>Type of collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitSequence_System_Nullable___0____1____1__KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``2(KdSoft.Serialization.InitSequence{System.Nullable{``0},``1},``1@,KdSoft.Serialization.ValueField{``0,`0})">DeserializeStructs&lt;T, C&gt;(InitSequence&lt;Nullable&lt;T&gt;, C&gt;, ref C, ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Deserializes any kind of nullable value type collection through call-backs
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T, C&gt;(InitSequence&lt;T? , C&gt; initSequence, ref C collection, ValueField&lt;T, F&gt; field)where T : struct where C : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.InitSequence-2.html">InitSequence</a>&lt;<span class="xref">System.Nullable</span>&lt;T&gt;, C&gt;</td>
+        <td><span class="parametername">initSequence</span></td>
+        <td><p>Call-back delegate to instantiate/initialize collection.
+Returns a delegate to add sequence elements to the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">C</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>Reference to collection. Can be null, in which case
+<code>initSequence()</code> must create a new instance for a non-null deserialization.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that deserializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">C</span></td>
+        <td><p>Type of collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitValueSequence___0___1____1__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``2(KdSoft.Serialization.InitValueSequence{``0,``1},``1@)">DeserializeStructs&lt;T, C&gt;(InitValueSequence&lt;T, C&gt;, ref C)</h4>
+  <div class="markdown level1 summary"><p>Deserializes any kind of value type collection through call-backs
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T, C&gt;(InitValueSequence&lt;T, C&gt; initSequence, ref C collection)where T : struct where C : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.InitValueSequence-2.html">InitValueSequence</a>&lt;T, C&gt;</td>
+        <td><span class="parametername">initSequence</span></td>
+        <td><p>Call-back delegate to instantiate/initialize collection.
+Returns a delegate to add sequence elements to the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">C</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>Reference to collection. Can be null, in which case
+<code>initSequence()</code> must create a new instance for a non-null deserialization.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">C</span></td>
+        <td><p>Type of collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_DeserializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_DeserializeStructs__2_KdSoft_Serialization_InitValueSequence___0___1____1__KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.DeserializeStructs``2(KdSoft.Serialization.InitValueSequence{``0,``1},``1@,KdSoft.Serialization.ValueField{``0,`0})">DeserializeStructs&lt;T, C&gt;(InitValueSequence&lt;T, C&gt;, ref C, ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Deserializes any kind of value type collection through call-backs
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeserializeStructs&lt;T, C&gt;(InitValueSequence&lt;T, C&gt; initSequence, ref C collection, ValueField&lt;T, F&gt; field)where T : struct where C : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.InitValueSequence-2.html">InitValueSequence</a>&lt;T, C&gt;</td>
+        <td><span class="parametername">initSequence</span></td>
+        <td><p>Call-back delegate to instantiate/initialize collection.
+Returns a delegate to add sequence elements to the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">C</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>Reference to collection. Can be null, in which case
+<code>initSequence()</code> must create a new instance for a non-null deserialization.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that deserializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">C</span></td>
+        <td><p>Type of collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_GetField_" data-uid="KdSoft.Serialization.Formatter`1.GetField*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_GetField__1" data-uid="KdSoft.Serialization.Formatter`1.GetField``1">GetField&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Retrieves the <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for
+serializing a specific data type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Field&lt;T, F&gt; GetField&lt;T&gt;()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Field-2.html">Field</a>&lt;T, F&gt;</td>
+        <td><p><a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance associated with data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_GetField__1_seealso">See Also</h5>
+  <div class="seealso">
+      <div><span class="xref">KdSoft.Serialization.Formatter`1.RegisterField``1(KdSoft.Serialization.Field{``0,`0})</span></div>
+  </div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_GetReference_" data-uid="KdSoft.Serialization.Formatter`1.GetReference*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_GetReference_System_Int64_" data-uid="KdSoft.Serialization.Formatter`1.GetReference(System.Int64)">GetReference(Int64)</h4>
+  <div class="markdown level1 summary"><p>Returns the object (reference) for a given object handle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract object GetReference(long handle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">handle</span></td>
+        <td><p>Object handle.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>Object reference, or <code>null</code> if the handle is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_InternalRegisterField_" data-uid="KdSoft.Serialization.Formatter`1.InternalRegisterField*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_InternalRegisterField__1_KdSoft_Serialization_Field___0__0__" data-uid="KdSoft.Serialization.Formatter`1.InternalRegisterField``1(KdSoft.Serialization.Field{``0,`0})">InternalRegisterField&lt;T&gt;(Field&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Override to implement the actual field registration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract bool InternalRegisterField&lt;T&gt;(Field&lt;T, F&gt; field)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Field-2.html">Field</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p><a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance to be registered.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the field instance was successfully registered, <code>false</code>
+    if another field instance was already registered for data type <code>T</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type associated with field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_InternalRegisterField__1_KdSoft_Serialization_Field___0__0___seealso">See Also</h5>
+  <div class="seealso">
+      <div><span class="xref">KdSoft.Serialization.Formatter`1.RegisterField``1(KdSoft.Serialization.Field{``0,`0})</span></div>
+  </div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_OpenReference_" data-uid="KdSoft.Serialization.Formatter`1.OpenReference*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_OpenReference_System_Object_System_Int64__" data-uid="KdSoft.Serialization.Formatter`1.OpenReference(System.Object,System.Int64@)">OpenReference(Object, out Int64)</h4>
+  <div class="markdown level1 summary"><p>Opens (registers) a given object reference and returns a new handle for it.
+If the object is already registered, the existing handle is returned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract bool OpenReference(object obj, out long handle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Object to get the handle for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">handle</span></td>
+        <td><p>Handle to be returned for the object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the object handle already exists, <code>false</code>
+    if this was the first call for a particular object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_OpenReference_System_Object_System_Int64___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Is needed to detect if an object has already been serialized - to
+prevent it from being (de)serialized multiple times - and to deal with circular
+references which could lead to infinite recursion.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_ReadCount_" data-uid="KdSoft.Serialization.Formatter`1.ReadCount*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_ReadCount" data-uid="KdSoft.Serialization.Formatter`1.ReadCount">ReadCount()</h4>
+  <div class="markdown level1 summary"><p>Reads a length prefix from the serialized target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract int ReadCount()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Length prefix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_ReadObjRef_" data-uid="KdSoft.Serialization.Formatter`1.ReadObjRef*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_ReadObjRef" data-uid="KdSoft.Serialization.Formatter`1.ReadObjRef">ReadObjRef()</h4>
+  <div class="markdown level1 summary"><p>Reads an object reference from the serialized target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract long ReadObjRef()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><p>Object handle to read.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_ReadStatus_" data-uid="KdSoft.Serialization.Formatter`1.ReadStatus*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_ReadStatus" data-uid="KdSoft.Serialization.Formatter`1.ReadStatus">ReadStatus()</h4>
+  <div class="markdown level1 summary"><p>Reads a <code>SerialStatus</code> value from the serialized target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract SerialStatus ReadStatus()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.SerialStatus.html">SerialStatus</a></td>
+        <td><p>Value to read.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeNull_" data-uid="KdSoft.Serialization.Formatter`1.SerializeNull*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeNull" data-uid="KdSoft.Serialization.Formatter`1.SerializeNull">SerializeNull()</h4>
+  <div class="markdown level1 summary"><p>Serializes <code>null</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeNull()</code></pre>
+  </div>
+  <h5 id="KdSoft_Serialization_Formatter_1_SerializeNull_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Useful for large value types. This is a companion method to
+<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1___0__">SerializeStruct&lt;T&gt;(ref T)</a>.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObject_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObject*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObject__1___0_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObject``1(``0)">SerializeObject&lt;T&gt;(T)</h4>
+  <div class="markdown level1 summary"><p>Serializes reference types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObject&lt;T&gt;(T obj)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>Object to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Reference type to be serialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObjects__1___0___" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects``1(``0[])">SerializeObjects&lt;T&gt;(T[])</h4>
+  <div class="markdown level1 summary"><p>Serializes reference type arrays using the default
+<a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObjects&lt;T&gt;(T[] value)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Array to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of array elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObjects__1___0___KdSoft_Serialization_ReferenceField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects``1(``0[],KdSoft.Serialization.ReferenceField{``0,`0})">SerializeObjects&lt;T&gt;(T[], ReferenceField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes reference type arrays using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObjects&lt;T&gt;(T[] value, ReferenceField&lt;T, F&gt; field)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Array to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the array elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of array elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IEnumerable___0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects``1(System.Collections.Generic.IEnumerable{``0})">SerializeObjects&lt;T&gt;(IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes reference type sequences accessible through <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObjects&lt;T&gt;(IEnumerable&lt;T&gt; value)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IEnumerable___0__KdSoft_Serialization_ReferenceField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects``1(System.Collections.Generic.IEnumerable{``0},KdSoft.Serialization.ReferenceField{``0,`0})">SerializeObjects&lt;T&gt;(IEnumerable&lt;T&gt;, ReferenceField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes reference type sequences accessible through <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObjects&lt;T&gt;(IEnumerable&lt;T&gt; value, ReferenceField&lt;T, F&gt; field)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IList___0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects``1(System.Collections.Generic.IList{``0})">SerializeObjects&lt;T&gt;(IList&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes reference type sequences accessible through <span class="xref">System.Collections.Generic.IList&lt;T&gt;</span>
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObjects&lt;T&gt;(IList&lt;T&gt; value)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IList&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeObjects_" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Collections_Generic_IList___0__KdSoft_Serialization_ReferenceField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeObjects``1(System.Collections.Generic.IList{``0},KdSoft.Serialization.ReferenceField{``0,`0})">SerializeObjects&lt;T&gt;(IList&lt;T&gt;, ReferenceField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes reference type sequences accessible through <span class="xref">System.Collections.Generic.IList&lt;T&gt;</span>
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeObjects&lt;T&gt;(IList&lt;T&gt; value, ReferenceField&lt;T, F&gt; field)where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IList&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be reference type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStruct_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStruct*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStruct__1___0_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStruct``1(``0)">SerializeStruct&lt;T&gt;(T)</h4>
+  <div class="markdown level1 summary"><p>Serializes value types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStruct&lt;T&gt;(T value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type instance to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Value type that is to be serialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStruct_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStruct*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStruct__1___0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStruct``1(``0@)">SerializeStruct&lt;T&gt;(ref T)</h4>
+  <div class="markdown level1 summary"><p>Serializes large value types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStruct&lt;T&gt;(ref T value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type instance to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Value type that is to be serialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_SerializeStruct__1___0___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Value type copying is avoided due to the use of a &apos;ref&apos; parameter,
+but a <code>null</code> cannot be passed. See <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeNull">SerializeNull()</a>.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStruct_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStruct*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Nullable___0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStruct``1(System.Nullable{``0})">SerializeStruct&lt;T&gt;(Nullable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes nullable value types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStruct&lt;T&gt;(T? value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value type instance to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Value type that is to be serialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(``0[])">SerializeStructs&lt;T&gt;(T[])</h4>
+  <div class="markdown level1 summary"><p>Serializes value type arrays using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a>
+instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(T[] value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Array to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of array elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(``0[],KdSoft.Serialization.ValueField{``0,`0})">SerializeStructs&lt;T&gt;(T[], ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes value type arrays using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(T[] value, ValueField&lt;T, F&gt; field)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Array to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the array elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of array elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IEnumerable___0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(System.Collections.Generic.IEnumerable{``0})">SerializeStructs&lt;T&gt;(IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes value type sequences accessible through <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(IEnumerable&lt;T&gt; value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IEnumerable___0__KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(System.Collections.Generic.IEnumerable{``0},KdSoft.Serialization.ValueField{``0,`0})">SerializeStructs&lt;T&gt;(IEnumerable&lt;T&gt;, ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes value type sequences accessible through <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(IEnumerable&lt;T&gt; value, ValueField&lt;T, F&gt; field)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IList___0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(System.Collections.Generic.IList{``0})">SerializeStructs&lt;T&gt;(IList&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes value type sequences accessible through <span class="xref">System.Collections.Generic.IList&lt;T&gt;</span>
+using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(IList&lt;T&gt; value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IList&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Collections_Generic_IList___0__KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(System.Collections.Generic.IList{``0},KdSoft.Serialization.ValueField{``0,`0})">SerializeStructs&lt;T&gt;(IList&lt;T&gt;, ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes value type sequences accessible through <span class="xref">System.Collections.Generic.IList&lt;T&gt;</span>
+using a specific <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(IList&lt;T&gt; value, ValueField&lt;T, F&gt; field)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td><p><span class="xref">System.Collections.Generic.IList&lt;T&gt;</span> sequence to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the sequence elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of sequence elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Nullable___0____" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(System.Nullable{``0}[])">SerializeStructs&lt;T&gt;(Nullable&lt;T&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Serializes arrays of nullable value types using the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a>
+instance registered for the underlying type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(T? [] value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;T&gt;[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Array to serialize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of array elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SerializeStructs_" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Nullable___0____KdSoft_Serialization_ValueField___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SerializeStructs``1(System.Nullable{``0}[],KdSoft.Serialization.ValueField{``0,`0})">SerializeStructs&lt;T&gt;(Nullable&lt;T&gt;[], ValueField&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Serializes arrays of nullable value types using a specific
+<a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SerializeStructs&lt;T&gt;(T? [] value, ValueField&lt;T, F&gt; field)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;T&gt;[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Array to serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field that serializes the array elements.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Type of array elements - must be value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SetPermanentReferences_" data-uid="KdSoft.Serialization.Formatter`1.SetPermanentReferences*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SetPermanentReferences_System_Object___" data-uid="KdSoft.Serialization.Formatter`1.SetPermanentReferences(System.Object[])">SetPermanentReferences(Object[])</h4>
+  <div class="markdown level1 summary"><p>Registers pre-existing objects referenced by the object graph.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void SetPermanentReferences(params object[] objects)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span>[]</td>
+        <td><span class="parametername">objects</span></td>
+        <td><p>Array of pre-existing objects. The number and order of
+these objects must be exactly the same for serialization and deserialization.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_SetPermanentReferences_System_Object____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is required when specific objects that are referenced by
+an object graph should not be serialized, as they will also already exist
+when the object graph is deserialized.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_Skip_" data-uid="KdSoft.Serialization.Formatter`1.Skip*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_Skip__1" data-uid="KdSoft.Serialization.Formatter`1.Skip``1">Skip&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Uses the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Skip&lt;T&gt;()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if skipping should continue, <code>false otherwise.</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type to skip.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_Skip_" data-uid="KdSoft.Serialization.Formatter`1.Skip*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_Skip__1_KdSoft_Serialization_Field___0__0__" data-uid="KdSoft.Serialization.Formatter`1.Skip``1(KdSoft.Serialization.Field{``0,`0})">Skip&lt;T&gt;(Field&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Uses a specified <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance instead of the default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Skip&lt;T&gt;(Field&lt;T, F&gt; field)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Field-2.html">Field</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field associated with data type of member to skip.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if skipping should continue, <code>false otherwise.</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type associated with field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SkipMembers_" data-uid="KdSoft.Serialization.Formatter`1.SkipMembers*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SkipMembers__1_KdSoft_Serialization_Field___0__0__System_Int32___" data-uid="KdSoft.Serialization.Formatter`1.SkipMembers``1(KdSoft.Serialization.Field{``0,`0},System.Int32[])">SkipMembers&lt;T&gt;(Field&lt;T, F&gt;, Int32[])</h4>
+  <div class="markdown level1 summary"><p>Uses a specified <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance instead of the default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SkipMembers&lt;T&gt;(Field&lt;T, F&gt; field, params int[] path)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Field-2.html">Field</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field associated with root object in graph.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span>[]</td>
+        <td><span class="parametername">path</span></td>
+        <td><p>Path in the graph which is to be skipped. Node indexes
+are 0-based.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if successful, <code>false</code> if path is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type associated with field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SkipMembers_" data-uid="KdSoft.Serialization.Formatter`1.SkipMembers*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SkipMembers__1_System_Int32___" data-uid="KdSoft.Serialization.Formatter`1.SkipMembers``1(System.Int32[])">SkipMembers&lt;T&gt;(Int32[])</h4>
+  <div class="markdown level1 summary"><p>Uses the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SkipMembers&lt;T&gt;(params int[] path)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span>[]</td>
+        <td><span class="parametername">path</span></td>
+        <td><p>Path in the graph which is to be skipped.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if successful, <code>false</code> if path is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type associated with field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SkipObjRef_" data-uid="KdSoft.Serialization.Formatter`1.SkipObjRef*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SkipObjRef" data-uid="KdSoft.Serialization.Formatter`1.SkipObjRef">SkipObjRef()</h4>
+  <div class="markdown level1 summary"><p>Skips an object reference while deserialing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void SkipObjRef()</code></pre>
+  </div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SkipSequence_" data-uid="KdSoft.Serialization.Formatter`1.SkipSequence*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SkipSequence__1" data-uid="KdSoft.Serialization.Formatter`1.SkipSequence``1">SkipSequence&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Uses the default <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SkipSequence&lt;T&gt;()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if skipping should continue, <code>false otherwise.</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type of sequence elements to skip.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_SkipSequence_" data-uid="KdSoft.Serialization.Formatter`1.SkipSequence*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_SkipSequence__1_KdSoft_Serialization_Field___0__0__" data-uid="KdSoft.Serialization.Formatter`1.SkipSequence``1(KdSoft.Serialization.Field{``0,`0})">SkipSequence&lt;T&gt;(Field&lt;T, F&gt;)</h4>
+  <div class="markdown level1 summary"><p>Uses a specified <a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a> instance instead of the default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SkipSequence&lt;T&gt;(Field&lt;T, F&gt; field)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Field-2.html">Field</a>&lt;T, F&gt;</td>
+        <td><span class="parametername">field</span></td>
+        <td><p>Field associated with data type of sequence elements to skip.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if skipping should continue, <code>false otherwise.</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Data type associated with field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_WriteCount_" data-uid="KdSoft.Serialization.Formatter`1.WriteCount*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_WriteCount_System_Int32_" data-uid="KdSoft.Serialization.Formatter`1.WriteCount(System.Int32)">WriteCount(Int32)</h4>
+  <div class="markdown level1 summary"><p>Writes a length prefix to the serialization target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void WriteCount(int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Length value to write.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_WriteCount_System_Int32__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is usually needed whe a sequence of objects is serilaized,
+like for instance an array or a hash table.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_WriteObjRef_" data-uid="KdSoft.Serialization.Formatter`1.WriteObjRef*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_WriteObjRef_System_Int64_" data-uid="KdSoft.Serialization.Formatter`1.WriteObjRef(System.Int64)">WriteObjRef(Int64)</h4>
+  <div class="markdown level1 summary"><p>Writes an object reference to the serialization target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void WriteObjRef(long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Object handle to write.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="KdSoft_Serialization_Formatter_1_WriteObjRef_System_Int64__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The implementation may decide not to use all 64 bits of the handle value.</p>
+</div>
+  
+  
+  <a id="KdSoft_Serialization_Formatter_1_WriteStatus_" data-uid="KdSoft.Serialization.Formatter`1.WriteStatus*"></a>
+  <h4 id="KdSoft_Serialization_Formatter_1_WriteStatus_KdSoft_Serialization_SerialStatus_" data-uid="KdSoft.Serialization.Formatter`1.WriteStatus(KdSoft.Serialization.SerialStatus)">WriteStatus(SerialStatus)</h4>
+  <div class="markdown level1 summary"><p>Writes a <code>SerialStatus</code> value to the serialization target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void WriteStatus(SerialStatus value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.SerialStatus.html">SerialStatus</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value to write.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValues_System_Object_">PropertyUtils.GetPropertyValues(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValue_System_Object_System_String_">PropertyUtils.GetPropertyValue(Object, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_SetPropertyValue_System_Object_System_String_System_Object_">PropertyUtils.SetPropertyValue(Object, String, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyPathValue_System_Object_System_String_">PropertyUtils.GetPropertyPathValue(Object, String)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
