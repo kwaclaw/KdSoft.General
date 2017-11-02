@@ -1,17 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="$(SolutionDir)common.props" />
+
   <PropertyGroup>
+    <Title>KdSoft.Utils.Tests</Title>
     <Description>KdSoft.Utils.Tests Class Library</Description>
     <VersionPrefix>1.0.3</VersionPrefix>
-    <Authors>Karl Waclawek</Authors>
     <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <CodeAnalysisRuleSet>..\Solution.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

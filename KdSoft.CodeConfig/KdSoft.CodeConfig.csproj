@@ -1,19 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="$(SolutionDir)common.props" />
+
   <PropertyGroup>
-    <Description>KdSoft.CodeConfig Class Library</Description>
+    <Title>KdSoft.CodeConfig</Title>
     <VersionPrefix>2.1.0</VersionPrefix>
-    <Authors>Karl Waclawek</Authors>
+    <Description>KdSoft.CodeConfig Class Library</Description>
     <TargetFramework>net461</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <IncludeSymbols>True</IncludeSymbols>
-    <CodeAnalysisRuleSet>..\Solution.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
