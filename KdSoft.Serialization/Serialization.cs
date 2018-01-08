@@ -117,7 +117,7 @@ namespace KdSoft.Serialization
     /// <overloads>
     /// <summary>On deserialization, skips a specific data type.</summary>
     /// <remarks>Never call this method outside of a <see cref="Field{T, F}.SkipValue"/>
-    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}"/>.</remarks>
+    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}(Field{T, F}, int[])"/>.</remarks>
     /// </overloads>
     /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
@@ -169,7 +169,7 @@ namespace KdSoft.Serialization
     /// <overloads>
     /// <summary>On deserialization, skips sequences of a specific data type.</summary>
     /// <remarks>Never call this method outside of a <see cref="Field{T, F}.SkipValue"/>
-    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}"/>.</remarks>
+    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}(Field{T, F}, int[])"/>.</remarks>
     /// </overloads>
     /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
@@ -521,10 +521,9 @@ namespace KdSoft.Serialization
     /// <overloads>Deserializes sequences (arrays, collections) of a given type.</overloads>
     /// <summary>Deserializes value type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
-    /// <param name="value">Value type to deserialize. Passed  by reference
-    /// to avoid copying overhead - suitable for large value types.</param>
+    /// <param name="value">Value type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T>(ref T[] value, ValueField<T, F> field)
+    public void DeserializeStructs<T>(out T[] value, ValueField<T, F> field)
       where T: struct 
     {
       SerialStatus status = ReadStatus();
@@ -539,9 +538,12 @@ namespace KdSoft.Serialization
           value = new T[count];
           for (int indx = 0; indx < count; indx++) {
             bool isNull;
-            DeserializeStruct<T>(ref value[indx], out isNull);
+            field.Deserialize(ref value[indx], out isNull);
             if (isNull)
               throw new SerializationException("Non-nullable value type: " + typeof(T).FullName + ".");          }
+          break;
+        default:
+          value = null;
           break;
       }
     }
@@ -551,20 +553,19 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize. Passed  by reference
     /// to avoid copying overhead - suitable for large value types.</param>
-    public void DeserializeStructs<T>(ref T[] value)
+    public void DeserializeStructs<T>(out T[] value)
       where T: struct
     {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      DeserializeStructs<T>(ref value, field);
+      DeserializeStructs<T>(out value, field);
     }
 
     /// <summary>Deserializes arrays of nullable value types using a specific
     /// <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
-    /// <param name="value">Value type to deserialize. Passed  by reference
-    /// to avoid copying overhead - suitable for large value types.</param>
+    /// <param name="value">Value type to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T>(ref T?[] value, ValueField<T, F> field)
+    public void DeserializeStructs<T>(out T?[] value, ValueField<T, F> field)
       where T: struct
     {
       SerialStatus status = ReadStatus();
@@ -580,19 +581,21 @@ namespace KdSoft.Serialization
           for (int indx = 0; indx < count; indx++)
             value[indx] = field.Deserialize();
           break;
+        default:
+          value = null;
+          break;
       }
     }
 
     /// <summary>Deserializes arrays of nullable value types using the default
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
-    /// <param name="value">Value type to deserialize. Passed  by reference
-    /// to avoid copying overhead - suitable for large value types.</param>
-    public void DeserializeStructs<T>(ref T?[] value)
+    /// <param name="value">Value type to deserialize.</param>
+    public void DeserializeStructs<T>(out T?[] value)
       where T: struct
     {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      DeserializeStructs<T>(ref value, field);
+      DeserializeStructs<T>(out value, field);
     }
 
     #endregion Deserialize Value Type Arrays
@@ -625,7 +628,7 @@ namespace KdSoft.Serialization
           T value = new T();
           for (int indx = 0; indx < count; indx++) {
             bool isNull;
-            DeserializeStruct<T>(ref value, out isNull);
+            field.Deserialize(ref value, out isNull);
             addItem(ref value, isNull, collection);
           }
           break;
@@ -640,7 +643,6 @@ namespace KdSoft.Serialization
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T, C>(InitValueSequence<T, C> initSequence, ref C collection)
       where T: struct
       where C: class
@@ -924,7 +926,7 @@ namespace KdSoft.Serialization
     /// serializing instances of type <c>T</c>.</param>
     protected Field(F fmt, bool isDefault) {
       if (fmt == null)
-        throw new ArgumentNullException("fmt");
+        throw new ArgumentNullException(nameof(fmt));
       if (isDefault)
         fmt.RegisterField<T>(this);
       this.fmt = fmt;
@@ -948,7 +950,7 @@ namespace KdSoft.Serialization
     /// <summary>Skips serialized field value without deserializing it. Useful
     /// for partial deserialization.</summary>
     /// <remarks>For a given target data type, this must be implemented by calling
-    /// any of the overloaded versions of <see cref="KdSoft.Serialization.Formatter{F}.Skip{T}"/>
+    /// any of the overloaded versions of <see cref="KdSoft.Serialization.Formatter{F}.Skip{T}(Field{T, F})"/>
     /// for its serialized members, in the exact same order as they have been serialized.
     /// Whenever any of these calls returns <c>false</c>, then <c>SkipValue()</c> must
     /// return immediately.</remarks>
@@ -1007,9 +1009,9 @@ namespace KdSoft.Serialization
     /// <summary>Specifies how and in which order struct members are serialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
-    /// overloaded versions of <see cref="Formatter{F}.SerializeObject{T}"/>,
-    /// <see cref="Formatter{F}.SerializeStruct{T}"/>, <see cref="Formatter{F}.SerializeObjects{T}"/>
-    /// or <see cref="Formatter{F}.SerializeStructs{T}"/>.
+    /// overloaded versions of <see cref="Formatter{F}.SerializeObject{T}(T)"/>,
+    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/>, <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>
+    /// or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
     /// <code>
@@ -1029,9 +1031,9 @@ namespace KdSoft.Serialization
     /// <summary>Specifies how and in which order struct members are deserialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}"/>,
-    /// <see cref="Formatter{F}.DeserializeStruct{T}"/>, <see cref="Formatter{F}.DeserializeObjects{T}"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}()"/>,
+    /// <see cref="Formatter{F}.DeserializeStruct{T}()"/>, <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(T[])"/>.
     /// The order in which members are deserialized must match the order of serialization.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
@@ -1054,7 +1056,7 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.SerializeStruct{T}"/> or <see cref="Formatter{F}.SerializeStructs{T}"/>.
+    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
     /// </remarks>
     /// <param name="value">Struct instance to serialize, or <c>null</c>.</param>
     public void Serialize(T? value) {
@@ -1072,7 +1074,7 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.SerializeStruct{T}"/> or <see cref="Formatter{F}.SerializeStructs{T}"/>.
+    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
     /// <para>Passing the value type by reference avoids copy overhead which is useful
     /// for large value types. However, this does not allow to pass <c>nulls</c>.
     /// To serialize a <c>null</c>, call <see cref="Formatter{F}.SerializeNull()"/>.</para>
@@ -1087,8 +1089,8 @@ namespace KdSoft.Serialization
     /// <remarks>This method should only be called when a non-default field instance
     /// is used directly by the application, otherwise the corresponding
     /// <see cref="Formatter{F}"/> will take care of calling it through its
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}()"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(out T[])"/>.
     /// </remarks>
     /// <returns>The deserialized struct, or <c>null</c>.</returns>
     public T? Deserialize() {
@@ -1099,7 +1101,7 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
-          T value = new T();
+          T value = default;
           DeserializeValue(ref value);
           return value;
       }
@@ -1111,11 +1113,11 @@ namespace KdSoft.Serialization
     /// This method should only be called when a non-default field instance
     /// is used directly by the application, otherwise the corresponding
     /// <see cref="Formatter{F}"/> will take care of calling it through its
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}()"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(out T[])"/>.
     /// Useful for large value types because the <c>value</c> parameter is passed by reference.
     /// </remarks>
-    /// <param name="value">The object to deserialize, or <c>null</c>.</param>
+    /// <param name="value">The struct to deserialize.</param>
     /// <param name="isNull">Indicates if the return value is <c>null</c>.
     /// If <c>true</c>, the <c>value</c> argument will not be modified.</param>
     public void Deserialize(ref T value, out bool isNull) {
@@ -1136,7 +1138,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Base field class for serializing reference types.</summary>
   /// <typeparam name="T">Restricts serializable type to reference types.</typeparam>
-  /// <typeparam name="F">Associates this class with a <see cref="Formatter&lt;F>"/> subclass.</typeparam>
+  /// <typeparam name="F">Associates this class with a <see cref="Formatter{F}"/> subclass.</typeparam>
   public abstract class ReferenceField<T, F>: Field<T, F>
     where T: class
     where F: Formatter<F>
@@ -1147,8 +1149,8 @@ namespace KdSoft.Serialization
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
     /// overloaded versions of <see cref="Formatter{F}.SerializeObject{T}"/>,
-    /// <see cref="Formatter{F}.SerializeStruct{T}"/>, <see cref="Formatter{F}.SerializeObjects{T}"/>
-    /// or <see cref="Formatter{F}.SerializeStructs{T}"/>.
+    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/>, <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>
+    /// or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
     /// <code>
@@ -1185,9 +1187,9 @@ namespace KdSoft.Serialization
     /// <summary>Specifies how and in which order class members are deserialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}"/>,
-    /// <see cref="Formatter{F}.DeserializeStruct{T}"/>, <see cref="Formatter{F}.DeserializeObjects{T}"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}()"/>,
+    /// <see cref="Formatter{F}.DeserializeStruct{T}()"/>, <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(T[])"/>.
     /// The order in which members are deserialized must match the order of serialization.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
@@ -1210,7 +1212,7 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.SerializeObject{T}"/> or <see cref="Formatter{F}.SerializeObjects{T}"/>.
+    /// <see cref="Formatter{F}.SerializeObject{T}(T)"/> or <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>.
     /// </remarks>
     /// <param name="value">The object to serialize.</param>
     public void Serialize(T value) {
@@ -1234,7 +1236,7 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.DeserializeObject{T}"/> or <see cref="Formatter{F}.DeserializeObjects{T}"/>.
+    /// <see cref="Formatter{F}.DeserializeObject{T}()"/> or <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>.
     /// </remarks>
     /// <param name="value">The object to deserialize, or <c>null</c>.</param>
     public void Deserialize(ref T value) {
