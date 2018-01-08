@@ -11,6 +11,11 @@
     <AssemblyOriginatorKeyFile>KdSoft.Utils.Shared.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard1.2' ">COREFX</DefineConstants>
+    <DefineConstants>BUFFER_API</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
