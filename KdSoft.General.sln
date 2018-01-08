@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}"
 	ProjectSection(SolutionItems) = preProject
@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docfx", "docfx\docfx.csproj
 		{7CFAC2E5-2BFE-4860-B474-CD72FF83254B} = {7CFAC2E5-2BFE-4860-B474-CD72FF83254B}
 		{F21C6AEC-188C-4792-B8E6-E4A4DD3A113B} = {F21C6AEC-188C-4792-B8E6-E4A4DD3A113B}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.Serialization.Tests", "KdSoft.Serialization.Tests\KdSoft.Serialization.Tests.csproj", "{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{04EF75A7-999F-4845-A608-86A5F8A19B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04EF75A7-999F-4845-A608-86A5F8A19B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EF75A7-999F-4845-A608-86A5F8A19B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
