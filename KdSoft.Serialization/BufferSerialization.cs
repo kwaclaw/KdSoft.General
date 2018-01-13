@@ -128,12 +128,12 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected internal override void WriteObjRef(Int64 value) {
-      converter.WriteBytes<long>(value, valueBuffer, ref valueIndx);
+      converter.WriteBytes(value, valueBuffer, ref valueIndx);
     }
 
     /// <inheritdoc />
     protected internal override void WriteCount(int value) {
-      converter.WriteBytes<int>(value, valueBuffer, ref valueIndx);
+      converter.WriteBytes(value, valueBuffer, ref valueIndx);
     }
 
     /// <inheritdoc />
@@ -1209,7 +1209,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref ushort value) {
-      Fmt.Converter.ReadBytes<ushort>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1234,7 +1234,7 @@ namespace KdSoft.Serialization.Buffer
     /// <inheritdoc />
     protected override void DeserializeValue(ref short value) {
       short tmpValue;
-      Fmt.Converter.ReadBytes<short>(ValueBuffer, ref Fmt.valueIndx, out tmpValue);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out tmpValue);
       value = unchecked((short)-tmpValue);
     }
 
@@ -1256,7 +1256,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref char value) {
-      Fmt.Converter.ReadBytes<char>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1278,7 +1278,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref uint value) {
-      Fmt.Converter.ReadBytes<uint>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1302,7 +1302,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref int value) {
-      Fmt.Converter.ReadBytes<int>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
       value = -value;
     }
 
@@ -1325,7 +1325,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref ulong value) {
-      Fmt.Converter.ReadBytes<ulong>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1349,7 +1349,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref long value) {
-      Fmt.Converter.ReadBytes<long>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
       value = -value;
     }
 
@@ -1374,7 +1374,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref decimal value) {
-      Fmt.Converter.ReadBytes<decimal>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1396,7 +1396,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref float value) {
-      Fmt.Converter.ReadBytes<float>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1418,7 +1418,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeValue(ref double value) {
-      Fmt.Converter.ReadBytes<double>(ValueBuffer, ref Fmt.valueIndx, out value);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
@@ -1444,7 +1444,7 @@ namespace KdSoft.Serialization.Buffer
     /// <inheritdoc />
     protected override void DeserializeValue(ref DateTime value) {
       long ticks = default;
-      Fmt.Converter.ReadBytes<long>(ValueBuffer, ref Fmt.valueIndx, out ticks);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out ticks);
       value = new DateTime(ticks, DateTimeKind.Utc);
     }
 
@@ -1494,7 +1494,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void DeserializeInstance(ref byte[] instance) {
-      Fmt.Converter.ReadBytes<int>(ValueBuffer, ref Fmt.valueIndx, out int len);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
       if (instance == null || instance.Length != len)
         instance = new byte[len];
     }
@@ -1507,7 +1507,7 @@ namespace KdSoft.Serialization.Buffer
 
     /// <inheritdoc />
     protected override void SkipValue() {
-      Fmt.Converter.ReadBytes<int>(ValueBuffer, ref Fmt.valueIndx, out int len);
+      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }

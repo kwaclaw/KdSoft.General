@@ -23,13 +23,13 @@ namespace KdSoft.Serialization
   /// </remarks>
   /// <typeparam name="F">Recursive type parameter that helps using the
   /// correct subclasses of <c>Formatter</c> and <see cref="Field{T, F}"/> together.</typeparam>
-  public abstract class Formatter<F> where F: Formatter<F>
+  public abstract class Formatter<F> where F : Formatter<F>
   {
     /// <summary>Writes a <c>SerialStatus</c> value to the serialization target.</summary>
     /// <param name="value">Value to write.</param>
     protected internal abstract void WriteStatus(SerialStatus value);
 
-    
+
     /// <summary>Writes an object reference to the serialization target.</summary>
     /// <remarks>The implementation may decide not to use all 64 bits of the handle value.</remarks>
     /// <param name="value">Object handle to write.</param>
@@ -282,8 +282,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="value">Value type instance to serialize.</param>
     public void SerializeStruct<T>(T? value)
-      where T: struct
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Serialize(value);
     }
@@ -294,8 +293,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="value">Value type instance to serialize.</param>
     public void SerializeStruct<T>(ref T value)
-      where T: struct
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Serialize(ref value);
     }
@@ -304,8 +302,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="value">Value type instance to serialize.</param>
     public void SerializeStruct<T>(T value)
-      where T: struct
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Serialize(ref value);
     }
@@ -321,8 +318,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Reference type to be serialized.</typeparam>
     /// <param name="obj">Object to serialize.</param>
     public void SerializeObject<T>(T obj)
-      where T: class 
-    {
+      where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       field.Serialize(obj);
     }
@@ -336,8 +332,7 @@ namespace KdSoft.Serialization
     /// <remarks>One can cast the return value to the non-nullable value type.</remarks>
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
     public T? DeserializeStruct<T>()
-      where T: struct
-    {
+      where T : struct {
       T? result;
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       result = field.Deserialize();
@@ -351,8 +346,7 @@ namespace KdSoft.Serialization
     /// <param name="isNull">Indicates <c>null</c>. If this parameter returns <c>true</c>
     /// then the <c>value</c> has not been modified.</param>
     public void DeserializeStruct<T>(ref T value, out bool isNull)
-      where T: struct 
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Deserialize(ref value, out isNull);
     }
@@ -362,8 +356,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
     /// <param name="obj">Object to deserialize, or <c>null</c>.</param>
     public void DeserializeObject<T>(ref T obj)
-      where T: class
-    {
+      where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       field.Deserialize(ref obj);
     }
@@ -372,8 +365,7 @@ namespace KdSoft.Serialization
     /// <returns>New object instance.</returns>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
     public T DeserializeObject<T>()
-      where T: class
-    {
+      where T : class {
       T obj = null;
       DeserializeObject(ref obj);
       return obj;
@@ -391,8 +383,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
     public void SerializeStructs<T>(T[] value, ValueField<T, F> field)
-      where T: struct 
-    {
+      where T : struct {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -408,8 +399,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     public void SerializeStructs<T>(T[] value)
-      where T: struct
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(value, field);
     }
@@ -420,8 +410,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
     public void SerializeStructs<T>(T?[] value, ValueField<T, F> field)
-      where T: struct 
-    {
+      where T : struct {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -437,8 +426,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     public void SerializeStructs<T>(T?[] value)
-      where T: struct 
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(value, field);
     }
@@ -453,8 +441,7 @@ namespace KdSoft.Serialization
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeStructs<T>(IList<T> value, ValueField<T, F> field)
-      where T: struct
-    {
+      where T : struct {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -470,8 +457,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     public void SerializeStructs<T>(IList<T> value)
-      where T: struct 
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(value, field);
     }
@@ -482,8 +468,7 @@ namespace KdSoft.Serialization
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeStructs<T>(IEnumerable<T> value, ValueField<T, F> field)
-      where T: struct 
-    {
+      where T : struct {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -504,8 +489,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     public void SerializeStructs<T>(IEnumerable<T> value)
-      where T: struct 
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(value, field);
     }
@@ -524,8 +508,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Value type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T>(out T[] value, ValueField<T, F> field)
-      where T: struct 
-    {
+      where T : struct {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -540,7 +523,8 @@ namespace KdSoft.Serialization
             bool isNull;
             field.Deserialize(ref value[indx], out isNull);
             if (isNull)
-              throw new SerializationException("Non-nullable value type: " + typeof(T).FullName + ".");          }
+              throw new SerializationException("Non-nullable value type: " + typeof(T).FullName + ".");
+          }
           break;
         default:
           value = null;
@@ -554,8 +538,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Value type to deserialize. Passed  by reference
     /// to avoid copying overhead - suitable for large value types.</param>
     public void DeserializeStructs<T>(out T[] value)
-      where T: struct
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       DeserializeStructs<T>(out value, field);
     }
@@ -566,8 +549,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T>(out T?[] value, ValueField<T, F> field)
-      where T: struct
-    {
+      where T : struct {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -592,8 +574,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize.</param>
     public void DeserializeStructs<T>(out T?[] value)
-      where T: struct
-    {
+      where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       DeserializeStructs<T>(out value, field);
     }
@@ -612,9 +593,8 @@ namespace KdSoft.Serialization
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T, C>(InitValueSequence<T, C> initSequence, ref C collection, ValueField<T, F> field)
-      where T: struct
-      where C: class
-    {
+      where T : struct
+      where C : class {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -644,9 +624,8 @@ namespace KdSoft.Serialization
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     public void DeserializeStructs<T, C>(InitValueSequence<T, C> initSequence, ref C collection)
-      where T: struct
-      where C: class
-    {
+      where T : struct
+      where C : class {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       DeserializeStructs<T, C>(initSequence, ref collection, field);
     }
@@ -661,9 +640,8 @@ namespace KdSoft.Serialization
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T, C>(InitSequence<T?, C> initSequence, ref C collection, ValueField<T, F> field)
-      where T: struct
-      where C: class
-    {
+      where T : struct
+      where C : class {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -691,9 +669,8 @@ namespace KdSoft.Serialization
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     public void DeserializeStructs<T, C>(InitSequence<T?, C> initSequence, ref C collection)
-      where T: struct
-      where C: class
-    {
+      where T : struct
+      where C : class {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       DeserializeStructs<T, C>(initSequence, ref collection, field);
     }
@@ -712,8 +689,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
     public void SerializeObjects<T>(T[] value, ReferenceField<T, F> field)
-      where T: class
-    {
+      where T : class {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -729,8 +705,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     public void SerializeObjects<T>(T[] value)
-      where T: class 
-    {
+      where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       SerializeObjects<T>(value, field);
     }
@@ -745,8 +720,7 @@ namespace KdSoft.Serialization
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeObjects<T>(IList<T> value, ReferenceField<T, F> field)
-      where T: class 
-    {
+      where T : class {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -762,8 +736,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     public void SerializeObjects<T>(IList<T> value)
-      where T: class 
-    {
+      where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       SerializeObjects<T>(value, field);
     }
@@ -774,8 +747,7 @@ namespace KdSoft.Serialization
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeObjects<T>(IEnumerable<T> value, ReferenceField<T, F> field)
-      where T: class 
-    {
+      where T : class {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -796,8 +768,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     public void SerializeObjects<T>(IEnumerable<T> value)
-      where T: class 
-    {
+      where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       SerializeObjects<T>(value, field);
     }
@@ -816,8 +787,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Reference type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeObjects<T>(ref T[] value, ReferenceField<T, F> field)
-      where T: class 
-    {
+      where T : class {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -839,8 +809,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="obj">Reference type array to deserialize.</param>
     public void DeserializeObjects<T>(ref T[] obj)
-      where T: class 
-    {
+      where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       DeserializeObjects(ref obj, field);
     }
@@ -859,9 +828,8 @@ namespace KdSoft.Serialization
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeObjects<T, C>(InitSequence<T, C> initSequence, ref C collection, ReferenceField<T, F> field)
-      where T: class
-      where C: class
-    {
+      where T : class
+      where C : class {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -890,9 +858,8 @@ namespace KdSoft.Serialization
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     public void DeserializeObjects<T, C>(InitSequence<T, C> initSequence, ref C collection)
-      where T: class
-      where C: class
-    {
+      where T : class
+      where C : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       DeserializeObjects(initSequence, ref collection, field);
     }
@@ -913,7 +880,7 @@ namespace KdSoft.Serialization
   /// <typeparam name="F">Subclass of <see cref="KdSoft.Serialization.Formatter&lt;F>"/>
   /// which cooperates with this class.</typeparam>
   public abstract class Field<T, F>
-    where F: Formatter<F>
+    where F : Formatter<F>
   {
     internal F fmt;
 
@@ -1000,9 +967,9 @@ namespace KdSoft.Serialization
   /// <summary>Base field class for serializing value types.</summary>
   /// <typeparam name="T">Restricts serializable type to value types.</typeparam>
   /// <typeparam name="F">Associates this class with a <see cref="Formatter&lt;F>"/> subclass.</typeparam>
-  public abstract class ValueField<T, F>: Field<T, F>
-    where T: struct
-    where F: Formatter<F>
+  public abstract class ValueField<T, F> : Field<T, F>
+    where T : struct
+    where F : Formatter<F>
   {
     protected ValueField(F fmt, bool isDefault) : base(fmt, isDefault) { }
 
@@ -1063,7 +1030,7 @@ namespace KdSoft.Serialization
       if (value.HasValue) {
         Fmt.WriteStatus(SerialStatus.Value);
         T val = value.Value; // Value is a property, cannot be passed by reference
-        SerializeValue(ref val);  
+        SerializeValue(ref val);
       }
       else
         Fmt.WriteStatus(SerialStatus.Null);
@@ -1139,9 +1106,9 @@ namespace KdSoft.Serialization
   /// <summary>Base field class for serializing reference types.</summary>
   /// <typeparam name="T">Restricts serializable type to reference types.</typeparam>
   /// <typeparam name="F">Associates this class with a <see cref="Formatter{F}"/> subclass.</typeparam>
-  public abstract class ReferenceField<T, F>: Field<T, F>
-    where T: class
-    where F: Formatter<F>
+  public abstract class ReferenceField<T, F> : Field<T, F>
+    where T : class
+    where F : Formatter<F>
   {
     protected ReferenceField(F fmt, bool isDefault) : base(fmt, isDefault) { }
 
@@ -1282,7 +1249,7 @@ namespace KdSoft.Serialization
   /// <typeparam name="C">Type of collection.</typeparam>
   /// <param name="item">Sequence element to add.</param>
   /// <param name="collection">Collection to add elements to.</param>
-  public delegate void AddItem<T, C>(T item, C collection) where C: class;
+  public delegate void AddItem<T, C>(T item, C collection) where C : class;
 
   /// <summary>Call-back delegate to be used when deserializing a sequence.</summary>
   /// <remarks>The <see cref="AddItem{T, C}"/> delegate returned must be called
@@ -1299,19 +1266,19 @@ namespace KdSoft.Serialization
 
   /// <summary>Like <see cref="AddItem{T, C}"/>, but intended for large value types.</summary>
   /// <remarks>Passing the value by reference avoids copy overhead.</remarks>
-  public delegate void AddValueItem<T, C>(ref T item, bool isNull, C collection) 
-    where T: struct
-    where C: class;
+  public delegate void AddValueItem<T, C>(ref T item, bool isNull, C collection)
+    where T : struct
+    where C : class;
 
   /// <summary>Like <see cref="InitSequence{T, C}"/>, but intended for large value types.</summary>
   /// <remarks>Passing the value by reference avoids copy overhead.</remarks>
   public delegate AddValueItem<T, C> InitValueSequence<T, C>(int capacity, ref C collection)
-    where T: struct
-    where C: class;
+    where T : struct
+    where C : class;
 
   /// <summary>Exception class that indicates invalid serialized data, or incorrect
   /// use of the serialization framework.</summary>
-  public class SerializationException: Exception
+  public class SerializationException : Exception
   {
     public SerializationException() { }
 
