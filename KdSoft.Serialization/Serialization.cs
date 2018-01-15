@@ -33,28 +33,28 @@ namespace KdSoft.Serialization
     /// <summary>Writes an object reference to the serialization target.</summary>
     /// <remarks>The implementation may decide not to use all 64 bits of the handle value.</remarks>
     /// <param name="value">Object handle to write.</param>
-    protected internal abstract void WriteObjRef(Int64 value);
+    protected internal abstract void WriteObjRef(Span<byte> target, Int64 value);
 
     /// <summary>Writes a length prefix to the serialization target.</summary>
     /// <remarks>This is usually needed whe a sequence of objects is serilaized,
     /// like for instance an array or a hash table.</remarks>
     /// <param name="value">Length value to write.</param>
-    protected internal abstract void WriteCount(Int32 value);
+    protected internal abstract void WriteCount(Span<byte> target, Int32 value);
 
-    /// <summary>Reads a <c>SerialStatus</c> value from the serialized target.</summary>
+    /// <summary>Reads a <c>SerialStatus</c> value from the serializeSpan<byte> target.</summary>
     /// <returns>Value to read.</returns>
     protected internal abstract SerialStatus ReadStatus();
 
-    /// <summary>Reads an object reference from the serialized target.</summary>
+    /// <summary>Reads an object reference from the serializeSpan<byte> target.</summary>
     /// <returns>Object handle to read.</returns>
-    protected internal abstract Int64 ReadObjRef();
+    protected internal abstract Int64 ReadObjRef(ReadOnlySpan<byte> source);
 
     /// <summary>Skips an object reference while deserialing.</summary>
     protected internal abstract void SkipObjRef();
 
-    /// <summary>Reads a length prefix from the serialized target.</summary>
+    /// <summary>Reads a length prefix from the serializeSpan<byte> target.</summary>
     /// <returns>Length prefix.</returns>
-    protected internal abstract Int32 ReadCount();
+    protected internal abstract Int32 ReadCount(ReadOnlySpan<byte> source);
 
     /// <summary>
     /// Opens (registers) a given object reference and returns a new handle for it.
@@ -123,16 +123,16 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="field">Field associated with data type of member to skip.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
-    public bool Skip<T>(Field<T, F> field) {
+    public bool Skip<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
       bool result = true;
       if (inSequence > 0)
-        field.Skip();
+        field.Skip(source);
       else {
         result = skipPath[skipLevel]-- > 0;
         // if we are not at the last level, let's enter this field,
         // even if it is not to be skipped as a whole
         if (result || skipLevel < skipPath.Length - 1)
-          field.Skip();
+          field.Skip(source);
       }
       return result;
     }
@@ -140,12 +140,12 @@ namespace KdSoft.Serialization
     /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type to skip.</typeparam>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
-    public bool Skip<T>() {
+    public bool Skip<T>(ReadOnlySpan<byte> source) {
       Field<T, F> field = GetField<T>();
-      return Skip(field);
+      return Skip(source, field);
     }
 
-    private void DoSkipSequence<T>(Field<T, F> field) {
+    private void DoSkipSequence<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
       SerialStatus status = ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -153,11 +153,11 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Sequences cannot be referenced.");
         case SerialStatus.Value:
-          int count = ReadCount();
+          int count = ReadCount(source);
           inSequence++;
           try {
             for (int indx = 0; indx < count; indx++)
-              field.Skip();
+              field.Skip(source);
           }
           finally {
             inSequence--;
@@ -175,16 +175,16 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="field">Field associated with data type of sequence elements to skip.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
-    public bool SkipSequence<T>(Field<T, F> field) {
+    public bool SkipSequence<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
       bool result = true;
       if (inSequence > 0)
-        DoSkipSequence<T>(field);
+        DoSkipSequence<T>(source, field);
       else {
         result = skipPath[skipLevel]-- > 0;
         // if we are not at the last level, let's enter this field,
         // even if it is not to be skipped as a whole
         if (result || skipLevel < skipPath.Length - 1)
-          DoSkipSequence<T>(field);
+          DoSkipSequence<T>(source, field);
       }
       return result;
     }
@@ -192,9 +192,9 @@ namespace KdSoft.Serialization
     /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type of sequence elements to skip.</typeparam>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
-    public bool SkipSequence<T>() {
+    public bool SkipSequence<T>(ReadOnlySpan<byte> source) {
       Field<T, F> field = GetField<T>();
-      return SkipSequence<T>(field);
+      return SkipSequence<T>(source, field);
     }
 
     /// <overloads>
@@ -256,11 +256,11 @@ namespace KdSoft.Serialization
     /// <param name="path">Path in the graph which is to be skipped. Node indexes
     /// are 0-based.</param>
     /// <returns><c>true</c> if successful, <c>false</c> if path is invalid.</returns>
-    public bool SkipMembers<T>(Field<T, F> field, params int[] path) {
+    public bool SkipMembers<T>(ReadOnlySpan<byte> source, Field<T, F> field, params int[] path) {
       skipPath = path;
       skipLevel = -1;
       inSequence = 0;
-      field.Skip();
+      field.Skip(source);
       return path[path.Length - 1] < 0;
     }
 
@@ -268,9 +268,9 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Data type associated with field.</typeparam>
     /// <param name="path">Path in the graph which is to be skipped.</param>
     /// <returns><c>true</c> if successful, <c>false</c> if path is invalid.</returns>
-    public bool SkipMembers<T>(params int[] path) {
+    public bool SkipMembers<T>(ReadOnlySpan<byte> source, params int[] path) {
       Field<T, F> field = GetField<T>();
-      return SkipMembers(field, path);
+      return SkipMembers(source, field, path);
     }
 
     #endregion
@@ -281,10 +281,10 @@ namespace KdSoft.Serialization
     /// <summary>Serializes nullable value types.</summary>
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="value">Value type instance to serialize.</param>
-    public void SerializeStruct<T>(T? value)
+    public void SerializeStruct<T>(Span<byte> target, T? value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      field.Serialize(value);
+      field.Serialize(target, value);
     }
 
     /// <summary>Serializes large value types.</summary>
@@ -292,19 +292,19 @@ namespace KdSoft.Serialization
     /// but a <c>null</c> cannot be passed. See <see cref="SerializeNull"/>.</remarks>
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="value">Value type instance to serialize.</param>
-    public void SerializeStruct<T>(ref T value)
+    public void SerializeStruct<T>(Span<byte> target, ref T value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      field.Serialize(ref value);
+      field.Serialize(target, ref value);
     }
 
     /// <summary>Serializes value types.</summary>
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="value">Value type instance to serialize.</param>
-    public void SerializeStruct<T>(T value)
+    public void SerializeStruct<T>(Span<byte> target, T value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      field.Serialize(ref value);
+      field.Serialize(target, ref value);
     }
 
     /// <summary>Serializes <c>null</c>.</summary>
@@ -317,10 +317,10 @@ namespace KdSoft.Serialization
     /// <summary>Serializes reference types.</summary>
     /// <typeparam name="T">Reference type to be serialized.</typeparam>
     /// <param name="obj">Object to serialize.</param>
-    public void SerializeObject<T>(T obj)
+    public void SerializeObject<T>(Span<byte> target, T obj)
       where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      field.Serialize(obj);
+      field.Serialize(target, obj);
     }
 
     #endregion Serialize Single Instance
@@ -331,11 +331,11 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes nullable value types.</summary>
     /// <remarks>One can cast the return value to the non-nullable value type.</remarks>
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
-    public T? DeserializeStruct<T>()
+    public T? DeserializeStruct<T>(ReadOnlySpan<byte> source)
       where T : struct {
       T? result;
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      result = field.Deserialize();
+      result = field.Deserialize(source);
       return result;
     }
 
@@ -345,29 +345,29 @@ namespace KdSoft.Serialization
     /// <param name="value">Value to serialize, passed by reference.</param>
     /// <param name="isNull">Indicates <c>null</c>. If this parameter returns <c>true</c>
     /// then the <c>value</c> has not been modified.</param>
-    public void DeserializeStruct<T>(ref T value, out bool isNull)
+    public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      field.Deserialize(ref value, out isNull);
+      field.Deserialize(source, ref value, out isNull);
     }
 
     /// <summary>Deserializes reference types.</summary>
     /// <remarks>If a <c>null</c> argument is passed in, then a new object will be instantiated.</remarks>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
     /// <param name="obj">Object to deserialize, or <c>null</c>.</param>
-    public void DeserializeObject<T>(ref T obj)
+    public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj)
       where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      field.Deserialize(ref obj);
+      field.Deserialize(source, ref obj);
     }
 
     /// <summary>Deserializes reference types.</summary>
     /// <returns>New object instance.</returns>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
-    public T DeserializeObject<T>()
+    public T DeserializeObject<T>(ReadOnlySpan<byte> source)
       where T : class {
       T obj = null;
-      DeserializeObject(ref obj);
+      DeserializeObject(source, ref obj);
       return obj;
     }
 
@@ -382,26 +382,26 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    public void SerializeStructs<T>(T[] value, ValueField<T, F> field)
+    public void SerializeStructs<T>(Span<byte> target, T[] value, ValueField<T, F> field)
       where T : struct {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
       }
       WriteStatus(SerialStatus.Value);
-      WriteCount(value.Length);
+      WriteCount(target, value.Length);
       for (int indx = 0; indx < value.Length; indx++)
-        field.Serialize(ref value[indx]);
+        field.Serialize(target, ref value[indx]);
     }
 
     /// <summary>Serializes value type arrays using the default <see cref="Field{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
-    public void SerializeStructs<T>(T[] value)
+    public void SerializeStructs<T>(Span<byte> target, T[] value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      SerializeStructs<T>(value, field);
+      SerializeStructs<T>(target, value, field);
     }
 
     /// <summary>Serializes arrays of nullable value types using a specific
@@ -409,26 +409,26 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    public void SerializeStructs<T>(T?[] value, ValueField<T, F> field)
+    public void SerializeStructs<T>(Span<byte> target, T?[] value, ValueField<T, F> field)
       where T : struct {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
       }
       WriteStatus(SerialStatus.Value);
-      WriteCount(value.Length);
+      WriteCount(target, value.Length);
       for (int indx = 0; indx < value.Length; indx++)
-        field.Serialize(value[indx]);
+        field.Serialize(target, value[indx]);
     }
 
     /// <summary>Serializes arrays of nullable value types using the default <see cref="Field{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
-    public void SerializeStructs<T>(T?[] value)
+    public void SerializeStructs<T>(Span<byte> target, T?[] value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      SerializeStructs<T>(value, field);
+      SerializeStructs<T>(target, value, field);
     }
 
     #endregion Serialize Value Type Arrays
@@ -440,26 +440,26 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    public void SerializeStructs<T>(IList<T> value, ValueField<T, F> field)
+    public void SerializeStructs<T>(Span<byte> target, IList<T> value, ValueField<T, F> field)
       where T : struct {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
       }
       WriteStatus(SerialStatus.Value);
-      WriteCount(value.Count);
+      WriteCount(target, value.Count);
       foreach (T element in value)
-        field.Serialize(element);
+        field.Serialize(target, element);
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
-    public void SerializeStructs<T>(IList<T> value)
+    public void SerializeStructs<T>(Span<byte> target, IList<T> value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      SerializeStructs<T>(value, field);
+      SerializeStructs<T>(target, value, field);
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/>
@@ -467,7 +467,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    public void SerializeStructs<T>(IEnumerable<T> value, ValueField<T, F> field)
+    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ValueField<T, F> field)
       where T : struct {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
@@ -478,20 +478,20 @@ namespace KdSoft.Serialization
       Int32 count = 0;
       while (valEnum.MoveNext())
         count++;
-      WriteCount(count);
+      WriteCount(target, count);
       valEnum.Reset();
       while (valEnum.MoveNext())
-        field.Serialize(valEnum.Current);
+        field.Serialize(target, valEnum.Current);
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
-    public void SerializeStructs<T>(IEnumerable<T> value)
+    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      SerializeStructs<T>(value, field);
+      SerializeStructs<T>(target, value, field);
     }
 
     #endregion Serialize Value Type Collections
@@ -507,7 +507,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T>(out T[] value, ValueField<T, F> field)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ValueField<T, F> field)
       where T : struct {
       SerialStatus status = ReadStatus();
       switch (status) {
@@ -517,11 +517,11 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
-          Int32 count = ReadCount();
+          Int32 count = ReadCount(source);
           value = new T[count];
           for (int indx = 0; indx < count; indx++) {
             bool isNull;
-            field.Deserialize(ref value[indx], out isNull);
+            field.Deserialize(source, ref value[indx], out isNull);
             if (isNull)
               throw new SerializationException("Non-nullable value type: " + typeof(T).FullName + ".");
           }
@@ -537,10 +537,10 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize. Passed  by reference
     /// to avoid copying overhead - suitable for large value types.</param>
-    public void DeserializeStructs<T>(out T[] value)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      DeserializeStructs<T>(out value, field);
+      DeserializeStructs<T>(source, out value, field);
     }
 
     /// <summary>Deserializes arrays of nullable value types using a specific
@@ -548,7 +548,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T>(out T?[] value, ValueField<T, F> field)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ValueField<T, F> field)
       where T : struct {
       SerialStatus status = ReadStatus();
       switch (status) {
@@ -558,10 +558,10 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
-          Int32 count = ReadCount();
+          Int32 count = ReadCount(source);
           value = new T?[count];
           for (int indx = 0; indx < count; indx++)
-            value[indx] = field.Deserialize();
+            value[indx] = field.Deserialize(source);
           break;
         default:
           value = null;
@@ -573,10 +573,10 @@ namespace KdSoft.Serialization
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize.</param>
-    public void DeserializeStructs<T>(out T?[] value)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value)
       where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      DeserializeStructs<T>(out value, field);
+      DeserializeStructs<T>(source, out value, field);
     }
 
     #endregion Deserialize Value Type Arrays
@@ -592,7 +592,7 @@ namespace KdSoft.Serialization
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T, C>(InitValueSequence<T, C> initSequence, ref C collection, ValueField<T, F> field)
+    public void DeserializeStructs<T, C>(ReadOnlySpan<byte> source, InitValueSequence<T, C> initSequence, ref C collection, ValueField<T, F> field)
       where T : struct
       where C : class {
       SerialStatus status = ReadStatus();
@@ -603,12 +603,12 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
-          Int32 count = ReadCount();
+          Int32 count = ReadCount(source);
           AddValueItem<T, C> addItem = initSequence(count, ref collection);
           T value = new T();
           for (int indx = 0; indx < count; indx++) {
             bool isNull;
-            field.Deserialize(ref value, out isNull);
+            field.Deserialize(source, ref value, out isNull);
             addItem(ref value, isNull, collection);
           }
           break;
@@ -623,11 +623,11 @@ namespace KdSoft.Serialization
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    public void DeserializeStructs<T, C>(InitValueSequence<T, C> initSequence, ref C collection)
+    public void DeserializeStructs<T, C>(ReadOnlySpan<byte> source, InitValueSequence<T, C> initSequence, ref C collection)
       where T : struct
       where C : class {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      DeserializeStructs<T, C>(initSequence, ref collection, field);
+      DeserializeStructs<T, C>(source, initSequence, ref collection, field);
     }
 
     /// <summary>Deserializes any kind of nullable value type collection through call-backs
@@ -639,7 +639,7 @@ namespace KdSoft.Serialization
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T, C>(InitSequence<T?, C> initSequence, ref C collection, ValueField<T, F> field)
+    public void DeserializeStructs<T, C>(ReadOnlySpan<byte> source, InitSequence<T?, C> initSequence, ref C collection, ValueField<T, F> field)
       where T : struct
       where C : class {
       SerialStatus status = ReadStatus();
@@ -650,10 +650,10 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
-          Int32 count = ReadCount();
+          Int32 count = ReadCount(source);
           AddItem<T?, C> addItem = initSequence(count, ref collection);
           for (int indx = 0; indx < count; indx++) {
-            T? value = field.Deserialize();
+            T? value = field.Deserialize(source);
             addItem(value, collection);
           }
           break;
@@ -668,11 +668,11 @@ namespace KdSoft.Serialization
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    public void DeserializeStructs<T, C>(InitSequence<T?, C> initSequence, ref C collection)
+    public void DeserializeStructs<T, C>(ReadOnlySpan<byte> source, InitSequence<T?, C> initSequence, ref C collection)
       where T : struct
       where C : class {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
-      DeserializeStructs<T, C>(initSequence, ref collection, field);
+      DeserializeStructs<T, C>(source, initSequence, ref collection, field);
     }
 
     #endregion Deserialize Value Type Collections
@@ -688,26 +688,26 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    public void SerializeObjects<T>(T[] value, ReferenceField<T, F> field)
+    public void SerializeObjects<T>(Span<byte> target, T[] value, ReferenceField<T, F> field)
       where T : class {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
       }
       WriteStatus(SerialStatus.Value);
-      WriteCount(value.Length);
+      WriteCount(target, value.Length);
       for (int indx = 0; indx < value.Length; indx++)
-        field.Serialize(value[indx]);
+        field.Serialize(target, value[indx]);
     }
 
     /// <summary>Serializes reference type arrays using the default
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="value">Array to serialize.</param>
-    public void SerializeObjects<T>(T[] value)
+    public void SerializeObjects<T>(Span<byte> target, T[] value)
       where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      SerializeObjects<T>(value, field);
+      SerializeObjects<T>(target, value, field);
     }
 
     #endregion Serialize Reference Type Arrays
@@ -719,26 +719,26 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    public void SerializeObjects<T>(IList<T> value, ReferenceField<T, F> field)
+    public void SerializeObjects<T>(Span<byte> target, IList<T> value, ReferenceField<T, F> field)
       where T : class {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
       }
       WriteStatus(SerialStatus.Value);
-      WriteCount(value.Count);
+      WriteCount(target, value.Count);
       foreach (T element in value)
-        field.Serialize(element);
+        field.Serialize(target, element);
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
-    public void SerializeObjects<T>(IList<T> value)
+    public void SerializeObjects<T>(Span<byte> target, IList<T> value)
       where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      SerializeObjects<T>(value, field);
+      SerializeObjects<T>(target, value, field);
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/>
@@ -746,7 +746,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    public void SerializeObjects<T>(IEnumerable<T> value, ReferenceField<T, F> field)
+    public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value, ReferenceField<T, F> field)
       where T : class {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
@@ -757,20 +757,20 @@ namespace KdSoft.Serialization
       Int32 count = 0;
       while (valEnum.MoveNext())
         count++;
-      WriteCount(count);
+      WriteCount(target, count);
       valEnum.Reset();
       while (valEnum.MoveNext())
-        field.Serialize(valEnum.Current);
+        field.Serialize(target, valEnum.Current);
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
-    public void SerializeObjects<T>(IEnumerable<T> value)
+    public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value)
       where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      SerializeObjects<T>(value, field);
+      SerializeObjects<T>(target, value, field);
     }
 
     #endregion Serialize Reference Type Collections
@@ -786,7 +786,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value">Reference type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeObjects<T>(ref T[] value, ReferenceField<T, F> field)
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] value, ReferenceField<T, F> field)
       where T : class {
       SerialStatus status = ReadStatus();
       switch (status) {
@@ -796,10 +796,10 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Sequences cannot be referenced.");
         case SerialStatus.Value:
-          Int32 count = ReadCount();
+          Int32 count = ReadCount(source);
           value = new T[count];
           for (int indx = 0; indx < count; indx++)
-            field.Deserialize(ref value[indx]);
+            field.Deserialize(source, ref value[indx]);
           break;
       }
     }
@@ -808,10 +808,10 @@ namespace KdSoft.Serialization
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="obj">Reference type array to deserialize.</param>
-    public void DeserializeObjects<T>(ref T[] obj)
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] obj)
       where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      DeserializeObjects(ref obj, field);
+      DeserializeObjects(source, ref obj, field);
     }
 
     #endregion Deserialize Reference Type Arrays
@@ -827,7 +827,7 @@ namespace KdSoft.Serialization
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeObjects<T, C>(InitSequence<T, C> initSequence, ref C collection, ReferenceField<T, F> field)
+    public void DeserializeObjects<T, C>(ReadOnlySpan<byte> source, InitSequence<T, C> initSequence, ref C collection, ReferenceField<T, F> field)
       where T : class
       where C : class {
       SerialStatus status = ReadStatus();
@@ -838,11 +838,11 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Sequences cannot be referenced.");
         case SerialStatus.Value:
-          Int32 count = ReadCount();
+          Int32 count = ReadCount(source);
           AddItem<T, C> addItem = initSequence(count, ref collection);
           for (int indx = 0; indx < count; indx++) {
             T value = null;
-            field.Deserialize(ref value);
+            field.Deserialize(source, ref value);
             addItem(value, collection);
           }
           break;
@@ -857,11 +857,11 @@ namespace KdSoft.Serialization
     /// Returns another delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    public void DeserializeObjects<T, C>(InitSequence<T, C> initSequence, ref C collection)
+    public void DeserializeObjects<T, C>(ReadOnlySpan<byte> source, InitSequence<T, C> initSequence, ref C collection)
       where T : class
       where C : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
-      DeserializeObjects(initSequence, ref collection, field);
+      DeserializeObjects(source, initSequence, ref collection, field);
     }
 
     #endregion Deserialize Reference Type Collections
@@ -933,10 +933,10 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
-    protected abstract void SkipValue();
+    protected abstract void SkipValue(ReadOnlySpan<byte> source);
 
     // Skip instead of deserializing field
-    internal void Skip() {
+    internal void Skip(ReadOnlySpan<byte> source) {
       SerialStatus status = Fmt.ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -947,11 +947,11 @@ namespace KdSoft.Serialization
           break;
         case SerialStatus.Value:
           if (Fmt.inSequence > 0)
-            SkipValue();
+            SkipValue(source);
           else {
             Fmt.skipLevel++;
             try {
-              SkipValue();
+              SkipValue(source);
             }
             finally {
               Fmt.skipLevel--;
@@ -993,7 +993,7 @@ namespace KdSoft.Serialization
     /// </code>
     /// </example>
     /// <param name="value">The struct instance to serialize.</param>
-    protected abstract void SerializeValue(ref T value);
+    protected abstract void SerializeValue(Span<byte> target, ref T value);
 
     /// <summary>Specifies how and in which order struct members are deserialized.</summary>
     /// <remarks>
@@ -1016,7 +1016,7 @@ namespace KdSoft.Serialization
     /// </code>
     /// </example>
     /// <param name="value">The struct instance to deserialize.</param>
-    protected abstract void DeserializeValue(ref T value);
+    protected abstract void DeserializeValue(ReadOnlySpan<byte> source, ref T value);
 
     /// <summary>Serializes a nullable value type.</summary>
     /// <remarks>
@@ -1026,11 +1026,11 @@ namespace KdSoft.Serialization
     /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
     /// </remarks>
     /// <param name="value">Struct instance to serialize, or <c>null</c>.</param>
-    public void Serialize(T? value) {
+    public void Serialize(Span<byte> target, T? value) {
       if (value.HasValue) {
         Fmt.WriteStatus(SerialStatus.Value);
         T val = value.Value; // Value is a property, cannot be passed by reference
-        SerializeValue(ref val);
+        SerializeValue(target, ref val);
       }
       else
         Fmt.WriteStatus(SerialStatus.Null);
@@ -1047,9 +1047,9 @@ namespace KdSoft.Serialization
     /// To serialize a <c>null</c>, call <see cref="Formatter{F}.SerializeNull()"/>.</para>
     /// </remarks>
     /// <param name="value">The struct instance to serialize. Passed by reference to avoid copy overhead.</param>
-    public void Serialize(ref T value) {
+    public void Serialize(Span<byte> target, ref T value) {
       Fmt.WriteStatus(SerialStatus.Value);
-      SerializeValue(ref value);
+      SerializeValue(target, ref value);
     }
 
     /// <summary>Deserializes a nullable struct.</summary>
@@ -1060,7 +1060,7 @@ namespace KdSoft.Serialization
     /// or <see cref="Formatter{F}.DeserializeStructs{T}(out T[])"/>.
     /// </remarks>
     /// <returns>The deserialized struct, or <c>null</c>.</returns>
-    public T? Deserialize() {
+    public T? Deserialize(ReadOnlySpan<byte> source) {
       SerialStatus status = Fmt.ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -1069,7 +1069,7 @@ namespace KdSoft.Serialization
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
           T value = default;
-          DeserializeValue(ref value);
+          DeserializeValue(source, ref value);
           return value;
       }
       return null;
@@ -1087,7 +1087,7 @@ namespace KdSoft.Serialization
     /// <param name="value">The struct to deserialize.</param>
     /// <param name="isNull">Indicates if the return value is <c>null</c>.
     /// If <c>true</c>, the <c>value</c> argument will not be modified.</param>
-    public void Deserialize(ref T value, out bool isNull) {
+    public void Deserialize(ReadOnlySpan<byte> source, ref T value, out bool isNull) {
       SerialStatus status = Fmt.ReadStatus();
       switch (status) {
         case SerialStatus.Null:
@@ -1096,7 +1096,7 @@ namespace KdSoft.Serialization
         case SerialStatus.Reference:
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
-          DeserializeValue(ref value);
+          DeserializeValue(source, ref value);
           break;
       }
       isNull = false;
@@ -1132,7 +1132,7 @@ namespace KdSoft.Serialization
     /// </code>
     /// </example>
     /// <param name="value">The object to serialize. Must not be <c>null</c>.</param>
-    protected abstract void SerializeValue(T value);
+    protected abstract void SerializeValue(Span<byte> target, T value);
 
     /// <summary>Creates and/or initializes an instance of the field's associated type.</summary>
     /// <remarks>May deserialize part or all of the instance - as described for
@@ -1149,7 +1149,7 @@ namespace KdSoft.Serialization
     /// </example>
     /// <param name="instance">Instance to initialize. Can be <c>null</c>, in which
     /// case a new instance must be created.</param>
-    protected abstract void DeserializeInstance(ref T instance);
+    protected abstract void DeserializeInstance(ReadOnlySpan<byte> source, ref T instance);
 
     /// <summary>Specifies how and in which order class members are deserialized.</summary>
     /// <remarks>
@@ -1172,7 +1172,7 @@ namespace KdSoft.Serialization
     /// </code>
     /// </example>
     /// <param name="instance">The object to serialize. Must not be <c>null</c>.</param>
-    protected virtual void DeserializeMembers(T instance) { }
+    protected virtual void DeserializeMembers(ReadOnlySpan<byte> source, T instance) { }
 
     /// <summary>Serializes an object.</summary>
     /// <remarks>
@@ -1182,7 +1182,7 @@ namespace KdSoft.Serialization
     /// <see cref="Formatter{F}.SerializeObject{T}(T)"/> or <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>.
     /// </remarks>
     /// <param name="value">The object to serialize.</param>
-    public void Serialize(T value) {
+    public void Serialize(Span<byte> target, T value) {
       if (ReferenceEquals(value, null)) {
         Fmt.WriteStatus(SerialStatus.Null);
         return;
@@ -1190,11 +1190,11 @@ namespace KdSoft.Serialization
       Int64 handle;
       if (Fmt.OpenReference(value, out handle)) {
         Fmt.WriteStatus(SerialStatus.Reference);
-        Fmt.WriteObjRef(handle);
+        Fmt.WriteObjRef(target, handle);
       }
       else {
         Fmt.WriteStatus(SerialStatus.Value);
-        SerializeValue(value);
+        SerializeValue(target, value);
       }
     }
 
@@ -1206,7 +1206,7 @@ namespace KdSoft.Serialization
     /// <see cref="Formatter{F}.DeserializeObject{T}()"/> or <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>.
     /// </remarks>
     /// <param name="value">The object to deserialize, or <c>null</c>.</param>
-    public void Deserialize(ref T value) {
+    public void Deserialize(ReadOnlySpan<byte> source, ref T value) {
       Int64 handle;
       SerialStatus status = Fmt.ReadStatus();
       switch (status) {
@@ -1214,17 +1214,17 @@ namespace KdSoft.Serialization
           value = null;
           break;
         case SerialStatus.Reference:
-          handle = Fmt.ReadObjRef();
+          handle = Fmt.ReadObjRef(source);
           object obj = Fmt.GetReference(handle);
           if (ReferenceEquals(obj, null))
             throw new SerializationException("Cannot find object reference for handle.");
           value = (T)obj;
           break;
         case SerialStatus.Value:
-          DeserializeInstance(ref value);
+          DeserializeInstance(source, ref value);
           if (Fmt.OpenReference(value, out handle))
             throw new SerializationException("Object deserialized multiple times.");
-          DeserializeMembers(value);
+          DeserializeMembers(source, value);
           break;
       }
     }

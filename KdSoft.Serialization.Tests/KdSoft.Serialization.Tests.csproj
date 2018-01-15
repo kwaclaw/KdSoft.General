@@ -23,4 +23,8 @@
     <ProjectReference Include="..\KdSoft.Serialization\KdSoft.Serialization.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

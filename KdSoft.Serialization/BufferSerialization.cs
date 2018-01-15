@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using KdSoft.Utils;
 
 namespace KdSoft.Serialization.Buffer
 {
@@ -51,8 +52,10 @@ namespace KdSoft.Serialization.Buffer
   /// </code></example>
   public class Formatter: KdSoft.Serialization.Formatter<Formatter>
   {
+    //TODO In stead of abstract Formatter base class implement a span-specific interface
+    //TODO turn the Formatter base class into some internal implementation class
+
     private byte[] statusBuffer;
-    internal byte[] valueBuffer;
 
     // save status buffer for re-use
     private byte[] statusBuf;
@@ -127,13 +130,13 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <inheritdoc />
-    protected internal override void WriteObjRef(Int64 value) {
-      converter.WriteBytes(value, valueBuffer, ref valueIndx);
+    protected internal override void WriteObjRef(Span<byte> target, Int64 value) {
+      converter.WriteBytes(value, target, ref valueIndx);
     }
 
     /// <inheritdoc />
-    protected internal override void WriteCount(int value) {
-      converter.WriteBytes(value, valueBuffer, ref valueIndx);
+    protected internal override void WriteCount(Span<byte> target, int value) {
+      converter.WriteBytes(value, target, ref valueIndx);
     }
 
     /// <inheritdoc />
@@ -151,8 +154,8 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <inheritdoc />
-    protected internal override Int64 ReadObjRef() {
-      converter.ReadBytes(valueBuffer, ref valueIndx, out Int64 result);
+    protected internal override Int64 ReadObjRef(ReadOnlySpan<byte> source) {
+      converter.ReadBytes(source, ref valueIndx, out Int64 result);
       return result;
     }
 
@@ -162,8 +165,8 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <inheritdoc />
-    protected internal override int ReadCount() {
-      converter.ReadBytes(valueBuffer, ref valueIndx, out int result);
+    protected internal override int ReadCount(ReadOnlySpan<byte> source) {
+      converter.ReadBytes(source, ref valueIndx, out int result);
       return result;
     }
 
@@ -219,7 +222,7 @@ namespace KdSoft.Serialization.Buffer
 
     /* currently we do not resize the buffer
     // call to make sure that buffer for serialization is large enough
-    public void CheckValueBuffer(int requiredSize) {
+    public void Checktarget(int requiredSize) {
       requiredSize = requiredSize + valueIndx;
       if (valueBuf.Length < requiredSize) {
         requiredSize += requiredSize >> 1;  // go 50% beyond
@@ -260,9 +263,7 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index of buffer. Serialization will start writing
     /// to the buffer at this index.</param>
-    public void InitSerialization(byte[] buffer, int index) {
-      if (buffer == null)
-        throw new ArgumentNullException(nameof(buffer));
+    public void InitSerialization(int index) {
       ResetOpenObjects();
 
       statusIndx = 0;
@@ -271,7 +272,6 @@ namespace KdSoft.Serialization.Buffer
       if (statusBuf == null)
         statusBuf = new byte[4];
       statusBuffer = statusBuf;
-      valueBuffer = buffer;
     }
 
     /// <summary>Completes serialization process.</summary>
@@ -283,7 +283,7 @@ namespace KdSoft.Serialization.Buffer
     /// <seealso cref="InitSerialization"/>
     /// <returns>End index. Points to the next byte following the end of the
     /// serialized data in the buffer.</returns>
-    public int FinishSerialization() {
+    public int FinishSerialization(Span<byte> target) {
       // save status buffer for re-use
       statusBuf = statusBuffer;
 
@@ -291,9 +291,9 @@ namespace KdSoft.Serialization.Buffer
       // size should not include prefix size!
       int bufSize = valueIndx - bufIndx - sizeof(uint);
       // write length prefix to start of value buffer
-      converter.WriteBytes(bufSize, valueBuffer, ref bufIndx);
+      converter.WriteBytes(bufSize, target, ref bufIndx);
       int endIndex = valueIndx + nextStatusByte(statusIndx);
-      if (valueBuffer.Length < endIndex)
+      if (target.Length < endIndex)
         throw new IndexOutOfRangeException("Buffer size too small.");
 
       // clear unused bits in status buffer
@@ -304,12 +304,14 @@ namespace KdSoft.Serialization.Buffer
           statusBuffer[lastByteIndex] &= clearMasks[lastStatusIndx & (int)twoBitIndexMask];
         }
 
-      // copy status buffer
+      // copy status buffer to end of target
       bufIndx = valueIndx;
       bufSize = nextStatusByte(statusIndx);
-      System.Buffer.BlockCopy(statusBuffer, 0, valueBuffer, bufIndx, bufSize);
 
-      valueBuffer = null;
+      var statusSpan = new ReadOnlySpan<byte>(statusBuffer, 0, bufSize);
+      converter.WriteValueBytes(statusSpan, target, ref bufIndx);
+      //System.Buffer.BlockCopy(statusBuffer, 0, target, bufIndx, bufSize);
+
       return endIndex;
     }
 
@@ -326,12 +328,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStruct<T>(T? value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeStruct<T>(Span<byte> target, T? value, ValueField<T, Formatter> field, ref int index)
       where T: struct
     {
-      InitSerialization(buffer, index);
-      field.Serialize(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      field.Serialize(target, value);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes a nullable value type into a byte buffer using
@@ -341,11 +343,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStruct<T>(T? value, byte[] buffer, ref int index)
+    public void SerializeStruct<T>(Span<byte> target, T? value, byte[] buffer, ref int index)
       where T: struct
     {
       ValueField<T, Formatter> field = (ValueField<T, Formatter>)GetField<T>();
-      SerializeStruct<T>(value, field, buffer, ref index);
+      SerializeStruct<T>(target, value, field, ref index);
     }
 
     /// <summary>Serializes a value type into a byte buffer
@@ -360,12 +362,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStruct<T>(ref T value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeStruct<T>(Span<byte> target, ref T value, ValueField<T, Formatter> field, ref int index)
       where T: struct 
     {
-      InitSerialization(buffer, index);
-      field.Serialize(ref value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      field.Serialize(target, ref value);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes a value type into a byte buffer using the default
@@ -378,11 +380,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStruct<T>(ref T value, byte[] buffer, ref int index)
+    public void SerializeStruct<T>(Span<byte> target, ref T value, byte[] buffer, ref int index)
       where T: struct 
     {
       ValueField<T, Formatter> field = (ValueField<T, Formatter>)GetField<T>();
-      SerializeStruct<T>(ref value, field, buffer, ref index);
+      SerializeStruct<T>(target, ref value, field, ref index);
     }
 
     /// <summary>Serializes a <c>null</c> into a byte buffer.</summary>
@@ -391,10 +393,10 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// serialized <c>null</c>.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeNull(byte[] buffer, ref int index) {
-      InitSerialization(buffer, index);
+    public void SerializeNull(Span<byte> target, ref int index) {
+      InitSerialization(index);
       SerializeNull();
-      index = FinishSerialization();
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes a reference type into a byte buffer
@@ -406,12 +408,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObject<T>(T obj, ReferenceField<T, Formatter> field, byte[] buffer, ref int index) 
+    public void SerializeObject<T>(Span<byte> target, T obj, ReferenceField<T, Formatter> field, ref int index) 
       where T: class 
     {
-      InitSerialization(buffer, index);
-      field.Serialize(obj);
-      index = FinishSerialization();
+      InitSerialization(index);
+      field.Serialize(target, obj);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes a reference type into a byte buffer using the default
@@ -421,11 +423,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObject<T>(T obj, byte[] buffer, ref int index) 
+    public void SerializeObject<T>(Span<byte> target, T obj, ref int index) 
       where T: class 
     {
       ReferenceField<T, Formatter> field = (ReferenceField<T, Formatter>)GetField<T>();
-      SerializeObject<T>(obj, field, buffer, ref index);
+      SerializeObject<T>(target, obj, field, ref index);
     }
 
     #endregion Single Instances
@@ -441,12 +443,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(T[] value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, T[] value, ValueField<T, Formatter> field, ref int index)
       where T: struct 
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <overloads>Serializes sequences (arrays, collections) of a value type
@@ -457,12 +459,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(T[] value, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, T[] value, ref int index)
       where T: struct
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes arrays of nullable value types.</summary>
@@ -472,12 +474,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(T?[] value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, T?[] value, ValueField<T, Formatter> field, ref int index)
       where T: struct
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes arrays of nullable value types.</summary>
@@ -486,12 +488,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(T?[] value, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, T?[] value, ref int index)
       where T: struct 
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     #endregion Value Type Arrays
@@ -505,12 +507,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(IList<T> value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, IList<T> value, ValueField<T, Formatter> field, ref int index)
       where T: struct
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization( index);
+      SerializeStructs<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>.</summary>
@@ -519,12 +521,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(IList<T> value, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, IList<T> value, ref int index)
       where T: struct 
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/></summary>
@@ -534,12 +536,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(IEnumerable<T> value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ValueField<T, Formatter> field, ref int index)
       where T: struct 
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/></summary>
@@ -548,12 +550,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStructs<T>(IEnumerable<T> value, byte[] buffer, ref int index)
+    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ref int index)
       where T: struct 
     {
-      InitSerialization(buffer, index);
-      SerializeStructs<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeStructs<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     #endregion Value Type Collections
@@ -567,12 +569,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObjects<T>(T[] value, ReferenceField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeObjects<T>(Span<byte> target, T[] value, ReferenceField<T, Formatter> field, ref int index)
       where T: class
     {
-      InitSerialization(buffer, index);
-      SerializeObjects<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeObjects<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <overloads>Serializes sequences (arrays, collections) of a reference type
@@ -583,12 +585,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObjects<T>(T[] value, byte[] buffer, ref int index)
+    public void SerializeObjects<T>(Span<byte> target, T[] value, ref int index)
       where T: class
     {
-      InitSerialization(buffer, index);
-      SerializeObjects<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeObjects<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     #endregion Reference Type Arrays
@@ -602,12 +604,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObjects<T>(IList<T> value, ReferenceField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeObjects<T>(Span<byte> target, IList<T> value, ReferenceField<T, Formatter> field, ref int index)
       where T: class 
     {
-      InitSerialization(buffer, index);
-      SerializeObjects<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeObjects<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>.</summary>
@@ -616,27 +618,27 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObjects<T>(IList<T> value, byte[] buffer, ref int index)
+    public void SerializeObjects<T>(Span<byte> target, IList<T> value, ref int index)
       where T: class
     {
-      InitSerialization(buffer, index);
-      SerializeObjects<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeObjects<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/></summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObjects<T>(IEnumerable<T> value, ReferenceField<T, Formatter> field, byte[] buffer, ref int index)
+    public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value, ReferenceField<T, Formatter> field, ref int index)
       where T: class 
     {
-      InitSerialization(buffer, index);
-      SerializeObjects<T>(value, field);
-      index = FinishSerialization();
+      InitSerialization( index);
+      SerializeObjects<T>(target, value, field);
+      index = FinishSerialization(target);
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/></summary>
@@ -645,12 +647,12 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeObjects<T>(IEnumerable<T> value, byte[] buffer, ref int index)
+    public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value, ref int index)
       where T: class
     {
-      InitSerialization(buffer, index);
-      SerializeObjects<T>(value);
-      index = FinishSerialization();
+      InitSerialization(index);
+      SerializeObjects<T>(target, value);
+      index = FinishSerialization(target);
     }
 
     #endregion Reference Type Collections
@@ -706,16 +708,21 @@ namespace KdSoft.Serialization.Buffer
     /// <seealso cref="FinishDeserialization"/>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void InitDeserialization(byte[] buffer, int index) {
+    public void InitDeserialization(ReadOnlySpan<byte> source, int index) {
       ResetOpenObjects();
-      valueBuffer = buffer;
       valueIndx = index;
 
       // read size of values, initialize statusIndx
-      converter.ReadBytes(valueBuffer, ref valueIndx, out int bufSize);
+      converter.ReadBytes(source, ref valueIndx, out int bufSize);
+
       statusIndx = (valueIndx + bufSize) << 2; // statusByte << 2
-      statusBuffer = buffer;
+      int endIndex = nextStatusByte(statusIndx);
+      var statusSpan = source.Slice(statusIndx, endIndex - statusIndx);
+      statusBuffer = statusSpan.ToArray();
     }
+
+    //TODO figure out if we should define statusBuffer as Span<byte>, how big can it be, is it at the end of the input?
+    // TODO on deserialization, statusIndx does not point into value buffer! need to review use of statusIndx for deserialization
 
     /// <summary>Completes deserialization process.</summary>
     /// <remarks>See <see cref="InitDeserialization"/>. This call must mirror the
@@ -728,7 +735,6 @@ namespace KdSoft.Serialization.Buffer
     public int FinishDeserialization() {
       int endIndex = nextStatusByte(statusIndx);
       statusBuffer = null;
-      valueBuffer = null;
       return endIndex;
     }
 
@@ -744,11 +750,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="field"><see cref="ValueField{T, Formatter}"/> instance that
     /// deserializes the <c>buffer</c> contents.</param>
     /// <returns>Deserialized struct instance, or <c>null</c>.</returns>
-    public T? DeserializeStruct<T>(byte[] buffer, ref int index, ValueField<T, Formatter> field)
+    public T? DeserializeStruct<T>(ReadOnlySpan<byte> source, ref int index, ValueField<T, Formatter> field)
       where T: struct
     {
-      InitDeserialization(buffer, index);
-      T? result = field.Deserialize();
+      InitDeserialization(source, index);
+      T? result = field.Deserialize(source);
       index = FinishDeserialization();
       return result;
     }
@@ -759,11 +765,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     /// <returns>Deserialized struct instance, or <c>null</c>.</returns>
-    public T? DeserializeStruct<T>(byte[] buffer, ref int index)
+    public T? DeserializeStruct<T>(ReadOnlySpan<byte> source, ref int index)
       where T: struct
     {
       ValueField<T, Formatter> field = (ValueField<T, Formatter>)GetField<T>();
-      return DeserializeStruct<T>(buffer, ref index, field);
+      return DeserializeStruct<T>(source, ref index, field);
     }
 
     /// <summary>Deserializes a value type from a byte buffer
@@ -777,11 +783,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="index">Start index in target buffer.</param>
     /// <param name="field"><see cref="ValueField{T, Formatter}"/> instance that
     /// deserializes the <c>buffer</c> contents.</param>
-    public void DeserializeStruct<T>(ref T value, out bool isNull, byte[] buffer, ref int index, ValueField<T, Formatter> field)
+    public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull, ref int index, ValueField<T, Formatter> field)
       where T: struct 
     {
-      InitDeserialization(buffer, index);
-      field.Deserialize(ref value, out isNull);
+      InitDeserialization(source, index);
+      field.Deserialize(source, ref value, out isNull);
       index = FinishDeserialization();
     }
 
@@ -794,11 +800,11 @@ namespace KdSoft.Serialization.Buffer
     /// in which case the <c>value</c> parameter is ignored.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeStruct<T>(ref T value, out bool isNull, byte[] buffer, ref int index)
+    public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull, ref int index)
       where T: struct 
     {
       ValueField<T, Formatter> field = (ValueField<T, Formatter>)GetField<T>();
-      DeserializeStruct<T>(ref value, out isNull, buffer, ref index, field);
+      DeserializeStruct<T>(source, ref value, out isNull, ref index, field);
     }
 
     /// <summary>Deserializes a reference type from a byte buffer
@@ -810,11 +816,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="index">Start index in target buffer.</param>
     /// <param name="field"><see cref="ReferenceField{T, Formatter}"/> instance that
     /// deserializes the <c>buffer</c> contents.</param>
-    public void DeserializeObject<T>(ref T obj, byte[] buffer, ref int index, ReferenceField<T, Formatter> field)
+    public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj, ref int index, ReferenceField<T, Formatter> field)
       where T: class
     {
-      InitDeserialization(buffer, index);
-      field.Deserialize(ref obj);
+      InitDeserialization(source, index);
+      field.Deserialize(source, ref obj);
       index = FinishDeserialization();
     }
 
@@ -825,11 +831,11 @@ namespace KdSoft.Serialization.Buffer
     /// case a new object will be instantiated.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeObject<T>(ref T obj, byte[] buffer, ref int index)
+    public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj, ref int index)
       where T: class
     {
       ReferenceField<T, Formatter> field = (ReferenceField<T, Formatter>)GetField<T>();
-      DeserializeObject<T>(ref obj, buffer, ref index, field);
+      DeserializeObject<T>(source, ref obj, ref index, field);
     }
 
     /// <summary>Deserializes a reference type from a byte buffer using the
@@ -838,11 +844,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     /// <returns>New object instance.</returns>
-    public T DeserializeObject<T>(byte[] buffer, ref int index)
+    public T DeserializeObject<T>(ReadOnlySpan<byte> source, ref int index)
       where T: class
     {
       T obj = null;
-      DeserializeObject<T>(ref obj, buffer, ref index);
+      DeserializeObject<T>(source, ref obj,  ref index);
       return obj;
     }
 
@@ -858,11 +864,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="field">Field that deserializes the sequence elements.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeStructs<T>(out T[] value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ValueField<T, Formatter> field, ref int index)
       where T: struct 
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T>(out value, field);
+      InitDeserialization(source, index);
+      DeserializeStructs<T>(source, out value, field);
       index = FinishDeserialization();
     }
 
@@ -873,11 +879,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeStructs<T>(out T[] value, byte[] buffer, ref int index)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ref int index)
       where T: struct
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T>(out value);
+      InitDeserialization(source, index);
+      DeserializeStructs<T>(source, out value);
       index = FinishDeserialization();
     }
 
@@ -887,11 +893,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="field">Field that deserializes the sequence elements.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeStructs<T>(out T?[] value, ValueField<T, Formatter> field, byte[] buffer, ref int index)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ValueField<T, Formatter> field, ref int index)
       where T: struct
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T>(out value, field);
+      InitDeserialization(source, index);
+      DeserializeStructs<T>(source, out value, field);
       index = FinishDeserialization();
     }
 
@@ -900,11 +906,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeStructs<T>(out T?[] value, byte[] buffer, ref int index)
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ref int index)
       where T: struct
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T>(out value);
+      InitDeserialization(source, index);
+      DeserializeStructs<T>(source, out value);
       index = FinishDeserialization();
     }
 
@@ -923,17 +929,17 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeStructs<T, C>(
+      ReadOnlySpan<byte> source, 
       InitValueSequence<T, C> initSequence, 
       ref C collection, 
       ValueField<T, Formatter> field, 
-      byte[] buffer, 
       ref int index
     )
       where T: struct
       where C: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T, C>(initSequence, ref collection, field);
+      InitDeserialization(source, index);
+      DeserializeStructs<T, C>(source, initSequence, ref collection, field);
       index = FinishDeserialization();
     }
 
@@ -947,16 +953,16 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeStructs<T, C>(
+      ReadOnlySpan<byte> source, 
       InitValueSequence<T, C> initSequence, 
       ref C collection, 
-      byte[] buffer, 
       ref int index
     )
       where T: struct
       where C: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T, C>(initSequence, ref collection);
+      InitDeserialization(source, index);
+      DeserializeStructs<T, C>(source, initSequence, ref collection);
       index = FinishDeserialization();
     }
 
@@ -971,17 +977,17 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeStructs<T, C>(
+      ReadOnlySpan<byte> source, 
       InitSequence<T?, C> initSequence,
       ref C collection,
       ValueField<T, Formatter> field,
-      byte[] buffer,
       ref int index
     )
       where T: struct
       where C: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T, C>(initSequence, ref collection, field);
+      InitDeserialization(source, index);
+      DeserializeStructs<T, C>(source, initSequence, ref collection, field);
       index = FinishDeserialization();
     }
 
@@ -995,16 +1001,16 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeStructs<T, C>(
+      ReadOnlySpan<byte> source, 
       InitSequence<T?, C> initSequence,
       ref C collection,
-      byte[] buffer,
       ref int index
     )
       where T: struct
       where C: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeStructs<T, C>(initSequence, ref collection);
+      InitDeserialization(source, index);
+      DeserializeStructs<T, C>(source, initSequence, ref collection);
       index = FinishDeserialization();
     }
 
@@ -1019,15 +1025,15 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeObjects<T>(
+      ReadOnlySpan<byte> source, 
       ref T[] obj,
       ReferenceField<T, Formatter> field,
-      byte[] buffer,
       ref int index
     )
       where T: class 
     {
-      InitDeserialization(buffer, index);
-      DeserializeObjects<T>(ref obj, field);
+      InitDeserialization(source, index);
+      DeserializeObjects<T>(source, ref obj, field);
       index = FinishDeserialization();
     }
 
@@ -1038,11 +1044,11 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="obj">Reference type array to deserialize.</param>
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void DeserializeObjects<T>(ref T[] obj, byte[] buffer, ref int index)
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] obj, ref int index)
       where T: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeObjects<T>(ref obj);
+      InitDeserialization(source, index);
+      DeserializeObjects<T>(source, ref obj);
       index = FinishDeserialization();
     }
 
@@ -1061,17 +1067,17 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeObjects<T, C>(
+      ReadOnlySpan<byte> source, 
       InitSequence<T, C> initSequence,
       ref C collection,
       ReferenceField<T, Formatter> field,
-      byte[] buffer,
       ref int index
     )
       where T: class
       where C: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeObjects<T, C>(initSequence, ref collection, field);
+      InitDeserialization(source, index);
+      DeserializeObjects<T, C>(source, initSequence, ref collection, field);
       index = FinishDeserialization();
     }
 
@@ -1085,16 +1091,16 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void DeserializeObjects<T, C>(
+      ReadOnlySpan<byte> source, 
       InitSequence<T, C> initSequence,
       ref C collection,
-      byte[] buffer,
       ref int index
     )
       where T: class 
       where C: class
     {
-      InitDeserialization(buffer, index);
-      DeserializeObjects<T, C>(initSequence, ref collection);
+      InitDeserialization(source, index);
+      DeserializeObjects<T, C>(source, initSequence, ref collection);
       index = FinishDeserialization();
     }
 
@@ -1115,12 +1121,6 @@ namespace KdSoft.Serialization.Buffer
     protected ValueField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
-    /// internal <c>valueBuffer</c> field.</summary>
-    protected byte[] ValueBuffer {
-      get { return Fmt.valueBuffer; }
-    }
-
-    /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
     /// internal <c>valueIndex</c> field.</summary>
     protected int ValueIndex {
       get { return Fmt.valueIndx; }
@@ -1134,17 +1134,17 @@ namespace KdSoft.Serialization.Buffer
     public ByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref byte value) {
-      ValueBuffer[Fmt.valueIndx++] = value;
+    protected override void SerializeValue(Span<byte> target, ref byte value) {
+      target[Fmt.valueIndx++] = value;
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref byte value) {
-      value = ValueBuffer[Fmt.valueIndx++];
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref byte value) {
+      value = source[Fmt.valueIndx++];
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx++;
     }
   }
@@ -1156,17 +1156,17 @@ namespace KdSoft.Serialization.Buffer
     public BoolField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref bool value) {
-      ValueBuffer[Fmt.valueIndx++] = value ? (byte)0xFF : (byte)0;
+    protected override void SerializeValue(Span<byte> target, ref bool value) {
+      target[Fmt.valueIndx++] = value ? (byte)0xFF : (byte)0;
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref bool value) {
-      value = ValueBuffer[Fmt.valueIndx++] == 0 ? false : true;
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref bool value) {
+      value = source[Fmt.valueIndx++] == 0 ? false : true;
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx++;
     }
   }
@@ -1181,17 +1181,17 @@ namespace KdSoft.Serialization.Buffer
     public SByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref sbyte value) {
-      ValueBuffer[Fmt.valueIndx++] = unchecked((byte)(-value));
+    protected override void SerializeValue(Span<byte> target, ref sbyte value) {
+      target[Fmt.valueIndx++] = unchecked((byte)(-value));
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref sbyte value) {
-      value = unchecked((sbyte)-ValueBuffer[Fmt.valueIndx++]);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref sbyte value) {
+      value = unchecked((sbyte)-source[Fmt.valueIndx++]);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx++;
     }
   }
@@ -1203,17 +1203,17 @@ namespace KdSoft.Serialization.Buffer
     public UShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref ushort value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref ushort value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref ushort value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref ushort value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(ushort);
     }
   }
@@ -1227,19 +1227,19 @@ namespace KdSoft.Serialization.Buffer
     public ShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref short value) {
-      Fmt.Converter.WriteBytes(unchecked((short)-value), ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref short value) {
+      Fmt.Converter.WriteBytes(unchecked((short)-value), target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref short value) {
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref short value) {
       short tmpValue;
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out tmpValue);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out tmpValue);
       value = unchecked((short)-tmpValue);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(short);
     }
   }
@@ -1250,17 +1250,17 @@ namespace KdSoft.Serialization.Buffer
     public CharField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref char value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref char value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref char value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref char value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(ushort);
     }
   }
@@ -1272,17 +1272,17 @@ namespace KdSoft.Serialization.Buffer
     public UIntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref uint value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref uint value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref uint value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref uint value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(uint);
     }
   }
@@ -1296,18 +1296,18 @@ namespace KdSoft.Serialization.Buffer
     public IntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref int value) {
-      Fmt.Converter.WriteBytes(-value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref int value) {
+      Fmt.Converter.WriteBytes(-value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref int value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref int value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
       value = -value;
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(int);
     }
   }
@@ -1319,17 +1319,17 @@ namespace KdSoft.Serialization.Buffer
     public ULongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref ulong value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref ulong value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref ulong value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref ulong value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(ulong);
     }
   }
@@ -1343,18 +1343,18 @@ namespace KdSoft.Serialization.Buffer
     public LongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref long value) {
-      Fmt.Converter.WriteBytes(-value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref long value) {
+      Fmt.Converter.WriteBytes(-value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref long value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref long value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
       value = -value;
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(long);
     }
   }
@@ -1368,17 +1368,17 @@ namespace KdSoft.Serialization.Buffer
     public DecimalField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref decimal value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref decimal value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref decimal value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref decimal value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += 4 * sizeof(UInt32);  // serialized as four 32bit values
     }
   }
@@ -1390,17 +1390,17 @@ namespace KdSoft.Serialization.Buffer
     public SingleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref float value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref float value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref float value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref float value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(UInt32);  // serialized as 32bit value
     }
   }
@@ -1412,17 +1412,17 @@ namespace KdSoft.Serialization.Buffer
     public DoubleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref double value) {
-      Fmt.Converter.WriteBytes(value, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref double value) {
+      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref double value) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out value);
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref double value) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(UInt64);  // serialized as 64bit value
     }
   }
@@ -1437,19 +1437,19 @@ namespace KdSoft.Serialization.Buffer
     public DateTimeField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ref DateTime value) {
-      Fmt.Converter.WriteBytes(value.Ticks, ValueBuffer, ref Fmt.valueIndx);
+    protected override void SerializeValue(Span<byte> target, ref DateTime value) {
+      Fmt.Converter.WriteBytes(value.Ticks, target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeValue(ref DateTime value) {
+    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref DateTime value) {
       long ticks = default;
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out ticks);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out ticks);
       value = new DateTime(ticks, DateTimeKind.Utc);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += sizeof(long);
     }
   }
@@ -1467,12 +1467,6 @@ namespace KdSoft.Serialization.Buffer
     protected ReferenceField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
-    /// internal <c>valueBuffer</c> field.</summary>
-    protected byte[] ValueBuffer {
-      get { return ValueBuffer; }
-    }
-
-    /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
     /// internal <c>valueIndex</c> field.</summary>
     protected int ValueIndex {
       get { return Fmt.valueIndx; }
@@ -1486,28 +1480,32 @@ namespace KdSoft.Serialization.Buffer
     public BlobField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(byte[] value) {
-      Fmt.Converter.WriteBytes(value.Length, ValueBuffer, ref Fmt.valueIndx);
-      System.Buffer.BlockCopy(value, 0, ValueBuffer, Fmt.valueIndx, value.Length);
-      Fmt.valueIndx += value.Length;
+    protected override void SerializeValue(Span<byte> target, byte[] value) {
+      Fmt.Converter.WriteBytes(value.Length, target, ref Fmt.valueIndx);
+      var source = new ReadOnlySpan<byte>(value);
+      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
+      //System.Buffer.BlockCopy(value, 0, target, Fmt.valueIndx, value.Length);
+      //Fmt.valueIndx += value.Length;
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref byte[] instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[] instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       if (instance == null || instance.Length != len)
         instance = new byte[len];
     }
 
     /// <inheritdoc />
-    protected override void DeserializeMembers(byte[] instance) {
-      System.Buffer.BlockCopy(ValueBuffer, Fmt.valueIndx, instance, 0, instance.Length);
-      Fmt.valueIndx += instance.Length;
+    protected override void DeserializeMembers(ReadOnlySpan<byte> source, byte[] instance) {
+      var target = new Span<byte>(instance);
+      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
+      //System.Buffer.BlockCopy(source, Fmt.valueIndx, instance, 0, instance.Length);
+      //Fmt.valueIndx += instance.Length;
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1528,28 +1526,34 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <inheritdoc />
-    protected override void SerializeValue(byte[] value) {
+    protected override void SerializeValue(Span<byte> target, byte[] value) {
       int len = value.Length;
       if (len > size)
         len = size;
-      System.Buffer.BlockCopy(value, 0, ValueBuffer, Fmt.valueIndx, len);
-      int valIndx = Fmt.valueIndx + len;
+      var source = new ReadOnlySpan<byte>(value, 0, len);
+      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
+      //System.Buffer.BlockCopy(value, 0, target, Fmt.valueIndx, len);
+      //int valIndx = Fmt.valueIndx + len;
       // for missing bytes pad with zeros
+      int valIndx = Fmt.valueIndx;
       for (; len < size; len++)
-        ValueBuffer[valIndx++] = 0;
+        target[valIndx++] = 0;
       Fmt.valueIndx = valIndx;
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref byte[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[] instance) {
       if (instance == null || instance.Length != size)
         instance = new byte[size];
-      System.Buffer.BlockCopy(ValueBuffer, Fmt.valueIndx, instance, 0, size);
-      Fmt.valueIndx += size;
+
+      var target = new Span<byte>(instance);
+      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
+      //System.Buffer.BlockCopy(target, Fmt.valueIndx, instance, 0, size);
+      //Fmt.valueIndx += size;
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += size;
     }
   }
@@ -1561,31 +1565,47 @@ namespace KdSoft.Serialization.Buffer
   public class StringField: ReferenceField<String>
   {
     UTF8Encoding utf8;
+    BufferPool buffers;
 
-    public StringField(Formatter fmt, bool isDefault) : base(fmt, isDefault) {
+    public StringField(Formatter fmt, bool isDefault, BufferPool buffers) : base(fmt, isDefault) {
       utf8 = new UTF8Encoding();
+      this.buffers = buffers;
     }
 
     /// <inheritdoc />
-    protected override void SerializeValue(string value) {
-      int valIndx = Fmt.valueIndx + sizeof(uint);  // make space for length prefix
-      int len = utf8.GetBytes(value, 0, value.Length, ValueBuffer, valIndx);
-      // write length prefix
-      valIndx = Fmt.valueIndx;
-      Fmt.Converter.WriteBytes(len, ValueBuffer, ref valIndx); 
-      Fmt.valueIndx = valIndx + len;
+    protected override void SerializeValue(Span<byte> target, string value) {
+      //var bytes = buffers.Acquire(utf8.GetByteCount(value));
+      var bytes = buffers.Acquire(value.Length * 4);
+      try {
+        int len = utf8.GetBytes(value, 0, value.Length, bytes, 0);
+        // write length prefix
+        Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
+        // write UTF8 encoded characters
+        var utf8Span = new ReadOnlySpan<byte>(bytes, 0, len);
+        Fmt.Converter.WriteValueBytes(utf8Span, target, ref Fmt.valueIndx); 
+      }
+      finally {
+        buffers.Return(bytes);
+      }
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref string instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
-      instance = utf8.GetString(ValueBuffer, Fmt.valueIndx, len);
-      Fmt.valueIndx += len;
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref string instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
+
+      var bytes = buffers.Acquire(len);
+      try {
+        Fmt.Converter.ReadValueBytes(source, ref Fmt.valueIndx, (Span<byte>)bytes);
+        instance = utf8.GetString(bytes, 0, len);
+      }
+      finally {
+        buffers.Return(bytes);
+      }
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1597,24 +1617,24 @@ namespace KdSoft.Serialization.Buffer
     public UShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(ushort[] value) {
+    protected override void SerializeValue(Span<byte> target, ushort[] value) {
       int len = value.Length * sizeof(ushort);
       // write length prefix
-      Fmt.Converter.WriteBytes(len, ValueBuffer, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<ushort>(value), ValueBuffer, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(new ReadOnlySpan<ushort>(value), target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref ushort[] instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int count);
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref ushort[] instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(ushort);
       instance = new ushort[count];
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, instance);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1627,24 +1647,24 @@ namespace KdSoft.Serialization.Buffer
     public CharArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(char[] value) {
+    protected override void SerializeValue(Span<byte> target, char[] value) {
       int len = value.Length * sizeof(char);
       // write length prefix
-      Fmt.Converter.WriteBytes(len, ValueBuffer, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<char>(value), ValueBuffer, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(new ReadOnlySpan<char>(value), target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref char[] instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int count);
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[] instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(char);
       instance = new char[count];
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, instance);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1660,31 +1680,31 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <inheritdoc />
-    protected override void SerializeValue(char[] value) {
+    protected override void SerializeValue(Span<byte> target, char[] value) {
       int count = value.Length;
       if (count > size)
         count = size;
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<char>(value), ValueBuffer, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(new ReadOnlySpan<char>(value), target, ref Fmt.valueIndx);
       // for missing characters pad with two zero bytes (each)
       if (count < size) {
         int valIndx = Fmt.valueIndx;
         for (; count < size; count++) {
-          ValueBuffer[valIndx++] = 0;
-          ValueBuffer[valIndx++] = 0;
+          target[valIndx++] = 0;
+          target[valIndx++] = 0;
         }
         Fmt.valueIndx = valIndx;
       }
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref char[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[] instance) {
       if (instance == null || instance.Length != size)
         instance = new char[size];
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, instance);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
       Fmt.valueIndx += size * sizeof(char);
     }
   }
@@ -1695,24 +1715,24 @@ namespace KdSoft.Serialization.Buffer
     public ShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(short[] value) {
+    protected override void SerializeValue(Span<byte> target, short[] value) {
       int len = value.Length * sizeof(short);
       // write length prefix
-      Fmt.Converter.WriteBytes(len, ValueBuffer, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<short>(value), ValueBuffer, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(new ReadOnlySpan<short>(value), target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref short[] instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int count);
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref short[] instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(short);
       instance = new short[count];
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, instance);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1724,24 +1744,24 @@ namespace KdSoft.Serialization.Buffer
     public UIntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(uint[] value) {
+    protected override void SerializeValue(Span<byte> target, uint[] value) {
       int len = value.Length * sizeof(uint);
       // write length prefix
-      Fmt.Converter.WriteBytes(len, ValueBuffer, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<uint>(value), ValueBuffer, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(new ReadOnlySpan<uint>(value), target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref uint[] instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int count);
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref uint[] instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(uint);
       instance = new uint[count];
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, instance);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1752,24 +1772,24 @@ namespace KdSoft.Serialization.Buffer
     public IntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
-    protected override void SerializeValue(int[] value) {
+    protected override void SerializeValue(Span<byte> target, int[] value) {
       int len = value.Length * sizeof(int);
       // write length prefix
-      Fmt.Converter.WriteBytes(len, ValueBuffer, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<int>(value), ValueBuffer, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(new ReadOnlySpan<int>(value), target, ref Fmt.valueIndx);
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ref int[] instance) {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int count);
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref int[] instance) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(int);
       instance = new int[count];
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, instance);
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
     }
 
     /// <inheritdoc />
-    protected override void SkipValue() {
-      Fmt.Converter.ReadBytes(ValueBuffer, ref Fmt.valueIndx, out int len);
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       Fmt.valueIndx += len;
     }
   }
@@ -1780,7 +1800,9 @@ namespace KdSoft.Serialization.Buffer
   /// for the basic types.</summary>
   public class StdFormatter: Formatter
   {
-    private void RegisterFieldConverters() {
+    static readonly BufferPool buffers = new BufferPool();
+
+    void RegisterFieldConverters() {
 #pragma warning disable RECS0026 // Possible unassigned object created by 'new'
       new ByteField(this, true);
       new SByteField(this, true);
@@ -1798,7 +1820,7 @@ namespace KdSoft.Serialization.Buffer
       new DateTimeField(this, true);
       // frequently used reference fields
       new BlobField(this, true);
-      new StringField(this, true);
+      new StringField(this, true, buffers);
       new UShortArrayField(this, true);
       new ShortArrayField(this, true);
       new CharArrayField(this, true);

@@ -55,7 +55,7 @@ namespace KdSoft.Serialization.Buffer
 
     #region WriteBytes
 
-    public void WriteStructBytes<T>(in T value, Span<byte> bytes, ref int index) where T : struct {
+    public void WriteValueBytes<T>(in T value, Span<byte> bytes, ref int index) where T : struct {
       if (!SpanHelpers.TryWriteBytes(value, bytes, ref index))
         throw new SerializationException("Buffer exhausted.");
     }
@@ -64,75 +64,75 @@ namespace KdSoft.Serialization.Buffer
     public void WriteBytes(UInt16 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Int16 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Char value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     [CLSCompliant(false)]
     public void WriteBytes(UInt32 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Int32 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Single value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     [CLSCompliant(false)]
     public void WriteBytes(UInt64 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Int64 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Double value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(Decimal value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
-      WriteStructBytes(value, bytes, ref index);
+      WriteValueBytes(value, bytes, ref index);
     }
 
     #endregion
 
     #region Span WriteBytes
 
-    public void WriteStructBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index) where T : struct {
+    public void WriteValueBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index) where T : struct {
       if (!SpanHelpers.TryWriteBytes<T>(values, bytes, ref index))
         throw new SerializationException("Buffer exhausted.");
     }
 
-    public void WriteStructBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index, Func<T, T> beforeWrite) where T : struct {
+    public void WriteValueBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index, Func<T, T> beforeWrite) where T : struct {
       if (!SpanHelpers.TryWriteBytes<T>(values, bytes, ref index, beforeWrite))
         throw new SerializationException("Buffer exhausted.");
     }
@@ -140,81 +140,81 @@ namespace KdSoft.Serialization.Buffer
     [CLSCompliant(false)]
     public void WriteBytes(ReadOnlySpan<UInt16> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Int16> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Char> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     [CLSCompliant(false)]
     public void WriteBytes(ReadOnlySpan<UInt32> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Int32> value, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(value, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(value, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(value, bytes, ref index);
+        WriteValueBytes(value, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Single> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     [CLSCompliant(false)]
     public void WriteBytes(ReadOnlySpan<UInt64> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Int64> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Double> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     public void WriteBytes(ReadOnlySpan<Decimal> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        WriteStructBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        WriteStructBytes(values, bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
     #endregion
 
     #region ReadBytes
 
-    public void ReadStructBytes<T>(ReadOnlySpan<byte> bytes, ref int index, out T value) where T : struct {
+    public void ReadValueBytes<T>(ReadOnlySpan<byte> bytes, ref int index, out T value) where T : struct {
       value = default;
       if (!SpanHelpers.TryReadBytes(bytes, ref index, ref value))
         throw new SerializationException("Buffer exhausted.");
@@ -222,63 +222,63 @@ namespace KdSoft.Serialization.Buffer
 
     [CLSCompliant(false)]
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out UInt16 value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Int16 value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Char value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     [CLSCompliant(false)]
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out UInt32 value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Int32 value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Single value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     [CLSCompliant(false)]
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out UInt64 value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Int64 value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Double value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Decimal value) {
-      ReadStructBytes(bytes, ref index, out value);
+      ReadValueBytes(bytes, ref index, out value);
       if (reverse)
         value = value.ReverseByteOrder();
     }
@@ -287,70 +287,70 @@ namespace KdSoft.Serialization.Buffer
 
     #region Span ReadBytes
 
-    public void ReadStructBytes<T>(ReadOnlySpan<byte> bytes, ref int index, Span<T> values) where T : struct {
+    public void ReadValueBytes<T>(ReadOnlySpan<byte> bytes, ref int index, Span<T> values) where T : struct {
       if (!SpanHelpers.TryReadBytes(bytes, ref index, values))
         throw new SerializationException("Buffer exhausted.");
     }
 
     [CLSCompliant(false)]
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<UInt16> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Int16> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Char> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     [CLSCompliant(false)]
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<UInt32> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Int32> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Single> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     [CLSCompliant(false)]
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<UInt64> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Int64> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Double> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
 
     public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Decimal> values) {
-      ReadStructBytes(bytes, ref index, values);
+      ReadValueBytes(bytes, ref index, values);
       if (reverse)
         SpanHelpers.ReverseByteOrder(values);
     }
