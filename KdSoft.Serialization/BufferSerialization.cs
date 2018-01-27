@@ -55,8 +55,8 @@ namespace KdSoft.Serialization.Buffer
     //TODO In stead of abstract Formatter base class implement a span-specific interface
     //TODO turn the Formatter base class into some internal implementation class
 
+    // buffer for status bits, used for write operations only
     private byte[] statusBuffer;
-
     // save status buffer for re-use
     private byte[] statusBuf;
 
@@ -140,13 +140,13 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <inheritdoc />
-    protected internal override SerialStatus ReadStatus() {
+    protected internal override SerialStatus ReadStatus(ReadOnlySpan<byte> source) {
       SerialStatus result;
       unchecked {
         int byteIndex = statusIndx >> 2;
         int byteTwoBitIndex = statusIndx & (int)twoBitIndexMask;
         // mask out the interesting bits in the slot
-        uint bufByte = (uint)statusBuffer[byteIndex] & slotMasks[byteTwoBitIndex];
+        uint bufByte = (uint)source[byteIndex] & slotMasks[byteTwoBitIndex];
         result = (SerialStatus)(bufByte >> (byteTwoBitIndex << 1));
       }
       statusIndx++;
@@ -306,9 +306,9 @@ namespace KdSoft.Serialization.Buffer
 
       // copy status buffer to end of target
       bufIndx = valueIndx;
-      bufSize = nextStatusByte(statusIndx);
+      int statusBufSize = nextStatusByte(statusIndx);
 
-      var statusSpan = new ReadOnlySpan<byte>(statusBuffer, 0, bufSize);
+      var statusSpan = new ReadOnlySpan<byte>(statusBuffer, 0, statusBufSize);
       converter.WriteValueBytes(statusSpan, target, ref bufIndx);
       //System.Buffer.BlockCopy(statusBuffer, 0, target, bufIndx, bufSize);
 
@@ -712,17 +712,15 @@ namespace KdSoft.Serialization.Buffer
       ResetOpenObjects();
       valueIndx = index;
 
-      // read size of values, initialize statusIndx
+      // read size of values, initialize statusIndx (status is at end of values)
       converter.ReadBytes(source, ref valueIndx, out int bufSize);
-
       statusIndx = (valueIndx + bufSize) << 2; // statusByte << 2
-      int endIndex = nextStatusByte(statusIndx);
-      var statusSpan = source.Slice(statusIndx, endIndex - statusIndx);
-      statusBuffer = statusSpan.ToArray();
-    }
 
-    //TODO figure out if we should define statusBuffer as Span<byte>, how big can it be, is it at the end of the input?
-    // TODO on deserialization, statusIndx does not point into value buffer! need to review use of statusIndx for deserialization
+      // we cannot copy to a local status buffer because we don't know its size until
+      // we have deserialized the last item. And since the source argument is a stack -only
+      // value type, we cannot store a reference to it, so we only have statusIndx to work with.
+      statusBuffer = null;  // not used for reading
+    }
 
     /// <summary>Completes deserialization process.</summary>
     /// <remarks>See <see cref="InitDeserialization"/>. This call must mirror the
@@ -1575,6 +1573,7 @@ namespace KdSoft.Serialization.Buffer
     /// <inheritdoc />
     protected override void SerializeValue(Span<byte> target, string value) {
       //var bytes = buffers.Acquire(utf8.GetByteCount(value));
+      // buffers.Acquire may return a larger size than we requested!
       var bytes = buffers.Acquire(value.Length * 4);
       try {
         int len = utf8.GetBytes(value, 0, value.Length, bytes, 0);
@@ -1595,7 +1594,9 @@ namespace KdSoft.Serialization.Buffer
 
       var bytes = buffers.Acquire(len);
       try {
-        Fmt.Converter.ReadValueBytes(source, ref Fmt.valueIndx, (Span<byte>)bytes);
+        // buffers.Acquire may return a larger size than we requested!
+        var byteSpan = new Span<byte>(bytes, 0, len);
+        Fmt.Converter.ReadValueBytes(source, ref Fmt.valueIndx, byteSpan);
         instance = utf8.GetString(bytes, 0, len);
       }
       finally {

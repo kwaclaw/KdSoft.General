@@ -146,7 +146,7 @@ namespace KdSoft.Serialization
     }
 
     private void DoSkipSequence<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           break;
@@ -509,7 +509,7 @@ namespace KdSoft.Serialization
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ValueField<T, F> field)
       where T : struct {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           value = null;
@@ -550,7 +550,7 @@ namespace KdSoft.Serialization
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ValueField<T, F> field)
       where T : struct {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           value = null;
@@ -595,7 +595,7 @@ namespace KdSoft.Serialization
     public void DeserializeStructs<T, C>(ReadOnlySpan<byte> source, InitValueSequence<T, C> initSequence, ref C collection, ValueField<T, F> field)
       where T : struct
       where C : class {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           initSequence(-1, ref collection);
@@ -642,7 +642,7 @@ namespace KdSoft.Serialization
     public void DeserializeStructs<T, C>(ReadOnlySpan<byte> source, InitSequence<T?, C> initSequence, ref C collection, ValueField<T, F> field)
       where T : struct
       where C : class {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           initSequence(-1, ref collection);
@@ -788,7 +788,7 @@ namespace KdSoft.Serialization
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] value, ReferenceField<T, F> field)
       where T : class {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           value = null;
@@ -830,7 +830,7 @@ namespace KdSoft.Serialization
     public void DeserializeObjects<T, C>(ReadOnlySpan<byte> source, InitSequence<T, C> initSequence, ref C collection, ReferenceField<T, F> field)
       where T : class
       where C : class {
-      SerialStatus status = ReadStatus();
+      SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           initSequence(-1, ref collection);
@@ -937,7 +937,7 @@ namespace KdSoft.Serialization
 
     // Skip instead of deserializing field
     internal void Skip(ReadOnlySpan<byte> source) {
-      SerialStatus status = Fmt.ReadStatus();
+      SerialStatus status = Fmt.ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           break;
@@ -1061,7 +1061,7 @@ namespace KdSoft.Serialization
     /// </remarks>
     /// <returns>The deserialized struct, or <c>null</c>.</returns>
     public T? Deserialize(ReadOnlySpan<byte> source) {
-      SerialStatus status = Fmt.ReadStatus();
+      SerialStatus status = Fmt.ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           return null;
@@ -1088,7 +1088,7 @@ namespace KdSoft.Serialization
     /// <param name="isNull">Indicates if the return value is <c>null</c>.
     /// If <c>true</c>, the <c>value</c> argument will not be modified.</param>
     public void Deserialize(ReadOnlySpan<byte> source, ref T value, out bool isNull) {
-      SerialStatus status = Fmt.ReadStatus();
+      SerialStatus status = Fmt.ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           isNull = true;
@@ -1208,7 +1208,7 @@ namespace KdSoft.Serialization
     /// <param name="value">The object to deserialize, or <c>null</c>.</param>
     public void Deserialize(ReadOnlySpan<byte> source, ref T value) {
       Int64 handle;
-      SerialStatus status = Fmt.ReadStatus();
+      SerialStatus status = Fmt.ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
           value = null;
