@@ -15,44 +15,47 @@ namespace KdSoft.Serialization
   /// <summary>
   /// A concrete implementation of this abstract base-class, together with corresponding
   /// implementations of <see cref="ValueField{T, S}"/> and <see cref="ReferenceField{T, S}"/>
-  /// is used to serialize and deserialize an object graph.
+  /// is used to serialize / deserialize an object graph to and from a <see cref="Span{T}"/> of bytes.
   /// </summary>
   /// <remarks>
-  /// The concrete subclass determines not only the binary layout of the serialized
-  /// object graph, but also the output target, like - for instance a stream or memory buffer.
+  /// The concrete subclass determines the detailed binary layout of the serialized data.
   /// </remarks>
   /// <typeparam name="F">Recursive type parameter that helps using the
   /// correct subclasses of <c>Formatter</c> and <see cref="Field{T, F}"/> together.</typeparam>
   public abstract class Formatter<F> where F : Formatter<F>
   {
-    /// <summary>Writes a <c>SerialStatus</c> value to the serialization target.</summary>
+    /// <summary>Writes a <c>SerialStatus</c> value to the status buffer.</summary>
     /// <param name="value">Value to write.</param>
     protected internal abstract void WriteStatus(SerialStatus value);
 
-
     /// <summary>Writes an object reference to the serialization target.</summary>
     /// <remarks>The implementation may decide not to use all 64 bits of the handle value.</remarks>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Object handle to write.</param>
     protected internal abstract void WriteObjRef(Span<byte> target, Int64 value);
 
     /// <summary>Writes a length prefix to the serialization target.</summary>
-    /// <remarks>This is usually needed whe a sequence of objects is serilaized,
+    /// <remarks>This is usually needed when a sequence of objects is serialized,
     /// like for instance an array or a hash table.</remarks>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Length value to write.</param>
     protected internal abstract void WriteCount(Span<byte> target, Int32 value);
 
-    /// <summary>Reads a <c>SerialStatus</c> value from the serializeSpan<byte> target.</summary>
+    /// <summary>Reads a <c>SerialStatus</c> value from the source.</summary>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <returns>Value to read.</returns>
-    protected internal abstract SerialStatus ReadStatus();
+    protected internal abstract SerialStatus ReadStatus(ReadOnlySpan<byte> source);
 
-    /// <summary>Reads an object reference from the serializeSpan<byte> target.</summary>
+    /// <summary>Reads an object reference from the source.</summary>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <returns>Object handle to read.</returns>
     protected internal abstract Int64 ReadObjRef(ReadOnlySpan<byte> source);
 
     /// <summary>Skips an object reference while deserialing.</summary>
     protected internal abstract void SkipObjRef();
 
-    /// <summary>Reads a length prefix from the serializeSpan<byte> target.</summary>
+    /// <summary>Reads a length prefix from the source.</summary>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <returns>Length prefix.</returns>
     protected internal abstract Int32 ReadCount(ReadOnlySpan<byte> source);
 
@@ -117,10 +120,11 @@ namespace KdSoft.Serialization
     /// <overloads>
     /// <summary>On deserialization, skips a specific data type.</summary>
     /// <remarks>Never call this method outside of a <see cref="Field{T, F}.SkipValue"/>
-    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}(Field{T, F}, int[])"/>.</remarks>
+    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}(ReadOnlySpan{byte}, Field{T, F}, int[])"/>.</remarks>
     /// </overloads>
     /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="field">Field associated with data type of member to skip.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
     public bool Skip<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
@@ -139,6 +143,7 @@ namespace KdSoft.Serialization
 
     /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type to skip.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
     public bool Skip<T>(ReadOnlySpan<byte> source) {
       Field<T, F> field = GetField<T>();
@@ -169,10 +174,11 @@ namespace KdSoft.Serialization
     /// <overloads>
     /// <summary>On deserialization, skips sequences of a specific data type.</summary>
     /// <remarks>Never call this method outside of a <see cref="Field{T, F}.SkipValue"/>
-    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}(Field{T, F}, int[])"/>.</remarks>
+    /// override, as it needs the initialization performed by <see cref="SkipMembers{T}(ReadOnlySpan{byte}, Field{T, F}, int[])"/>.</remarks>
     /// </overloads>
     /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="field">Field associated with data type of sequence elements to skip.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
     public bool SkipSequence<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
@@ -191,6 +197,7 @@ namespace KdSoft.Serialization
 
     /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type of sequence elements to skip.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <returns><c>true</c> if skipping should continue, <c>false otherwise.</c></returns>
     public bool SkipSequence<T>(ReadOnlySpan<byte> source) {
       Field<T, F> field = GetField<T>();
@@ -252,6 +259,7 @@ namespace KdSoft.Serialization
     /// </overloads>
     /// <summary>Uses a specified <see cref="Field{T, F}"/> instance instead of the default.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="field">Field associated with root object in graph.</param>
     /// <param name="path">Path in the graph which is to be skipped. Node indexes
     /// are 0-based.</param>
@@ -266,6 +274,7 @@ namespace KdSoft.Serialization
 
     /// <summary>Uses the default <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Data type associated with field.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="path">Path in the graph which is to be skipped.</param>
     /// <returns><c>true</c> if successful, <c>false</c> if path is invalid.</returns>
     public bool SkipMembers<T>(ReadOnlySpan<byte> source, params int[] path) {
@@ -280,6 +289,7 @@ namespace KdSoft.Serialization
     /// <overloads>Serializes values of a specific type.</overloads>
     /// <summary>Serializes nullable value types.</summary>
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Value type instance to serialize.</param>
     public void SerializeStruct<T>(Span<byte> target, T? value)
       where T : struct {
@@ -291,6 +301,7 @@ namespace KdSoft.Serialization
     /// <remarks>Value type copying is avoided due to the use of a 'ref' parameter,
     /// but a <c>null</c> cannot be passed. See <see cref="SerializeNull"/>.</remarks>
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Value type instance to serialize.</param>
     public void SerializeStruct<T>(Span<byte> target, ref T value)
       where T : struct {
@@ -300,6 +311,7 @@ namespace KdSoft.Serialization
 
     /// <summary>Serializes value types.</summary>
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Value type instance to serialize.</param>
     public void SerializeStruct<T>(Span<byte> target, T value)
       where T : struct {
@@ -309,13 +321,14 @@ namespace KdSoft.Serialization
 
     /// <summary>Serializes <c>null</c>.</summary>
     /// <remarks>Useful for large value types. This is a companion method to
-    /// <see cref="SerializeStruct&lt;T>(ref T)">SerializeStruct&lt;T>(ref T value)</see>.</remarks>
+    /// <see cref="SerializeStruct{T}(Span{byte}, ref T)"/>.</remarks>
     public void SerializeNull() {
       WriteStatus(SerialStatus.Null);
     }
 
     /// <summary>Serializes reference types.</summary>
     /// <typeparam name="T">Reference type to be serialized.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="obj">Object to serialize.</param>
     public void SerializeObject<T>(Span<byte> target, T obj)
       where T : class {
@@ -331,6 +344,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes nullable value types.</summary>
     /// <remarks>One can cast the return value to the non-nullable value type.</remarks>
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     public T? DeserializeStruct<T>(ReadOnlySpan<byte> source)
       where T : struct {
       T? result;
@@ -342,6 +356,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes large value types.</summary>
     /// <remarks>Value type copying is avoided due to the use of a 'ref' parameter.</remarks>
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value to serialize, passed by reference.</param>
     /// <param name="isNull">Indicates <c>null</c>. If this parameter returns <c>true</c>
     /// then the <c>value</c> has not been modified.</param>
@@ -354,6 +369,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes reference types.</summary>
     /// <remarks>If a <c>null</c> argument is passed in, then a new object will be instantiated.</remarks>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="obj">Object to deserialize, or <c>null</c>.</param>
     public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj)
       where T : class {
@@ -364,6 +380,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes reference types.</summary>
     /// <returns>New object instance.</returns>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     public T DeserializeObject<T>(ReadOnlySpan<byte> source)
       where T : class {
       T obj = null;
@@ -380,6 +397,7 @@ namespace KdSoft.Serialization
     /// <overloads>Serializes sequences (arrays, collections) of a given type.</overloads>
     /// <summary>Serializes value type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
     public void SerializeStructs<T>(Span<byte> target, T[] value, ValueField<T, F> field)
@@ -397,6 +415,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes value type arrays using the default <see cref="Field{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     public void SerializeStructs<T>(Span<byte> target, T[] value)
       where T : struct {
@@ -407,6 +426,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes arrays of nullable value types using a specific
     /// <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
     public void SerializeStructs<T>(Span<byte> target, T?[] value, ValueField<T, F> field)
@@ -424,6 +444,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes arrays of nullable value types using the default <see cref="Field{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     public void SerializeStructs<T>(Span<byte> target, T?[] value)
       where T : struct {
@@ -438,6 +459,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeStructs<T>(Span<byte> target, IList<T> value, ValueField<T, F> field)
@@ -455,6 +477,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     public void SerializeStructs<T>(Span<byte> target, IList<T> value)
       where T : struct {
@@ -465,6 +488,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/>
     /// using a specific <see cref="Field{T, F}"/> instance</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ValueField<T, F> field)
@@ -487,6 +511,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value)
       where T : struct {
@@ -505,6 +530,7 @@ namespace KdSoft.Serialization
     /// <overloads>Deserializes sequences (arrays, collections) of a given type.</overloads>
     /// <summary>Deserializes value type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ValueField<T, F> field)
@@ -535,6 +561,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes value type arrays using the default <see cref="Field{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize. Passed  by reference
     /// to avoid copying overhead - suitable for large value types.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value)
@@ -546,6 +573,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes arrays of nullable value types using a specific
     /// <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ValueField<T, F> field)
@@ -572,6 +600,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes arrays of nullable value types using the default
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value)
       where T : struct {
@@ -587,6 +616,7 @@ namespace KdSoft.Serialization
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="initSequence">Call-back delegate to instantiate/initialize collection.
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
@@ -619,6 +649,7 @@ namespace KdSoft.Serialization
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="initSequence">Call-back delegate to instantiate/initialize collection.
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
@@ -634,6 +665,7 @@ namespace KdSoft.Serialization
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="initSequence">Call-back delegate to instantiate/initialize collection.
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
@@ -664,6 +696,7 @@ namespace KdSoft.Serialization
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="initSequence">Call-back delegate to instantiate/initialize collection.
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
@@ -686,6 +719,7 @@ namespace KdSoft.Serialization
     /// <overloads>Serializes sequences (arrays, collections) of a reference type.</overloads>
     /// <summary>Serializes reference type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
     public void SerializeObjects<T>(Span<byte> target, T[] value, ReferenceField<T, F> field)
@@ -703,6 +737,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes reference type arrays using the default
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     public void SerializeObjects<T>(Span<byte> target, T[] value)
       where T : class {
@@ -717,6 +752,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeObjects<T>(Span<byte> target, IList<T> value, ReferenceField<T, F> field)
@@ -734,6 +770,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     public void SerializeObjects<T>(Span<byte> target, IList<T> value)
       where T : class {
@@ -744,6 +781,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/>
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
     public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value, ReferenceField<T, F> field)
@@ -766,6 +804,7 @@ namespace KdSoft.Serialization
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/>
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value)
       where T : class {
@@ -784,6 +823,7 @@ namespace KdSoft.Serialization
     /// <overloads>Deserializes sequences (arrays, collections) of a refence type.</overloads>
     /// <summary>Deserializes reference type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Reference type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] value, ReferenceField<T, F> field)
@@ -807,6 +847,7 @@ namespace KdSoft.Serialization
     /// <summary>Deserializes reference type arrays using the default
     /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="obj">Reference type array to deserialize.</param>
     public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] obj)
       where T : class {
@@ -822,6 +863,7 @@ namespace KdSoft.Serialization
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="initSequence">Call-back delegate to instantiate/initialize collection.
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
@@ -853,6 +895,7 @@ namespace KdSoft.Serialization
     /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="initSequence">Call-back delegate to instantiate/initialize collection.
     /// Returns another delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
@@ -917,7 +960,7 @@ namespace KdSoft.Serialization
     /// <summary>Skips serialized field value without deserializing it. Useful
     /// for partial deserialization.</summary>
     /// <remarks>For a given target data type, this must be implemented by calling
-    /// any of the overloaded versions of <see cref="KdSoft.Serialization.Formatter{F}.Skip{T}(Field{T, F})"/>
+    /// any of the overloaded versions of <see cref="Formatter{F}.Skip{T}(ReadOnlySpan{byte}, Field{T, F})"/>
     /// for its serialized members, in the exact same order as they have been serialized.
     /// Whenever any of these calls returns <c>false</c>, then <c>SkipValue()</c> must
     /// return immediately.</remarks>
@@ -933,6 +976,7 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     protected abstract void SkipValue(ReadOnlySpan<byte> source);
 
     // Skip instead of deserializing field
@@ -971,14 +1015,17 @@ namespace KdSoft.Serialization
     where T : struct
     where F : Formatter<F>
   {
+    /// <summary>Constructor.</summary>
+    /// <param name="fmt">Formatter instance to use.</param>
+    /// <param name="isDefault">Indicates if this is the default field for the given type parameter.</param>
     protected ValueField(F fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <summary>Specifies how and in which order struct members are serialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
-    /// overloaded versions of <see cref="Formatter{F}.SerializeObject{T}(T)"/>,
-    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/>, <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>
-    /// or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
+    /// overloaded versions of <see cref="Formatter{F}.SerializeObject{T}(Span{byte}, T)"/>,
+    /// <see cref="Formatter{F}.SerializeStruct{T}(Span{byte}, T)"/>, <see cref="Formatter{F}.SerializeObjects{T}(Span{byte}, T[])"/>
+    /// or <see cref="Formatter{F}.SerializeStructs{T}(Span{byte}, T[])"/>.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
     /// <code>
@@ -992,15 +1039,17 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">The struct instance to serialize.</param>
     protected abstract void SerializeValue(Span<byte> target, ref T value);
 
     /// <summary>Specifies how and in which order struct members are deserialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}()"/>,
-    /// <see cref="Formatter{F}.DeserializeStruct{T}()"/>, <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}(T[])"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}(ReadOnlySpan{byte})"/>,
+    /// <see cref="Formatter{F}.DeserializeStruct{T}(ReadOnlySpan{byte})"/>,
+    /// <see cref="Formatter{F}.DeserializeObjects{T}(ReadOnlySpan{byte}, ref T[])"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(ReadOnlySpan{byte}, out T?[])"/>.
     /// The order in which members are deserialized must match the order of serialization.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
@@ -1015,6 +1064,7 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">The struct instance to deserialize.</param>
     protected abstract void DeserializeValue(ReadOnlySpan<byte> source, ref T value);
 
@@ -1023,8 +1073,9 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
+    /// <see cref="Formatter{F}.SerializeStruct{T}(Span{byte}, T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(Span{byte}, T[])"/>.
     /// </remarks>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Struct instance to serialize, or <c>null</c>.</param>
     public void Serialize(Span<byte> target, T? value) {
       if (value.HasValue) {
@@ -1041,11 +1092,12 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
+    /// <see cref="Formatter{F}.SerializeStruct{T}(Span{byte}, T)"/> or <see cref="Formatter{F}.SerializeStructs{T}(Span{byte}, T[])"/>.
     /// <para>Passing the value type by reference avoids copy overhead which is useful
     /// for large value types. However, this does not allow to pass <c>nulls</c>.
     /// To serialize a <c>null</c>, call <see cref="Formatter{F}.SerializeNull()"/>.</para>
     /// </remarks>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">The struct instance to serialize. Passed by reference to avoid copy overhead.</param>
     public void Serialize(Span<byte> target, ref T value) {
       Fmt.WriteStatus(SerialStatus.Value);
@@ -1056,9 +1108,10 @@ namespace KdSoft.Serialization
     /// <remarks>This method should only be called when a non-default field instance
     /// is used directly by the application, otherwise the corresponding
     /// <see cref="Formatter{F}"/> will take care of calling it through its
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}()"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}(out T[])"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}(ReadOnlySpan{byte})"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(ReadOnlySpan{byte}, out T[])"/>.
     /// </remarks>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <returns>The deserialized struct, or <c>null</c>.</returns>
     public T? Deserialize(ReadOnlySpan<byte> source) {
       SerialStatus status = Fmt.ReadStatus(source);
@@ -1080,10 +1133,11 @@ namespace KdSoft.Serialization
     /// This method should only be called when a non-default field instance
     /// is used directly by the application, otherwise the corresponding
     /// <see cref="Formatter{F}"/> will take care of calling it through its
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}()"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}(out T[])"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeStruct{T}(ReadOnlySpan{byte})"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(ReadOnlySpan{byte}, out T[])"/>.
     /// Useful for large value types because the <c>value</c> parameter is passed by reference.
     /// </remarks>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">The struct to deserialize.</param>
     /// <param name="isNull">Indicates if the return value is <c>null</c>.
     /// If <c>true</c>, the <c>value</c> argument will not be modified.</param>
@@ -1110,14 +1164,17 @@ namespace KdSoft.Serialization
     where T : class
     where F : Formatter<F>
   {
+    /// <summary>Constructor.</summary>
+    /// <param name="fmt">Formatter instance to use.</param>
+    /// <param name="isDefault">Indicates if this is the default field for the given type parameter.</param>
     protected ReferenceField(F fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <summary>Specifies how and in which order class members are serialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
     /// overloaded versions of <see cref="Formatter{F}.SerializeObject{T}"/>,
-    /// <see cref="Formatter{F}.SerializeStruct{T}(T)"/>, <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>
-    /// or <see cref="Formatter{F}.SerializeStructs{T}(T[])"/>.
+    /// <see cref="Formatter{F}.SerializeStruct{T}(Span{byte}, T)"/>, <see cref="Formatter{F}.SerializeObjects{T}(Span{byte}, T[])"/>
+    /// or <see cref="Formatter{F}.SerializeStructs{T}(Span{byte}, T[])"/>.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
     /// <code>
@@ -1131,14 +1188,15 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">The object to serialize. Must not be <c>null</c>.</param>
     protected abstract void SerializeValue(Span<byte> target, T value);
 
     /// <summary>Creates and/or initializes an instance of the field's associated type.</summary>
     /// <remarks>May deserialize part or all of the instance - as described for
-    /// <see cref="DeserializeMembers(T)"/>, but <b>must not</b> deserialize members
+    /// <see cref="DeserializeMembers(ReadOnlySpan{byte}, T)"/>, but <b>must not</b> deserialize members
     /// that may - directly or indirectly - refer back to the instance. That part of
-    /// deserialization must be left to <see cref="DeserializeMembers(T)"/>.</remarks>
+    /// deserialization must be left to <see cref="DeserializeMembers(ReadOnlySpan{byte}, T)"/>.</remarks>
     /// <example>Here is an example of such an implementation:
     /// <code>
     /// protected override void DeserializeInstance(ref StockItem instance) {
@@ -1147,6 +1205,7 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="instance">Instance to initialize. Can be <c>null</c>, in which
     /// case a new instance must be created.</param>
     protected abstract void DeserializeInstance(ReadOnlySpan<byte> source, ref T instance);
@@ -1154,9 +1213,10 @@ namespace KdSoft.Serialization
     /// <summary>Specifies how and in which order class members are deserialized.</summary>
     /// <remarks>
     /// For any given member data type, this must be implemented by calling one of the
-    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}()"/>,
-    /// <see cref="Formatter{F}.DeserializeStruct{T}()"/>, <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>
-    /// or <see cref="Formatter{F}.DeserializeStructs{T}(T[])"/>.
+    /// overloaded versions of <see cref="Formatter{F}.DeserializeObject{T}(ReadOnlySpan{byte})"/>,
+    /// <see cref="Formatter{F}.DeserializeStruct{T}(ReadOnlySpan{byte})"/>,
+    /// <see cref="Formatter{F}.DeserializeObjects{T}(ReadOnlySpan{byte}, ref T[])"/>
+    /// or <see cref="Formatter{F}.DeserializeStructs{T}(ReadOnlySpan{byte}, out T?[])"/>.
     /// The order in which members are deserialized must match the order of serialization.
     /// </remarks>
     /// <example>Here is an example of such an implementation:
@@ -1171,6 +1231,7 @@ namespace KdSoft.Serialization
     /// }
     /// </code>
     /// </example>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="instance">The object to serialize. Must not be <c>null</c>.</param>
     protected virtual void DeserializeMembers(ReadOnlySpan<byte> source, T instance) { }
 
@@ -1179,8 +1240,9 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.SerializeObject{T}(T)"/> or <see cref="Formatter{F}.SerializeObjects{T}(T[])"/>.
+    /// <see cref="Formatter{F}.SerializeObject{T}(Span{byte}, T)"/> or <see cref="Formatter{F}.SerializeObjects{T}(Span{byte}, T[])"/>.
     /// </remarks>
+    /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">The object to serialize.</param>
     public void Serialize(Span<byte> target, T value) {
       if (ReferenceEquals(value, null)) {
@@ -1203,8 +1265,10 @@ namespace KdSoft.Serialization
     /// This method should only be called when a field instance is used directly
     /// by the application, otherwise the corresponding <see cref="Formatter{F}"/>
     /// will take care of calling it through its overloaded versions of 
-    /// <see cref="Formatter{F}.DeserializeObject{T}()"/> or <see cref="Formatter{F}.DeserializeObjects{T}(ref T[])"/>.
+    /// <see cref="Formatter{F}.DeserializeObject{T}(ReadOnlySpan{byte})"/> or 
+    /// <see cref="Formatter{F}.DeserializeObjects{T}(ReadOnlySpan{byte}, ref T[])"/>.
     /// </remarks>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">The object to deserialize, or <c>null</c>.</param>
     public void Deserialize(ReadOnlySpan<byte> source, ref T value) {
       Int64 handle;
@@ -1280,11 +1344,13 @@ namespace KdSoft.Serialization
   /// use of the serialization framework.</summary>
   public class SerializationException : Exception
   {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public SerializationException() { }
 
     public SerializationException(string message) : base(message) { }
 
     public SerializationException(string message, Exception e) : base(message, e) { }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
   }
 
   //TODO Document that collection objects themselves should be serialized as a specific
