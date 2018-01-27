@@ -20,6 +20,24 @@ namespace KdSoft.Serialization.Tests
     public string ZipCode { get => zipCode; set => zipCode = value; }
     public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
     public SalesRep SalesRep { get => salesRep; set => salesRep = value; }
+
+    public static bool Equals(Vendor x, Vendor y) {
+      if (object.ReferenceEquals(x, y))
+        return true;
+      if (object.ReferenceEquals(x, null) || object.ReferenceEquals(y, null))
+        return false;
+      return x.name == y.name && x.street == y.street && x.city == y.city && x.state == y.state
+        && x.zipCode == y.zipCode && x.phoneNumber == y.phoneNumber && x.salesRep == y.salesRep;
+    }
+
+    public override bool Equals(object obj) {
+      // need to cast obj to Vendor, as otherwise we would call the base implementation
+      // of static Equals, leading to infinite recursion
+      return Equals(this, obj as Vendor);
+    }
+
+    public static bool operator ==(Vendor x, Vendor y) { return Equals(x, y); }
+    public static bool operator !=(Vendor x, Vendor y) { return !(x == y); }
   }
 
   public class VendorField : ReferenceField<Vendor>
@@ -69,6 +87,20 @@ namespace KdSoft.Serialization.Tests
 
     public string Name { get => name; set => name = value; }
     public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
+
+    public static bool Equals(SalesRep x, SalesRep y) {
+      if (object.ReferenceEquals(x, y))
+        return true;
+      if (object.ReferenceEquals(x, null) || object.ReferenceEquals(y, null))
+        return false;
+      return x.name == y.name && x.phoneNumber == y.phoneNumber;
+    }
+
+    public override bool Equals(object obj) {
+      return Equals(this, obj as SalesRep);
+    }
+    public static bool operator ==(SalesRep x, SalesRep y) { return Equals(x, y); }
+    public static bool operator !=(SalesRep x, SalesRep y) { return !(x == y); }
   }
 
   public class SalesRepField : ReferenceField<SalesRep>
@@ -111,6 +143,21 @@ namespace KdSoft.Serialization.Tests
     public string Sku { get => sku; set => sku = value; }
     public float? Price { get => price; set => price = value; }
     public int? Quantity { get => quantity; set => quantity = value; }
+
+    public static bool Equals(StockItem x, StockItem y) {
+      if (object.ReferenceEquals(x, y))
+        return true;
+      if (object.ReferenceEquals(x, null) || object.ReferenceEquals(y, null))
+        return false;
+      return x.name == y.name && x.category == y.category && x.vendor == y.vendor
+        && x.sku == y.sku && x.price == y.price && x.quantity == y.quantity;
+    }
+
+    public override bool Equals(object obj) {
+      return Equals(this, obj as StockItem);
+    }
+    public static bool operator ==(StockItem x, StockItem y) { return Equals(x, y); }
+    public static bool operator !=(StockItem x, StockItem y) { return !(x == y); }
   }
 
   public class StockItemField : ReferenceField<StockItem>

@@ -55,6 +55,7 @@ namespace KdSoft.Serialization.Tests
       Assert.Equal<int[]>(testInts, testInts2);
     }
 
+    [Fact]
     public void ReverseDecimalSpanByteOrder() {
       var testDecimals2 = (decimal[])testDecimals.Clone();
 
