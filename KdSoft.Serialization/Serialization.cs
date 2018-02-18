@@ -21,7 +21,7 @@ namespace KdSoft.Serialization
   /// The concrete subclass determines the detailed binary layout of the serialized data.
   /// </remarks>
   /// <typeparam name="F">Recursive type parameter that helps using the
-  /// correct subclasses of <c>Formatter</c> and <see cref="Field{T, F}"/> together.</typeparam>
+  /// correct subclasses of <c>Formatter&lt;F></c> and <see cref="Field{T, F}"/> together.</typeparam>
   public abstract class Formatter<F> where F : Formatter<F>
   {
     /// <summary>Writes a <c>SerialStatus</c> value to the status buffer.</summary>
@@ -63,7 +63,7 @@ namespace KdSoft.Serialization
     /// Opens (registers) a given object reference and returns a new handle for it.
     /// If the object is already registered, the existing handle is returned.
     /// </summary>
-    /// <remarks>Is needed to detect if an object has already been serialized - to
+    /// <remarks>This is needed to detect if an object has already been serialized - to
     /// prevent it from being (de)serialized multiple times - and to deal with circular
     /// references which could lead to infinite recursion.</remarks>
     /// <param name="obj">Object to get the handle for.</param>
@@ -79,7 +79,7 @@ namespace KdSoft.Serialization
 
     /// <summary>Registers pre-existing objects referenced by the object graph.</summary>
     /// <remarks>This is required when specific objects that are referenced by
-    /// an object graph should not be serialized, as they will also already exist
+    /// an object graph should not be serialized because they will already exist
     /// when the object graph is deserialized.</remarks>
     /// <param name="objects">Array of pre-existing objects. The number and order of
     /// these objects must be exactly the same for serialization and deserialization.</param>

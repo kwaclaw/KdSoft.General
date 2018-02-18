@@ -113,18 +113,36 @@ namespace KdSoft.Serialization.Buffer
 
     //TODO For TryWriteBytes (but not the reverse version) use BitConverter.TryWriteBytes when it becomes available?
 
-    public static bool TryWriteBytes<T>(in T values, Span<byte> bytes, ref int index) where T : struct {
+    /// <summary>
+    /// Write value type to <see cref="Span{T}"/> of bytes.
+    /// </summary>
+    /// <typeparam name="T">Value type.</typeparam>
+    /// <param name="value">Value to serialize.</param>
+    /// <param name="bytes"><see cref="Span{T}"/> of bytes to write to.</param>
+    /// <param name="index">Index in <c>Span&lt;byte></c> to start writing at.
+    ///   Will be updated to return the position after the last written byte.</param>
+    /// <returns><c>true</c> if value could be written successfully (sufficient space), <c>false</c> otherwise.</returns>
+    public static bool TryWriteBytes<T>(in T value, Span<byte> bytes, ref int index) where T : struct {
       int writeSize = Unsafe.SizeOf<T>();
       if ((bytes.Length - index) < writeSize)
         return false;
 
       ref var target = ref Unsafe.AddByteOffset(ref MemoryMarshal.GetReference(bytes), (IntPtr)index);
-      Unsafe.WriteUnaligned(ref target, values);
+      Unsafe.WriteUnaligned(ref target, value);
 
       index += writeSize;
       return true;
     }
 
+    /// <summary>
+    /// Write <see cref="ReadOnlySpan{T}"/> of value type to <see cref="Span{T}"/> of bytes.
+    /// </summary>
+    /// <typeparam name="T">Value type.</typeparam>
+    /// <param name="values"><see cref="ReadOnlySpan{T}"/> of value type to serialize.</param>
+    /// <param name="bytes"><see cref="Span{T}"/> of bytes to write to.</param>
+    /// <param name="index">Index in <c>Span&lt;byte></c> to start writing at.
+    ///   Will be updated to return the position after the last written byte.</param>
+    /// <returns><c>true</c> if values could be written successfully (sufficient space), <c>false</c> otherwise.</returns>
     public static bool TryWriteBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index) where T : struct {
       int writeSize = Unsafe.SizeOf<T>() * values.Length;
       if ((bytes.Length - index) < writeSize)
@@ -138,6 +156,17 @@ namespace KdSoft.Serialization.Buffer
       return true;
     }
 
+    /// <summary>
+    /// Write <see cref="ReadOnlySpan{T}"/> of value type to <see cref="Span{T}"/> of bytes.
+    /// </summary>
+    /// <typeparam name="T">Value type.</typeparam>
+    /// <param name="values"><see cref="ReadOnlySpan{T}"/> of value type to serialize.</param>
+    /// <param name="bytes"><see cref="Span{T}"/> of bytes to write to.</param>
+    /// <param name="index">Index in <c>Span&lt;byte></c> to start writing at.
+    ///   Will be updated to return the position after the last written byte.</param>
+    /// <param name="beforeWrite">Callback that gets executed for each item in the input, just before
+    ///   it is written to the <c>Span&lt;byte></c>. This allows for conversions like byte re-ordering.</param>
+    /// <returns><c>true</c> if values could be written successfully (sufficient space), <c>false</c> otherwise.</returns>
     public static bool TryWriteBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index, Func<T, T> beforeWrite) where T : struct {
       int itemSize = Unsafe.SizeOf<T>();
       int writeSize = itemSize * values.Length;
@@ -159,6 +188,15 @@ namespace KdSoft.Serialization.Buffer
       return true;
     }
 
+    /// <summary>
+    /// Read value type from <see cref="ReadOnlySpan{T}"/> of bytes.
+    /// </summary>
+    /// <typeparam name="T">Value type.</typeparam>
+    /// <param name="bytes"><see cref="ReadOnlySpan{T}"/> of bytes to read from.</param>
+    /// <param name="index">Index in <c>ReadOnlySpan&lt;byte></c> to start reading from.
+    ///   Will be updated to return the position after the last read byte.</param>
+    /// <param name="value">Value to deserialize.</param>
+    /// <returns><c>true</c> if value could be read successfully (sufficient space), <c>false</c> otherwise.</returns>
     public static bool TryReadBytes<T>(ReadOnlySpan<byte> bytes, ref int index, ref T value) where T : struct {
       int readSize = Unsafe.SizeOf<T>();
       if ((bytes.Length - index) < readSize)
@@ -171,6 +209,15 @@ namespace KdSoft.Serialization.Buffer
       return true;
     }
 
+    /// <summary>
+    /// Read <see cref="Span{T}"/> of value type from <see cref="ReadOnlySpan{T}"/> of bytes.
+    /// </summary>
+    /// <typeparam name="T">Value type.</typeparam>
+    /// <param name="bytes"><see cref="ReadOnlySpan{T}"/> of bytes to read from.</param>
+    /// <param name="index">Index in <c>ReadOnlySpan&lt;byte></c> to start reading from.
+    ///   Will be updated to return the position after the last read byte.</param>
+    /// <param name="values"><see cref="Span{T}"/> of value type to deserialize.</param>
+    /// <returns><c>true</c> if values could be read successfully (sufficient space), <c>false</c> otherwise.</returns>
     public static bool TryReadBytes<T>(ReadOnlySpan<byte> bytes, ref int index, Span<T> values) where T : struct {
       int readSize = Unsafe.SizeOf<T>() * values.Length;
       if ((bytes.Length - index) < readSize)

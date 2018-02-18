@@ -58,9 +58,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Returns new instance initialized from <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Returns new instance initialized from byte span.</summary>
+    /// <param name="value">Readonly byte span to initialize the instance with.</param>
+    /// <param name="index">Starting index in <c>ReadOnlySpan&lt;byte></c> argument.</param>
     public static ShortBytes FromBytes(ReadOnlySpan<byte> value, ref int index) {
       ShortBytes result = new ShortBytes();
       result.byte0 = value[index++];
@@ -68,9 +68,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Returns new instance initialized from reversed <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Returns new instance initialized from reversed byte span.</summary>
+    /// <param name="value">Readonly byte span to initialize the instance with.</param>
+    /// <param name="index">Starting index in <c>ReadOnlySpan&lt;byte></c> argument.</param>
     public static ShortBytes FromBytesReversed(ReadOnlySpan<byte> value, ref int index) {
       ShortBytes result = new ShortBytes();
       result.byte1 = value[index++];
@@ -78,17 +78,17 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Writes the value to a byte array.</summary>
-    /// <param name="bytes">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Writes the value to a byte span.</summary>
+    /// <param name="bytes">Target byte span.</param>
+    /// <param name="index">Starting index in <c>Span&lt;byte></c> argument.</param>
     public void ToBytes(Span<byte> bytes, ref int index) {
       bytes[index++] = byte0;
       bytes[index++] = byte1;
     }
 
-    /// <summary>Writes the value to a byte array in reversed byte order.</summary>
-    /// <param name="bytes">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Writes the value to a byte span in reversed byte order.</summary>
+    /// <param name="bytes">Target byte span.</param>
+    /// <param name="index">Starting index in <c>Span&lt;byte></c> argument.</param>
     public void ToBytesReversed(Span<byte> bytes, ref int index) {
       bytes[index++] = byte1;
       bytes[index++] = byte0;
@@ -198,9 +198,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Returns new instance initialized from <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Returns new instance initialized from byte span.</summary>
+    /// <param name="value">Readonly  byte span to initialize the instance with.</param>
+    /// <param name="index">Starting index in <c>ReadOnlySpan&lt;byte></c> argument.</param>
     public static IntBytes FromBytes(ReadOnlySpan<byte> value, ref int index) {
       IntBytes result = new IntBytes();
       int i = index;
@@ -212,9 +212,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Returns new instance initialized from reversed <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Returns new instance initialized from reversed byte span.</summary>
+    /// <param name="value">Readonly byte span to initialize the instance with.</param>
+    /// <param name="index">Starting index in <c>ReadOnlySpan&lt;byte></c> argument.</param>
     public static IntBytes FromBytesReversed(ReadOnlySpan<byte> value, ref int index) {
       IntBytes result = new IntBytes();
       int i = index;
@@ -226,9 +226,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Writes the value to a byte array.</summary>
-    /// <param name="bytes">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Writes the value to a byte span.</summary>
+    /// <param name="bytes">Target byte span.</param>
+    /// <param name="index">Starting index in <c>Span&lt;byte></c> argument.</param>
     public void ToBytes(Span<byte> bytes, ref int index) {
       int i = index;
       bytes[i++] = byte0;
@@ -238,9 +238,9 @@ namespace KdSoft.Serialization
       index = i;
     }
 
-    /// <summary>Writes the value to a byte array in reversed byte order.</summary>
-    /// <param name="bytes">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Writes the value to a byte span in reversed byte order.</summary>
+    /// <param name="bytes">Target byte span.</param>
+    /// <param name="index">Starting index in <c>Span&lt;byte></c> argument.</param>
     public void ToBytesReversed(Span<byte> bytes, ref int index) {
       int i = index;
       bytes[i++] = byte3;
@@ -382,9 +382,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Returns new instance initialized from <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Returns new instance initialized from byte span.</summary>
+    /// <param name="value">Readonly byte span to initialize the instance with.</param>
+    /// <param name="index">Starting index in <c>ReadOnlySpan&lt;byte></c> argument.</param>
     public static LongBytes FromBytes(ReadOnlySpan<byte> value, ref int index) {
       LongBytes result = new LongBytes();
       int i = index;
@@ -400,9 +400,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Returns new instance initialized from reversed <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Returns new instance initialized from reversed byte span.</summary>
+    /// <param name="value">Readonly byte span to initialize the instance with.</param>
+    /// <param name="index">Starting index in <c>ReadOnlySpan&lt;byte></c> argument.</param>
     public static LongBytes FromBytesReversed(ReadOnlySpan<byte> value, ref int index) {
       LongBytes result = new LongBytes();
       int i = index;
@@ -418,9 +418,9 @@ namespace KdSoft.Serialization
       return result;
     }
 
-    /// <summary>Writes the value to a byte array.</summary>
-    /// <param name="bytes">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Writes the value to a byte span.</summary>
+    /// <param name="bytes">Target byte span.</param>
+    /// <param name="index">Starting index in <c>Span&lt;byte></c> argument.</param>
     public void ToBytes(Span<byte> bytes, ref int index) {
       int i = index;
       bytes[i++] = byte0;
@@ -434,9 +434,9 @@ namespace KdSoft.Serialization
       index = i;
     }
 
-    /// <summary>Writes the value to a byte array in reversed byte order.</summary>
-    /// <param name="bytes">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
+    /// <summary>Writes the value to a byte span in reversed byte order.</summary>
+    /// <param name="bytes">Target byte span.</param>
+    /// <param name="index">Starting index in <c>Span&lt;byte></c> argument.</param>
     public void ToBytesReversed(Span<byte> bytes, ref int index) {
       int i = index;
       bytes[i++] = byte7;
@@ -549,28 +549,30 @@ namespace KdSoft.Serialization
 
   /// <summary>
   /// Union used for re-interpreting a decimal as four integers and vice-versa.
-  /// This works best for dealling with differences in endian-ness, since they
+  /// This works best for dealing with differences in endian-ness, since they
   /// apply only at the level of the Int32 parts. The overall storage order
   /// of these Int32 components is always: Lo->Mid->Hi->Flags.
   /// </summary>
   [StructLayout(LayoutKind.Explicit)]
   public struct DecimalBytes
   {
-    /// <summary><c>Int16</c> version of the value.</summary>
+    /// <summary><c>Decimal</c> version of the value.</summary>
     [FieldOffset(0)]
     public readonly Decimal DecimalValue;
 
-    /// <summary>First <c>UInt64</c> part of the value.</summary>
+    /// <summary>First <c>Int32</c> part of the value.</summary>
     [FieldOffset(0)]
     public readonly Int32 Lo;
 
-    /// <summary>Second <c>UInt64</c> part of the value.</summary>
+    /// <summary>Second <c>Int32</c> part of the value.</summary>
     [FieldOffset(sizeof(Int32))]
     public readonly Int32 Mid;
 
+    /// <summary>Third <c>Int32</c> part of the value.</summary>
     [FieldOffset(2 * sizeof(Int32))]
     public readonly Int32 Hi;
 
+    /// <summary>Fourth <c>Int32</c> part of the value.</summary>
     [FieldOffset(3 * sizeof(Int32))]
     public readonly Int32 Flags;
 
@@ -580,7 +582,7 @@ namespace KdSoft.Serialization
       DecimalValue = value;
     }
 
-    /// <summary>Constructor taking two <c>UInt64</c> values.</summary>
+    /// <summary>Constructor taking four <c>Int32</c> values.</summary>
     public DecimalBytes(Int32 lo, Int32 mid, Int32 hi, Int32 flags) {
       this = new DecimalBytes();
       Lo = lo;
@@ -589,7 +591,7 @@ namespace KdSoft.Serialization
       Flags = flags;
     }
 
-    /// <summary>Constructor taking two <c>Int64</c> values.</summary>
+    /// <summary>Constructor taking four <c>UInt32</c> values.</summary>
     [CLSCompliant(false)]
     public DecimalBytes(UInt32 lo, UInt32 mid, UInt32 hi, UInt32 flags) : this(
       unchecked((Int32)lo),
@@ -625,7 +627,7 @@ namespace KdSoft.Serialization
   [StructLayout(LayoutKind.Explicit)]
   internal struct DecimalLongUnion
   {
-    /// <summary><c>Int16</c> version of the value.</summary>
+    /// <summary><c>Decimal</c> version of the value.</summary>
     [FieldOffset(0)]
     public readonly Decimal DecimalValue;
 
