@@ -622,6 +622,7 @@ namespace KdSoft.Serialization
     public static implicit operator Decimal(DecimalBytes value) => value.DecimalValue;
   }
 
+#if false
   /// <summary>Union used for re-interpreting a decimal as two unsigned longs and vice-versa.
   /// This is only useful for to re-using the serialization implementation of unsigned long.</summary>
   [StructLayout(LayoutKind.Explicit)]
@@ -663,4 +664,5 @@ namespace KdSoft.Serialization
     [CLSCompliant(false)]
     public DecimalLongUnion(Int64 long0, Int64 long1) : this(unchecked((UInt64)long0), unchecked((UInt64)long1)) { }
   }
+#endif
 }

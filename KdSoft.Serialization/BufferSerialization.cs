@@ -55,6 +55,10 @@ namespace KdSoft.Serialization.Buffer
     //TODO In stead of abstract Formatter base class implement a span-specific interface
     //TODO turn the Formatter base class into some internal implementation class
 
+    //TODO add Polymorph<T> type/field to serialize with type information, e.g. for polymorphic collections (needs Type map)
+
+    //TODO add Keyed<T> type/field to identify instances by key (for deserializing from multiple buffers)
+
     // buffer for status bits, used for write operations only
     private byte[] statusBuffer;
     // save status buffer for re-use
