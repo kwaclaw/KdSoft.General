@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace KdSoft.Serialization.Buffer
+namespace KdSoft.Serialization
 {
   /// <summary>
   /// Provides extension methods to manipulate value types.

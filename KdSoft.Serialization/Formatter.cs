@@ -9,10 +9,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using KdSoft.Utils;
 
-namespace KdSoft.Serialization.Buffer
+namespace KdSoft.Serialization
 {
   /// <summary>
   /// Implementation of abstract class <see cref="KdSoft.Serialization.Formatter{F}"/>.
@@ -1115,732 +1114,6 @@ namespace KdSoft.Serialization.Buffer
     #endregion Deserialization API
   }
 
-  #region Value Type Fields
-
-  /// <summary>Base class for all <see cref="ValueField{T, F}"/> classes
-  /// that are designed to cooperate with <see cref="Formatter"/>.</summary>
-  /// <typeparam name="T">Value type that the class will serialize/deserialize.</typeparam>
-  public abstract class ValueField<T>: ValueField<T, Formatter>
-    where T: struct
-  {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
-    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
-    /// for the given type, <c>false</c> otherwise.</param>
-    protected ValueField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
-    /// internal <c>valueIndex</c> field.</summary>
-    protected int ValueIndex {
-      get { return Fmt.valueIndx; }
-      set { Fmt.valueIndx = value; }
-    }
-  }
-
-  /// <summary>Field representing <c>Byte</c> values.</summary>
-  public class ByteField: ValueField<Byte>
-  {
-    /// <inheritdoc />
-    public ByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref byte value) {
-      target[Fmt.valueIndx++] = value;
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref byte value) {
-      value = source[Fmt.valueIndx++];
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx++;
-    }
-  }
-
-  /// <summary>Field representing <c>Boolean</c> values.</summary>
-  /// <remarks>Stored as <c>Byte</c> values <c>0xFF, 0x00</c>.</remarks>
-  public class BoolField: ValueField<Boolean>
-  {
-    /// <inheritdoc />
-    public BoolField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref bool value) {
-      target[Fmt.valueIndx++] = value ? (byte)0xFF : (byte)0;
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref bool value) {
-      value = source[Fmt.valueIndx++] == 0 ? false : true;
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx++;
-    }
-  }
-
-  /// <summary>Field representing <c>SByte</c> values.</summary>
-  /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
-  /// inverted, so that with big-endian byte/bit order negative numbers are
-  /// sorted first.</remarks>
-  [CLSCompliant(false)]
-  public class SByteField: ValueField<SByte>
-  {
-    /// <inheritdoc />
-    public SByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref sbyte value) {
-      target[Fmt.valueIndx++] = unchecked((byte)(-value));
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref sbyte value) {
-      value = unchecked((sbyte)-source[Fmt.valueIndx++]);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx++;
-    }
-  }
-
-  /// <summary>Field representing <c>UInt16</c> values.</summary>
-  [CLSCompliant(false)]
-  public class UShortField: ValueField<UInt16>
-  {
-    /// <inheritdoc />
-    public UShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref ushort value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref ushort value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(ushort);
-    }
-  }
-
-  /// <summary>Field representing <c>Int16</c> values.</summary>
-  /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
-  /// inverted, so that with big-endian byte order negative numbers are sorted first
-  /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
-  public class ShortField: ValueField<Int16>
-  {
-    /// <inheritdoc />
-    public ShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref short value) {
-      Fmt.Converter.WriteBytes(unchecked((short)-value), target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref short value) {
-      short tmpValue;
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out tmpValue);
-      value = unchecked((short)-tmpValue);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(short);
-    }
-  }
-
-  /// <summary>Field representing <c>Char</c> values.</summary>
-  public class CharField: ValueField<Char>
-  {
-    /// <inheritdoc />
-    public CharField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref char value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref char value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(ushort);
-    }
-  }
-
-  /// <summary>Field representing <c>UInt32</c> values.</summary>
-  [CLSCompliant(false)]
-  public class UIntField: ValueField<UInt32>
-  {
-    /// <inheritdoc />
-    public UIntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref uint value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref uint value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(uint);
-    }
-  }
-
-  /// <summary>Field representing <c>Int32</c> values.</summary>
-  /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
-  /// inverted, so that with big-endian byte order negative numbers are sorted first
-  /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
-  public class IntField: ValueField<Int32>
-  {
-    /// <inheritdoc />
-    public IntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref int value) {
-      Fmt.Converter.WriteBytes(-value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref int value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-      value = -value;
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(int);
-    }
-  }
-
-  /// <summary>Field representing <c>UInt64</c> values.</summary>
-  [CLSCompliant(false)]
-  public class ULongField: ValueField<UInt64>
-  {
-    /// <inheritdoc />
-    public ULongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref ulong value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref ulong value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(ulong);
-    }
-  }
-
-  /// <summary>Field representing <c>Int64</c> values.</summary>
-  /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
-  /// inverted, so that with big-endian byte order negative numbers are sorted first
-  /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
-  public class LongField: ValueField<Int64>
-  {
-    /// <inheritdoc />
-    public LongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref long value) {
-      Fmt.Converter.WriteBytes(-value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref long value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-      value = -value;
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(long);
-    }
-  }
-
-  /// <summary>Field representing <c>Decimal</c> values.</summary>
-  /// <remarks>No sign bit reversion here, as the first part contains the scaling
-  /// exponent, which grows larger the smaller the number is. It is recommended
-  /// to provide a comparison function.</remarks>
-  public class DecimalField: ValueField<Decimal>
-  {
-    /// <inheritdoc />
-    public DecimalField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref decimal value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref decimal value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += 4 * sizeof(UInt32);  // serialized as four 32bit values
-    }
-  }
-
-  /// <summary>Field representing <c>Single</c> values.</summary>
-  /// <remarks>Stored in standard IEEE 754 bit representation.</remarks>
-  public class SingleField: ValueField<Single>
-  {
-    /// <inheritdoc />
-    public SingleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref float value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref float value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(UInt32);  // serialized as 32bit value
-    }
-  }
-
-  /// <summary>Field representing <c>Double</c> values.</summary>
-  /// <remarks>Stored in standard IEEE 754 bit representation.</remarks>
-  public class DoubleField: ValueField<Double>
-  {
-    /// <inheritdoc />
-    public DoubleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref double value) {
-      Fmt.Converter.WriteBytes(value, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref double value) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out value);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(UInt64);  // serialized as 64bit value
-    }
-  }
-
-  /// <summary>Field representing UTC <c>DateTime</c> values.</summary>
-  /// <remarks>Serialized as 64bit integer. Converts to UTC time when Value property
-  /// is assigned. Time values are measured in 100-nanosecond units called ticks,
-  /// and a particular date is the number of ticks since 12:00 midnight, January 1,
-  /// 0001 A.D. (C.E.) in the Gregorian calendar.</remarks>
-  public class DateTimeField: ValueField<DateTime>
-  {
-    /// <inheritdoc />
-    public DateTimeField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ref DateTime value) {
-      Fmt.Converter.WriteBytes(value.Ticks, target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeValue(ReadOnlySpan<byte> source, ref DateTime value) {
-      long ticks = default;
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out ticks);
-      value = new DateTime(ticks, DateTimeKind.Utc);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += sizeof(long);
-    }
-  }
-
-  #endregion
-
-  #region Reference Type Fields
-
-  /// <summary>Base class for all <see cref="ReferenceField{T, F}"/> classes
-  /// that are designed to cooperate with <see cref="Formatter"/>.</summary>
-  /// <typeparam name="T">Reference type that the class will serialize/deserialize.</typeparam>
-  public abstract class ReferenceField<T>: ReferenceField<T, Formatter>
-    where T: class
-  {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
-    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
-    /// for the given type, <c>false</c> otherwise.</param>
-    protected ReferenceField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
-    /// internal <c>valueIndex</c> field.</summary>
-    protected int ValueIndex {
-      get { return Fmt.valueIndx; }
-      set { Fmt.valueIndx = value; }
-    }
-  }
-
-  /// <summary>Field representing <c>byte</c> arrays.</summary>
-  public class BlobField: ReferenceField<byte[]>
-  {
-    /// <inheritdoc />
-    public BlobField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, byte[] value) {
-      Fmt.Converter.WriteBytes(value.Length, target, ref Fmt.valueIndx);
-      var source = new ReadOnlySpan<byte>(value);
-      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
-      //System.Buffer.BlockCopy(value, 0, target, Fmt.valueIndx, value.Length);
-      //Fmt.valueIndx += value.Length;
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[] instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      if (instance == null || instance.Length != len)
-        instance = new byte[len];
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeMembers(ReadOnlySpan<byte> source, byte[] instance) {
-      var target = new Span<byte>(instance);
-      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
-      //System.Buffer.BlockCopy(source, Fmt.valueIndx, instance, 0, instance.Length);
-      //Fmt.valueIndx += instance.Length;
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  /// <summary>Field representing fixed size <c>byte</c> arrays.</summary>
-  /// <remarks>Fixed size byte buffer field (as opposed to <see cref="BlobField"/>).</remarks>
-  public class BinaryField: ReferenceField<byte[]>
-  {
-    private int size;
-
-    /// <inheritdoc />
-    /// <param name="size">Fixed size of <c>byte</c> array to be serialized/deserialized.</param>
-    public BinaryField(Formatter fmt, bool isDefault, int size) : base(fmt, isDefault) {
-      this.size = size;
-    }
-
-    /// <summary>Size (fixed) of <c>byte</c> array to be serialized/deserialized.</summary>
-    public int Size {
-      get { return size; }
-    }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, byte[] value) {
-      int len = value.Length;
-      if (len > size)
-        len = size;
-      var source = new ReadOnlySpan<byte>(value, 0, len);
-      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
-      //System.Buffer.BlockCopy(value, 0, target, Fmt.valueIndx, len);
-      //int valIndx = Fmt.valueIndx + len;
-      // for missing bytes pad with zeros
-      int valIndx = Fmt.valueIndx;
-      for (; len < size; len++)
-        target[valIndx++] = 0;
-      Fmt.valueIndx = valIndx;
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[] instance) {
-      if (instance == null || instance.Length != size)
-        instance = new byte[size];
-
-      var target = new Span<byte>(instance);
-      Fmt.Converter.WriteValueBytes(source, target, ref Fmt.valueIndx);
-      //System.Buffer.BlockCopy(target, Fmt.valueIndx, instance, 0, size);
-      //Fmt.valueIndx += size;
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += size;
-    }
-  }
-
-  /// <summary>Field representing Unicode <c>string</c> values.</summary>
-  /// <remarks>Serializes string value in UTF-8 encoding, without null-terminator.
-  /// If the string value itself contains separators (e.g. null-terminators) one
-  /// can store multiple strings with it.</remarks>
-  public class StringField: ReferenceField<String>
-  {
-    UTF8Encoding utf8;
-    BufferPool buffers;
-
-    /// <inheritdoc />
-    /// <param name="buffers">Buffer pool to use for encoding and decoding.</param>
-    public StringField(Formatter fmt, bool isDefault, BufferPool buffers) : base(fmt, isDefault) {
-      utf8 = new UTF8Encoding();
-      this.buffers = buffers;
-    }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, string value) {
-      //var bytes = buffers.Acquire(utf8.GetByteCount(value));
-      // buffers.Acquire may return a larger size than we requested!
-      var bytes = buffers.Acquire(value.Length * 4);
-      try {
-        int len = utf8.GetBytes(value, 0, value.Length, bytes, 0);
-        // write length prefix
-        Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
-        // write UTF8 encoded characters
-        var utf8Span = new ReadOnlySpan<byte>(bytes, 0, len);
-        Fmt.Converter.WriteValueBytes(utf8Span, target, ref Fmt.valueIndx); 
-      }
-      finally {
-        buffers.Return(bytes);
-      }
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref string instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-
-      var bytes = buffers.Acquire(len);
-      try {
-        // buffers.Acquire may return a larger size than we requested!
-        var byteSpan = new Span<byte>(bytes, 0, len);
-        Fmt.Converter.ReadValueBytes(source, ref Fmt.valueIndx, byteSpan);
-        instance = utf8.GetString(bytes, 0, len);
-      }
-      finally {
-        buffers.Return(bytes);
-      }
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  /// <summary>Field representing <c>UInt16</c> arrays.</summary>
-  [CLSCompliant(false)]
-  public class UShortArrayField: ReferenceField<UInt16[]>
-  {
-    /// <inheritdoc />
-    public UShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, ushort[] value) {
-      int len = value.Length * sizeof(ushort);
-      // write length prefix
-      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<ushort>(value), target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref ushort[] instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
-      count = count / sizeof(ushort);
-      instance = new ushort[count];
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  /// <summary>Field representing <c>Char</c> arrays.</summary>
-  /// <remarks>Serializes each character as <c>UInt16</c>, that is, in its native
-  /// .NET encoding. Can be used to serialize strings encoded as UTF-16.</remarks>
-  public class CharArrayField: ReferenceField<Char[]>
-  {
-    /// <inheritdoc />
-    public CharArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, char[] value) {
-      int len = value.Length * sizeof(char);
-      // write length prefix
-      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<char>(value), target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[] instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
-      count = count / sizeof(char);
-      instance = new char[count];
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  /// <summary>Field representing fixed size <c>Char</c> arrays.</summary>
-  public class FixedCharArrayField: ReferenceField<Char[]>
-  {
-    private int size;
-
-    /// <inheritdoc />
-    /// <param name="size">Size in characters (not bytes!)</param>
-    public FixedCharArrayField(Formatter fmt, bool isDefault, int size) : base(fmt, isDefault) {
-      this.size = size;
-    }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, char[] value) {
-      int count = value.Length;
-      if (count > size)
-        count = size;
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<char>(value), target, ref Fmt.valueIndx);
-      // for missing characters pad with two zero bytes (each)
-      if (count < size) {
-        int valIndx = Fmt.valueIndx;
-        for (; count < size; count++) {
-          target[valIndx++] = 0;
-          target[valIndx++] = 0;
-        }
-        Fmt.valueIndx = valIndx;
-      }
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[] instance) {
-      if (instance == null || instance.Length != size)
-        instance = new char[size];
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.valueIndx += size * sizeof(char);
-    }
-  }
-
-  /// <summary>Field representing <c>Int16</c> arrays.</summary>
-  public class ShortArrayField: ReferenceField<Int16[]>
-  {
-    /// <inheritdoc />
-    public ShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, short[] value) {
-      int len = value.Length * sizeof(short);
-      // write length prefix
-      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<short>(value), target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref short[] instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
-      count = count / sizeof(short);
-      instance = new short[count];
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  /// <summary>Field representing a <c>UInt32</c> arrays.</summary>
-  [CLSCompliant(false)]
-  public class UIntArrayField: ReferenceField<UInt32[]>
-  {
-    /// <inheritdoc />
-    public UIntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, uint[] value) {
-      int len = value.Length * sizeof(uint);
-      // write length prefix
-      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<uint>(value), target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref uint[] instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
-      count = count / sizeof(uint);
-      instance = new uint[count];
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  /// <summary>Field representing a <c>Int32</c> arrays.</summary>
-  public class IntArrayField: ReferenceField<Int32[]>
-  {
-    /// <inheritdoc />
-    public IntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
-
-    /// <inheritdoc />
-    protected override void SerializeValue(Span<byte> target, int[] value) {
-      int len = value.Length * sizeof(int);
-      // write length prefix
-      Fmt.Converter.WriteBytes(len, target, ref Fmt.valueIndx);
-      Fmt.Converter.WriteBytes(new ReadOnlySpan<int>(value), target, ref Fmt.valueIndx);
-    }
-
-    /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref int[] instance) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
-      count = count / sizeof(int);
-      instance = new int[count];
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
-    }
-
-    /// <inheritdoc />
-    protected override void SkipValue(ReadOnlySpan<byte> source) {
-      Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
-      Fmt.valueIndx += len;
-    }
-  }
-
-  #endregion
-
   /// <summary><see cref="Formatter"/> subclass with default fields pre-registered
   /// for the basic types.</summary>
   public class StdFormatter: Formatter
@@ -1849,6 +1122,7 @@ namespace KdSoft.Serialization.Buffer
 
     void RegisterFieldConverters() {
 #pragma warning disable RECS0026 // Possible unassigned object created by 'new'
+      // basic value type fields
       new ByteField(this, true);
       new SByteField(this, true);
       new BoolField(this, true);
@@ -1863,6 +1137,8 @@ namespace KdSoft.Serialization.Buffer
       new DoubleField(this, true);
       new DecimalField(this, true);
       new DateTimeField(this, true);
+      new TimeSpanField(this, true);
+      new DateTimeOffsetField(this, true);
       // frequently used reference fields
       new BlobField(this, true);
       new StringField(this, true, buffers);
@@ -1877,6 +1153,62 @@ namespace KdSoft.Serialization.Buffer
     /// <inheritdoc />
     public StdFormatter(ByteOrder byteOrder): base(byteOrder) {
       RegisterFieldConverters();
+    }
+
+    static void AddItem<T>(T item, List<T> list) {
+      list.Add(item);
+    }
+
+    static void AddValueItem<T>(ref T item, bool isNull, List<T> list) where T: struct {
+      list.Add(isNull ? default(T) : item);
+    }
+
+    static void AddValueItem<T>(ref T item, bool isNull, List<T?> list) where T: struct {
+      list.Add(isNull ? (T?)null : item);
+    }
+
+    /// <summary>
+    /// A <see cref="List{T}"/> based implementation of <see cref="InitSequence{T, C}"/>.
+    /// </summary>
+    /// <seealso cref="InitSequence{T, C}"/>
+    public static AddItem<T, List<T>> InitList<T>(int size, ref List<T> collection) {
+      if (size < 0)
+        return null;
+      if (collection == null)
+        collection = new List<T>(size);
+      else
+        collection.Capacity += size;
+      return AddItem<T>;
+    }
+
+    /// <summary>
+    /// A <see cref="List{T}"/> based implementation of <see cref="InitValueSequence{T, C}"/>
+    /// where null values will be deserialized as the value type's default value.
+    /// </summary>
+    /// <seealso cref="InitValueSequence{T, C}"/>
+    public static AddValueItem<T, List<T>> InitValueList<T>(int capacity, ref List<T> collection) where T: struct {
+      if (capacity < 0)
+        return null;
+      if (collection == null)
+        collection = new List<T>(capacity);
+      else
+        collection.Capacity += capacity;
+      return AddValueItem<T>;
+    }
+
+    /// <summary>
+    /// A <see cref="List{T}"/> based implementation of <see cref="InitValueSequence{T, C}"/>
+    /// where values will be deserialized as <see cref="Nullable{T}"/>.
+    /// </summary>
+    /// <seealso cref="InitValueSequence{T, C}"/>
+    public static AddValueItem<T, List<T?>> InitNullableList<T>(int capacity, ref List<T?> collection) where T: struct {
+      if (capacity < 0)
+        return null;
+      if (collection == null)
+        collection = new List<T?>(capacity);
+      else
+        collection.Capacity += capacity;
+      return AddValueItem<T>;
     }
   }
 }

@@ -9,7 +9,7 @@
 
 using System;
 
-namespace KdSoft.Serialization.Buffer
+namespace KdSoft.Serialization
 {
   /// <summary>
   /// Indicates the order of bytes in a value type.

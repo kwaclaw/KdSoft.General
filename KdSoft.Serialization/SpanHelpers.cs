@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace KdSoft.Serialization.Buffer
+namespace KdSoft.Serialization
 {
   /// <summary>
   /// Provides helper methods to manipulate, read and write <see cref="Span{T}"/> where <c>T</c> is a value type.
