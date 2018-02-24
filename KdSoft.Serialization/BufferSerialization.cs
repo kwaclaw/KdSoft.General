@@ -15,39 +15,37 @@ using KdSoft.Utils;
 namespace KdSoft.Serialization.Buffer
 {
   /// <summary>
-  /// Implementation of abstract class <see cref="KdSoft.Serialization.Formatter{F}"/>
-  /// that uses a byte buffer as serialization/deserialization target.
+  /// Implementation of abstract class <see cref="KdSoft.Serialization.Formatter{F}"/>.
   /// </summary>
   /// <remarks><list type="bullet">
   /// <item><description>The cooperating descendants of <see cref="ValueField{T}"/> and
   ///   <see cref="ReferenceField{T}"/> are designed to generate serialized representations
   ///   that can be used for lexical sorting.</description></item>
-  /// <item><description>The serialization API exposed by <see cref="Formatter{F}"/> is not sufficent by itself,
-  ///   as it contains no notion of the serialization medium - e.g. a stream or buffer.
-  ///   Any implementation of this API has to add medium related methods. In this case
-  ///   the methods are <see cref="InitSerialization(byte[], int)"/>, <see cref="FinishSerialization()"/>,
-  ///   <see cref="InitDeserialization(byte[], int)"/> and <see cref="FinishDeserialization()"/>.
+  /// <item><description>Each implementation of the abstract base class will add specific API methods necessary
+  ///   for its use. In this case the methods are <see cref="InitSerialization(int)"/>, <see cref="FinishSerialization(Span{byte})"/>,
+  ///   <see cref="InitDeserialization(ReadOnlySpan{byte}, int)"/> and <see cref="FinishDeserialization()"/>.
   ///   Check the example for how they are used.</description></item>
   /// </list></remarks>
   /// <example>Basic usage of byte buffer oriented serialization:
   /// <code>
-  /// byte[] buffer = new byte[2048];
   /// StdFormatter fmt = new StdFormatter(ByteOrder.BigEndian);
   /// new StringField(fmt, true);  // default serializer for strings
   /// new IntField(fmt, true);     // default serializer for integers
   /// ...
+  /// Span&lt;byte> target = ... (target can only exist on stack, not on heap)
   /// int index = 0;
-  /// fmt.InitSerialization(buffer, index);
-  /// fmt.SerializeObject&lt;string>(name);
-  /// fmt.SerializeStruct&lt;int>(age);
-  /// index = fmt.FinishSerialization(); 
+  /// fmt.InitSerialization( index);
+  /// fmt.SerializeObject&lt;string>(target, name);
+  /// fmt.SerializeStruct&lt;int>(target, age);
+  /// index = fmt.FinishSerialization(target); 
   /// ...
   /// // do some work
   /// ...
+  /// ReadOnlySpan&lt;byte> source = ... (source can only exist on stack, not on heap)
   /// index = 0;
-  /// fmt.InitDeserialization(buffer, index);
-  /// fmt.DeserializeObject&lt;string>(ref name);
-  /// age = (int)fmt.DeserializeStruct&lt;int>();
+  /// fmt.InitDeserialization(source, index);
+  /// fmt.DeserializeObject&lt;string>(source, ref name);
+  /// age = (int)fmt.DeserializeStruct&lt;int>(source);
   /// index = fmt.FinishDeserialization(); 
   /// </code></example>
   public class Formatter: KdSoft.Serialization.Formatter<Formatter>
@@ -76,6 +74,9 @@ namespace KdSoft.Serialization.Buffer
     private ByteConverter converter;
     private Dictionary<Type, object> fieldRegistry;
 
+    /// <summary>
+    /// Constructor. Sets the byte order.
+    /// </summary>
     public Formatter(ByteOrder byteOrder) {
       openObjCount = 0;
       openObjects = new object[0];
@@ -214,6 +215,7 @@ namespace KdSoft.Serialization.Buffer
       }
     }
 
+    /// <inheritdoc/>
     public override Field<T, Formatter> GetField<T>() {
       object field;
       Type dataType = typeof(T);
@@ -256,15 +258,15 @@ namespace KdSoft.Serialization.Buffer
     /// new VendorField(fmt, true);
     /// new SalesRepField(fmt, true);
     /// ...
+    /// Span&lt;byte> target = ... (target can only exist on stack)
     /// int index = 0;
-    /// fmt.InitSerialization(buffer, index);
-    /// fmt.SerializeObject&lt;Vendor>(vendor1);
-    /// fmt.SerializeObject&lt;Vendor>(vendor2);
-    /// fmt.SerializeObject&lt;Vendor>(vendor3);
-    /// index = fmt.FinishSerialization(); 
+    /// fmt.InitSerialization(index);
+    /// fmt.SerializeObject&lt;Vendor>(target, vendor1);
+    /// fmt.SerializeObject&lt;Vendor>(target, vendor2);
+    /// fmt.SerializeObject&lt;Vendor>(target, vendor3);
+    /// index = fmt.FinishSerialization(target); 
     /// </code></example>
     /// <seealso cref="FinishSerialization"/>
-    /// <param name="buffer">Target buffer.</param>
     /// <param name="index">Start index of buffer. Serialization will start writing
     /// to the buffer at this index.</param>
     public void InitSerialization(int index) {
@@ -329,7 +331,7 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="value">Struct instance to serialize, or <c>null</c>.</param>
     /// <param name="field"><see cref="ValueField{T, Formatter}"/> instance that
     /// serializes the <c>value </c>argument.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStruct<T>(Span<byte> target, T? value, ValueField<T, Formatter> field, ref int index)
@@ -344,10 +346,10 @@ namespace KdSoft.Serialization.Buffer
     /// the default <see cref="Field{T, F}"/> instance registered for that type.</summary>
     /// <typeparam name="T">Value type to serialize.</typeparam>
     /// <param name="value">Struct instance to serialize, or <c>null</c>.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStruct<T>(Span<byte> target, T? value, byte[] buffer, ref int index)
+    public void SerializeStruct<T>(Span<byte> target, T? value, ref int index)
       where T: struct
     {
       ValueField<T, Formatter> field = (ValueField<T, Formatter>)GetField<T>();
@@ -363,7 +365,7 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="value">Struct instance to serialize.</param>
     /// <param name="field"><see cref="ValueField{T, Formatter}"/> instance that
     /// serializes the <c>value </c>argument.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStruct<T>(Span<byte> target, ref T value, ValueField<T, Formatter> field, ref int index)
@@ -381,10 +383,10 @@ namespace KdSoft.Serialization.Buffer
     /// method <see cref="SerializeNull"/> is provided.</remarks>
     /// <typeparam name="T">Value type to serialize.</typeparam>
     /// <param name="value">Struct instance to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
-    public void SerializeStruct<T>(Span<byte> target, ref T value, byte[] buffer, ref int index)
+    public void SerializeStruct<T>(Span<byte> target, ref T value, ref int index)
       where T: struct 
     {
       ValueField<T, Formatter> field = (ValueField<T, Formatter>)GetField<T>();
@@ -392,9 +394,8 @@ namespace KdSoft.Serialization.Buffer
     }
 
     /// <summary>Serializes a <c>null</c> into a byte buffer.</summary>
-    /// <remarks>Companion method for <see cref="SerializeStruct{T}(ref T, byte[], ref int)">
-    /// SerializeStruct&lt;T>(ref T, byte[], ref int)</see>.</remarks>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <remarks>Companion method for <see cref="SerializeStruct{T}(Span{byte}, ref T, ref int)" />.</remarks>
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// serialized <c>null</c>.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeNull(Span<byte> target, ref int index) {
@@ -409,7 +410,7 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="obj">Object to serialize.</param>
     /// <param name="field"><see cref="ReferenceField{T, Formatter}"/> instance that
     /// serializes the <c>obj</c>argument.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObject<T>(Span<byte> target, T obj, ReferenceField<T, Formatter> field, ref int index) 
@@ -424,7 +425,7 @@ namespace KdSoft.Serialization.Buffer
     /// <see cref="Field{T, F}"/> instance registered for that type.</summary>
     /// <typeparam name="T">Reference type to serialize.</typeparam>
     /// <param name="obj">Object to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObject<T>(Span<byte> target, T obj, ref int index) 
@@ -444,7 +445,7 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, T[] value, ValueField<T, Formatter> field, ref int index)
@@ -460,7 +461,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes value type arrays.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, T[] value, ref int index)
@@ -475,7 +476,7 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, T?[] value, ValueField<T, Formatter> field, ref int index)
@@ -489,7 +490,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes arrays of nullable value types.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="value">Array to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, T?[] value, ref int index)
@@ -508,7 +509,7 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, IList<T> value, ValueField<T, Formatter> field, ref int index)
@@ -522,7 +523,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, IList<T> value, ref int index)
@@ -537,7 +538,7 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ValueField<T, Formatter> field, ref int index)
@@ -551,7 +552,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/></summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ref int index)
@@ -570,7 +571,7 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObjects<T>(Span<byte> target, T[] value, ReferenceField<T, Formatter> field, ref int index)
@@ -586,7 +587,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes reference type arrays.</summary>
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="value">Array to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObjects<T>(Span<byte> target, T[] value, ref int index)
@@ -605,7 +606,7 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObjects<T>(Span<byte> target, IList<T> value, ReferenceField<T, Formatter> field, ref int index)
@@ -619,7 +620,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObjects<T>(Span<byte> target, IList<T> value, ref int index)
@@ -648,7 +649,7 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/></summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
-    /// <param name="buffer">Target buffer. Must have sufficient size to hold the 
+    /// <param name="target">Target buffer. Must have sufficient size to hold the 
     /// complete serialized object graph.</param>
     /// <param name="index">Start index in target buffer.</param>
     public void SerializeObjects<T>(Span<byte> target, IEnumerable<T> value, ref int index)
@@ -681,13 +682,14 @@ namespace KdSoft.Serialization.Buffer
     /// new VendorField(fmt, true);
     /// new SalesRepField(fmt, true);
     /// ...
+    /// ReadOnlySpan&lt;byte> source = ... (source can only exist on stack)
     /// int index = 0;
-    /// fmt.InitDeserialization(buffer, index);
+    /// fmt.InitDeserialization(source, index);
     /// // get the field only once - more efficient than calling fmt.DeserializeObject()
     /// VendorField vendorField = (VendorField)fmt.GetField&lt;Vendor>();
-    /// vendorField.DeserializeObject(ref vendor1);
-    /// vendorField.DeserializeObject(ref vendor2);
-    /// vendorField.DeserializeObject(ref vendor3);
+    /// vendorField.DeserializeObject(source, ref vendor1);
+    /// vendorField.DeserializeObject(source, ref vendor2);
+    /// vendorField.DeserializeObject(source, ref vendor3);
     /// index = fmt.FinishDeserialization(); 
     /// </code></example>
     /// <example>In this example, the sales rep phone number is extracted from a serialized
@@ -699,19 +701,20 @@ namespace KdSoft.Serialization.Buffer
     /// new VendorField(fmt, true);
     /// new SalesRepField(fmt, true);
     /// ...
+    /// ReadOnlySpan&lt;byte> source = ... (source can only exist on stack)
     /// int index = 0;
-    /// fmt.InitDeserialization(buffer, index);
+    /// fmt.InitDeserialization(source, index);
     /// string phoneNo = "";
     /// if (fmt.SkipMembers&lt;Vendor>(6, 1)) {
-    ///   fmt.DeserializeObject&lt;string>(ref phoneNo);
+    ///   fmt.DeserializeObject&lt;string>(source, ref phoneNo);
     /// }
     /// else
     ///   throw new ApplicationException("Member path invalid.");
     /// index = fmt.FinishDeserialization();
     /// </code></example>
     /// <seealso cref="FinishDeserialization"/>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void InitDeserialization(ReadOnlySpan<byte> source, int index) {
       ResetOpenObjects();
       valueIndx = index;
@@ -747,8 +750,8 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Deserializes a nullable value type from a byte buffer
     /// using a specific <see cref="Field{T, F}"/> instance.</summary>
     /// <typeparam name="T">Value type to deserialize.</typeparam>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     /// <param name="field"><see cref="ValueField{T, Formatter}"/> instance that
     /// deserializes the <c>buffer</c> contents.</param>
     /// <returns>Deserialized struct instance, or <c>null</c>.</returns>
@@ -764,8 +767,8 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Deserializes a nullable value type from a byte buffer using the
     /// default <see cref="Field{T, F}"/> instance registered for that type.</summary>
     /// <typeparam name="T">Value type to deserialize.</typeparam>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     /// <returns>Deserialized struct instance, or <c>null</c>.</returns>
     public T? DeserializeStruct<T>(ReadOnlySpan<byte> source, ref int index)
       where T: struct
@@ -781,8 +784,8 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="value">Struct instance to deserialize.</param>
     /// <param name="isNull">Returns <c>true</c> if a <c>null</c> is deserialized,
     /// in which case the <c>value</c> parameter is ignored.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     /// <param name="field"><see cref="ValueField{T, Formatter}"/> instance that
     /// deserializes the <c>buffer</c> contents.</param>
     public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull, ref int index, ValueField<T, Formatter> field)
@@ -800,8 +803,8 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="value">Struct instance to deserialize.</param>
     /// <param name="isNull">Returns <c>true</c> if a <c>null</c> is deserialized,
     /// in which case the <c>value</c> parameter is ignored.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull, ref int index)
       where T: struct 
     {
@@ -814,8 +817,8 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Reference type to deserialize.</typeparam>
     /// <param name="obj">Object to deserialize, or <c>null</c> - in which
     /// case a new object will be instantiated.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     /// <param name="field"><see cref="ReferenceField{T, Formatter}"/> instance that
     /// deserializes the <c>buffer</c> contents.</param>
     public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj, ref int index, ReferenceField<T, Formatter> field)
@@ -831,8 +834,8 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Reference type to deserialize.</typeparam>
     /// <param name="obj">Object to deserialize, or <c>null</c> - in which
     /// case a new object will be instantiated.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj, ref int index)
       where T: class
     {
@@ -843,8 +846,8 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Deserializes a reference type from a byte buffer using the
     /// default <see cref="Field{T, F}"/> instance registered for that type.</summary>
     /// <typeparam name="T">Reference type to deserialize.</typeparam>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     /// <returns>New object instance.</returns>
     public T DeserializeObject<T>(ReadOnlySpan<byte> source, ref int index)
       where T: class
@@ -864,8 +867,8 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ValueField<T, Formatter> field, ref int index)
       where T: struct 
     {
@@ -879,8 +882,8 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Deserializes value type arrays.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ref int index)
       where T: struct
     {
@@ -893,8 +896,8 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ValueField<T, Formatter> field, ref int index)
       where T: struct
     {
@@ -906,8 +909,8 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Deserializes arrays of nullable value types.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="value">Value type to deserialize.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ref int index)
       where T: struct
     {
@@ -928,8 +931,8 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T, C>(
       ReadOnlySpan<byte> source, 
       InitValueSequence<T, C> initSequence, 
@@ -952,8 +955,8 @@ namespace KdSoft.Serialization.Buffer
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T, C>(
       ReadOnlySpan<byte> source, 
       InitValueSequence<T, C> initSequence, 
@@ -976,8 +979,8 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T, C>(
       ReadOnlySpan<byte> source, 
       InitSequence<T?, C> initSequence,
@@ -1000,8 +1003,8 @@ namespace KdSoft.Serialization.Buffer
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeStructs<T, C>(
       ReadOnlySpan<byte> source, 
       InitSequence<T?, C> initSequence,
@@ -1024,8 +1027,8 @@ namespace KdSoft.Serialization.Buffer
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="obj">Reference type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeObjects<T>(
       ReadOnlySpan<byte> source, 
       ref T[] obj,
@@ -1044,8 +1047,8 @@ namespace KdSoft.Serialization.Buffer
     /// <summary>Deserializes reference type arrays.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="obj">Reference type array to deserialize.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] obj, ref int index)
       where T: class
     {
@@ -1066,8 +1069,8 @@ namespace KdSoft.Serialization.Buffer
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeObjects<T, C>(
       ReadOnlySpan<byte> source, 
       InitSequence<T, C> initSequence,
@@ -1090,8 +1093,8 @@ namespace KdSoft.Serialization.Buffer
     /// Returns a delegate to add sequence elements to the collection.</param>
     /// <param name="collection">Reference to collection. Can be null, in which case
     /// <c>initSequence()</c> must create a new instance for a non-null deserialization.</param>
-    /// <param name="buffer">Target buffer.</param>
-    /// <param name="index">Start index in target buffer.</param>
+    /// <param name="source">Source buffer.</param>
+    /// <param name="index">Start index in source buffer.</param>
     public void DeserializeObjects<T, C>(
       ReadOnlySpan<byte> source, 
       InitSequence<T, C> initSequence,
@@ -1120,6 +1123,12 @@ namespace KdSoft.Serialization.Buffer
   public abstract class ValueField<T>: ValueField<T, Formatter>
     where T: struct
   {
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
+    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
+    /// for the given type, <c>false</c> otherwise.</param>
     protected ValueField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
@@ -1133,6 +1142,7 @@ namespace KdSoft.Serialization.Buffer
   /// <summary>Field representing <c>Byte</c> values.</summary>
   public class ByteField: ValueField<Byte>
   {
+    /// <inheritdoc />
     public ByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1155,6 +1165,7 @@ namespace KdSoft.Serialization.Buffer
   /// <remarks>Stored as <c>Byte</c> values <c>0xFF, 0x00</c>.</remarks>
   public class BoolField: ValueField<Boolean>
   {
+    /// <inheritdoc />
     public BoolField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1180,6 +1191,7 @@ namespace KdSoft.Serialization.Buffer
   [CLSCompliant(false)]
   public class SByteField: ValueField<SByte>
   {
+    /// <inheritdoc />
     public SByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1202,6 +1214,7 @@ namespace KdSoft.Serialization.Buffer
   [CLSCompliant(false)]
   public class UShortField: ValueField<UInt16>
   {
+    /// <inheritdoc />
     public UShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1226,6 +1239,7 @@ namespace KdSoft.Serialization.Buffer
   /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
   public class ShortField: ValueField<Int16>
   {
+    /// <inheritdoc />
     public ShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1249,6 +1263,7 @@ namespace KdSoft.Serialization.Buffer
   /// <summary>Field representing <c>Char</c> values.</summary>
   public class CharField: ValueField<Char>
   {
+    /// <inheritdoc />
     public CharField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1271,6 +1286,7 @@ namespace KdSoft.Serialization.Buffer
   [CLSCompliant(false)]
   public class UIntField: ValueField<UInt32>
   {
+    /// <inheritdoc />
     public UIntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1295,6 +1311,7 @@ namespace KdSoft.Serialization.Buffer
   /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
   public class IntField: ValueField<Int32>
   {
+    /// <inheritdoc />
     public IntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1318,6 +1335,7 @@ namespace KdSoft.Serialization.Buffer
   [CLSCompliant(false)]
   public class ULongField: ValueField<UInt64>
   {
+    /// <inheritdoc />
     public ULongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1342,6 +1360,7 @@ namespace KdSoft.Serialization.Buffer
   /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
   public class LongField: ValueField<Int64>
   {
+    /// <inheritdoc />
     public LongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1367,6 +1386,7 @@ namespace KdSoft.Serialization.Buffer
   /// to provide a comparison function.</remarks>
   public class DecimalField: ValueField<Decimal>
   {
+    /// <inheritdoc />
     public DecimalField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1389,6 +1409,7 @@ namespace KdSoft.Serialization.Buffer
   /// <remarks>Stored in standard IEEE 754 bit representation.</remarks>
   public class SingleField: ValueField<Single>
   {
+    /// <inheritdoc />
     public SingleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1411,6 +1432,7 @@ namespace KdSoft.Serialization.Buffer
   /// <remarks>Stored in standard IEEE 754 bit representation.</remarks>
   public class DoubleField: ValueField<Double>
   {
+    /// <inheritdoc />
     public DoubleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1436,6 +1458,7 @@ namespace KdSoft.Serialization.Buffer
   /// 0001 A.D. (C.E.) in the Gregorian calendar.</remarks>
   public class DateTimeField: ValueField<DateTime>
   {
+    /// <inheritdoc />
     public DateTimeField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1466,6 +1489,12 @@ namespace KdSoft.Serialization.Buffer
   public abstract class ReferenceField<T>: ReferenceField<T, Formatter>
     where T: class
   {
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
+    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
+    /// for the given type, <c>false</c> otherwise.</param>
     protected ReferenceField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <summary>Gives access to <see cref="Formatter">Formatter's</see>
@@ -1479,6 +1508,7 @@ namespace KdSoft.Serialization.Buffer
   /// <summary>Field representing <c>byte</c> arrays.</summary>
   public class BlobField: ReferenceField<byte[]>
   {
+    /// <inheritdoc />
     public BlobField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1518,6 +1548,8 @@ namespace KdSoft.Serialization.Buffer
   {
     private int size;
 
+    /// <inheritdoc />
+    /// <param name="size">Fixed size of <c>byte</c> array to be serialized/deserialized.</param>
     public BinaryField(Formatter fmt, bool isDefault, int size) : base(fmt, isDefault) {
       this.size = size;
     }
@@ -1569,6 +1601,8 @@ namespace KdSoft.Serialization.Buffer
     UTF8Encoding utf8;
     BufferPool buffers;
 
+    /// <inheritdoc />
+    /// <param name="buffers">Buffer pool to use for encoding and decoding.</param>
     public StringField(Formatter fmt, bool isDefault, BufferPool buffers) : base(fmt, isDefault) {
       utf8 = new UTF8Encoding();
       this.buffers = buffers;
@@ -1619,6 +1653,7 @@ namespace KdSoft.Serialization.Buffer
   [CLSCompliant(false)]
   public class UShortArrayField: ReferenceField<UInt16[]>
   {
+    /// <inheritdoc />
     public UShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1649,6 +1684,7 @@ namespace KdSoft.Serialization.Buffer
   /// .NET encoding. Can be used to serialize strings encoded as UTF-16.</remarks>
   public class CharArrayField: ReferenceField<Char[]>
   {
+    /// <inheritdoc />
     public CharArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1679,7 +1715,8 @@ namespace KdSoft.Serialization.Buffer
   {
     private int size;
 
-    // size in characters (not bytes!)
+    /// <inheritdoc />
+    /// <param name="size">Size in characters (not bytes!)</param>
     public FixedCharArrayField(Formatter fmt, bool isDefault, int size) : base(fmt, isDefault) {
       this.size = size;
     }
@@ -1717,6 +1754,7 @@ namespace KdSoft.Serialization.Buffer
   /// <summary>Field representing <c>Int16</c> arrays.</summary>
   public class ShortArrayField: ReferenceField<Int16[]>
   {
+    /// <inheritdoc />
     public ShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1746,6 +1784,7 @@ namespace KdSoft.Serialization.Buffer
   [CLSCompliant(false)]
   public class UIntArrayField: ReferenceField<UInt32[]>
   {
+    /// <inheritdoc />
     public UIntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1774,6 +1813,7 @@ namespace KdSoft.Serialization.Buffer
   /// <summary>Field representing a <c>Int32</c> arrays.</summary>
   public class IntArrayField: ReferenceField<Int32[]>
   {
+    /// <inheritdoc />
     public IntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
     /// <inheritdoc />
@@ -1834,6 +1874,7 @@ namespace KdSoft.Serialization.Buffer
 #pragma warning restore RECS0026 // Possible unassigned object created by 'new'
     }
 
+    /// <inheritdoc />
     public StdFormatter(ByteOrder byteOrder): base(byteOrder) {
       RegisterFieldConverters();
     }

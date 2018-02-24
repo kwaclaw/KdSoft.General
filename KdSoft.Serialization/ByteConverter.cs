@@ -60,7 +60,7 @@ namespace KdSoft.Serialization.Buffer
     /// but throws exception if not successfull.
     /// </summary>
     public void WriteValueBytes<T>(in T value, Span<byte> bytes, ref int index) where T : struct {
-      if (!SpanHelpers.TryWriteBytes(value, bytes, ref index))
+      if (!SpanHelpers.TryWriteBytes(in value, bytes, ref index))
         throw new SerializationException("Buffer exhausted.");
     }
 
