@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using KdSoft.Utils;
+using KdSoft.Utils.Portable;
 
 namespace KdSoft.Serialization
 {
@@ -69,6 +70,7 @@ namespace KdSoft.Serialization
     private object[] openObjects;               // maps object handle to object
     private Dictionary<object, int> openObjMap; // maps object to object handle
     private List<object> permanentObjects;
+    private HashSet<object> permanentObjSet;
 
     private ByteConverter converter;
     private Dictionary<Type, object> fieldRegistry;
@@ -79,8 +81,9 @@ namespace KdSoft.Serialization
     public Formatter(ByteOrder byteOrder) {
       openObjCount = 0;
       openObjects = new object[0];
-      openObjMap = new Dictionary<object, int>();
+      openObjMap = new Dictionary<object, int>(new ObjectEqualityComparer());
       permanentObjects = new List<object>();
+      permanentObjSet = new HashSet<object>(new ObjectEqualityComparer());
       converter = new ByteConverter(byteOrder);
       fieldRegistry = new Dictionary<Type, object>();
     }
@@ -207,10 +210,16 @@ namespace KdSoft.Serialization
 
     /// <inheritdoc />
     public override void SetPermanentReferences(params object[] objects) {
+      SetPermanentReferences((IList<object>)objects);
+    }
+
+    /// <inheritdoc />
+    public override void SetPermanentReferences(IEnumerable<object> objects) {
       foreach (object obj in objects) {
-        if (permanentObjects.Contains(obj))
+        if (permanentObjSet.Add(obj))          
+          permanentObjects.Add(obj);
+        else
           throw new SerializationException("Permanent object already registered.");
-        permanentObjects.Add(obj);
       }
     }
 

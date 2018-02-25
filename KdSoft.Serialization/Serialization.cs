@@ -80,10 +80,24 @@ namespace KdSoft.Serialization
     /// <summary>Registers pre-existing objects referenced by the object graph.</summary>
     /// <remarks>This is required when specific objects that are referenced by
     /// an object graph should not be serialized because they will already exist
-    /// when the object graph is deserialized.</remarks>
+    /// when the object graph is deserialized. When serializing the graph, these pre-registered
+    /// objects will be serialized by their index in the registration list. When deserializing them,
+    /// their new instances will be looked up by the same index, therefore it is important that
+    /// these objects are registered in the exact same order on serialization and deserialization.</remarks>
     /// <param name="objects">Array of pre-existing objects. The number and order of
     /// these objects must be exactly the same for serialization and deserialization.</param>
     public abstract void SetPermanentReferences(params object[] objects);
+
+    /// <summary>Registers pre-existing objects referenced by the object graph.</summary>
+    /// <remarks>This is required when specific objects that are referenced by
+    /// an object graph should not be serialized because they will already exist
+    /// when the object graph is deserialized. When serializing the graph, these pre-registered
+    /// objects will be serialized by their index in the registration list. When deserializing them,
+    /// their new instances will be looked up by the same index, therefore it is important that
+    /// these objects are registered in the exact same order on serialization and deserialization.</remarks>
+    /// <param name="objects">Array of pre-existing objects. The number and order of
+    /// these objects must be exactly the same for serialization and deserialization.</param>
+    public abstract void SetPermanentReferences(IEnumerable<object> objects);
 
     /// <summary>Retrieves the <see cref="Field{T, F}"/> instance registered for
     /// serializing a specific data type.</summary>
