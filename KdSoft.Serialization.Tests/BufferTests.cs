@@ -1,5 +1,4 @@
 ﻿using System;
-using KdSoft.Serialization.Buffer;
 using Xunit;
 
 namespace KdSoft.Serialization.Tests

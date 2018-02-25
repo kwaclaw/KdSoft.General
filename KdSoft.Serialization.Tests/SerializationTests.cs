@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using KdSoft.Serialization.Buffer;
+using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -61,24 +60,66 @@ namespace KdSoft.Serialization.Tests
       fmt.SerializeObjects(target, fixture.StockItems);
       int endIndex = fmt.FinishSerialization(target);
 
-      // callback that sets up any type of custom collection to be deserialized into;
-      // creates collection (if necessary) and returns a delegate to add items to the collection
-      AddItem<StockItem, List<StockItem>> InitSequence(int size, ref List<StockItem> collection) {
-        if (collection == null)
-          collection = new List<StockItem>(size);
-        else
-          collection.Capacity += size;
-        return (StockItem item, List<StockItem> list) => list.Add(item);
-      }
-
       List<StockItem> stockItems = null;
       fmt.InitDeserialization(buffer, 0);
-      fmt.DeserializeObjects(target, InitSequence, ref stockItems);
+      fmt.DeserializeObjects(target, StdFormatter.InitList, ref stockItems);
       int endIndex2 = fmt.FinishDeserialization();
 
       Assert.Equal(endIndex, endIndex2);
       Assert.Equal(fixture.StockItems, stockItems);
     }
 
+    [Fact]
+    public void SerializeOrders() {
+      var buffer = new byte[256000];
+
+      // serialization
+
+      var fmt = new StdFormatter(ByteConverter.SystemByteOrder);
+      // instantiate and register Field instances
+      var stockItemField = new StockItemField(fmt, true);
+      var lineItemField = new LineItemField(fmt, true);
+      var salesRepField = new SalesRepField(fmt, true);
+      var orderField = new OrderField(fmt, true);
+      var target = new Span<byte>(buffer);
+
+      fmt.SetPermanentReferences(fixture.StockItems.Cast<object>());
+      fmt.InitSerialization(0);
+      fmt.SerializeObjects(target, fixture.Orders);
+      int endIndex = fmt.FinishSerialization(target);
+
+      // deserialization
+
+      List<Order> orders = null;
+      var fmt2 = new StdFormatter(ByteConverter.SystemByteOrder);
+      stockItemField = new StockItemField(fmt2, true);
+      lineItemField = new LineItemField(fmt2, true);
+      salesRepField = new SalesRepField(fmt2, true);
+      orderField = new OrderField(fmt2, true);
+      target = new Span<byte>(buffer);
+
+      fmt2.SetPermanentReferences(fixture.StockItems.Cast<object>());
+      fmt2.InitDeserialization(buffer, 0);
+      fmt2.DeserializeObjects(target, StdFormatter.InitList, ref orders);
+      int endIndex2 = fmt2.FinishDeserialization();
+
+      Assert.Equal(endIndex, endIndex2);
+      Assert.Equal(fixture.Orders, orders);
+
+      // check if the deserialized StockItems match an input StockItem by object reference
+      // and not by equals comparison - this is required becasue we are using permanent references!
+      bool FindByReference(StockItem item) {
+        foreach (var inItem in fixture.StockItems) {
+          if (object.ReferenceEquals(item, inItem))
+            return true;
+        }
+        return false;
+      }
+
+      foreach (var ord in orders)
+        foreach (var li in ord.LineItems) {
+          Assert.True(FindByReference(li.Item));
+        }
+    }
   }
 }

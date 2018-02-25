@@ -1,5 +1,5 @@
 using System;
-using KdSoft.Serialization.Buffer;
+using System.Collections.Generic;
 
 namespace KdSoft.Serialization.Tests
 {
@@ -196,4 +196,128 @@ namespace KdSoft.Serialization.Tests
                 Fmt.Skip<int>(source);
     }
   }
+
+  public class LineItem
+  {
+    internal float quantity;
+    internal StockItem item;
+
+    public float Quantity { get => quantity; set => quantity = value; }
+    public StockItem Item { get => item; set => item = value; }
+
+    public static bool Equals(LineItem x, LineItem y) {
+      if (object.ReferenceEquals(x, y))
+        return true;
+      if (object.ReferenceEquals(x, null) || object.ReferenceEquals(y, null))
+        return false;
+      return x.quantity == y.quantity && x.item == y.item;
+    }
+
+    public override bool Equals(object obj) {
+      return Equals(this, obj as LineItem);
+    }
+    public static bool operator ==(LineItem x, LineItem y) { return Equals(x, y); }
+    public static bool operator !=(LineItem x, LineItem y) { return !(x == y); }
+  }
+
+  public class LineItemField : ReferenceField<LineItem>
+  {
+    public LineItemField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
+
+    protected override void SerializeValue(Span<byte> target, LineItem value) {
+      Fmt.SerializeStruct<float>(target, value.quantity);
+      Fmt.SerializeObject<StockItem>(target, value.item);
+    }
+
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref LineItem instance) {
+      if (instance == null)
+        instance = new LineItem();
+    }
+
+    protected override void DeserializeMembers(ReadOnlySpan<byte> source, LineItem instance) {
+      instance.quantity = Fmt.DeserializeStruct<float>(source) ?? default;
+      Fmt.DeserializeObject<StockItem>(source, ref instance.item);
+    }
+
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      if (Fmt.Skip<float>(source))
+        if (Fmt.Skip<StockItem>(source))
+          Fmt.SkipSequence<StockItem>(source);
+    }
+  }
+
+  public class Order
+  {
+    internal string orderNumber;
+    internal DateTimeOffset creationTime;
+    internal List<LineItem> lineItems;
+
+    public string OrderNumber { get => orderNumber; set => orderNumber = value; }
+    public DateTimeOffset CreationTime { get => creationTime; set => creationTime = value; }
+    public List<LineItem> LineItems { get => lineItems; set => lineItems = value; }
+
+    public static bool Equals(Order x, Order y) {
+      if (object.ReferenceEquals(x, y))
+        return true;
+      if (object.ReferenceEquals(x, null) || object.ReferenceEquals(y, null))
+        return false;
+      bool result = x.orderNumber == y.orderNumber && x.creationTime == y.creationTime;
+      if (result) {
+        if (x.LineItems?.Count != y.LineItems?.Count)
+          return false;
+        if (x.LineItems == null)
+          return true;
+        for (int indx = 0; indx < x.LineItems.Count; indx++) {
+          if (x.LineItems[indx] != y.LineItems[indx])
+            return false;
+        }
+      }
+      return result;
+    }
+
+    public override bool Equals(object obj) {
+      return Equals(this, obj as Order);
+    }
+    public static bool operator ==(Order x, Order y) { return Equals(x, y); }
+    public static bool operator !=(Order x, Order y) { return !(x == y); }
+  }
+
+  public class OrderField : ReferenceField<Order>
+  {
+    public OrderField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
+
+    protected override void SerializeValue(Span<byte> target, Order value) {
+      Fmt.SerializeStruct<DateTimeOffset>(target, value.creationTime);
+      Fmt.SerializeObject<string>(target, value.orderNumber);
+      Fmt.SerializeObjects<LineItem>(target, value.lineItems);
+    }
+
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref Order instance) {
+      if (instance == null)
+        instance = new Order();
+    }
+
+    AddItem<LineItem, List<LineItem>> InitLineItems(int size, ref List<LineItem> lineItems) {
+      if (size < 0) // size < 0 means the collection is deserialized as null
+        return null;
+      if (lineItems == null)
+        lineItems = new List<LineItem>(size);
+      else
+        lineItems.Capacity += size;
+      return (LineItem item, List<LineItem> collection) => collection.Add(item);
+    }
+
+    protected override void DeserializeMembers(ReadOnlySpan<byte> source, Order instance) {
+      instance.creationTime = Fmt.DeserializeStruct<DateTimeOffset>(source) ?? default;
+      Fmt.DeserializeObject<string>(source, ref instance.orderNumber);
+      Fmt.DeserializeObjects<LineItem, List<LineItem>>(source, InitLineItems, ref instance.lineItems);
+    }
+
+    protected override void SkipValue(ReadOnlySpan<byte> source) {
+      if (Fmt.Skip<DateTimeOffset>(source))
+        if (Fmt.Skip<string>(source))
+          Fmt.SkipSequence<LineItem>(source);
+    }
+  }
+
 }

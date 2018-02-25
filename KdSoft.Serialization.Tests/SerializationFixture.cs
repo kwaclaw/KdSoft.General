@@ -11,15 +11,55 @@ namespace KdSoft.Serialization.Tests
     const string dataDirName = @"Data";
     readonly string dataPath;
     readonly List<Vendor> vendors;
+    readonly HashSet<SalesRep> salesReps;
     readonly List<StockItem> stockItems;
+    readonly List<Order> orders;
 
     public IReadOnlyList<Vendor> Vendors => vendors;
+    public ISet<SalesRep> SalesReps => salesReps;
     public IReadOnlyList<StockItem> StockItems => stockItems;
+    public IReadOnlyList<Order> Orders => orders;
 
     public SerializationFixture() {
       dataPath = Path.Combine(TestUtils.ProjectDir, dataDirName);
       vendors = LoadVendors();
+
+      salesReps = new HashSet<SalesRep>();
+      foreach (var v in vendors)
+        salesReps.Add(v.SalesRep);
+
       stockItems = LoadStockItems();
+
+      orders = new List<Order>();
+      var order = new Order {
+        creationTime = new DateTimeOffset(new DateTime(2018, 2, 22)),
+        LineItems = new List<LineItem> {
+          new LineItem { Item = stockItems[0], Quantity = 1},
+          new LineItem { Item = stockItems[2], Quantity = 2},
+          new LineItem { Item = stockItems[4], Quantity = 44}
+        }
+      };
+      orders.Add(order);
+
+      order = new Order {
+        creationTime = new DateTimeOffset(new DateTime(2018, 2, 23)),
+        LineItems = new List<LineItem> {
+          new LineItem { Item = stockItems[1], Quantity = 4},
+          new LineItem { Item = stockItems[3], Quantity = 3},
+          new LineItem { Item = stockItems[5], Quantity = 2.54f }
+        }
+      };
+      orders.Add(order);
+
+      order = new Order {
+        creationTime = new DateTimeOffset(new DateTime(2018, 2, 24)),
+        LineItems = new List<LineItem> {
+          new LineItem { Item = stockItems[6], Quantity = 2},
+          new LineItem { Item = stockItems[7], Quantity = 4.8f},
+          new LineItem { Item = stockItems[8], Quantity = 99 }
+        }
+      };
+      orders.Add(order);
     }
 
     void InitVendorFromRegex(Vendor vendor, GroupCollection groups) {
