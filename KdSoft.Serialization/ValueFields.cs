@@ -398,7 +398,7 @@ namespace KdSoft.Serialization
 
     /// <inheritdoc />
     protected override void SerializeValue(Span<byte> target, ref DateTimeOffset value) {
-      Fmt.Converter.WriteBytes(value.UtcTicks, target, ref Fmt.valueIndx);
+      Fmt.Converter.WriteBytes(value.Ticks, target, ref Fmt.valueIndx);
       short offsetMinutes = unchecked((short)value.Offset.TotalMinutes);
       Fmt.Converter.WriteBytes(offsetMinutes, target, ref Fmt.valueIndx);
     }
