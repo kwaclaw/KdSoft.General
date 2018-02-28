@@ -1,320 +1,251 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
 <head>
-  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
-  <title>Serialization of Object Graphs</title>
+    <title>Serialization of Object Graphs</title>
 </head>
-
 <body>
 
-<div style="text-align: justify;">
-<h2>Serialization of Object Graphs</h2>
-
+    <h1 id="serialization-of-object-graphs">Serialization of Object Graphs</h1>
 <p>The .NET framework provides already a way of serializing and deserializing
-object graphs. However, for the purposes of record storage in a database like, for 
-  instance, Berkeley DB, it has several shortcomings:</p>
+object graphs. However, for the purposes of record storage in a database like,
+for instance, Berkeley DB, it has several shortcomings:</p>
 <ul>
-  <li>Inefficient usage of storage space - there is no need to always store
-    the meta-data in each record.</li>
-  <li>Slow - as it is entireley based on runtime type discovery.</li>
-  <li>No facility for partial deserialization - extracting a secondary index
-    field should not require deserializing the complete record.</li>
-  <li>Does not necessarily support lexical sorting on numeric types - that
-    is, the lexical sort order would be different from the numerical sort
-    order (big-endian vs. little-endian).</li>
+<li>Inefficient usage of storage space - there is no need to always store
+the meta-data in each record.</li>
+<li>Slow - as it is entireley based on runtime type discovery.</li>
+<li>No facility for partial deserialization - extracting a secondary index
+field should not require deserializing the complete record.</li>
+<li>Does not necessarily support lexical sorting on numeric types - that
+is, the lexical sort order would be different from the numerical sort
+order (big-endian vs. little-endian).</li>
 </ul>
-
-<p>Therefore, another serialization framework has been provided to alleviate
+<p>Therefore, another serialization framework is provided to alleviate
 these issues. It does this at the cost of extra coding, as it is currently
-not based on runtime type information. It also requires that any data members
-to be serialized are accessible to the framework code (public or internal
-visibility).</p>
-
+not based on runtime type information.</p>
+<ul>
+<li>It requires that any data members to be serialized are accessible to the framework code (public or internal
+visibility).</li>
+<li>It is intended to serialize only to generalized byte buffers in the form
+of <code>Span&lt;byte&gt;</code> which allows for zero-copy capability. Thsi way one can
+avoid  intermediate byte buffers.</li>
+</ul>
 <p>Any implementation of the framework has to subclass the following
 cooperating abstract base classes:</p>
 <ul>
-  <li><code>Kds.Serialization.Formatter&lt;F&gt;</code>
-    <p>This class controls the overall serialization process.</p>
-  </li>
-  <li><code>Kds.Serialization.ValueField&lt;T, F&gt;</code>
-    <p>A concrete subclass implements the serialization of a specific value
-    type.</p>
-  </li>
-  <li><code>Kds.Serialization.ReferenceField&lt;T, F&gt;</code>
-    <p>A concrete subclass implements the serialization of a specific
-    reference type.</p>
-  </li>
+<li><code>Kds.Serialization.Formatter&lt;F&gt;</code><br />
+This class controls the overall serialization process.</li>
+<li><code>Kds.Serialization.ValueField&lt;T&gt;</code><br />
+A concrete subclass implements the serialization of a specific value type.</li>
+<li><code>Kds.Serialization.ReferenceField&lt;T&gt;</code><br />
+A concrete subclass implements the serialization of a specific reference type.</li>
 </ul>
-
-<p>An implementation of this framework for byte buffers as output target
-is provided. It includes the classes:</p>
-<ul>
-  <li><code>Kds.Serialization.Buffer.Formatter</code> (base class for byte
-    buffer formatters)</li>
-  <li><code>Kds.Serialization.Buffer.ValueField&lt;T&gt;</code> (base class
-    for user defined types)</li>
-  <li><code>Kds.Serialization.Buffer.ReferenceField&lt;T&gt;</code> (base
-    class for user defined types)</li>
-</ul>
-
-<p>The implementation also provides an actual byte buffer implementation with
-<code>StdFormatter</code> as well as a set of associated <code>ValueField&lt;T&gt;</code>
-subclasses for the basic value types, and <code>ReferenceField&lt;T&gt;</code>
-subclasses for strings, character and integer arrays. All of the above is contained
-in the assembly <em>Kds.Serialization.dll</em>.</p>
-
-<h3>Basic Usage</h3>
-
-<p>Here is a simple example of how to use the framework with the standard
-byte buffer formatter.</p>
-<pre><code>  // instantiate big-endian serialization formatter
-  StdFormatter formatter = new StdFormatter(ByteOrder.BigEndian);
-  // register default fields (by passing true)
-  new VendorField(formatter, true);
-  new SalesRepField(formatter, true);
-  new StockItemField(formatter, true);
+<p>Such an implementation is included with <code>StdFormatter</code> as well as a set of
+associated <code>ValueField</code> subclasses for the basic value types, and
+<code>ReferenceField</code> subclasses for strings, character and integer arrays.
+All of the above is contained in the assembly <em>Kds.Serialization.dll</em>.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Here is a simple example of how to use the framework with the standard formatter.</p>
+<pre><code>// instantiate big-endian serialization formatter
+StdFormatter fmt = new StdFormatter(ByteOrder.BigEndian);
+// register fields as defaults for the type (by passing true)
+new VendorField(fmt, true);
+new SalesRepField(fmt, true);
+new StockItemField(fmt, true);
   
-  // create instances of Vendor, SalesRep, StockItem
-  Vendor vendor = new Vendor();
-  ...
+// create instances of Vendor, SalesRep, StockItem where
+// the Vendor instance is the root of the object graph
+Vendor vendor = new Vendor();
+...
   
-  byte[] buffer = new byte[2048];
+byte[] buffer = new byte[2048];
+var target = new Span&lt;byte&gt;(buffer);
   
-  // serialize Vendor (and all reachable objects like SalesRep and StockItems)
-  int index = 0;
-  formatter.SerializeObject&lt;Vendor&gt;(vendor, buffer, ref index);
+// serialize Vendor (and all reachable objects like SalesRep and StockItems)
+int index = 0;
+fmt.SerializeObject(target, vendor, ref index);
   
-  // deserialize Vendor object graph
-  vendor = null;
-  int index = 0;
-  formatter.DeserializeObject&lt;Vendor&gt;(ref vendor, buffer, ref index);</code></pre>
+// deserialize Vendor object graph
+var source = new ReadOnlySpan&lt;byte&gt;(buffer);
+index = 0;
 
-<h3>Defining A Persistence Model</h3>
-
+var vendor2 = fmt.DeserializeObject&lt;Vendor&gt;(source, ref index);
+</code></pre>
+<h2 id="defining-a-persistence-model">Defining A Persistence Model</h2>
 <p>Unlike the built-in .NET serialization framework, we have to write code to
 specify how a given class or struct is serialized. Let's assume we have the
 following class:</p>
-<pre><code>  public class StockItem
-  {
-    internal string name;
-    internal string sku;
-    internal float? price;
-    internal int? quantity;
+<pre><code>public class StockItem
+{
+  internal string name;
+  internal string sku;
+  internal float? price;
+  internal int? quantity;
 
-    public string Name {
-      get { return name; }
-      set { name = value; }
-    }
+  public string Name { get =&gt; name; set =&gt; name = value; }
+  public string Sku { get =&gt; sku; set =&gt; sku = value; }
+  public float? Price { get =&gt; price; set =&gt; price = value; }
+  public int? Quantity { get =&gt; quantity; set =&gt; quantity = value; }
+}
+</code></pre>
+<p>Then we have to define a <code>ReferenceField&lt;T&gt;</code> subclass to serialize this class:</p>
+<pre><code>public class StockItemField : ReferenceField&lt;StockItem&gt;
+{
+  public StockItemField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
-    public string Sku {
-      get { return sku; }
-      set { sku = value; }
-    }
+  protected override void SerializeValue(Span&lt;byte&gt; target, StockItem value) {
+    Fmt.SerializeObject&lt;string&gt;(target, value.name);
+    Fmt.SerializeObject&lt;string&gt;(target, value.sku);
+    Fmt.SerializeStruct&lt;float&gt;(target, value.price);
+    Fmt.SerializeStruct&lt;int&gt;(target, value.quantity);
+  }
 
-    // nullable value type!
-    public float? Price {
-      get { return price; }
-      set { price = value; }
-    }
+  protected override void DeserializeInstance(ReadOnlySpan&lt;byte&gt; source, ref StockItem instance) {
+    if (instance == null)
+      instance = new StockItem();
+  }
 
-    // nullable value type!
-    public int? Quantity {
-      get { return quantity; }
-      set { quantity = value; }
-    }
-  }</code></pre>
+  protected override void DeserializeMembers(ReadOnlySpan&lt;byte&gt; source, StockItem instance) {
+    Fmt.DeserializeObject&lt;string&gt;(source, ref instance.name);
+    Fmt.DeserializeObject&lt;string&gt;(source, ref instance.sku);
+    instance.price = Fmt.DeserializeStruct&lt;float&gt;(source);
+    instance.quantity = Fmt.DeserializeStruct&lt;int&gt;(source);
+  }
 
-<p>Then we have to define a <code>ReferenceField&lt;T&gt;</code> subclass to
-serialize this class:</p>
-<pre><code>  public class StockItemField: ReferenceField&lt;StockItem&gt;
-  {
-    public StockItemField(Formatter fmt, bool isDefault): base(fmt, isDefault) { }
-    
-    protected override void SerializeValue(StockItem value) {
-      Fmt.SerializeObject&lt;string&gt;(value.name);
-      Fmt.SerializeObject&lt;string&gt;(value.sku);
-      Fmt.SerializeStruct&lt;float&gt;(value.price);
-      Fmt.SerializeStruct&lt;int&gt;(value.quantity);
-    }
-
-    protected override void DeserializeInstance(ref StockItem instance) {
-      if (instance == null)
-        instance = new StockItem();
-    }
-
-    protected override void DeserializeMembers(StockItem instance) {
-      Fmt.DeserializeObject&lt;string&gt;(ref instance.name);
-      Fmt.DeserializeObject&lt;string&gt;(ref instance.sku);
-      instance.price = Fmt.DeserializeStruct&lt;float&gt;();
-      instance.quantity = Fmt.DeserializeStruct&lt;int&gt;();
-    }
-
-    protected override void SkipValue() {
-      if (Fmt.Skip&lt;string&gt;())
-      if (Fmt.Skip&lt;string&gt;())
-      if (Fmt.Skip&lt;float&gt;())
-      Fmt.Skip&lt;int&gt;();
-    }
-  }</code></pre>
-
-<p>All the overridden methods must be re-entrant, that is, their
-implementations may only rely on the arguments passed to the method, and on
-object state that will not change during (de)serialization, unless one can
-guarantee that they cannot be called recursively. The latter applies to those
-fields that serialize the basic value types, as their methods would not call
-serialization methods on other fields.</p>
-
-<h4>Responsibilities of <code>SerializeValue()</code></h4>
-
+  protected override void SkipValue(ReadOnlySpan&lt;byte&gt; source) {
+    if (Fmt.Skip&lt;string&gt;(source))
+      if (Fmt.Skip&lt;string&gt;(source))
+        if (Fmt.Skip&lt;float&gt;(source))
+          Fmt.Skip&lt;int&gt;(source);
+  }
+}
+</code></pre>
+<p>All the overridden methods must be re-entrant, that is, their implementations
+may only rely on the arguments passed to the method, and on object state that
+will not change during (de)serialization, unless one can guarantee that they
+cannot be called recursively. The latter applies to those fields that serialize
+the basic value types, as their methods would not call serialization methods
+on other fields.</p>
+<h3 id="responsibilities-of-serializevaluetspanbyte-target-t-value">Responsibilities of <code>SerializeValue&lt;T&gt;(Span&lt;byte&gt; target, T value)</code></h3>
 <p>Here, one chooses which members of the class get serialized in which
 order. This is simply done by calling the various <code>SerializeObject&lt;T&gt;()</code>
 or <code>SerializeStruct&lt;T&gt;()</code> overloads of the formatter implementation -
-accessible through the protected <code>Field&lt;F&gt;.Fmt</code> property.</p>
-
-<p>This is a <b>must</b> override.</p>
-
-<h4>Responsibilities of <code>DeserializeInstance()</code></h4>
-
+accessible through the protected <code>Field&lt;T, F&gt;.Fmt</code> property.</p>
+<p>This is a <strong>must</strong> override.</p>
+<h3 id="responsibilities-of-deserializeinstancetreadonlyspanbyte-source-ref-t-instance">Responsibilities of <code>DeserializeInstance&lt;T&gt;(ReadOnlySpan&lt;byte&gt; source, ref T instance)</code></h3>
 <p>If necessary, an instance of the class must be created, and all those
 fields that should be populated initially can be deserialized here as well,
 as long as it is done in the exact same order as during serialization.</p>
-
-<p>However, one <b>must not</b> deserialize any members which might directly
+<p>However, one <strong>must not</strong> deserialize any members which might directly
 or indirectly (recursively) reference the instance that was just created.
 Generally, the safest approach is to stop deserialization at the first
 reference type member (in serialization order), and leave the rest of
-deserialization to the implementation of
-<code>DeserializeMembers().</code></p>
-
-Note that there are two different signatures/overloads for calling
-<code>Formatter.DeserializeXXX&lt;T&gt;()</code>: <ul>
-  <li>Reference type members: <code>
-    <br />
-    Formatter.DeserializeObject&lt;T&gt;(ref T member);</code>
-    or <code>T member = Formatter.DeserializeObject&lt;T&gt;()</code></li>
-  <li>Value type members:<br />
-    <code>Formatter.Deserialize&lt;T&gt;(ref T member, out bool isNull);<br />
-&nbsp;</code>
-    or <code>
-    <br />
-    T member = (T)Formatter.Deserialize&lt;T&gt;();</code>
-    <br />
-&nbsp; where the cast <code>(T)</code>
-    is only necessary when T is not a nullable type.</li>
+deserialization to the implementation of <code>DeserializeMembers()</code>.</p>
+<p>Note that there are two different signatures/overloads for calling <code>Formatter.DeserializeXXX&lt;T&gt;()</code>:</p>
+<ul>
+<li>Reference type members:<br />
+<code>Formatter.DeserializeObject&lt;T&gt;(ReadOnlySpan&lt;T&gt; source, ref T member);</code><br />
+or<br />
+<code>T member = Formatter.DeserializeObject&lt;T&gt;(ReadOnlySpan&lt;T&gt; source)</code></li>
+<li>Value type members:
+<code>Formatter.DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;T&gt; source, ref T member, out bool isNull);</code><br />
+or<br />
+<code>T member = (T)Formatter.DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;T&gt; source);</code><br />
+where the cast <code>(T)</code> is only necessary when <code>T</code> is not a nullable type.</li>
 </ul>
-
-<p>This is a <b>must</b> override.</p>
-
-<h4>Responsibilities of <code>DeserializeMembers()</code></h4>
-
+<p>This is a <strong>must</strong> override.</p>
+<h3 id="responsibilities-of-deserializememberstreadonlyspanbyte-source-t-instance">Responsibilities of <code>DeserializeMembers&lt;T&gt;(ReadOnlySpan&lt;byte&gt; source, T instance)</code></h3>
 <p>The argument is the class instance created/initialized in
-<code>DeserializeInstance()</code>. Here is the place where one must
+DeserializeInstance()</code>. Here is the place where one must
 deserialize those reference type members which can have a reference back to
-the argument. Again, the order of serialization must be followed.</p>
-
-<p>This is an <b>optional</b> override (only when needed).</p>
-
-<h4>Responsibilities of <code>SkipValue()</code></h4>
-
+the argument. Again, the order of serialization must be followed.</p></p>
+<p>This is an <strong>optional</strong> override (only when needed).</p>
+<h3 id="responsibilities-of-skipvaluereadonlyspanbyte-source">Responsibilities of <code>SkipValue(ReadOnlySpan&lt;byte&gt; source)</code></h3>
 <p>This allows skipping parts of the serialized instance. The members must be
 skipped in the exact same order in which they were serialized. Additionally,
 the routine must return immediately if one of the calls to
-<code>Formatter.Skip&lt;T&gt;()</code> returns false.</p>
-
-<p>This is a <b>must</b> override, it can be empty or throw an exception if
+<code>Formatter.Skip&lt;T&gt;(source)</code> returns <code>false</code>.</p>
+<p>This is a <strong>must</strong> override, it can be empty or throw an exception if
 partial deserialization is never used.</p>
-
-<h3>Defining Which Fields To Use</h3>
-
+<h2 id="defining-which-fields-to-use">Defining Which Fields To Use</h2>
 <p>Calling any of the <code>Formatter.SerializeXXX&lt;T&gt;()</code> methods
 causes the default field for the argument's type T to be used for the actual
-serialization of the argument. The
-<code>Kds.Serialization.Buffer.Formatter</code> class has no default fields
-registered, but the <code>StdFormatter</code> subclass comes with fields
+serialization of the argument. The <code>Kds.Serialization.Formatter</code> class
+has no default fields registered, but the <code>StdFormatter</code> subclass comes with fields
 pre-registered for all the basic value types as well as strings and integer
 arrays.</p>
-
 <p>Typically, any fields that handle user defined types should be registered
 as the default field type to serialize or deserialize the user defined type.
 This is shown in the Basic Usage section above.</p>
-
 <p>Sometimes it may be necessary to treat different instances of the same
 type differently (e.g. fixed size vs. variable size arrays, which are both
 the same type). In this case, one uses a field instance directly, like in
-this example where class <code>MyClass</code> contains a member that should
-be serialized as a fixed size byte array (using a <code>BinaryField</code>
-instance):</p>
-<pre><code>  ...
-  public class MyField: ReferenceField&lt;MyClass&gt;
-  {
-    private ReferenceField&lt;byte[]&gt; binField;
+this example where class <code>MyClas</code> contains a member that should
+be serialized as a fixed size byte array (using a <code>BinaryField</code> instance):</p>
+<pre><code>public class MyField: ReferenceField&lt;MyClass&gt;
+{
+  private ReferenceField&lt;byte[]&gt; binField;
 
-    public MyField(Formatter fmt, bool isDefault): base(fmt, isDefault) {
-      // not the default field for byte[] - so we pass false for isDefault
-      binField = new BinaryField(fmt, false, 16);
-    }
+  public MyField(Formatter fmt, bool isDefault): base(fmt, isDefault) {
+    // not the default field for byte[] - so we pass false for isDefault
+    binField = new BinaryField(fmt, false, 16);
+  }
 
-    // MyClass.member is a fixed size byte array of length 16
-    protected override void SerializeValue(MyClass value) {
-      ...
-      binField.Serialize(value.member);
-      ...
-    }
-  
-    protected override void DeserializeMembers(MyClass value) {
-      ...
-      binField.Deserialize(ref value.member);
-      ...
-    }
-
+  // MyClass.member is a fixed size byte array of length 16
+  protected override void SerializeValue(Span&lt;byte&gt; target, MyClass value) {
     ...
-  }</code></pre>
+    binField.Serialize(target, value.member);
+    ...
+  }
+  
+  protected override void DeserializeMembers(ReadOnlySpan&lt;byte&gt; source, MyClass value) {
+    ...
+    binField.Deserialize(source, ref value.member);
+    ...
+  }
 
-<h3>Object References and Pre-existing Objects</h3>
-
+  ...
+}
+</code></pre>
+<h2 id="object-references-and-pre-existing-objects">Object References and Pre-existing Objects</h2>
 <p>The serialization mechanism can deal with references to already serialized
-objects (in the same graph), including circular references, by storing an
+objects (in the same byte buffer), including circular references, by storing an
 object handle instead of repeatedly serializing the same object again (which
 could lead to infinite recursion). However, sometimes there is a need to
-serialize references to objects that exist outside of the object graph. Such
-objects often are system wide objects, and often they are singletons. One
+serialize references to objects that exist outside of the byte buffer.</p>
+<ul>
+<li>Such objects can be system wide objects, and then they often are singletons. One
 generally does not want to serialize and then re-create or update these
-objects during deserialization. The way to deal with this problem is to
-register these objects before serializing/deserializing the object graph:</p>
-<pre><code>  // instances of MyClass contain references to permObject1 and permObject2
-  formatter.SetPermanentReferences(permObject1, permObject2);
-  ...
-  formatter.SerializeObject&lt;MyClass&gt;(myObject, buffer, ref index);</code></pre>
-
+objects during deserialization.</li>
+<li>Other objects are those that belong to the same object graph but are
+serialized into a separate byte buffer.</li>
+</ul>
+<p>The way to deal with this problem is to register these objects before
+serializing/deserializing into/from a given byte buffer:</p>
+<pre><code>// instances of MyClass contain references to externalObj1 and externalObj2
+formatter.SetPermanentReferences(externalObj1, externalObj2);
+...
+formatter.SerializeObject&lt;MyClass&gt;(target, myObject, ref index);
+</code></pre>
 <p>When deserializing, these pre-existing objects must be registered in the
 exact same order again:</p>
-<pre><code>  formatter.SetPermanentReferences(permObject1, permObject2);
-  ...
-  formatter.DeserializeObject&lt;MyClass&gt;(ref myObject, buffer, ref index);</code></pre>
-
-<h3>Key Based vs. Pointer Based References</h3>
-
+<pre><code>formatter.SetPermanentReferences(externalObj1, externalObj2);
+...
+formatter.DeserializeObject&lt;MyClass&gt;(source, ref myObject, ref index);
+</code></pre>
+<h2 id="key-based-vs.pointer-based-references">Key Based vs. Pointer Based References</h2>
 <p>The serialization framework described above takes care of pointer-based
-references within the same object graph. However, it often happens that one
-wants to serialize an object graph in separate chunks, which means that
-references from one chunk to another must be broken.</p>
-
-<p>An example for this would be the use of Berkeley DB as the underlying
-storage engine. Object graphs would be broken up into chunks called key/data
-pairs (or records), and references between such records would be encoded as
-primary and foreign keys (like in a relational database).</p>
-
+references within the same object graph, even if it is stored in multiple
+separate byte buffers (see above).</p>
+<p>Often, when using a database (e.g. key-value storage like Berkeley DB)
+objects (or small object graphs) would be stored as key/data pairs (or records),
+and references between such records would be encoded as primary and
+foreign keys (like in a relational database).</p>
 <p>The serialization frame work described above does not (at this time)
 provide a mechanism for generating keys for references between serialized
-object graphs. It is up to the programmer to split (for serialization) and
-re-join (when deserializing) a persistent object graph.</p>
+object graphs. It is up to the programmer to create the keys and to
+re-establish object references after deserialization (based on matching keys),
+or to use the mechanism of external object registration as described above.</p>
 
-<h3>Code Generation</h3>
 
-<p>In a future version of this framework, generating the serialization code
-might be done automatically using a reflection based code generator. The
-specifics of the generated code would be determined through the use of
-attributes, similar to how it is done in the .NET framework.</p>
-</div>
 </body>
 </html>
