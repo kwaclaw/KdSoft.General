@@ -8,1045 +8,541 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
 
-namespace KdSoft.Serialization.Buffer
+namespace KdSoft.Serialization
 {
+  /// <summary>
+  /// Indicates the order of bytes in a value type.
+  /// </summary>
   public enum ByteOrder
   {
+    /// <summary>Low order byte comes first.</summary>
     BigEndian,
+    /// <summary>High order byte comes first.</summary>
     LittleEndian
   }
 
-  /// <summary>Union used for re-interpreting 16 bit numeric types as byte arrays and vice-versa.</summary>
-  [StructLayout(LayoutKind.Explicit)]
-  public struct ShortBytes
-  {
-    /// <summary><c>Int16</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Int16 ShortValue;
-
-    /// <summary><c>UInt16</c> version of the value.</summary>
-    [FieldOffset(0), CLSCompliant(false)]
-    public readonly UInt16 UShortValue;
-
-    /// <summary><c>Char</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Char CharValue;
-
-    [FieldOffset(0)]
-    Byte byte0;
-
-    /// <summary><c>Byte 0</c> of the value.</summary>
-    public Byte Byte0 { get { return byte0; } }
-
-    [FieldOffset(1)]
-    Byte byte1;
-
-    /// <summary><c>Byte 1</c> of the value.</summary>
-    public Byte Byte1 { get { return byte1; } }
-
-    /// <summary>Constructor taking an <c>Int16</c> value.</summary>
-    public ShortBytes(Int16 value) {
-      this = new ShortBytes();
-      ShortValue = value;
-    }
-
-    /// <summary>Constructor taking an <c>UInt16</c> value.</summary>
-    [CLSCompliant(false)]
-    public ShortBytes(UInt16 value) {
-      this = new ShortBytes();
-      UShortValue = value;
-    }
-
-    /// <summary>Constructor taking a <c>Char</c> value.</summary>
-    public ShortBytes(Char value) {
-      this = new ShortBytes();
-      CharValue = value;
-    }
-
-    /// <summary>Returns new instance initialized from <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public static ShortBytes FromBytes(byte[] value, ref int index) {
-      ShortBytes result = new ShortBytes();
-      result.byte0 = value[index++];
-      result.byte1 = value[index++];
-      return result;
-    }
-
-    /// <summary>Returns new instance initialized from reversed <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public static ShortBytes FromBytesReversed(byte[] value, ref int index) {
-      ShortBytes result = new ShortBytes();
-      result.byte1 = value[index++];
-      result.byte0 = value[index++];
-      return result;
-    }
-
-    /// <summary>Writes the value to a byte array.</summary>
-    /// <param name="value">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public void ToBytes(byte[] bytes, ref int index) {
-      bytes[index++] = byte0;
-      bytes[index++] = byte1;
-    }
-
-    /// <summary>Writes the value to a byte array in reversed byte order.</summary>
-    /// <param name="value">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public void ToBytesReversed(byte[] bytes, ref int index) {
-      bytes[index++] = byte1;
-      bytes[index++] = byte0;
-    }
-  }
-
-  /// <summary>Union used for re-interpreting 32 bit numeric types as byte arrays and vice-versa.</summary>
-  [StructLayout(LayoutKind.Explicit)]
-  public struct IntBytes
-  {
-    /// <summary><c>Int32</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Int32 IntValue;
-
-    /// <summary><c>UInt32</c> version of the value.</summary>
-    [FieldOffset(0), CLSCompliant(false)]
-    public readonly UInt32 UIntValue;
-
-    /// <summary><c>Single</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Single SingleValue;
-
-    [FieldOffset(0)]
-    Byte byte0;
-
-    /// <summary><c>Byte 0</c> of the value.</summary>
-    public Byte Byte0 { get { return byte0; } }
-
-    [FieldOffset(1)]
-    Byte byte1;
-
-    /// <summary><c>Byte 1</c> of the value.</summary>
-    public Byte Byte1 { get { return byte1; } }
-
-    [FieldOffset(2)]
-    Byte byte2;
-
-    /// <summary><c>Byte 2</c> of the value.</summary>
-    public Byte Byte2 { get { return byte2; } }
-
-    [FieldOffset(3)]
-    Byte byte3;
-
-    /// <summary><c>Byte 3</c> of the value.</summary>
-    public Byte Byte3 { get { return byte3; } }
-
-    /// <summary>Constructor taking an <c>Int32</c> value.</summary>
-    public IntBytes(Int32 value) {
-      this = new IntBytes();
-      IntValue = value;
-    }
-
-    /// <summary>Constructor taking an <c>UInt32</c> value.</summary>
-    [CLSCompliant(false)]
-    public IntBytes(UInt32 value) {
-      this = new IntBytes();
-      UIntValue = value;
-    }
-
-    /// <summary>Constructor taking a <c>Single</c> value.</summary>
-    public IntBytes(Single value) {
-      this = new IntBytes();
-      SingleValue = value;
-    }
-
-    /// <summary>Returns new instance initialized from <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public static IntBytes FromBytes(byte[] value, ref int index) {
-      IntBytes result = new IntBytes();
-      int i = index;
-      result.byte0 = value[i++];
-      result.byte1 = value[i++];
-      result.byte2 = value[i++];
-      result.byte3 = value[i++];
-      index = i;
-      return result;
-    }
-
-    /// <summary>Returns new instance initialized from reversed <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public static IntBytes FromBytesReversed(byte[] value, ref int index) {
-      IntBytes result = new IntBytes();
-      int i = index;
-      result.byte3 = value[i++];
-      result.byte2 = value[i++];
-      result.byte1 = value[i++];
-      result.byte0 = value[i++];
-      index = i;
-      return result;
-    }
-
-    /// <summary>Writes the value to a byte array.</summary>
-    /// <param name="value">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public void ToBytes(byte[] bytes, ref int index) {
-      int i = index;
-      bytes[i++] = byte0;
-      bytes[i++] = byte1;
-      bytes[i++] = byte2;
-      bytes[i++] = byte3;
-      index = i;
-    }
-
-    /// <summary>Writes the value to a byte array in reversed byte order.</summary>
-    /// <param name="value">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public void ToBytesReversed(byte[] bytes, ref int index) {
-      int i = index;
-      bytes[i++] = byte3;
-      bytes[i++] = byte2;
-      bytes[i++] = byte1;
-      bytes[i++] = byte0;
-      index = i;
-    }
-  }
-
-  /// <summary>Union used for re-interpreting 64 bit numeric types as byte arrays and vice-versa.</summary>
-  [StructLayout(LayoutKind.Explicit)]
-  public struct LongBytes
-  {
-    /// <summary><c>Int64</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Int64 LongValue;
-
-    /// <summary><c>UInt64</c> version of the value.</summary>
-    [FieldOffset(0), CLSCompliant(false)]
-    public readonly UInt64 ULongValue;
-
-    /// <summary><c>Double</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Double DoubleValue;
-
-    [FieldOffset(0)]
-    byte byte0;
-
-    /// <summary><c>Byte 0</c> of the value.</summary>
-    public Byte Byte0 { get { return byte0; } }
-
-    [FieldOffset(1)]
-    byte byte1;
-
-    /// <summary><c>Byte 1</c> of the value.</summary>
-    public Byte Byte1 { get { return byte1; } }
-
-    [FieldOffset(2)]
-    byte byte2;
-
-    /// <summary><c>Byte 2</c> of the value.</summary>
-    public Byte Byte2 { get { return byte2; } }
-
-    [FieldOffset(3)]
-    byte byte3;
-
-    /// <summary><c>Byte 3</c> of the value.</summary>
-    public Byte Byte3 { get { return byte3; } }
-
-    [FieldOffset(4)]
-    byte byte4;
-
-    /// <summary><c>Byte 4</c> of the value.</summary>
-    public Byte Byte4 { get { return byte4; } }
-
-    [FieldOffset(5)]
-    byte byte5;
-
-    /// <summary><c>Byte 5</c> of the value.</summary>
-    public Byte Byte5 { get { return byte5; } }
-
-    [FieldOffset(6)]
-    byte byte6;
-
-    /// <summary><c>Byte 6</c> of the value.</summary>
-    public Byte Byte6 { get { return byte6; } }
-
-    [FieldOffset(7)]
-    byte byte7;
-
-    /// <summary><c>Byte 7</c> of the value.</summary>
-    public Byte Byte7 { get { return byte7; } }
-
-    /// <summary>Constructor taking an <c>Int64</c> value.</summary>
-    public LongBytes(Int64 value) {
-      this = new LongBytes();
-      LongValue = value;
-    }
-
-    /// <summary>Constructor taking an <c>UInt64</c> value.</summary>
-    [CLSCompliant(false)]
-    public LongBytes(UInt64 value) {
-      this = new LongBytes();
-      ULongValue = value;
-    }
-
-    /// <summary>Constructor taking a <c>Double</c> value.</summary>
-    public LongBytes(Double value) {
-      this = new LongBytes();
-      DoubleValue = value;
-    }
-
-    /// <summary>Returns new instance initialized from <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public static LongBytes FromBytes(byte[] value, ref int index) {
-      LongBytes result = new LongBytes();
-      int i = index;
-      result.byte0 = value[i++];
-      result.byte1 = value[i++];
-      result.byte2 = value[i++];
-      result.byte3 = value[i++];
-      result.byte4 = value[i++];
-      result.byte5 = value[i++];
-      result.byte6 = value[i++];
-      result.byte7 = value[i++];
-      index = i;
-      return result;
-    }
-
-    /// <summary>Returns new instance initialized from reversed <c>byte array</c>.</summary>
-    /// <param name="value">Byte array to initialize the instance with.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public static LongBytes FromBytesReversed(byte[] value, ref int index) {
-      LongBytes result = new LongBytes();
-      int i = index;
-      result.byte7 = value[i++];
-      result.byte6 = value[i++];
-      result.byte5 = value[i++];
-      result.byte4 = value[i++];
-      result.byte3 = value[i++];
-      result.byte2 = value[i++];
-      result.byte1 = value[i++];
-      result.byte0 = value[i++];
-      index = i;
-      return result;
-    }
-
-    /// <summary>Writes the value to a byte array.</summary>
-    /// <param name="value">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public void ToBytes(byte[] bytes, ref int index) {
-      int i = index;
-      bytes[i++] = byte0;
-      bytes[i++] = byte1;
-      bytes[i++] = byte2;
-      bytes[i++] = byte3;
-      bytes[i++] = byte4;
-      bytes[i++] = byte5;
-      bytes[i++] = byte6;
-      bytes[i++] = byte7;
-      index = i;
-    }
-
-    /// <summary>Writes the value to a byte array in reversed byte order.</summary>
-    /// <param name="value">Target byte array.</param>
-    /// <param name="index">Starting index in byte array argument.</param>
-    public void ToBytesReversed(byte[] bytes, ref int index) {
-      int i = index;
-      bytes[i++] = byte7;
-      bytes[i++] = byte6;
-      bytes[i++] = byte5;
-      bytes[i++] = byte4;
-      bytes[i++] = byte3;
-      bytes[i++] = byte2;
-      bytes[i++] = byte1;
-      bytes[i++] = byte0;
-      index = i;
-    }
-  }
-
-  /// <summary>Union used solely for re-interpreting <c>UInt16[]</c> as <c>Int16[]</c> or <c>Char[]</c> and vice versa.</summary>
-  [StructLayout(LayoutKind.Explicit)]
-  public struct ShortArrayUnion
-  {
-    /// <summary><c>UInt16[]</c> version of the value.</summary>
-    [FieldOffset(0), CLSCompliant(false)]
-    public readonly UInt16[] UShortValue;
-
-    /// <summary><c>Int16[]</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Int16[] ShortValue;
-
-    /// <summary><c>Char[]</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Char[] CharValue;
-
-    /// <summary>Constructor taking an <c>UInt16[]</c> value.</summary>
-    [CLSCompliant(false)]
-    public ShortArrayUnion(UInt16[] value) {
-      this = new ShortArrayUnion();  // keeps the compiler happy
-      UShortValue = value;
-    }
-
-    /// <summary>Constructor taking an <c>Int16[]</c> value.</summary>
-    public ShortArrayUnion(Int16[] value) {
-      this = new ShortArrayUnion();  // keeps the compiler happy
-      ShortValue = value;
-    }
-
-    /// <summary>Constructor taking a <c>Char[]</c> value.</summary>
-    public ShortArrayUnion(Char[] value) {
-      this = new ShortArrayUnion();  // keeps the compiler happy
-      CharValue = value;
-    }
-  }
-
-  /// <summary>Union used solely for re-interpreting <c>UInt32[]</c> as <c>Int32[]</c> and vice versa.</summary>
-  [StructLayout(LayoutKind.Explicit)]
-  public struct IntArrayUnion
-  {
-    /// <summary><c>UInt32[]</c> version of the value.</summary>
-    [FieldOffset(0), CLSCompliant(false)]
-    public readonly UInt32[] UIntValue;
-
-    /// <summary><c>Int32[]</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Int32[] IntValue;
-
-    /// <summary>Constructor taking a <c>UInt32[]</c> value.</summary>
-    [CLSCompliant(false)]
-    public IntArrayUnion(UInt32[] value) {
-      IntValue = null;  // keeps the compiler happy
-      UIntValue = value;
-    }
-
-    /// <summary>Constructor taking an <c>Int32[]</c> value.</summary>
-    public IntArrayUnion(Int32[] value) {
-      UIntValue = null;  // keeps the compiler happy
-      IntValue = value;
-    }
-  }
-
-  /// <summary>Union used for re-interpreting a decimal as two unsigned longs and vice-versa.</summary>
-  [StructLayout(LayoutKind.Explicit)]
-  public struct DecimalLongUnion
-  {
-    /// <summary><c>Int16</c> version of the value.</summary>
-    [FieldOffset(0)]
-    public readonly Decimal DecimalValue;
-
-    /// <summary>First <c>UInt64</c> part of the value.</summary>
-    [FieldOffset(0), CLSCompliant(false)]
-    public readonly UInt64 Long0;
-
-    /// <summary>Second <c>UInt64</c> part of the value.</summary>
-    [FieldOffset(sizeof(ulong)), CLSCompliant(false)]
-    public readonly UInt64 Long1;
-
-    /// <summary>Constructor taking a <c>Decimal</c> value.</summary>
-    public DecimalLongUnion(Decimal value) {
-      this = new DecimalLongUnion();
-      DecimalValue = value;
-    }
-
-    /// <summary>Constructor taking two <c>UInt64</c> values.</summary>
-    [CLSCompliant(false)]
-    public DecimalLongUnion(UInt64 long0, UInt64 long1) {
-      this = new DecimalLongUnion();
-      Long0 = long0;
-      Long1 = long1;
-    }
-
-    /// <summary>Constructor taking two <c>Int64</c> values.</summary>
-    [CLSCompliant(false)]
-    public DecimalLongUnion(Int64 long0, Int64 long1):this(unchecked((UInt64)long0), unchecked((UInt64)long1)) { }
-  }
-
-  /// <summary>Serializes and deserialized numeric types in a specified byte order.</summary>
+  /// <summary>Serializes and deserializes numeric types in a specified byte order.</summary>
   public class ByteConverter
   {
+    /// <summary>Returns the byte order of this system architecture.</summary>
     public static readonly ByteOrder SystemByteOrder;
 
     static ByteConverter() {
       SystemByteOrder = BitConverter.IsLittleEndian ? ByteOrder.LittleEndian : ByteOrder.BigEndian;
     }
 
+
     bool reverse;
+    /// <summary>
+    /// Indicates if the <see cref="ByteConverter"/> reads/writes bytes in reverse system byte order.
+    /// </summary>
+    public bool Reverse => reverse;
 
-    public bool Reverse {
-      get { return reverse; }
-    }
-
+    /// <summary>
+    /// Constructor that specifies a specific byte order to use for reading and writing.
+    /// </summary>
     public ByteConverter(ByteOrder byteOrder) {
       reverse = byteOrder != SystemByteOrder;
     }
 
+    /// <summary>
+    /// Constructor that specifies if reading/writing should be performed in system byte order or in reverse.
+    /// </summary>
     public ByteConverter(bool reverse = false) {
       this.reverse = reverse;
     }
 
-    #region Not CLS-Compliant
+    #region WriteBytes
 
-    /// <summary>Serializes <c>UInt16</c> values.</summary>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    [CLSCompliant(false)]
-    public void ToBytes(UInt16 num, byte[] bytes, ref int index) {
-      ShortBytes valBytes = new ShortBytes(num);
-      if (reverse) {
-        valBytes.ToBytesReversed(bytes, ref index);
-      }
-      else {
-        valBytes.ToBytes(bytes, ref index);
-      }
+    /// <summary>
+    /// Writes value type to byte span like <see cref="SpanHelpers.TryWriteBytes{T}(T, Span{byte}, ref int)" />,
+    /// but throws exception if not successfull.
+    /// </summary>
+    public void WriteValueBytes<T>(in T value, Span<byte> bytes, ref int index) where T : struct {
+      if (!SpanHelpers.TryWriteBytes(in value, bytes, ref index))
+        throw new SerializationException("Buffer exhausted.");
     }
 
-    /// <summary>Deserializes <c>UInt16</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>UInt16</c> value.</returns>
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
     [CLSCompliant(false)]
-    public UInt16 ToUInt16(byte[] bytes, ref int index) {
-      ShortBytes valBytes;
-      if (reverse) {
-        valBytes = ShortBytes.FromBytesReversed(bytes, ref index);
-      }
-      else {
-        valBytes = ShortBytes.FromBytes(bytes, ref index);
-      }
-      return valBytes.UShortValue;
-    }
-
-    /// <summary>Serializes <c>UInt16</c> array.</summary>
-    /// <param name="numArray">Array to serialize.</param>
-    /// <param name="start">Array index to start serializing at.</param>
-    /// <param name="count">Number of array elements to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    [CLSCompliant(false)]
-    public void
-    ToBytes(UInt16[] numArray, int start, int count, byte[] bytes, ref int index) {
-      int end = start + count;
-      int byteIndex = index;
-      ShortBytes valBytes;
-      if (reverse) {
-        for (; start != end; start++) {
-          valBytes = new ShortBytes(numArray[start]);
-          valBytes.ToBytesReversed(bytes, ref byteIndex);
-        }
-      }
-      else {
-        for (; start != end; start++) {
-          valBytes = new ShortBytes(numArray[start]);
-          valBytes.ToBytes(bytes, ref byteIndex);
-        }
-      }
-      index = byteIndex;
-    }
-
-    /// <summary>Deserializes <c>UInt16</c> array.</summary>
-    /// <param name="numArray">Pre-allocated array to fill with deserialized values.</param>
-    /// <param name="start">Array index to start writing at.</param>
-    /// <param name="count">Number of array elements to deserialize.</param>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    [CLSCompliant(false)]
-    public void
-    ToUInt16Array(UInt16[] numArray, int start, int count, byte[] bytes, ref int index) {
-      int end = start + count;
-      int byteIndex = index;
-      ShortBytes valBytes;
-      if (reverse) {
-        for (; start != end; start++) {
-          valBytes = ShortBytes.FromBytesReversed(bytes, ref byteIndex);
-          numArray[start] = valBytes.UShortValue;
-        }
-      }
-      else {
-        for (; start != end; start++) {
-          valBytes = ShortBytes.FromBytes(bytes, ref byteIndex);
-          numArray[start] = valBytes.UShortValue;
-        }
-      }
-      index = byteIndex;
-    }
-
-    /// <summary>Serializes <c>UInt32</c> values.</summary>
-    /// <remarks>Use <c>unchecked((UInt32)&lt;argument>)</c> to pass signed values.</remarks>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    [CLSCompliant(false)]
-    public void ToBytes(UInt32 num, byte[] bytes, ref int index) {
-      IntBytes valBytes = new IntBytes(num);
+    public void WriteBytes(UInt16 value, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes.ToBytesReversed(bytes, ref index);
-      else
-        valBytes.ToBytes(bytes, ref index);
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
     }
 
-    /// <summary>Deserializes <c>UInt32</c> values.</summary>
-    /// <remarks>Use <c>unchecked((Int32)ToUInt32(&lt;bytes>, ref &lt;index>))</c>
-    /// to return signed results.</remarks>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>UInt32</c> value.</returns>
-    [CLSCompliant(false)]
-    public UInt32 ToUInt32(byte[] bytes, ref int index) {
-      IntBytes valBytes;
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Int16 value, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes = IntBytes.FromBytesReversed(bytes, ref index);
-      else
-        valBytes = IntBytes.FromBytes(bytes, ref index);
-      return valBytes.UIntValue;
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
     }
 
-    /// <summary>Serializes <c>UInt32</c> array.</summary>
-    /// <param name="numArray">Array to serialize.</param>
-    /// <param name="start">Array index to start serializing at.</param>
-    /// <param name="count">Number of array elements to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    [CLSCompliant(false)]
-    public void
-    ToBytes(UInt32[] numArray, int start, int count, byte[] bytes, ref int index) {
-      int end = start + count;
-      int byteIndex = index;
-      IntBytes valBytes;
-      if (reverse) {
-        for (; start != end; start++) {
-          valBytes = new IntBytes(numArray[start]);
-          valBytes.ToBytesReversed(bytes, ref byteIndex);
-        }
-      }
-      else {
-        for (; start != end; start++) {
-          valBytes = new IntBytes(numArray[start]);
-          valBytes.ToBytes(bytes, ref byteIndex);
-        }
-      }
-      index = byteIndex;
-    }
-
-    /// <summary>Deserializes <c>UInt32</c> array.</summary>
-    /// <param name="numArray">Pre-allocated array to fill with deserialized values.</param>
-    /// <param name="start">Array index to start writing at.</param>
-    /// <param name="count">Number of array elements to deserialize.</param>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    [CLSCompliant(false)]
-    public void
-    ToUInt32Array(UInt32[] numArray, int start, int count, byte[] bytes, ref int index) {
-      int end = start + count;
-      int byteIndex = index;
-      IntBytes valBytes;
-      if (reverse) {
-        for (; start != end; start++) {
-          valBytes = IntBytes.FromBytesReversed(bytes, ref byteIndex);
-          numArray[start] = valBytes.UIntValue;
-        }
-      }
-      else {
-        for (; start != end; start++) {
-          valBytes = IntBytes.FromBytes(bytes, ref byteIndex);
-          numArray[start] = valBytes.UIntValue;
-        }
-      }
-      index = byteIndex;
-    }
-
-    /// <summary>Serializes <c>UInt64</c> values.</summary>
-    /// <remarks>Use <c>unchecked((UInt64)&lt;argument>)</c> to pass signed values.</remarks>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    [CLSCompliant(false)]
-    public void ToBytes(UInt64 num, byte[] bytes, ref int index) {
-      LongBytes valBytes = new LongBytes(num);
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Char value, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes.ToBytesReversed(bytes, ref index);
-      else
-        valBytes.ToBytes(bytes, ref index);
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
     }
 
-    /// <summary>Deserializes <c>UInt64</c> values.</summary>
-    /// <remarks>Use <c>unchecked((Int64)ToUInt64(&lt;bytes>, ref &lt;index>))</c>
-    /// to return signed results.</remarks>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>UInt64</c> value.</returns>
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
     [CLSCompliant(false)]
-    public UInt64 ToUInt64(byte[] bytes, ref int index) {
-      LongBytes valBytes;
+    public void WriteBytes(UInt32 value, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes = LongBytes.FromBytesReversed(bytes, ref index);
-      else
-        valBytes = LongBytes.FromBytes(bytes, ref index);
-      return valBytes.ULongValue;
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Int32 value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Single value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    [CLSCompliant(false)]
+    public void WriteBytes(UInt64 value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Int64 value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Double value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    public void WriteBytes(Decimal value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        value = value.ReverseByteOrder();
+      WriteValueBytes(value, bytes, ref index);
     }
 
     #endregion
 
-    #region CLS-Compliant
+    #region Span WriteBytes
 
-    /// <summary>Serializes <c>Int16</c> values.</summary>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Int16 num, byte[] bytes, ref int index) {
-      unchecked { ToBytes((UInt16)num, bytes, ref index); }
+    /// <summary>
+    /// Writes value type span to byte span like <see cref="SpanHelpers.TryWriteBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>,
+    /// but throws exception if not successfull.
+    /// </summary>
+    public void WriteValueBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index) where T : struct {
+      if (!SpanHelpers.TryWriteBytes<T>(values, bytes, ref index))
+        throw new SerializationException("Buffer exhausted.");
     }
 
-    /// <summary>Deserializes <c>Int16</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Int16</c> value.</returns>
-    public Int16 ToInt16(byte[] bytes, ref int index) {
-      unchecked { return (Int16)ToUInt16(bytes, ref index); }
+    /// <summary>
+    /// Writes value type span to byte span like <see cref="SpanHelpers.TryWriteBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>,
+    /// but throws exception if not successfull.
+    /// </summary>
+    public void WriteValueBytes<T>(ReadOnlySpan<T> values, Span<byte> bytes, ref int index, Func<T, T> beforeWrite) where T : struct {
+      if (!SpanHelpers.TryWriteBytes<T>(values, bytes, ref index, beforeWrite))
+        throw new SerializationException("Buffer exhausted.");
     }
 
-    /// <summary>Serializes <c>Char</c> values.</summary>
-    /// <param name="chr">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Char chr, byte[] bytes, ref int index) {
-      unchecked { ToBytes((UInt16)chr, bytes, ref index); }
-    }
-
-    /// <summary>Deserializes <c>Char</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Char</c> value.</returns>
-    public Char ToChar(byte[] bytes, ref int index) {
-      unchecked { return (Char)ToUInt16(bytes, ref index); }
-    }
-
-    /// <summary>Serializes <c>Int16</c> array.</summary>
-    /// <param name="numArray">Array to serialize.</param>
-    /// <param name="start">Array index to start serializing at.</param>
-    /// <param name="count">Number of array elements to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void
-    ToBytes(Int16[] numArray, int start, int count, byte[] bytes, ref int index) {
-      ShortArrayUnion union = new ShortArrayUnion(numArray);
-      ToBytes(union.UShortValue, start, count, bytes, ref index);
-    }
-
-    /// <summary>Deserializes <c>Int16</c> array.</summary>
-    /// <param name="numArray">Pre-allocated array to fill with deserialized values.</param>
-    /// <param name="start">Array index to start writing at.</param>
-    /// <param name="count">Number of array elements to deserialize.</param>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    public void
-    ToInt16Array(Int16[] numArray, int start, int count, byte[] bytes, ref int index) {
-      ShortArrayUnion union = new ShortArrayUnion(numArray);
-      ToUInt16Array(union.UShortValue, start, count, bytes, ref index);
-    }
-
-    /// <summary>Serializes <c>Char</c> array.</summary>
-    /// <param name="charArray">Array to serialize.</param>
-    /// <param name="start">Array index to start serializing at.</param>
-    /// <param name="count">Number of array elements to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void
-    ToBytes(Char[] charArray, int start, int count, byte[] bytes, ref int index) {
-      ShortArrayUnion union = new ShortArrayUnion(charArray);
-      ToBytes(union.UShortValue, start, count, bytes, ref index);
-    }
-
-    /// <summary>Deserializes <c>Char</c> array.</summary>
-    /// <param name="charArray">Pre-allocated array to fill with deserialized values.</param>
-    /// <param name="start">Array index to start writing at.</param>
-    /// <param name="count">Number of array elements to deserialize.</param>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    public void
-    ToCharArray(Char[] charArray, int start, int count, byte[] bytes, ref int index) {
-      ShortArrayUnion union = new ShortArrayUnion(charArray);
-      ToUInt16Array(union.UShortValue, start, count, bytes, ref index);
-    }
-
-    /// <summary>Serializes <c>Int32</c> values.</summary>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Int32 num, byte[] bytes, ref int index) {
-      unchecked { ToBytes((UInt32)num, bytes, ref index); }
-    }
-
-    /// <summary>Deserializes <c>Int32</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Int32</c> value.</returns>
-    public Int32 ToInt32(byte[] bytes, ref int index) {
-      unchecked { return (Int32)ToUInt32(bytes, ref index); }
-    }
-
-    /// <summary>Serializes <c>Int32</c> array.</summary>
-    /// <param name="numArray">Array to serialize.</param>
-    /// <param name="start">Array index to start serializing at.</param>
-    /// <param name="count">Number of array elements to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void
-    ToBytes(Int32[] numArray, int start, int count, byte[] bytes, ref int index) {
-      IntArrayUnion union = new IntArrayUnion(numArray);
-      ToBytes(union.UIntValue, start, count, bytes, ref index);
-    }
-
-    /// <summary>Deserializes <c>Int32</c> array.</summary>
-    /// <param name="numArray">Pre-allocated array to fill with deserialized values.</param>
-    /// <param name="start">Array index to start writing at.</param>
-    /// <param name="count">Number of array elements to deserialize.</param>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    public void
-    ToInt32Array(Int32[] numArray, int start, int count, byte[] bytes, ref int index) {
-      IntArrayUnion union = new IntArrayUnion(numArray);
-      ToUInt32Array(union.UIntValue, start, count, bytes, ref index);
-    }
-
-    /// <summary>Serializes <c>Int64</c> values.</summary>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Int64 num, byte[] bytes, ref int index) {
-      unchecked { ToBytes((UInt64)num, bytes, ref index); }
-    }
-
-    /// <summary>Deserializes <c>Int64</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Int64</c> value.</returns>
-    public Int64 ToInt64(byte[] bytes, ref int index) {
-      unchecked { return (Int64)ToUInt64(bytes, ref index); }
-    }
-
-    /// <summary>Serializes <c>Single</c> values.</summary>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Single num, byte[] bytes, ref int index) {
-      IntBytes valBytes = new IntBytes(num);
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    [CLSCompliant(false)]
+    public void WriteBytes(ReadOnlySpan<UInt16> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes.ToBytesReversed(bytes, ref index);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        valBytes.ToBytes(bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
-    /// <summary>Deserializes <c>Single</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Single</c> value.</returns>
-    public Single ToSingle(byte[] bytes, ref int index) {
-      IntBytes valBytes;
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Int16> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes = IntBytes.FromBytesReversed(bytes, ref index);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        valBytes = IntBytes.FromBytes(bytes, ref index);
-      return valBytes.SingleValue;
+        WriteValueBytes(values, bytes, ref index);
     }
 
-    /// <summary>Serializes <c>Double</c> values.</summary>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Double num, byte[] bytes, ref int index) {
-      LongBytes valBytes = new LongBytes(num);
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Char> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes.ToBytesReversed(bytes, ref index);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        valBytes.ToBytes(bytes, ref index);
+        WriteValueBytes(values, bytes, ref index);
     }
 
-    /// <summary>Deserializes <c>Double</c> values.</summary>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Double</c> value.</returns>
-    public Double ToDouble(byte[] bytes, ref int index) {
-      LongBytes valBytes;
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    [CLSCompliant(false)]
+    public void WriteBytes(ReadOnlySpan<UInt32> values, Span<byte> bytes, ref int index) {
       if (reverse)
-        valBytes = LongBytes.FromBytesReversed(bytes, ref index);
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
       else
-        valBytes = LongBytes.FromBytes(bytes, ref index);
-      return valBytes.DoubleValue;
+        WriteValueBytes(values, bytes, ref index);
     }
 
-    /// <summary>Serializes <c>Decimal</c> values.</summary>
-    /// <remarks>Processes a <c>Decimal</c> value in reverse part order, where
-    /// each part is a <c>Int32</c> value. This is a .NET specific type.</remarks>
-    /// <param name="num">Value to serialize.</param>
-    /// <param name="bytes">Byte buffer to write to.</param>
-    /// <param name="index">Byte index to start writing at.</param>
-    public void ToBytes(Decimal num, byte[] bytes, ref int index) {
-      DecimalLongUnion union = new DecimalLongUnion(num);
-      if (reverse) {
-        ToBytes(union.Long1, bytes, ref index);
-        ToBytes(union.Long0, bytes, ref index);
-      }
-      else {
-        ToBytes(union.Long0, bytes, ref index);
-        ToBytes(union.Long1, bytes, ref index);
-      }
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Int32> value, Span<byte> bytes, ref int index) {
+      if (reverse)
+        WriteValueBytes(value, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+      else
+        WriteValueBytes(value, bytes, ref index);
     }
 
-    /// <summary>Deserializes <c>Decimal</c> values.</summary>
-    /// <remarks>Processes the buffer as four <c>Int32</c> values which form the
-    /// parts of a <c>Decimal</c> value in reverse order. This is .NET specific.</remarks>
-    /// <param name="bytes">Byte buffer to read from.</param>
-    /// <param name="index">Byte index to start reading at.</param>
-    /// <returns>Deserialized <c>Decimal</c> value.</returns>
-    public Decimal ToDecimal(byte[] bytes, ref int index) {
-      UInt64 long0, long1;
-      if (reverse) {
-        long1 = ToUInt64(bytes, ref index);
-        long0 = ToUInt64(bytes, ref index);
-      }
-      else {
-        long0 = ToUInt64(bytes, ref index);
-        long1 = ToUInt64(bytes, ref index);
-      }
-      DecimalLongUnion union = new DecimalLongUnion(long0, long1);
-      return union.DecimalValue;
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Single> values, Span<byte> bytes, ref int index) {
+      if (reverse)
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+      else
+        WriteValueBytes(values, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    [CLSCompliant(false)]
+    public void WriteBytes(ReadOnlySpan<UInt64> values, Span<byte> bytes, ref int index) {
+      if (reverse)
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+      else
+        WriteValueBytes(values, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Int64> values, Span<byte> bytes, ref int index) {
+      if (reverse)
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+      else
+        WriteValueBytes(values, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Double> values, Span<byte> bytes, ref int index) {
+      if (reverse)
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+      else
+        WriteValueBytes(values, bytes, ref index);
+    }
+
+    /// <summary>
+    /// Writes value type span to byte span in configured byte order.
+    /// </summary>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(ReadOnlySpan{T}, Span{byte}, ref int, Func{T, T})"/>
+    public void WriteBytes(ReadOnlySpan<Decimal> values, Span<byte> bytes, ref int index) {
+      if (reverse)
+        WriteValueBytes(values, bytes, ref index, ValueTypeExtensions.ReverseByteOrder);
+      else
+        WriteValueBytes(values, bytes, ref index);
     }
 
     #endregion
 
-    #region Convenience Methods
+    #region ReadBytes
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Reads value type from byte span like <see cref="SpanHelpers.TryReadBytes{T}(ReadOnlySpan{byte}, ref int, ref T)" />,
+    /// but throws exception if not successfull.
+    /// </summary>
+    public void ReadValueBytes<T>(ReadOnlySpan<byte> bytes, ref int index, out T value) where T : struct {
+      value = default;
+      if (!SpanHelpers.TryReadBytes(bytes, ref index, ref value))
+        throw new SerializationException("Buffer exhausted.");
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
     [CLSCompliant(false)]
-    public byte[] ToBytes(UInt16 value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(UInt16)];
-      ToBytes(value, result, ref index);
-      return result;
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out UInt16 value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Int16 value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Char value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
     [CLSCompliant(false)]
-    public byte[] ToBytes(UInt32 value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(UInt32)];
-      ToBytes(value, result, ref index);
-      return result;
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out UInt32 value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Int32 value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Single value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
     [CLSCompliant(false)]
-    public byte[] ToBytes(UInt64 value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(UInt64)];
-      ToBytes(value, result, ref index);
-      return result;
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out UInt64 value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Int64 value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Double value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    /// <summary>
+    /// Reads value type from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, out T)"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, out Decimal value) {
+      ReadValueBytes(bytes, ref index, out value);
+      if (reverse)
+        value = value.ReverseByteOrder();
+    }
+
+    #endregion
+
+    #region Span ReadBytes
+
+    /// <summary>
+    /// Reads value type span from byte span like <see cref="SpanHelpers.TryReadBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})" />,
+    /// but throws exception if not successfull.
+    /// </summary>
+    public void ReadValueBytes<T>(ReadOnlySpan<byte> bytes, ref int index, Span<T> values) where T : struct {
+      if (!SpanHelpers.TryReadBytes(bytes, ref index, values))
+        throw new SerializationException("Buffer exhausted.");
+    }
+
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
     [CLSCompliant(false)]
-    public byte[] ToBytes(UInt16[] value, int start = 0, int count = -1) {
-      int index = 0;
-      if (count == -1) count = value.Length;
-      byte[] result = new byte[sizeof(UInt16) * count];
-      ToBytes(value, start, count, result, ref index);
-      return result;
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<UInt16> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Int16> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
+    }
+
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Char> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
+    }
+
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
     [CLSCompliant(false)]
-    public byte[] ToBytes(UInt32[] value, int start = 0, int count = -1) {
-      int index = 0;
-      if (count == -1) count = value.Length;
-      byte[] result = new byte[sizeof(UInt32) * count];
-      ToBytes(value, start, count, result, ref index);
-      return result;
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<UInt32> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
-    public byte[] ToBytes(Int16 value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Int16)];
-      ToBytes(value, result, ref index);
-      return result;
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Int32> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
-    public byte[] ToBytes(Char value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Char)];
-      ToBytes(value, result, ref index);
-      return result;
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Single> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
-    public byte[] ToBytes(Int32 value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Int32)];
-      ToBytes(value, result, ref index);
-      return result;
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    [CLSCompliant(false)]
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<UInt64> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
-    public byte[] ToBytes(Int64 value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Int64)];
-      ToBytes(value, result, ref index);
-      return result;
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Int64> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
-    public byte[] ToBytes(Single value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Single)];
-      ToBytes(value, result, ref index);
-      return result;
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Double> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
-    /// <inheritdoc/>
-    public byte[] ToBytes(Double value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Double)];
-      ToBytes(value, result, ref index);
-      return result;
-    }
-
-    /// <inheritdoc/>
-    public byte[] ToBytes(Decimal value) {
-      int index = 0;
-      byte[] result = new byte[sizeof(Decimal)];
-      ToBytes(value, result, ref index);
-      return result;
-    }
-
-    /// <inheritdoc/>
-    public byte[] ToBytes(Int16[] value, int start = 0, int count = -1) {
-      int index = 0;
-      if (count == -1) count = value.Length;
-      byte[] result = new byte[sizeof(Int16) * count];
-      ToBytes(value, start, count, result, ref index);
-      return result;
-    }
-
-    /// <inheritdoc/>
-    public byte[] ToBytes(Char[] value, int start = 0, int count = -1) {
-      int index = 0;
-      if (count == -1) count = value.Length;
-      byte[] result = new byte[sizeof(Char) * count];
-      ToBytes(value, start, count, result, ref index);
-      return result;
-    }
-
-    /// <inheritdoc/>
-    public byte[] ToBytes(Int32[] value, int start = 0, int count = -1) {
-      int index = 0;
-      if (count == -1) count = value.Length;
-      byte[] result = new byte[sizeof(Int32) * count];
-      ToBytes(value, start, count, result, ref index);
-      return result;
+    /// <summary>
+    /// Reads value type span from byte span with configured byte order.
+    /// </summary>
+    /// <seealso cref="ReadValueBytes{T}(ReadOnlySpan{byte}, ref int, Span{T})"/>
+    public void ReadBytes(ReadOnlySpan<byte> bytes, ref int index, Span<Decimal> values) {
+      ReadValueBytes(bytes, ref index, values);
+      if (reverse)
+        SpanHelpers.ReverseByteOrder(values);
     }
 
     #endregion

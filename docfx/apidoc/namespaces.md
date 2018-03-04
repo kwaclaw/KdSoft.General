@@ -1,6 +1,5 @@
 ---
 uid: KdSoft.Serialization
-summary: *content
+remarks: *content
 ---
-The types in this namespace support the 
-[Serialization of Object Graphs](~/../KdSoft.Serialization/Serialization of Object Graphs.html).
+[!include[External Doc](../../KdSoft.Serialization/KdSoft.Serialization.md)]
