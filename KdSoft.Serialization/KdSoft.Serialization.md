@@ -1,5 +1,3 @@
-﻿# Serialization of Object Graphs
-
 The .NET framework provides already a way of serializing and deserializing
 object graphs. However, for the purposes of record storage in a database like,
 for instance, Berkeley DB, it has several shortcomings:
