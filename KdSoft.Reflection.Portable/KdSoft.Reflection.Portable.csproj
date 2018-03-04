@@ -3,9 +3,14 @@
   <Import Project="..\common.props" />
 
   <PropertyGroup>
+    <Timestamp>$([System.DateTime]::Now.ToString("yyyy-MM-dd"))</Timestamp>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Title>KdSoft.Reflection.Portable</Title>
     <Description>KdSoft.Reflection.Portable Class Library</Description>
-    <VersionPrefix>1.0.3</VersionPrefix>
+    <VersionPrefix>1.0.4</VersionPrefix>
+    <VersionSuffix>beta-$(Timestamp)</VersionSuffix>
     <TargetFrameworks>netstandard1.1;net461</TargetFrameworks>
   </PropertyGroup>
 
