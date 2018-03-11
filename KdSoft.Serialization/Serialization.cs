@@ -367,6 +367,20 @@ namespace KdSoft.Serialization
       return result;
     }
 
+    /// <overloads>Deserializes values of a specific type.</overloads>
+    /// <summary>Deserializes non-nullable value types with default value for <c>null</c>.</summary>
+    /// <remarks>If the serialized value is <c>null</c> then the default value for the type will be returned.</remarks>
+    /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
+    /// <param name="defaultValue">A specific default value to return instead of <c>null</c>, optional.</param>
+    public T DeserializeStructDefault<T>(ReadOnlySpan<byte> source, T defaultValue = default(T))
+      where T : struct {
+      T result = defaultValue;
+      ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
+      field.Deserialize(source, ref result, out bool isNull);
+      return result;
+    }
+
     /// <summary>Deserializes large value types.</summary>
     /// <remarks>Value type copying is avoided due to the use of a 'ref' parameter.</remarks>
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
