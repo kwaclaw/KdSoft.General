@@ -3,10 +3,6 @@
   <Import Project="..\common.props" />
   
   <PropertyGroup>
-    <Timestamp>$([System.DateTime]::Now.ToString("yyyy-MM-dd"))</Timestamp>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <Title>KdSoft.Serialization</Title>
     <Description>KdSoft.Serialization Class Library</Description>
     <VersionPrefix>2.0.0</VersionPrefix>

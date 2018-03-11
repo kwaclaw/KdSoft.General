@@ -18,5 +18,10 @@
     <CodeAnalysisRuleSet>..\Solution.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  
+
+  <PropertyGroup>
+    <Datestamp>$([System.DateTime]::Now.ToString("yyyy-MM-dd"))</Datestamp>
+    <Timestamp>$([System.DateTime]::Now.ToString("yyyy-MM-ddTHHmm"))</Timestamp>
+  </PropertyGroup>
+
 </Project>
