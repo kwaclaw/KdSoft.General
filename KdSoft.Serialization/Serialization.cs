@@ -423,7 +423,7 @@ namespace KdSoft.Serialization
     #region Serialize Value Type Arrays
 
     /// <overloads>Serializes sequences (arrays, collections) of a given type.</overloads>
-    /// <summary>Serializes value type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// <summary>Serializes value type arrays using a specific <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
@@ -440,7 +440,7 @@ namespace KdSoft.Serialization
         field.Serialize(target, ref value[indx]);
     }
 
-    /// <summary>Serializes value type arrays using the default <see cref="Field{T, F}"/>
+    /// <summary>Serializes value type arrays using the default <see cref="ValueField{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
@@ -452,7 +452,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes arrays of nullable value types using a specific
-    /// <see cref="Field{T, F}"/> instance.</summary>
+    /// <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
@@ -469,7 +469,7 @@ namespace KdSoft.Serialization
         field.Serialize(target, value[indx]);
     }
 
-    /// <summary>Serializes arrays of nullable value types using the default <see cref="Field{T, F}"/>
+    /// <summary>Serializes arrays of nullable value types using the default <see cref="ValueField{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
@@ -485,7 +485,7 @@ namespace KdSoft.Serialization
     #region Serialize Value Type Collections
 
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>
-    /// using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// using a specific <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
@@ -503,7 +503,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IList{T}"/>
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// using the default <see cref="ValueField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
@@ -514,7 +514,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/>
-    /// using a specific <see cref="Field{T, F}"/> instance</summary>
+    /// using a specific <see cref="ValueField{T, F}"/> instance</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
@@ -537,7 +537,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes value type sequences accessible through <see cref="IEnumerable{T}"/>
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type</summary>
+    /// using the default <see cref="ValueField{T, F}"/> instance registered for the underlying type</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
@@ -556,7 +556,7 @@ namespace KdSoft.Serialization
     #region Deserialize Value Type Arrays
 
     /// <overloads>Deserializes sequences (arrays, collections) of a given type.</overloads>
-    /// <summary>Deserializes value type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// <summary>Deserializes value type arrays using a specific <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type array to deserialize.</param>
@@ -586,7 +586,7 @@ namespace KdSoft.Serialization
       }
     }
 
-    /// <summary>Deserializes value type arrays using the default <see cref="Field{T, F}"/>
+    /// <summary>Deserializes value type arrays using the default <see cref="ValueField{T, F}"/>
     /// instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -599,7 +599,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes arrays of nullable value types using a specific
-    /// <see cref="Field{T, F}"/> instance.</summary>
+    /// <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize.</param>
@@ -626,7 +626,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes arrays of nullable value types using the default
-    /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// <see cref="ValueField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize.</param>
@@ -641,7 +641,7 @@ namespace KdSoft.Serialization
     #region Deserialize Value Type Collections
 
     /// <summary>Deserializes any kind of value type collection through call-backs
-    /// using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// using a specific <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -674,7 +674,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes any kind of value type collection through call-backs
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// using the default <see cref="ValueField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -690,7 +690,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes any kind of nullable value type collection through call-backs
-    /// using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// using a specific <see cref="ValueField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -721,7 +721,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes any kind of nullable value type collection through call-backs
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// using the default <see cref="ValueField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -736,6 +736,48 @@ namespace KdSoft.Serialization
       DeserializeStructs<T, C>(source, initSequence, ref collection, field);
     }
 
+    /// <summary>Deserializes any kind of nullable value type collection through call-backs
+    /// using a specific <see cref="ValueField{T, F}"/> instance.</summary>
+    /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
+    /// <param name="addValueItem">Call-back delegate to add sequence elements to a collection.</param>
+    /// <param name="isNull">Indicates if the sequence should be deserialized as <c>null</c>.</param>
+    /// <param name="field">Field that deserializes the sequence elements.</param>
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, AddValueItem<T> addValueItem, out bool isNull, ValueField<T, F> field) where T : struct {
+      SerialStatus status = ReadStatus(source);
+      switch (status) {
+        case SerialStatus.Null:
+          isNull = true;
+          break;
+        case SerialStatus.Reference:
+          throw new SerializationException("Value types cannot be referenced.");
+        case SerialStatus.Value:
+          isNull = false;
+          Int32 count = ReadCount(source);
+          T value = new T();
+          for (int indx = 0; indx < count; indx++) {
+            bool itemIsNull;
+            field.Deserialize(source, ref value, out itemIsNull);
+            addValueItem(ref value, itemIsNull);
+          }
+          break;
+        default:
+          isNull = true;
+          break;
+      }
+    }
+
+    /// <summary>Deserializes any kind of nullable value type collection through call-backs
+    /// using the default <see cref="ValueField{T, F}"/> instance registered for the underlying type.</summary>
+    /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
+    /// <param name="addValueItem">Call-back delegate to add sequence elements to a collection.</param>
+    /// <param name="isNull">Indicates if the sequence should be deserialized as <c>null</c>.</param>
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, AddValueItem<T> addValueItem, out bool isNull) where T : struct {
+      ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
+      DeserializeStructs(source, addValueItem, out isNull, field);
+    }
+
     #endregion Deserialize Value Type Collections
 
     #endregion Deserialize Value Type Sequences
@@ -745,7 +787,7 @@ namespace KdSoft.Serialization
     #region Serialize Reference Type Arrays
 
     /// <overloads>Serializes sequences (arrays, collections) of a reference type.</overloads>
-    /// <summary>Serializes reference type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// <summary>Serializes reference type arrays using a specific <see cref="ReferenceField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
@@ -763,7 +805,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes reference type arrays using the default
-    /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// <see cref="ReferenceField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of array elements - must be reference type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
@@ -778,7 +820,7 @@ namespace KdSoft.Serialization
     #region Serialize Reference Type Collections
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>
-    /// using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// using a specific <see cref="ReferenceField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
@@ -796,7 +838,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IList{T}"/>
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// using the default <see cref="ReferenceField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
@@ -807,7 +849,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/>
-    /// using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// using a specific <see cref="ReferenceField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
@@ -830,7 +872,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Serializes reference type sequences accessible through <see cref="IEnumerable{T}"/>
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// using the default <see cref="ReferenceField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
@@ -849,7 +891,7 @@ namespace KdSoft.Serialization
     #region Deserialize Reference Type Arrays
 
     /// <overloads>Deserializes sequences (arrays, collections) of a refence type.</overloads>
-    /// <summary>Deserializes reference type arrays using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// <summary>Deserializes reference type arrays using a specific <see cref="ReferenceField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Reference type array to deserialize.</param>
@@ -873,7 +915,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes reference type arrays using the default
-    /// <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// <see cref="ReferenceField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="obj">Reference type array to deserialize.</param>
@@ -888,7 +930,7 @@ namespace KdSoft.Serialization
     #region Deserialize Reference Type Collections
 
     /// <summary>Deserializes any kind of reference type collection through call-backs
-    /// using a specific <see cref="Field{T, F}"/> instance.</summary>
+    /// using a specific <see cref="ReferenceField{T, F}"/> instance.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -920,7 +962,7 @@ namespace KdSoft.Serialization
     }
 
     /// <summary>Deserializes any kind of reference type collection through call-backs
-    /// using the default <see cref="Field{T, F}"/> instance registered for the underlying type.</summary>
+    /// using the default <see cref="ReferenceField{T, F}"/> instance registered for the underlying type.</summary>
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <typeparam name="C">Type of collection.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
@@ -933,6 +975,47 @@ namespace KdSoft.Serialization
       where C : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       DeserializeObjects(source, initSequence, ref collection, field);
+    }
+
+    /// <summary>Deserializes any kind of reference type collection through call-backs
+    /// using a specific <see cref="ReferenceField{T, F}"/> instance.</summary>
+    /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
+    /// <param name="addItem">Call-back delegate to add sequence elements to a collection.</param>
+    /// <param name="isNull">Indicates if the sequence should be deserialized as <c>null</c>.</param>
+    /// <param name="field">Field that deserializes the sequence elements.</param>
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, AddItem<T> addItem, out bool isNull, ReferenceField<T, F> field) where T : class {
+      SerialStatus status = ReadStatus(source);
+      switch (status) {
+        case SerialStatus.Null:
+          isNull = true;
+          break;
+        case SerialStatus.Reference:
+          throw new SerializationException("Sequences cannot be referenced.");
+        case SerialStatus.Value:
+          isNull = false;
+          Int32 count = ReadCount(source);
+          for (int indx = 0; indx < count; indx++) {
+            T value = null;
+            field.Deserialize(source, ref value);
+            addItem(value);
+          }
+          break;
+        default:
+          isNull = true;
+          break;
+      }
+    }
+
+    /// <summary>Deserializes any kind of reference type collection through call-backs
+    /// using the default <see cref="ReferenceField{T, F}"/> instance registered for the underlying type.</summary>
+    /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
+    /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
+    /// <param name="addItem">Call-back delegate to add sequence elements to a collection.</param>
+    /// <param name="isNull">Indicates if the sequence should be deserialized as <c>null</c>.</param>
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, AddItem<T> addItem, out bool isNull) where T : class {
+      ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
+      DeserializeObjects(source, addItem, out isNull, field);
     }
 
     #endregion Deserialize Reference Type Collections
@@ -1335,6 +1418,12 @@ namespace KdSoft.Serialization
 
   /// <summary>Call-back delegate to use when adding elements to a sequence/collection
   /// that is being deserialized.</summary>
+  /// <typeparam name="T">Type of sequence elements.</typeparam>
+  /// <param name="item">Sequence element to add.</param>
+  public delegate void AddItem<T>(T item);
+
+  /// <summary>Call-back delegate to use when adding elements to a sequence/collection
+  /// that is being deserialized.</summary>
   /// <remarks>Must be called exactly as often as specified through the <c>size</c>
   /// argument in the previous call to <see cref="InitSequence{T, C}"/>.</remarks>
   /// <typeparam name="T">Type of sequence elements.</typeparam>
@@ -1355,6 +1444,10 @@ namespace KdSoft.Serialization
   /// <returns>A delegate for adding elements to the collection, if <c>size > 0</c>,
   /// or <c>null</c> otherwise.</returns>
   public delegate AddItem<T, C> InitSequence<T, C>(int size, ref C collection) where C : class;
+
+  /// <summary>Like <see cref="AddItem{T}"/>, but intended for large value types.</summary>
+  /// <remarks>Passing the value by reference avoids copy overhead.</remarks>
+  public delegate void AddValueItem<T>(ref T item, bool isNull) where T : struct;
 
   /// <summary>Like <see cref="AddItem{T, C}"/>, but intended for large value types.</summary>
   /// <remarks>Passing the value by reference avoids copy overhead.</remarks>
