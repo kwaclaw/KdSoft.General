@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.0-preview2-26311-02" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0-preview2-26311-02" />
+    <PackageReference Include="System.Memory" Version="4.5.0-preview3-26324-02" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0-preview3-26324-02" />
   </ItemGroup>
 
   <ItemGroup>
