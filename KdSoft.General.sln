@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docfx", "docfx\docfx.csproj
 		{F21C6AEC-188C-4792-B8E6-E4A4DD3A113B} = {F21C6AEC-188C-4792-B8E6-E4A4DD3A113B}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.Serialization.Tests", "KdSoft.Serialization.Tests\KdSoft.Serialization.Tests.csproj", "{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.Serialization.Tests", "KdSoft.Serialization.Tests\KdSoft.Serialization.Tests.csproj", "{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
