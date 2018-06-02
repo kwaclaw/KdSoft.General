@@ -6,7 +6,6 @@
     <Title>KdSoft.Serialization</Title>
     <Description>KdSoft.Serialization Class Library</Description>
     <VersionPrefix>2.0.0</VersionPrefix>
-    <VersionSuffix>rc1</VersionSuffix>
     <TargetFrameworks>netstandard1.2;net461</TargetFrameworks>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>KdSoft.Utils.Shared.pfx</AssemblyOriginatorKeyFile>
@@ -22,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.0-rc1" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0-rc1" />
+    <PackageReference Include="System.Memory" Version="4.5.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
