@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Title>KdSoft.Utils</Title>
     <Description>KdSoft.Utils Class Library</Description>
-    <VersionPrefix>2.0.3</VersionPrefix>
+    <VersionPrefix>2.1.0</VersionPrefix>
     <TargetFrameworks>netstandard1.3;net461</TargetFrameworks>
   </PropertyGroup>
 
@@ -22,6 +22,10 @@
     <PackageReference Include="System.Security.Cryptography.Primitives " Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
     <PackageReference Include="System.IO.FileSystem.Watcher" Version="4.3.0" />
+    <PackageReference Include="System.Buffers" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Buffers" Version="4.5.0" />
+  </ItemGroup>
 </Project>
