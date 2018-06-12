@@ -115,6 +115,9 @@ namespace KdSoft.Utils
       return new AsyncTextFileWriter(fn, encoding, autoFlush);
     }
 
+    /// <summary>
+    /// Checks file rollover conditions and if necessary, rolls file to next file name, closing current file.
+    /// </summary>
     protected async Task CheckRollover() {
       int oldStatus = Interlocked.CompareExchange(ref rollingFileStatus, creatingNewFile, 0);
       if (oldStatus == creatingNewFile)
@@ -156,25 +159,47 @@ namespace KdSoft.Utils
       }
     }
 
-    public async Task WriteEntry(string entry) {
+    /// <summary>
+    /// Write text to file. Roll file name if necessary.
+    /// </summary>
+    /// <param name="text">Text to write.</param>
+    public async Task WriteAsync(string text) {
+      if (asyncWriter?.IsDisposed ?? false)
+        throw new ObjectDisposedException(nameof(RollingTextFile));
+
       await CheckRollover().ConfigureAwait(false);
-      await asyncWriter.WriteAsync(entry).ConfigureAwait(false);
+      await asyncWriter.WriteAsync(text).ConfigureAwait(false);
     }
 
+    /// <summary>Flush and close file.</summary>
+    public Task CloseAsync() {
+      return asyncWriter?.CloseAsync(true);
+    }
+
+    /// <inheritdoc/>
     public void Dispose() {
       asyncWriter?.CloseAsync(false).Wait();
     }
 
+    /// <summary>
+    /// Implements encoded writing of text.
+    /// </summary>
     protected class AsyncTextFileWriter
     {
       readonly FileStream fileStream;
       readonly Encoding encoding;
       readonly bool autoFlush;
 
-      int isDisposed = 0;
+      int disposedCount = 0;
       readonly CancellationTokenSource cts = new CancellationTokenSource();
 
+      /// <summary>Returns if instance has been disposed.</summary>
+      public bool IsDisposed => disposedCount > 0;
+
+      /// <summary>Expanded file name.</summary>
       public string FileName { get; }
+
+      /// <summary>Current length of file stream.</summary>
       public long CurrentStreamLength { get; private set; }
 
       /// <summary>
@@ -189,6 +214,10 @@ namespace KdSoft.Utils
           bool autoFlush
       ) {
         {
+          if (fileName.StartsWith(@"~\") || fileName.StartsWith(@"~/")) {
+            var baseDir = AppContext.BaseDirectory;
+            fileName = Path.Combine(baseDir, fileName.Substring(2));
+          }
           var fi = new FileInfo(fileName);
           if (!fi.Directory.Exists)
             fi.Directory.Create();
@@ -228,7 +257,7 @@ namespace KdSoft.Utils
       /// </summary>
       /// <param name="wait">Flushes stream and waits for flush to complete before closing the stream.</param>
       public async Task CloseAsync(bool wait = true) {
-        if (Interlocked.Increment(ref isDisposed) == 1) {
+        if (Interlocked.Increment(ref disposedCount) == 1) {
           if (wait) {
             await fileStream.FlushAsync();
           }
