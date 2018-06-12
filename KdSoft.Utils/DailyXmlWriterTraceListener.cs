@@ -49,14 +49,8 @@ namespace KdSoft.Utils
 
         void Initialize(string fileName) {
             this.activeUtcFileDate = DateTime.UtcNow.Date;
-            if (fileName.StartsWith(@"~\")) {
-#if NET403
-                var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-#elif NET45 || NET451 || NET452
-                var baseDir = (string)AppDomain.CurrentDomain.GetData("APP_CONTEXT_BASE_DIRECTORY") ?? AppDomain.CurrentDomain.BaseDirectory;
-#else
+            if (fileName.StartsWith(@"~\") || fileName.StartsWith(@"~/")) {
                 var baseDir = AppContext.BaseDirectory;
-#endif
                 fileName = Path.Combine(baseDir, fileName.Substring(2));
             }
             this.baseTraceFileName = fileName;
