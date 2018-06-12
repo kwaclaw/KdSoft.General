@@ -213,16 +213,6 @@ namespace KdSoft.Utils
           Encoding encoding,
           bool autoFlush
       ) {
-        {
-          if (fileName.StartsWith(@"~\") || fileName.StartsWith(@"~/")) {
-            var baseDir = AppContext.BaseDirectory;
-            fileName = Path.Combine(baseDir, fileName.Substring(2));
-          }
-          var fi = new FileInfo(fileName);
-          if (!fi.Directory.Exists)
-            fi.Directory.Create();
-        }
-
         this.FileName = fileName;
         this.fileStream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read, 4096, useAsync: true);
         this.encoding = encoding;
