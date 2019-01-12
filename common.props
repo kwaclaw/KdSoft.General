@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Copyright>Copyright © Karl Waclawek 2014</Copyright>
-    <PackageLicenseUrl>https://github.com/kwaclaw/KdSoft.General/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/kwaclaw/KdSoft.General</PackageProjectUrl>
 
     <Authors>Karl Waclawek</Authors>
