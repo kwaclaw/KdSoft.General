@@ -6,10 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		CleanupBinObj.cmd = CleanupBinObj.cmd
+		CleanupBinObj.targets = CleanupBinObj.targets
 		common.props = common.props
 		NuGet.Config = NuGet.Config
-		Projects_Clear.cmd = Projects_Clear.cmd
-		Projects_SuperClear.cmd = Projects_SuperClear.cmd
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 		Solution.ruleset = Solution.ruleset
 	EndProjectSection
@@ -51,6 +51,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docfx", "docfx\docfx.csproj
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.Serialization.Tests", "KdSoft.Serialization.Tests\KdSoft.Serialization.Tests.csproj", "{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{FD299DC2-8367-4EF3-B2C4-CD3497715935}"
+	ProjectSection(SolutionItems) = preProject
+		tools\msbuild.cmd = tools\msbuild.cmd
+		tools\nuget.exe = tools\nuget.exe
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +117,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{95A4107F-5E64-465F-A82F-A07146DBD540} = {A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}
+		{FD299DC2-8367-4EF3-B2C4-CD3497715935} = {A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27A6F01D-BA78-404D-AEEC-487F2A2728D1}
