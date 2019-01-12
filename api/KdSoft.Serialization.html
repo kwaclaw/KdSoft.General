@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace KdSoft.Serialization
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -22,7 +22,7 @@
     
     
   </head>
-  <body data-spy="scroll" data-target="#affix">
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -72,43 +72,397 @@
   
   <h1 id="KdSoft_Serialization" data-uid="KdSoft.Serialization" class="text-break">Namespace KdSoft.Serialization
   </h1>
-  <div class="markdown level0 summary"><p>The types in this namespace support the 
-<a href="../KdSoft.Serialization/Serialization%20of%20Object%20Graphs.html">Serialization of Object Graphs</a>.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
+  <div class="markdown level0 remarks"><p>The .NET framework provides already a way of serializing and deserializing
+object graphs. However, for the purposes of record storage in a database like,
+for instance, Berkeley DB, it has several shortcomings:</p>
+<ul>
+<li>Inefficient usage of storage space - there is no need to always store
+the meta-data in each record.</li>
+<li>Slow - as it is entireley based on runtime type discovery.</li>
+<li>No facility for partial deserialization - extracting a secondary index
+field should not require deserializing the complete record.</li>
+<li>Does not necessarily support lexical sorting on numeric types - that
+is, the lexical sort order would be different from the numerical sort
+order (big-endian vs. little-endian).</li>
+</ul>
+<p>Therefore, another serialization framework is provided to alleviate
+these issues. It does this at the cost of extra coding, as it is currently
+not based on runtime type information.</p>
+<ul>
+<li>It requires that any data members to be serialized are accessible to the framework code (public or internal
+visibility).</li>
+<li>It is intended to serialize only to generalized byte buffers in the form
+of <code>Span&lt;byte&gt;</code> which allows for zero-copy capability. Thsi way one can
+avoid  intermediate byte buffers.</li>
+</ul>
+<p>Any implementation of the framework has to subclass the following
+cooperating abstract base classes:</p>
+<ul>
+<li><code>Kds.Serialization.Formatter&lt;F&gt;</code><br>This class controls the overall serialization process.</li>
+<li><code>Kds.Serialization.ValueField&lt;T&gt;</code><br>A concrete subclass implements the serialization of a specific value type.</li>
+<li><code>Kds.Serialization.ReferenceField&lt;T&gt;</code><br>A concrete subclass implements the serialization of a specific reference type.</li>
+</ul>
+<p>Such an implementation is included with <code>StdFormatter</code> as well as a set of
+associated <code>ValueField</code> subclasses for the basic value types, and
+<code>ReferenceField</code> subclasses for strings, character and integer arrays.
+All of the above is contained in the assembly <em>Kds.Serialization.dll</em>.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Here is a simple example of how to use the framework with the standard formatter.</p>
+<pre><code>// instantiate big-endian serialization formatter
+StdFormatter fmt = new StdFormatter(ByteOrder.BigEndian);
+// register fields as defaults for the type (by passing true)
+new VendorField(fmt, true);
+new SalesRepField(fmt, true);
+new StockItemField(fmt, true);
+
+// create instances of Vendor, SalesRep, StockItem where
+// the Vendor instance is the root of the object graph
+Vendor vendor = new Vendor();
+...
+
+byte[] buffer = new byte[2048];
+var target = new Span&lt;byte&gt;(buffer);
+
+// serialize Vendor (and all reachable objects like SalesRep and StockItems)
+int index = 0;
+fmt.SerializeObject(target, vendor, ref index);
+
+// deserialize Vendor object graph
+var source = new ReadOnlySpan&lt;byte&gt;(buffer);
+index = 0;
+
+var vendor2 = fmt.DeserializeObject&lt;Vendor&gt;(source, ref index);
+</code></pre><h2 id="defining-a-persistence-model">Defining A Persistence Model</h2>
+<p>Unlike the built-in .NET serialization framework, we have to write code to
+specify how a given class or struct is serialized. Let&#39;s assume we have the
+following class:</p>
+<pre><code>public class StockItem
+{
+  internal string name;
+  internal string sku;
+  internal float? price;
+  internal int? quantity;
+
+  public string Name { get =&gt; name; set =&gt; name = value; }
+  public string Sku { get =&gt; sku; set =&gt; sku = value; }
+  public float? Price { get =&gt; price; set =&gt; price = value; }
+  public int? Quantity { get =&gt; quantity; set =&gt; quantity = value; }
+}
+</code></pre><p>Then we have to define a <code>ReferenceField&lt;T&gt;</code> subclass to serialize this class:</p>
+<pre><code>public class StockItemField : ReferenceField&lt;StockItem&gt;
+{
+  public StockItemField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
+
+  protected override void SerializeValue(Span&lt;byte&gt; target, StockItem value) {
+    Fmt.SerializeObject&lt;string&gt;(target, value.name);
+    Fmt.SerializeObject&lt;string&gt;(target, value.sku);
+    Fmt.SerializeStruct&lt;float&gt;(target, value.price);
+    Fmt.SerializeStruct&lt;int&gt;(target, value.quantity);
+  }
+
+  protected override void DeserializeInstance(ReadOnlySpan&lt;byte&gt; source, ref StockItem instance) {
+    if (instance == null)
+      instance = new StockItem();
+  }
+
+  protected override void DeserializeMembers(ReadOnlySpan&lt;byte&gt; source, StockItem instance) {
+    Fmt.DeserializeObject&lt;string&gt;(source, ref instance.name);
+    Fmt.DeserializeObject&lt;string&gt;(source, ref instance.sku);
+    instance.price = Fmt.DeserializeStruct&lt;float&gt;(source);
+    instance.quantity = Fmt.DeserializeStruct&lt;int&gt;(source);
+  }
+
+  protected override void SkipValue(ReadOnlySpan&lt;byte&gt; source) {
+    if (Fmt.Skip&lt;string&gt;(source))
+      if (Fmt.Skip&lt;string&gt;(source))
+        if (Fmt.Skip&lt;float&gt;(source))
+          Fmt.Skip&lt;int&gt;(source);
+  }
+}
+</code></pre><p>All the overridden methods must be re-entrant, that is, their implementations
+may only rely on the arguments passed to the method, and on object state that
+will not change during (de)serialization, unless one can guarantee that they
+cannot be called recursively. The latter applies to those fields that serialize
+the basic value types, as their methods would not call serialization methods
+on other fields.</p>
+<h3 id="responsibilities-of-serializevaluetspanbyte-target-t-value">Responsibilities of <code>SerializeValue&lt;T&gt;(Span&lt;byte&gt; target, T value)</code></h3>
+<p>Here, one chooses which members of the class get serialized in which
+order. This is simply done by calling the various <code>SerializeObject&lt;T&gt;()</code>
+or <code>SerializeStruct&lt;T&gt;()</code> overloads of the formatter implementation -
+accessible through the protected <code>Field&lt;T, F&gt;.Fmt</code> property.</p>
+<p>This is a <strong>must</strong> override.</p>
+<h3 id="responsibilities-of-deserializeinstancetreadonlyspanbyte-source-ref-t-instance">Responsibilities of <code>DeserializeInstance&lt;T&gt;(ReadOnlySpan&lt;byte&gt; source, ref T instance)</code></h3>
+<p>If necessary, an instance of the class must be created, and all those
+fields that should be populated initially can be deserialized here as well,
+as long as it is done in the exact same order as during serialization.</p>
+<p>However, one <strong>must not</strong> deserialize any members which might directly
+or indirectly (recursively) reference the instance that was just created.
+Generally, the safest approach is to stop deserialization at the first
+reference type member (in serialization order), and leave the rest of
+deserialization to the implementation of <code>DeserializeMembers()</code>.</p>
+<p>Note that there are two different signatures/overloads for calling <code>Formatter.DeserializeXXX&lt;T&gt;()</code>:</p>
+<ul>
+<li>Reference type members:<br><code>Formatter.DeserializeObject&lt;T&gt;(ReadOnlySpan&lt;T&gt; source, ref T member);</code><br> or<br><code>T member = Formatter.DeserializeObject&lt;T&gt;(ReadOnlySpan&lt;T&gt; source)</code></li>
+<li>Value type members:
+<code>Formatter.DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;T&gt; source, ref T member, out bool isNull);</code><br>or<br><code>T member = (T)Formatter.DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;T&gt; source);</code><br>where the cast <code>(T)</code> is only necessary when <code>T</code> is not a nullable type.</li>
+</ul>
+<p>This is a <strong>must</strong> override.</p>
+<h3 id="responsibilities-of-deserializememberstreadonlyspanbyte-source-t-instance">Responsibilities of <code>DeserializeMembers&lt;T&gt;(ReadOnlySpan&lt;byte&gt; source, T instance)</code></h3>
+<p>The argument is the class instance created/initialized in
+DeserializeInstance(). Here is the place where one must
+deserialize those reference type members which can have a reference back to
+the argument. Again, the order of serialization must be followed.</p><p>
+<p>This is an <strong>optional</strong> override (only when needed).</p>
+<h3 id="responsibilities-of-skipvaluereadonlyspanbyte-source">Responsibilities of <code>SkipValue(ReadOnlySpan&lt;byte&gt; source)</code></h3>
+<p>This allows skipping parts of the serialized instance. The members must be
+skipped in the exact same order in which they were serialized. Additionally,
+the routine must return immediately if one of the calls to
+<code>Formatter.Skip&lt;T&gt;(source)</code> returns <code>false</code>.</p>
+<p>This is a <strong>must</strong> override, it can be empty or throw an exception if
+partial deserialization is never used.</p>
+<h2 id="defining-which-fields-to-use">Defining Which Fields To Use</h2>
+<p>Calling any of the <code>Formatter.SerializeXXX&lt;T&gt;()</code> methods
+causes the default field for the argument&#39;s type T to be used for the actual
+serialization of the argument. The <code>Kds.Serialization.Formatter</code> class
+has no default fields registered, but the <code>StdFormatter</code> subclass comes with fields
+pre-registered for all the basic value types as well as strings and integer
+arrays.</p>
+<p>Typically, any fields that handle user defined types should be registered
+as the default field type to serialize or deserialize the user defined type.
+This is shown in the Basic Usage section above.</p>
+<p>Sometimes it may be necessary to treat different instances of the same
+type differently (e.g. fixed size vs. variable size arrays, which are both
+the same type). In this case, one uses a field instance directly, like in
+this example where class <code>MyClas</code> contains a member that should
+be serialized as a fixed size byte array (using a <code>BinaryField</code> instance):</p>
+<pre><code>public class MyField: ReferenceField&lt;MyClass&gt;
+{
+  private ReferenceField&lt;byte[]&gt; binField;
+
+  public MyField(Formatter fmt, bool isDefault): base(fmt, isDefault) {
+    // not the default field for byte[] - so we pass false for isDefault
+    binField = new BinaryField(fmt, false, 16);
+  }
+
+  // MyClass.member is a fixed size byte array of length 16
+  protected override void SerializeValue(Span&lt;byte&gt; target, MyClass value) {
+    ...
+    binField.Serialize(target, value.member);
+    ...
+  }
+
+  protected override void DeserializeMembers(ReadOnlySpan&lt;byte&gt; source, MyClass value) {
+    ...
+    binField.Deserialize(source, ref value.member);
+    ...
+  }
+
+  ...
+}
+</code></pre><h2 id="object-references-and-pre-existing-objects">Object References and Pre-existing Objects</h2>
+<p>The serialization mechanism can deal with references to already serialized
+objects (in the same byte buffer), including circular references, by storing an
+object handle instead of repeatedly serializing the same object again (which
+could lead to infinite recursion). However, sometimes there is a need to
+serialize references to objects that exist outside of the byte buffer.</p>
+<ul>
+<li>Such objects can be system wide objects, and then they often are singletons. One
+generally does not want to serialize and then re-create or update these
+objects during deserialization.</li>
+<li>Other objects are those that belong to the same object graph but are 
+serialized into a separate byte buffer.</li>
+</ul>
+<p>The way to deal with this problem is to register these objects before
+serializing/deserializing into/from a given byte buffer:</p>
+<pre><code>// instances of MyClass contain references to externalObj1 and externalObj2
+formatter.SetPermanentReferences(externalObj1, externalObj2);
+...
+formatter.SerializeObject&lt;MyClass&gt;(target, myObject, ref index);
+</code></pre><p>When deserializing, these pre-existing objects must be registered in the
+exact same order again:</p>
+<pre><code>formatter.SetPermanentReferences(externalObj1, externalObj2);
+...
+formatter.DeserializeObject&lt;MyClass&gt;(source, ref myObject, ref index);
+</code></pre><h2 id="key-based-vs-pointer-based-references">Key Based vs. Pointer Based References</h2>
+<p>The serialization framework described above takes care of pointer-based
+references within the same object graph, even if it is stored in multiple
+separate byte buffers (see above).</p>
+<p>Often, when using a database (e.g. key-value storage like Berkeley DB)
+objects (or small object graphs) would be stored as key/data pairs (or records),
+and references between such records would be encoded as primary and
+foreign keys (like in a relational database).</p>
+<p>The serialization frame work described above does not (at this time)
+provide a mechanism for generating keys for references between serialized
+object graphs. It is up to the programmer to create the keys and to
+re-establish object references after deserialization (based on matching keys),
+or to use the mechanism of external object registration as described above.</p>
+</div>
     <h3 id="classes">Classes
   </h3>
+      <h4><a class="xref" href="KdSoft.Serialization.BinaryField.html">BinaryField</a></h4>
+      <section><p>Field representing fixed size <code>byte</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.BlobField.html">BlobField</a></h4>
+      <section><p>Field representing <code>byte</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.BoolField.html">BoolField</a></h4>
+      <section><p>Field representing <code>Boolean</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ByteConverter.html">ByteConverter</a></h4>
+      <section><p>Serializes and deserializes numeric types in a specified byte order.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ByteField.html">ByteField</a></h4>
+      <section><p>Field representing <code>Byte</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.CharArrayField.html">CharArrayField</a></h4>
+      <section><p>Field representing <code>Char</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.CharField.html">CharField</a></h4>
+      <section><p>Field representing <code>Char</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.DateTimeField.html">DateTimeField</a></h4>
+      <section><p>Field representing UTC <code>DateTime</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.DateTimeOffsetField.html">DateTimeOffsetField</a></h4>
+      <section><p>Field representing <code>DateTimeOffset</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.DecimalField.html">DecimalField</a></h4>
+      <section><p>Field representing <code>Decimal</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.DoubleField.html">DoubleField</a></h4>
+      <section><p>Field representing <code>Double</code> values.</p>
+</section>
       <h4><a class="xref" href="KdSoft.Serialization.Field-2.html">Field&lt;T, F&gt;</a></h4>
       <section><p>Concrete implementations of this abstract base-class, together with a corresponding
 implementation of <a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a>, are used to serialize
 and deserialize an object graph.</p>
 </section>
+      <h4><a class="xref" href="KdSoft.Serialization.FixedCharArrayField.html">FixedCharArrayField</a></h4>
+      <section><p>Field representing fixed size <code>Char</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.Formatter.html">Formatter</a></h4>
+      <section><p>Implementation of abstract class <a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a>.</p>
+</section>
       <h4><a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a></h4>
       <section><p>A concrete implementation of this abstract base-class, together with corresponding
 implementations of <a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField&lt;T, F&gt;</a> and <a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField&lt;T, F&gt;</a>
-is used to serialize and deserialize an object graph.</p>
+is used to serialize / deserialize an object graph to and from a <span class="xref">System.Span&lt;T&gt;</span> of bytes.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.IntArrayField.html">IntArrayField</a></h4>
+      <section><p>Field representing a <code>Int32</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.IntField.html">IntField</a></h4>
+      <section><p>Field representing <code>Int32</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.LongField.html">LongField</a></h4>
+      <section><p>Field representing <code>Int64</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ReferenceField-1.html">ReferenceField&lt;T&gt;</a></h4>
+      <section><p>Base class for all <a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField&lt;T, F&gt;</a> classes
+that are designed to cooperate with <a class="xref" href="KdSoft.Serialization.Formatter.html">Formatter</a>.</p>
 </section>
       <h4><a class="xref" href="KdSoft.Serialization.ReferenceField-2.html">ReferenceField&lt;T, F&gt;</a></h4>
       <section><p>Base field class for serializing reference types.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.SByteField.html">SByteField</a></h4>
+      <section><p>Field representing <code>SByte</code> values.</p>
 </section>
       <h4><a class="xref" href="KdSoft.Serialization.SerializationException.html">SerializationException</a></h4>
       <section><p>Exception class that indicates invalid serialized data, or incorrect
 use of the serialization framework.</p>
 </section>
+      <h4><a class="xref" href="KdSoft.Serialization.ShortArrayField.html">ShortArrayField</a></h4>
+      <section><p>Field representing <code>Int16</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ShortField.html">ShortField</a></h4>
+      <section><p>Field representing <code>Int16</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.SingleField.html">SingleField</a></h4>
+      <section><p>Field representing <code>Single</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.SpanHelpers.html">SpanHelpers</a></h4>
+      <section><p>Provides helper methods to manipulate, read and write <span class="xref">System.Span&lt;T&gt;</span> where <code>T</code> is a value type.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.StdFormatter.html">StdFormatter</a></h4>
+      <section><p><a class="xref" href="KdSoft.Serialization.Formatter.html">Formatter</a> subclass with default fields pre-registered
+    for the basic types.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.StringField.html">StringField</a></h4>
+      <section><p>Field representing Unicode <code>string</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.TimeSpanField.html">TimeSpanField</a></h4>
+      <section><p>Field representing <code>TimeSpan</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.UIntArrayField.html">UIntArrayField</a></h4>
+      <section><p>Field representing a <code>UInt32</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.UIntField.html">UIntField</a></h4>
+      <section><p>Field representing <code>UInt32</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ULongField.html">ULongField</a></h4>
+      <section><p>Field representing <code>UInt64</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.UShortArrayField.html">UShortArrayField</a></h4>
+      <section><p>Field representing <code>UInt16</code> arrays.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.UShortField.html">UShortField</a></h4>
+      <section><p>Field representing <code>UInt16</code> values.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ValueField-1.html">ValueField&lt;T&gt;</a></h4>
+      <section><p>Base class for all <a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField&lt;T, F&gt;</a> classes
+that are designed to cooperate with <a class="xref" href="KdSoft.Serialization.Formatter.html">Formatter</a>.</p>
+</section>
       <h4><a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField&lt;T, F&gt;</a></h4>
       <section><p>Base field class for serializing value types.</p>
 </section>
+      <h4><a class="xref" href="KdSoft.Serialization.ValueTypeExtensions.html">ValueTypeExtensions</a></h4>
+      <section><p>Provides extension methods to manipulate value types.</p>
+</section>
+    <h3 id="structs">Structs
+  </h3>
+      <h4><a class="xref" href="KdSoft.Serialization.DecimalBytes.html">DecimalBytes</a></h4>
+      <section><p>Union used for re-interpreting a decimal as four integers and vice-versa.
+This works best for dealing with differences in endian-ness, since they
+apply only at the level of the Int32 parts. The overall storage order
+of these Int32 components is always: Lo-&gt;Mid-&gt;Hi-&gt;Flags.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.IntArrayUnion.html">IntArrayUnion</a></h4>
+      <section><p>Union used solely for re-interpreting <code>UInt32[]</code> as <code>Int32[]</code> and vice versa.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.IntBytes.html">IntBytes</a></h4>
+      <section><p>Union used for re-interpreting 32 bit numeric types as byte arrays and vice-versa.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.LongBytes.html">LongBytes</a></h4>
+      <section><p>Union used for re-interpreting 64 bit numeric types as byte arrays and vice-versa.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ShortArrayUnion.html">ShortArrayUnion</a></h4>
+      <section><p>Union used solely for re-interpreting <code>UInt16[]</code> as <code>Int16[]</code> or <code>Char[]</code> and vice versa.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.ShortBytes.html">ShortBytes</a></h4>
+      <section><p>Union used for re-interpreting 16 bit numeric types as byte arrays and vice-versa.</p>
+</section>
     <h3 id="enums">Enums
   </h3>
+      <h4><a class="xref" href="KdSoft.Serialization.ByteOrder.html">ByteOrder</a></h4>
+      <section><p>Indicates the order of bytes in a value type.</p>
+</section>
       <h4><a class="xref" href="KdSoft.Serialization.SerialStatus.html">SerialStatus</a></h4>
       <section><p>Represents the different states of a serialized field.</p>
 </section>
     <h3 id="delegates">Delegates
   </h3>
+      <h4><a class="xref" href="KdSoft.Serialization.AddItem-1.html">AddItem&lt;T&gt;</a></h4>
+      <section><p>Call-back delegate to use when adding elements to a sequence/collection
+that is being deserialized.</p>
+</section>
       <h4><a class="xref" href="KdSoft.Serialization.AddItem-2.html">AddItem&lt;T, C&gt;</a></h4>
       <section><p>Call-back delegate to use when adding elements to a sequence/collection
 that is being deserialized.</p>
+</section>
+      <h4><a class="xref" href="KdSoft.Serialization.AddValueItem-1.html">AddValueItem&lt;T&gt;</a></h4>
+      <section><p>Like <a class="xref" href="KdSoft.Serialization.AddItem-1.html">AddItem&lt;T&gt;</a>, but intended for large value types.</p>
 </section>
       <h4><a class="xref" href="KdSoft.Serialization.AddValueItem-2.html">AddValueItem&lt;T, C&gt;</a></h4>
       <section><p>Like <a class="xref" href="KdSoft.Serialization.AddItem-2.html">AddItem&lt;T, C&gt;</a>, but intended for large value types.</p>
@@ -144,7 +498,7 @@ that is being deserialized.</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+            <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

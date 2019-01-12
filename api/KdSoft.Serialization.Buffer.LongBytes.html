@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct LongBytes
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.30.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -483,13 +483,13 @@ public readonly ulong ULongValue</code></pre>
   
   
   <a id="KdSoft_Serialization_Buffer_LongBytes_FromBytes_" data-uid="KdSoft.Serialization.Buffer.LongBytes.FromBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_LongBytes_FromBytes_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.FromBytes(System.Byte[],System.Int32@)">FromBytes(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_FromBytes_System_ReadOnlySpan_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.FromBytes(System.ReadOnlySpan{System.Byte},System.Int32@)">FromBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Returns new instance initialized from <code>byte array</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static LongBytes FromBytes(byte[] value, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public static LongBytes FromBytes(ReadOnlySpan&lt;byte&gt; value, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -502,7 +502,7 @@ public readonly ulong ULongValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">value</span></td>
         <td><p>Byte array to initialize the instance with.</p>
 </td>
@@ -533,13 +533,13 @@ public readonly ulong ULongValue</code></pre>
   
   
   <a id="KdSoft_Serialization_Buffer_LongBytes_FromBytesReversed_" data-uid="KdSoft.Serialization.Buffer.LongBytes.FromBytesReversed*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_LongBytes_FromBytesReversed_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.FromBytesReversed(System.Byte[],System.Int32@)">FromBytesReversed(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_FromBytesReversed_System_ReadOnlySpan_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.FromBytesReversed(System.ReadOnlySpan{System.Byte},System.Int32@)">FromBytesReversed(ReadOnlySpan&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Returns new instance initialized from reversed <code>byte array</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static LongBytes FromBytesReversed(byte[] value, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public static LongBytes FromBytesReversed(ReadOnlySpan&lt;byte&gt; value, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -552,7 +552,7 @@ public readonly ulong ULongValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">value</span></td>
         <td><p>Byte array to initialize the instance with.</p>
 </td>
@@ -582,14 +582,40 @@ public readonly ulong ULongValue</code></pre>
   </table>
   
   
+  <a id="KdSoft_Serialization_Buffer_LongBytes_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.LongBytes.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_ReverseByteOrder" data-uid="KdSoft.Serialization.Buffer.LongBytes.ReverseByteOrder">ReverseByteOrder()</h4>
+  <div class="markdown level1 summary"><p>Returns copy with reversed byte order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LongBytes ReverseByteOrder()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="KdSoft_Serialization_Buffer_LongBytes_ToBytes_" data-uid="KdSoft.Serialization.Buffer.LongBytes.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_LongBytes_ToBytes_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.ToBytes(System.Byte[],System.Int32@)">ToBytes(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_ToBytes_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.ToBytes(System.Span{System.Byte},System.Int32@)">ToBytes(Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Writes the value to a byte array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ToBytes(Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -602,9 +628,10 @@ public readonly ulong ULongValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td></td>
+        <td><p>Target byte array.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
@@ -617,13 +644,13 @@ public readonly ulong ULongValue</code></pre>
   
   
   <a id="KdSoft_Serialization_Buffer_LongBytes_ToBytesReversed_" data-uid="KdSoft.Serialization.Buffer.LongBytes.ToBytesReversed*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_LongBytes_ToBytesReversed_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.ToBytesReversed(System.Byte[],System.Int32@)">ToBytesReversed(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_ToBytesReversed_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.LongBytes.ToBytesReversed(System.Span{System.Byte},System.Int32@)">ToBytesReversed(Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Writes the value to a byte array in reversed byte order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytesReversed(byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ToBytesReversed(Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -636,15 +663,280 @@ public readonly ulong ULongValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td></td>
+        <td><p>Target byte array.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
         <td><p>Starting index in byte array argument.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_KdSoft_Serialization_Buffer_LongBytes__System_Double" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit(KdSoft.Serialization.Buffer.LongBytes)~System.Double">Implicit(LongBytes to Double)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a> to <span class="xref">System.Double</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator double (LongBytes value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_KdSoft_Serialization_Buffer_LongBytes__System_Int64" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit(KdSoft.Serialization.Buffer.LongBytes)~System.Int64">Implicit(LongBytes to Int64)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a> to <span class="xref">System.Int64</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator long (LongBytes value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_KdSoft_Serialization_Buffer_LongBytes__System_UInt64" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit(KdSoft.Serialization.Buffer.LongBytes)~System.UInt64">Implicit(LongBytes to UInt64)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a> to <span class="xref">System.UInt64</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator ulong (LongBytes value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt64</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_System_Double__KdSoft_Serialization_Buffer_LongBytes" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit(System.Double)~KdSoft.Serialization.Buffer.LongBytes">Implicit(Double to LongBytes)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <span class="xref">System.Double</span> to <a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator LongBytes(double value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_System_Int64__KdSoft_Serialization_Buffer_LongBytes" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit(System.Int64)~KdSoft.Serialization.Buffer.LongBytes">Implicit(Int64 to LongBytes)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <span class="xref">System.Int64</span> to <a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator LongBytes(long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_LongBytes_op_Implicit_System_UInt64__KdSoft_Serialization_Buffer_LongBytes" data-uid="KdSoft.Serialization.Buffer.LongBytes.op_Implicit(System.UInt64)~KdSoft.Serialization.Buffer.LongBytes">Implicit(UInt64 to LongBytes)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <span class="xref">System.UInt64</span> to <a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator LongBytes(ulong value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt64</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

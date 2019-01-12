@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct PropertyUtils.PropertyAccessor
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -22,7 +22,7 @@
     
     
   </head>
-  <body data-spy="scroll" data-target="#affix">
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -107,12 +107,12 @@
   
   
   <a id="KdSoft_Reflection_PropertyUtils_PropertyAccessor__ctor_" data-uid="KdSoft.Reflection.PropertyUtils.PropertyAccessor.#ctor*"></a>
-  <h4 id="KdSoft_Reflection_PropertyUtils_PropertyAccessor__ctor_System_String_System_Func_System_Object_System_Object__System_Action_System_Object_System_Object__" data-uid="KdSoft.Reflection.PropertyUtils.PropertyAccessor.#ctor(System.String,System.Func{System.Object,System.Object},System.Action{System.Object,System.Object})">PropertyAccessor(String, Func&lt;Object, Object&gt;, Action&lt;Object, Object&gt;)</h4>
+  <h4 id="KdSoft_Reflection_PropertyUtils_PropertyAccessor__ctor_System_String_System_Type_System_Boolean_System_Func_System_Object_System_Object__System_Action_System_Object_System_Object__" data-uid="KdSoft.Reflection.PropertyUtils.PropertyAccessor.#ctor(System.String,System.Type,System.Boolean,System.Func{System.Object,System.Object},System.Action{System.Object,System.Object})">PropertyAccessor(String, Type, Boolean, Func&lt;Object, Object&gt;, Action&lt;Object, Object&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PropertyAccessor(string name, Func&lt;object, object&gt; getValue, Action&lt;object, object&gt; setValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public PropertyAccessor(string name, Type propertyType, bool isStatic, Func&lt;object, object&gt; getValue, Action&lt;object, object&gt; setValue)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -127,6 +127,16 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">propertyType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isStatic</span></td>
         <td></td>
       </tr>
       <tr>
@@ -169,6 +179,30 @@
   </table>
   
   
+  <h4 id="KdSoft_Reflection_PropertyUtils_PropertyAccessor_IsStatic" data-uid="KdSoft.Reflection.PropertyUtils.PropertyAccessor.IsStatic">IsStatic</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly bool IsStatic</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <h4 id="KdSoft_Reflection_PropertyUtils_PropertyAccessor_Name" data-uid="KdSoft.Reflection.PropertyUtils.PropertyAccessor.Name">Name</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
@@ -187,6 +221,30 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="KdSoft_Reflection_PropertyUtils_PropertyAccessor_PropertyType" data-uid="KdSoft.Reflection.PropertyUtils.PropertyAccessor.PropertyType">PropertyType</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly Type PropertyType</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -253,7 +311,7 @@
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+            <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

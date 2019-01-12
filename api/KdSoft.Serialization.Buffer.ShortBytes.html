@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct ShortBytes
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.30.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -327,13 +327,13 @@ public readonly ushort UShortValue</code></pre>
   
   
   <a id="KdSoft_Serialization_Buffer_ShortBytes_FromBytes_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.FromBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_FromBytes_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.FromBytes(System.Byte[],System.Int32@)">FromBytes(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_FromBytes_System_ReadOnlySpan_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.FromBytes(System.ReadOnlySpan{System.Byte},System.Int32@)">FromBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Returns new instance initialized from <code>byte array</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ShortBytes FromBytes(byte[] value, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ShortBytes FromBytes(ReadOnlySpan&lt;byte&gt; value, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -346,7 +346,7 @@ public readonly ushort UShortValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">value</span></td>
         <td><p>Byte array to initialize the instance with.</p>
 </td>
@@ -377,13 +377,13 @@ public readonly ushort UShortValue</code></pre>
   
   
   <a id="KdSoft_Serialization_Buffer_ShortBytes_FromBytesReversed_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.FromBytesReversed*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_FromBytesReversed_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.FromBytesReversed(System.Byte[],System.Int32@)">FromBytesReversed(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_FromBytesReversed_System_ReadOnlySpan_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.FromBytesReversed(System.ReadOnlySpan{System.Byte},System.Int32@)">FromBytesReversed(ReadOnlySpan&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Returns new instance initialized from reversed <code>byte array</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ShortBytes FromBytesReversed(byte[] value, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ShortBytes FromBytesReversed(ReadOnlySpan&lt;byte&gt; value, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -396,7 +396,7 @@ public readonly ushort UShortValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">value</span></td>
         <td><p>Byte array to initialize the instance with.</p>
 </td>
@@ -426,14 +426,40 @@ public readonly ushort UShortValue</code></pre>
   </table>
   
   
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_ReverseByteOrder" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ReverseByteOrder">ReverseByteOrder()</h4>
+  <div class="markdown level1 summary"><p>Returns copy with reversed byte order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ShortBytes ReverseByteOrder()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="KdSoft_Serialization_Buffer_ShortBytes_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_ToBytes_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ToBytes(System.Byte[],System.Int32@)">ToBytes(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_ToBytes_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ToBytes(System.Span{System.Byte},System.Int32@)">ToBytes(Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Writes the value to a byte array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ToBytes(Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -446,9 +472,10 @@ public readonly ushort UShortValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td></td>
+        <td><p>Target byte array.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
@@ -461,13 +488,13 @@ public readonly ushort UShortValue</code></pre>
   
   
   <a id="KdSoft_Serialization_Buffer_ShortBytes_ToBytesReversed_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ToBytesReversed*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_ToBytesReversed_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ToBytesReversed(System.Byte[],System.Int32@)">ToBytesReversed(Byte[], ref Int32)</h4>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_ToBytesReversed_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.ToBytesReversed(System.Span{System.Byte},System.Int32@)">ToBytesReversed(Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"><p>Writes the value to a byte array in reversed byte order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytesReversed(byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ToBytesReversed(Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -480,15 +507,372 @@ public readonly ushort UShortValue</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td></td>
+        <td><p>Target byte array.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
         <td><p>Starting index in byte array argument.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_TryWriteBytes_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.TryWriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_TryWriteBytes_System_Span_System_Byte__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.TryWriteBytes(System.Span{System.Byte})">TryWriteBytes(Span&lt;Byte&gt;)</h4>
+  <div class="markdown level1 summary"><p>Writes value to byte <span class="xref">System.Span&lt;T&gt;</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryWriteBytes(Span&lt;byte&gt; bytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td><p>Byte span to write value to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if Span was large enough, <code>false</code>otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_WriteBytes_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ShortBytes.WriteBytes(System.Span{System.Byte},System.Int32@)">WriteBytes(Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WriteBytes(Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_KdSoft_Serialization_Buffer_ShortBytes__System_Char" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit(KdSoft.Serialization.Buffer.ShortBytes)~System.Char">Implicit(ShortBytes to Char)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a> to <span class="xref">System.Char</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator char (ShortBytes value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_KdSoft_Serialization_Buffer_ShortBytes__System_Int16" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit(KdSoft.Serialization.Buffer.ShortBytes)~System.Int16">Implicit(ShortBytes to Int16)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a> to <span class="xref">System.Int16</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator short (ShortBytes value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int16</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_KdSoft_Serialization_Buffer_ShortBytes__System_UInt16" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit(KdSoft.Serialization.Buffer.ShortBytes)~System.UInt16">Implicit(ShortBytes to UInt16)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a> to <span class="xref">System.UInt16</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator ushort (ShortBytes value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt16</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_System_Char__KdSoft_Serialization_Buffer_ShortBytes" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit(System.Char)~KdSoft.Serialization.Buffer.ShortBytes">Implicit(Char to ShortBytes)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <span class="xref">System.Char</span> to <a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator ShortBytes(char value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_System_Int16__KdSoft_Serialization_Buffer_ShortBytes" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit(System.Int16)~KdSoft.Serialization.Buffer.ShortBytes">Implicit(Int16 to ShortBytes)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <span class="xref">System.Int16</span> to <a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator ShortBytes(short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int16</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ShortBytes_op_Implicit_System_UInt16__KdSoft_Serialization_Buffer_ShortBytes" data-uid="KdSoft.Serialization.Buffer.ShortBytes.op_Implicit(System.UInt16)~KdSoft.Serialization.Buffer.ShortBytes">Implicit(UInt16 to ShortBytes)</h4>
+  <div class="markdown level1 summary"><p>Defines an implicit conversion of <span class="xref">System.UInt16</span> to <a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static implicit operator ShortBytes(ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt16</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

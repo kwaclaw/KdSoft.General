@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ByteConverter
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.30.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -73,7 +73,7 @@
   
   <h1 id="KdSoft_Serialization_Buffer_ByteConverter" data-uid="KdSoft.Serialization.Buffer.ByteConverter" class="text-break">Class ByteConverter
   </h1>
-  <div class="markdown level0 summary"><p>Serializes and deserialized numeric types in a specified byte order.</p>
+  <div class="markdown level0 summary"><p>Serializes and deserializes numeric types in a specified byte order.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -117,7 +117,8 @@
   
   <a id="KdSoft_Serialization_Buffer_ByteConverter__ctor_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.#ctor*"></a>
   <h4 id="KdSoft_Serialization_Buffer_ByteConverter__ctor_KdSoft_Serialization_Buffer_ByteOrder_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.#ctor(KdSoft.Serialization.Buffer.ByteOrder)">ByteConverter(ByteOrder)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Constructor that specifies a specific byte order to use for reading and writing.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -144,7 +145,8 @@
   
   <a id="KdSoft_Serialization_Buffer_ByteConverter__ctor_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.#ctor*"></a>
   <h4 id="KdSoft_Serialization_Buffer_ByteConverter__ctor_System_Boolean_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.#ctor(System.Boolean)">ByteConverter(Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Constructor that specifies if reading/writing should be performed in system byte order or in reverse.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -172,7 +174,8 @@
   
   
   <h4 id="KdSoft_Serialization_Buffer_ByteConverter_SystemByteOrder" data-uid="KdSoft.Serialization.Buffer.ByteConverter.SystemByteOrder">SystemByteOrder</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns the byte order of this system architecture.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -199,7 +202,8 @@
   
   <a id="KdSoft_Serialization_Buffer_ByteConverter_Reverse_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.Reverse*"></a>
   <h4 id="KdSoft_Serialization_Buffer_ByteConverter_Reverse" data-uid="KdSoft.Serialization.Buffer.ByteConverter.Reverse">Reverse</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <a class="xref" href="KdSoft.Serialization.Buffer.ByteConverter.html">ByteConverter</a> reads/writes bytes in reverse system byte order.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -224,13 +228,863 @@
   </h3>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Char_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Char)">ToBytes(Char)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Char__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Char@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Char)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(char value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out char value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Decimal__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Decimal@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Decimal)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out decimal value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Decimal</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Double__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Double@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Double)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out double value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Int16__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Int16@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Int16)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int16</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Int32@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Int64__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Int64@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Int64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Single__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Single@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Char__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Char})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Char&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;char&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Char</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Decimal__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Decimal})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Decimal&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;decimal&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Decimal</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Double__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Double})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Double&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;double&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Int16__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Int16})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Int16&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;short&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Int16</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Int32})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;int&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Int64__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Int64})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Int64&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;long&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_Single__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.Single})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;Single&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;float&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_UInt16__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.UInt16})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;UInt16&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;ushort&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.UInt16</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_UInt32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.UInt32})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;UInt32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;uint&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.UInt32</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_Span_System_UInt64__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{System.UInt64})">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;UInt64&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;ulong&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.UInt64</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_UInt16__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.UInt16@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out UInt16)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.UInt16</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_UInt32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.UInt32@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out UInt32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out uint value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.UInt32</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadBytes_System_ReadOnlySpan_System_Byte__System_Int32__System_UInt64__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadBytes(System.ReadOnlySpan{System.Byte},System.Int32@,System.UInt64@)">ReadBytes(ReadOnlySpan&lt;Byte&gt;, ref Int32, out UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void ReadBytes(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out ulong value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.UInt64</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadStructBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadStructBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadStructBytes__1_System_ReadOnlySpan_System_Byte__System_Int32____0__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadStructBytes``1(System.ReadOnlySpan{System.Byte},System.Int32@,``0@)">ReadStructBytes&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, ref Int32, out T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadStructBytes&lt;T&gt;(ReadOnlySpan&lt;byte&gt; bytes, ref int index, out T value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_ReadStructBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadStructBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ReadStructBytes__1_System_ReadOnlySpan_System_Byte__System_Int32__System_Span___0__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ReadStructBytes``1(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{``0})">ReadStructBytes&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadStructBytes&lt;T&gt;(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;T&gt; values)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;T&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Char_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Char,System.Span{System.Byte},System.Int32@)">WriteBytes(Char, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(char value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -247,178 +1101,27 @@
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Char_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Char,System.Byte[],System.Int32@)">ToBytes(Char, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Char</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(char chr, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Char</span></td>
-        <td><span class="parametername">chr</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Char___System_Int32_System_Int32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Char[],System.Int32,System.Int32)">ToBytes(Char[], Int32, Int32)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Decimal_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Decimal,System.Span{System.Byte},System.Int32@)">WriteBytes(Decimal, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(char[] value, int start = 0, int count = -1)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Char</span>[]</td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Char___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Char[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToBytes(Char[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Char</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(char[] charArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Char</span>[]</td>
-        <td><span class="parametername">charArray</span></td>
-        <td><p>Array to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start serializing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Decimal_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Decimal)">ToBytes(Decimal)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(decimal value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(decimal value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -435,77 +1138,27 @@
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Decimal_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Decimal,System.Byte[],System.Int32@)">ToBytes(Decimal, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Decimal</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(decimal num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Decimal</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Decimal_System_Byte___System_Int32___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Processes a <code>Decimal</code> value in reverse part order, where
-each part is a <code>Int32</code> value. This is a .NET specific type.</p>
-</div>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Double_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Double)">ToBytes(Double)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Double_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Double,System.Span{System.Byte},System.Int32@)">WriteBytes(Double, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(double value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(double value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -522,73 +1175,27 @@ each part is a <code>Int32</code> value. This is a .NET specific type.</p>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Double_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Double,System.Byte[],System.Int32@)">ToBytes(Double, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Double</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(double num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Double</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int16_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int16)">ToBytes(Int16)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Int16_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Int16,System.Span{System.Byte},System.Int32@)">WriteBytes(Int16, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(short value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(short value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -605,178 +1212,27 @@ each part is a <code>Int32</code> value. This is a .NET specific type.</p>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int16_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int16,System.Byte[],System.Int32@)">ToBytes(Int16, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Int16</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(short num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int16</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int16___System_Int32_System_Int32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int16[],System.Int32,System.Int32)">ToBytes(Int16[], Int32, Int32)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Int32_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Int32,System.Span{System.Byte},System.Int32@)">WriteBytes(Int32, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(short[] value, int start = 0, int count = -1)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int16</span>[]</td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int16___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int16[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToBytes(Int16[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Int16</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(short[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int16</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Array to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start serializing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int32)">ToBytes(Int32)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(int value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(int value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -793,178 +1249,27 @@ each part is a <code>Int32</code> value. This is a .NET specific type.</p>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int32,System.Byte[],System.Int32@)">ToBytes(Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Int32</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(int num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int32___System_Int32_System_Int32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int32[],System.Int32,System.Int32)">ToBytes(Int32[], Int32, Int32)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Int64_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Int64,System.Span{System.Byte},System.Int32@)">WriteBytes(Int64, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(int[] value, int start = 0, int count = -1)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span>[]</td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int32___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int32[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToBytes(Int32[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Int32</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(int[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Array to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start serializing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int64_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int64)">ToBytes(Int64)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(long value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(long value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -981,33 +1286,27 @@ each part is a <code>Int32</code> value. This is a .NET specific type.</p>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Int64_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Int64,System.Byte[],System.Int32@)">ToBytes(Int64, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Int64</code> values.</p>
-</div>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Char__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Char},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Char&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(long num, byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;char&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1020,34 +1319,367 @@ each part is a <code>Int32</code> value. This is a .NET specific type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int64</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Char</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
       </tr>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Single_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Single)">ToBytes(Single)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Decimal__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Decimal},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Decimal&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte[] ToBytes(float value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;decimal&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Decimal</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Double__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Double},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Double&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;double&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Int16__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Int16},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Int16&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;short&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Int16</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Int32__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Int32},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Int32&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;int&gt; value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Int64__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Int64},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Int64&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;long&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_Single__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.Single},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;Single&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(ReadOnlySpan&lt;float&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_UInt16__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.UInt16},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;UInt16&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void WriteBytes(ReadOnlySpan&lt;ushort&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.UInt16</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_UInt32__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.UInt32},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;UInt32&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void WriteBytes(ReadOnlySpan&lt;uint&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.UInt32</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_ReadOnlySpan_System_UInt64__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.ReadOnlySpan{System.UInt64},System.Span{System.Byte},System.Int32@)">WriteBytes(ReadOnlySpan&lt;UInt64&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void WriteBytes(ReadOnlySpan&lt;ulong&gt; values, Span&lt;byte&gt; bytes, ref int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.UInt64</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_Single_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.Single,System.Span{System.Byte},System.Int32@)">WriteBytes(Single, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteBytes(float value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1064,74 +1696,28 @@ each part is a <code>Int32</code> value. This is a .NET specific type.</p>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_Single_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.Single,System.Byte[],System.Int32@)">ToBytes(Single, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>Single</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToBytes(float num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt16_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt16)">ToBytes(UInt16)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_UInt16_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.UInt16,System.Span{System.Byte},System.Int32@)">WriteBytes(UInt16, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public byte[] ToBytes(ushort value)</code></pre>
+public void WriteBytes(ushort value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1148,182 +1734,28 @@ public byte[] ToBytes(ushort value)</code></pre>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt16_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt16,System.Byte[],System.Int32@)">ToBytes(UInt16, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>UInt16</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToBytes(ushort num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt16</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt16___System_Int32_System_Int32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt16[],System.Int32,System.Int32)">ToBytes(UInt16[], Int32, Int32)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_UInt32_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.UInt32,System.Span{System.Byte},System.Int32@)">WriteBytes(UInt32, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public byte[] ToBytes(ushort[] value, int start = 0, int count = -1)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt16</span>[]</td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt16___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt16[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToBytes(UInt16[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>UInt16</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToBytes(ushort[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt16</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Array to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start serializing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt32)">ToBytes(UInt32)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public byte[] ToBytes(uint value)</code></pre>
+public void WriteBytes(uint value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1340,185 +1772,28 @@ public byte[] ToBytes(uint value)</code></pre>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt32,System.Byte[],System.Int32@)">ToBytes(UInt32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>UInt32</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToBytes(uint num, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt32</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt32_System_Byte___System_Int32___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Use <code>unchecked((UInt32)&lt;argument&gt;)</code> to pass signed values.</p>
-</div>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt32___System_Int32_System_Int32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt32[],System.Int32,System.Int32)">ToBytes(UInt32[], Int32, Int32)</h4>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteBytes_System_UInt64_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteBytes(System.UInt64,System.Span{System.Byte},System.Int32@)">WriteBytes(UInt64, Span&lt;Byte&gt;, ref Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public byte[] ToBytes(uint[] value, int start = 0, int count = -1)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt32</span>[]</td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt32___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt32[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToBytes(UInt32[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>UInt32</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToBytes(uint[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt32</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Array to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start serializing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to serialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt64_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt64)">ToBytes(UInt64)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public byte[] ToBytes(ulong value)</code></pre>
+public void WriteBytes(ulong value, Span&lt;byte&gt; bytes, ref int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1535,34 +1810,27 @@ public byte[] ToBytes(ulong value)</code></pre>
         <td><span class="parametername">value</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt64_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToBytes(System.UInt64,System.Byte[],System.Int32@)">ToBytes(UInt64, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Serializes <code>UInt64</code> values.</p>
-</div>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteStructBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteStructBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteStructBytes__1___0_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteStructBytes``1(``0,System.Span{System.Byte},System.Int32@)">WriteStructBytes&lt;T&gt;(T, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToBytes(ulong num, byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteStructBytes&lt;T&gt;(T value, Span&lt;byte&gt; bytes, ref int index)where T : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1575,38 +1843,46 @@ public void ToBytes(ulong num, byte[] bytes, ref int index)</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.UInt64</span></td>
-        <td><span class="parametername">num</span></td>
-        <td><p>Value to serialize.</p>
-</td>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
       </tr>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to write to.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start writing at.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_Buffer_ByteConverter_ToBytes_System_UInt64_System_Byte___System_Int32___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Use <code>unchecked((UInt64)&lt;argument&gt;)</code> to pass signed values.</p>
-</div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToChar_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToChar*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToChar_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToChar(System.Byte[],System.Int32@)">ToChar(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Char</code> values.</p>
-</div>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteStructBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteStructBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteStructBytes__1_System_ReadOnlySpan___0__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteStructBytes``1(System.ReadOnlySpan{``0},System.Span{System.Byte},System.Int32@)">WriteStructBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public char ToChar(byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteStructBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt; values, Span&lt;byte&gt; bytes, ref int index)where T : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1619,45 +1895,46 @@ public void ToBytes(ulong num, byte[] bytes, ref int index)</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;T&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
+  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Char</span></td>
-        <td><p>Deserialized <code>Char</code> value.</p>
-</td>
+        <td><span class="parametername">T</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToCharArray_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToCharArray*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToCharArray_System_Char___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToCharArray(System.Char[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToCharArray(Char[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Char</code> array.</p>
-</div>
+  <a id="KdSoft_Serialization_Buffer_ByteConverter_WriteStructBytes_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteStructBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_WriteStructBytes__1_System_ReadOnlySpan___0__System_Span_System_Byte__System_Int32__System_Func___0___0__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.WriteStructBytes``1(System.ReadOnlySpan{``0},System.Span{System.Byte},System.Int32@,System.Func{``0,``0})">WriteStructBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt;, Span&lt;Byte&gt;, ref Int32, Func&lt;T, T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToCharArray(char[] charArray, int start, int count, byte[] bytes, ref int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteStructBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt; values, Span&lt;byte&gt; bytes, ref int index, Func&lt;T, T&gt; beforeWrite)where T : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1670,725 +1947,42 @@ public void ToBytes(ulong num, byte[] bytes, ref int index)</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Char</span>[]</td>
-        <td><span class="parametername">charArray</span></td>
-        <td><p>Pre-allocated array to fill with deserialized values.</p>
-</td>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;T&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start writing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to deserialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
         <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;T, T&gt;</td>
+        <td><span class="parametername">beforeWrite</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToDecimal_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToDecimal*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToDecimal_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToDecimal(System.Byte[],System.Int32@)">ToDecimal(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Decimal</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public decimal ToDecimal(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
+        <td><span class="parametername">T</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Decimal</span></td>
-        <td><p>Deserialized <code>Decimal</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="KdSoft_Serialization_Buffer_ByteConverter_ToDecimal_System_Byte___System_Int32___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Processes the buffer as four <code>Int32</code> values which form the
-parts of a <code>Decimal</code> value in reverse order. This is .NET specific.</p>
-</div>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToDouble_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToDouble*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToDouble_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToDouble(System.Byte[],System.Int32@)">ToDouble(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Double</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public double ToDouble(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Double</span></td>
-        <td><p>Deserialized <code>Double</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToInt16_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt16*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToInt16_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt16(System.Byte[],System.Int32@)">ToInt16(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Int16</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public short ToInt16(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int16</span></td>
-        <td><p>Deserialized <code>Int16</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToInt16Array_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt16Array*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToInt16Array_System_Int16___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt16Array(System.Int16[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToInt16Array(Int16[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Int16</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToInt16Array(short[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int16</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Pre-allocated array to fill with deserialized values.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start writing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to deserialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToInt32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt32*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToInt32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt32(System.Byte[],System.Int32@)">ToInt32(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Int32</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ToInt32(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><p>Deserialized <code>Int32</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToInt32Array_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt32Array*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToInt32Array_System_Int32___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt32Array(System.Int32[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToInt32Array(Int32[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Int32</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ToInt32Array(int[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Pre-allocated array to fill with deserialized values.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start writing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to deserialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToInt64_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt64*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToInt64_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToInt64(System.Byte[],System.Int32@)">ToInt64(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Int64</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long ToInt64(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int64</span></td>
-        <td><p>Deserialized <code>Int64</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToSingle_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToSingle*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToSingle_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToSingle(System.Byte[],System.Int32@)">ToSingle(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>Single</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float ToSingle(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><p>Deserialized <code>Single</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt16_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt16*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt16_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt16(System.Byte[],System.Int32@)">ToUInt16(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>UInt16</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public ushort ToUInt16(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt16</span></td>
-        <td><p>Deserialized <code>UInt16</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt16Array_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt16Array*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt16Array_System_UInt16___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt16Array(System.UInt16[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToUInt16Array(UInt16[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>UInt16</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToUInt16Array(ushort[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt16</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Pre-allocated array to fill with deserialized values.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start writing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to deserialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt32_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt32*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt32(System.Byte[],System.Int32@)">ToUInt32(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>UInt32</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public uint ToUInt32(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt32</span></td>
-        <td><p>Deserialized <code>UInt32</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt32_System_Byte___System_Int32___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Use <code>unchecked((Int32)ToUInt32(&lt;bytes&gt;, ref &lt;index&gt;))</code>
-to return signed results.</p>
-</div>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt32Array_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt32Array*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt32Array_System_UInt32___System_Int32_System_Int32_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt32Array(System.UInt32[],System.Int32,System.Int32,System.Byte[],System.Int32@)">ToUInt32Array(UInt32[], Int32, Int32, Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>UInt32</code> array.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public void ToUInt32Array(uint[] numArray, int start, int count, byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt32</span>[]</td>
-        <td><span class="parametername">numArray</span></td>
-        <td><p>Pre-allocated array to fill with deserialized values.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">start</span></td>
-        <td><p>Array index to start writing at.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">count</span></td>
-        <td><p>Number of array elements to deserialize.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt64_" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt64*"></a>
-  <h4 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt64_System_Byte___System_Int32__" data-uid="KdSoft.Serialization.Buffer.ByteConverter.ToUInt64(System.Byte[],System.Int32@)">ToUInt64(Byte[], ref Int32)</h4>
-  <div class="markdown level1 summary"><p>Deserializes <code>UInt64</code> values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public ulong ToUInt64(byte[] bytes, ref int index)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">bytes</span></td>
-        <td><p>Byte buffer to read from.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>Byte index to start reading at.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.UInt64</span></td>
-        <td><p>Deserialized <code>UInt64</code> value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="KdSoft_Serialization_Buffer_ByteConverter_ToUInt64_System_Byte___System_Int32___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Use <code>unchecked((Int64)ToUInt64(&lt;bytes&gt;, ref &lt;index&gt;))</code>
-to return signed results.</p>
-</div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
       <a class="xref" href="KdSoft.Reflection.PropertyUtils.html#KdSoft_Reflection_PropertyUtils_GetPropertyValues_System_Object_">PropertyUtils.GetPropertyValues(Object)</a>

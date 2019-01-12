@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace KdSoft.Serialization.Buffer
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.30.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -87,7 +87,7 @@
       <section><p>Field representing <code>Boolean</code> values.</p>
 </section>
       <h4><a class="xref" href="KdSoft.Serialization.Buffer.ByteConverter.html">ByteConverter</a></h4>
-      <section><p>Serializes and deserialized numeric types in a specified byte order.</p>
+      <section><p>Serializes and deserializes numeric types in a specified byte order.</p>
 </section>
       <h4><a class="xref" href="KdSoft.Serialization.Buffer.ByteField.html">ByteField</a></h4>
       <section><p>Field representing <code>Byte</code> values.</p>
@@ -139,6 +139,9 @@ that are designed to cooperate with <a class="xref" href="KdSoft.Serialization.B
       <h4><a class="xref" href="KdSoft.Serialization.Buffer.SingleField.html">SingleField</a></h4>
       <section><p>Field representing <code>Single</code> values.</p>
 </section>
+      <h4><a class="xref" href="KdSoft.Serialization.Buffer.SpanHelpers.html">SpanHelpers</a></h4>
+      <section><p>Provides helper methods to manipulate, read and write <span class="xref">System.Span&lt;T&gt;</span> where <code>T</code> is a value type.</p>
+</section>
       <h4><a class="xref" href="KdSoft.Serialization.Buffer.StdFormatter.html">StdFormatter</a></h4>
       <section><p><a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html">Formatter</a> subclass with default fields pre-registered
     for the basic types.</p>
@@ -165,30 +168,14 @@ that are designed to cooperate with <a class="xref" href="KdSoft.Serialization.B
       <section><p>Base class for all <a class="xref" href="KdSoft.Serialization.ValueField-2.html">ValueField&lt;T, F&gt;</a> classes
 that are designed to cooperate with <a class="xref" href="KdSoft.Serialization.Buffer.Formatter.html">Formatter</a>.</p>
 </section>
-    <h3 id="structs">Structs
-  </h3>
-      <h4><a class="xref" href="KdSoft.Serialization.Buffer.DecimalLongUnion.html">DecimalLongUnion</a></h4>
-      <section><p>Union used for re-interpreting a decimal as two unsigned longs and vice-versa.</p>
-</section>
-      <h4><a class="xref" href="KdSoft.Serialization.Buffer.IntArrayUnion.html">IntArrayUnion</a></h4>
-      <section><p>Union used solely for re-interpreting <code>UInt32[]</code> as <code>Int32[]</code> and vice versa.</p>
-</section>
-      <h4><a class="xref" href="KdSoft.Serialization.Buffer.IntBytes.html">IntBytes</a></h4>
-      <section><p>Union used for re-interpreting 32 bit numeric types as byte arrays and vice-versa.</p>
-</section>
-      <h4><a class="xref" href="KdSoft.Serialization.Buffer.LongBytes.html">LongBytes</a></h4>
-      <section><p>Union used for re-interpreting 64 bit numeric types as byte arrays and vice-versa.</p>
-</section>
-      <h4><a class="xref" href="KdSoft.Serialization.Buffer.ShortArrayUnion.html">ShortArrayUnion</a></h4>
-      <section><p>Union used solely for re-interpreting <code>UInt16[]</code> as <code>Int16[]</code> or <code>Char[]</code> and vice versa.</p>
-</section>
-      <h4><a class="xref" href="KdSoft.Serialization.Buffer.ShortBytes.html">ShortBytes</a></h4>
-      <section><p>Union used for re-interpreting 16 bit numeric types as byte arrays and vice-versa.</p>
+      <h4><a class="xref" href="KdSoft.Serialization.Buffer.ValueTypeExtensions.html">ValueTypeExtensions</a></h4>
+      <section><p>Provides extension methods to manipulate value types.</p>
 </section>
     <h3 id="enums">Enums
   </h3>
       <h4><a class="xref" href="KdSoft.Serialization.Buffer.ByteOrder.html">ByteOrder</a></h4>
-      <section></section>
+      <section><p>Indicates the order of bytes in a value type.</p>
+</section>
 </article>
           </div>
           

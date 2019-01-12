@@ -1,0 +1,776 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SpanHelpers
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SpanHelpers
+   ">
+    <meta name="generator" content="docfx 2.30.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="KdSoft.Serialization.Buffer.SpanHelpers">
+  
+  
+  <h1 id="KdSoft_Serialization_Buffer_SpanHelpers" data-uid="KdSoft.Serialization.Buffer.SpanHelpers" class="text-break">Class SpanHelpers
+  </h1>
+  <div class="markdown level0 summary"><p>Provides helper methods to manipulate, read and write <span class="xref">System.Span&lt;T&gt;</span> where <code>T</code> is a value type.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">SpanHelpers</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="KdSoft.Serialization.Buffer.html">KdSoft.Serialization.Buffer</a></h6>
+  <h6><strong>Assembly</strong>: KdSoft.Serialization.dll</h6>
+  <h5 id="KdSoft_Serialization_Buffer_SpanHelpers_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class SpanHelpers</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Char__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Char})">ReverseByteOrder(Span&lt;Char&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static void ReverseByteOrder(Span&lt;char&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Char</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Decimal__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Decimal})">ReverseByteOrder(Span&lt;Decimal&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.
+Note: Refer to <a class="xref" href="KdSoft.Serialization.Buffer.ValueTypeExtensions.html#KdSoft_Serialization_Buffer_ValueTypeExtensions_ReverseByteOrder_System_Decimal_">ReverseByteOrder(Decimal)</a> for specific details on <span class="xref">System.Decimal</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReverseByteOrder(Span&lt;decimal&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Decimal</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Double__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Double})">ReverseByteOrder(Span&lt;Double&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReverseByteOrder(Span&lt;double&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Int16__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Int16})">ReverseByteOrder(Span&lt;Int16&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReverseByteOrder(Span&lt;short&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Int16</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Int32__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Int32})">ReverseByteOrder(Span&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReverseByteOrder(Span&lt;int&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Int64__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Int64})">ReverseByteOrder(Span&lt;Int64&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReverseByteOrder(Span&lt;long&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_Single__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.Single})">ReverseByteOrder(Span&lt;Single&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReverseByteOrder(Span&lt;float&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_UInt16__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.UInt16})">ReverseByteOrder(Span&lt;UInt16&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static void ReverseByteOrder(Span&lt;ushort&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.UInt16</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_UInt32__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.UInt32})">ReverseByteOrder(Span&lt;UInt32&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static void ReverseByteOrder(Span&lt;uint&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.UInt32</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_ReverseByteOrder_System_Span_System_UInt64__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.ReverseByteOrder(System.Span{System.UInt64})">ReverseByteOrder(Span&lt;UInt64&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reverses the byte order of all elements in the Span in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public static void ReverseByteOrder(Span&lt;ulong&gt; values)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.UInt64</span>&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_TryReadBytes_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_TryReadBytes__1_System_ReadOnlySpan_System_Byte__System_Int32____0__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryReadBytes``1(System.ReadOnlySpan{System.Byte},System.Int32@,``0@)">TryReadBytes&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, ref Int32, ref T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryReadBytes&lt;T&gt;(ReadOnlySpan&lt;byte&gt; bytes, ref int index, ref T value)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_TryReadBytes_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryReadBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_TryReadBytes__1_System_ReadOnlySpan_System_Byte__System_Int32__System_Span___0__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryReadBytes``1(System.ReadOnlySpan{System.Byte},System.Int32@,System.Span{``0})">TryReadBytes&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, ref Int32, Span&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryReadBytes&lt;T&gt;(ReadOnlySpan&lt;byte&gt; bytes, ref int index, Span&lt;T&gt; values)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;T&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_TryWriteBytes_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryWriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_TryWriteBytes__1___0_System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryWriteBytes``1(``0,System.Span{System.Byte},System.Int32@)">TryWriteBytes&lt;T&gt;(T, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryWriteBytes&lt;T&gt;(T values, Span&lt;byte&gt; bytes, ref int index)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_TryWriteBytes_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryWriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_TryWriteBytes__1_System_ReadOnlySpan___0__System_Span_System_Byte__System_Int32__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryWriteBytes``1(System.ReadOnlySpan{``0},System.Span{System.Byte},System.Int32@)">TryWriteBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt;, Span&lt;Byte&gt;, ref Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryWriteBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt; values, Span&lt;byte&gt; bytes, ref int index)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;T&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="KdSoft_Serialization_Buffer_SpanHelpers_TryWriteBytes_" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryWriteBytes*"></a>
+  <h4 id="KdSoft_Serialization_Buffer_SpanHelpers_TryWriteBytes__1_System_ReadOnlySpan___0__System_Span_System_Byte__System_Int32__System_Func___0___0__" data-uid="KdSoft.Serialization.Buffer.SpanHelpers.TryWriteBytes``1(System.ReadOnlySpan{``0},System.Span{System.Byte},System.Int32@,System.Func{``0,``0})">TryWriteBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt;, Span&lt;Byte&gt;, ref Int32, Func&lt;T, T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryWriteBytes&lt;T&gt;(ReadOnlySpan&lt;T&gt; values, Span&lt;byte&gt; bytes, ref int index, Func&lt;T, T&gt; beforeWrite)where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;T&gt;</td>
+        <td><span class="parametername">values</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;T, T&gt;</td>
+        <td><span class="parametername">beforeWrite</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

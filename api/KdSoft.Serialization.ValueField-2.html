@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ValueField&lt;T, F&gt;
    ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -22,7 +22,7 @@
     
     
   </head>
-  <body data-spy="scroll" data-target="#affix">
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -81,7 +81,7 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="KdSoft.Serialization.Field-2.html">Field</a>&lt;T, F&gt;</div>
     <div class="level2"><span class="xref">ValueField&lt;T, F&gt;</span></div>
-      <div class="level3"><a class="xref" href="KdSoft.Serialization.Buffer.ValueField-1.html">ValueField&lt;T&gt;</a></div>
+      <div class="level3"><a class="xref" href="KdSoft.Serialization.ValueField-1.html">ValueField&lt;T&gt;</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -92,7 +92,7 @@
       <a class="xref" href="KdSoft.Serialization.Field-2.html#KdSoft_Serialization_Field_2_Clone">Field&lt;T, F&gt;.Clone()</a>
     </div>
     <div>
-      <a class="xref" href="KdSoft.Serialization.Field-2.html#KdSoft_Serialization_Field_2_SkipValue">Field&lt;T, F&gt;.SkipValue()</a>
+      <a class="xref" href="KdSoft.Serialization.Field-2.html#KdSoft_Serialization_Field_2_SkipValue_System_ReadOnlySpan_System_Byte__">Field&lt;T, F&gt;.SkipValue(ReadOnlySpan&lt;Byte&gt;)</a>
     </div>
     <div>
       <span class="xref">System.Object.ToString()</span>
@@ -149,7 +149,8 @@
   
   <a id="KdSoft_Serialization_ValueField_2__ctor_" data-uid="KdSoft.Serialization.ValueField`2.#ctor*"></a>
   <h4 id="KdSoft_Serialization_ValueField_2__ctor__1_System_Boolean_" data-uid="KdSoft.Serialization.ValueField`2.#ctor(`1,System.Boolean)">ValueField(F, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -168,12 +169,14 @@
       <tr>
         <td><span class="xref">F</span></td>
         <td><span class="parametername">fmt</span></td>
-        <td></td>
+        <td><p>Formatter instance to use.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">isDefault</span></td>
-        <td></td>
+        <td><p>Indicates if this is the default field for the given type parameter.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -182,14 +185,32 @@
   
   
   <a id="KdSoft_Serialization_ValueField_2_Deserialize_" data-uid="KdSoft.Serialization.ValueField`2.Deserialize*"></a>
-  <h4 id="KdSoft_Serialization_ValueField_2_Deserialize" data-uid="KdSoft.Serialization.ValueField`2.Deserialize">Deserialize()</h4>
+  <h4 id="KdSoft_Serialization_ValueField_2_Deserialize_System_ReadOnlySpan_System_Byte__" data-uid="KdSoft.Serialization.ValueField`2.Deserialize(System.ReadOnlySpan{System.Byte})">Deserialize(ReadOnlySpan&lt;Byte&gt;)</h4>
   <div class="markdown level1 summary"><p>Deserializes a nullable struct.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T? Deserialize()</code></pre>
+    <pre><code class="lang-csharp hljs">public T? Deserialize(ReadOnlySpan&lt;byte&gt; source)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">source</span></td>
+        <td><p>Source to read from, a <span class="xref">System.ReadOnlySpan&lt;T&gt;</span> of bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -206,23 +227,23 @@
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_ValueField_2_Deserialize_remarks">Remarks</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_Deserialize_System_ReadOnlySpan_System_Byte___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This method should only be called when a non-default field instance
 is used directly by the application, otherwise the corresponding
 <a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a> will take care of calling it through its
-overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1">DeserializeStruct&lt;T&gt;()</a>
-or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____KdSoft_Serialization_ValueField___0__0__">DeserializeStructs&lt;T&gt;(ref T[], ValueField&lt;T, F&gt;)</a>.</p>
+overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1_System_ReadOnlySpan_System_Byte__">DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;)</a>
+or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_ReadOnlySpan_System_Byte____0____">DeserializeStructs&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, out T[])</a>.</p>
 </div>
   
   
   <a id="KdSoft_Serialization_ValueField_2_Deserialize_" data-uid="KdSoft.Serialization.ValueField`2.Deserialize*"></a>
-  <h4 id="KdSoft_Serialization_ValueField_2_Deserialize__0__System_Boolean__" data-uid="KdSoft.Serialization.ValueField`2.Deserialize(`0@,System.Boolean@)">Deserialize(ref T, out Boolean)</h4>
+  <h4 id="KdSoft_Serialization_ValueField_2_Deserialize_System_ReadOnlySpan_System_Byte___0__System_Boolean__" data-uid="KdSoft.Serialization.ValueField`2.Deserialize(System.ReadOnlySpan{System.Byte},`0@,System.Boolean@)">Deserialize(ReadOnlySpan&lt;Byte&gt;, ref T, out Boolean)</h4>
   <div class="markdown level1 summary"><p>Deserializes a struct.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Deserialize(ref T value, out bool isNull)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Deserialize(ReadOnlySpan&lt;byte&gt; source, ref T value, out bool isNull)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -235,9 +256,15 @@ or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serializat
     </thead>
     <tbody>
       <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">source</span></td>
+        <td><p>Source to read from, a <span class="xref">System.ReadOnlySpan&lt;T&gt;</span> of bytes.</p>
+</td>
+      </tr>
+      <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
-        <td><p>The object to deserialize, or <code>null</code>.</p>
+        <td><p>The struct to deserialize.</p>
 </td>
       </tr>
       <tr>
@@ -249,24 +276,24 @@ If <code>true</code>, the <code>value</code> argument will not be modified.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_ValueField_2_Deserialize__0__System_Boolean___remarks">Remarks</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_Deserialize_System_ReadOnlySpan_System_Byte___0__System_Boolean___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This method should only be called when a non-default field instance
 is used directly by the application, otherwise the corresponding
 <a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a> will take care of calling it through its
-overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1">DeserializeStruct&lt;T&gt;()</a>
-or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____KdSoft_Serialization_ValueField___0__0__">DeserializeStructs&lt;T&gt;(ref T[], ValueField&lt;T, F&gt;)</a>.
+overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1_System_ReadOnlySpan_System_Byte__">DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;)</a>
+or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_ReadOnlySpan_System_Byte____0____">DeserializeStructs&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, out T[])</a>.
 Useful for large value types because the <code>value</code> parameter is passed by reference.</p>
 </div>
   
   
   <a id="KdSoft_Serialization_ValueField_2_DeserializeValue_" data-uid="KdSoft.Serialization.ValueField`2.DeserializeValue*"></a>
-  <h4 id="KdSoft_Serialization_ValueField_2_DeserializeValue__0__" data-uid="KdSoft.Serialization.ValueField`2.DeserializeValue(`0@)">DeserializeValue(ref T)</h4>
+  <h4 id="KdSoft_Serialization_ValueField_2_DeserializeValue_System_ReadOnlySpan_System_Byte___0__" data-uid="KdSoft.Serialization.ValueField`2.DeserializeValue(System.ReadOnlySpan{System.Byte},`0@)">DeserializeValue(ReadOnlySpan&lt;Byte&gt;, ref T)</h4>
   <div class="markdown level1 summary"><p>Specifies how and in which order struct members are deserialized.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void DeserializeValue(ref T value)</code></pre>
+    <pre><code class="lang-csharp hljs">protected abstract void DeserializeValue(ReadOnlySpan&lt;byte&gt; source, ref T value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -279,6 +306,12 @@ Useful for large value types because the <code>value</code> parameter is passed 
     </thead>
     <tbody>
       <tr>
+        <td><span class="xref">System.ReadOnlySpan</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">source</span></td>
+        <td><p>Source to read from, a <span class="xref">System.ReadOnlySpan&lt;T&gt;</span> of bytes.</p>
+</td>
+      </tr>
+      <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
         <td><p>The struct instance to deserialize.</p>
@@ -286,14 +319,15 @@ Useful for large value types because the <code>value</code> parameter is passed 
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_ValueField_2_DeserializeValue__0___remarks">Remarks</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_DeserializeValue_System_ReadOnlySpan_System_Byte___0___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>For any given member data type, this must be implemented by calling one of the
-overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObject__1___0__">DeserializeObject&lt;T&gt;(ref T)</a>,
-<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1">DeserializeStruct&lt;T&gt;()</a>, <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObjects__1___0____KdSoft_Serialization_ReferenceField___0__0__">DeserializeObjects&lt;T&gt;(ref T[], ReferenceField&lt;T, F&gt;)</a>
-or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1___0____KdSoft_Serialization_ValueField___0__0__">DeserializeStructs&lt;T&gt;(ref T[], ValueField&lt;T, F&gt;)</a>.
+overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObject__1_System_ReadOnlySpan_System_Byte__">DeserializeObject&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;)</a>,
+<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStruct__1_System_ReadOnlySpan_System_Byte__">DeserializeStruct&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;)</a>,
+<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeObjects__1_System_ReadOnlySpan_System_Byte____0____">DeserializeObjects&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, ref T[])</a>
+or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_DeserializeStructs__1_System_ReadOnlySpan_System_Byte__System_Nullable___0_____">DeserializeStructs&lt;T&gt;(ReadOnlySpan&lt;Byte&gt;, out Nullable&lt;T&gt;[])</a>.
 The order in which members are deserialized must match the order of serialization.</p>
 </div>
-  <h5 id="KdSoft_Serialization_ValueField_2_DeserializeValue__0___examples">Examples</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_DeserializeValue_System_ReadOnlySpan_System_Byte___0___examples">Examples</h5>
   <p>Here is an example of such an implementation:</p>
 <pre><code>protected override void DeserializeValue(ref StockItem value) {
   Fmt.DeserializeObject&lt;string>(ref value.name);
@@ -307,13 +341,13 @@ The order in which members are deserialized must match the order of serializatio
   
   
   <a id="KdSoft_Serialization_ValueField_2_Serialize_" data-uid="KdSoft.Serialization.ValueField`2.Serialize*"></a>
-  <h4 id="KdSoft_Serialization_ValueField_2_Serialize__0__" data-uid="KdSoft.Serialization.ValueField`2.Serialize(`0@)">Serialize(ref T)</h4>
+  <h4 id="KdSoft_Serialization_ValueField_2_Serialize_System_Span_System_Byte___0__" data-uid="KdSoft.Serialization.ValueField`2.Serialize(System.Span{System.Byte},`0@)">Serialize(Span&lt;Byte&gt;, ref T)</h4>
   <div class="markdown level1 summary"><p>Serializes a value type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Serialize(ref T value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Serialize(Span&lt;byte&gt; target, ref T value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -325,6 +359,12 @@ The order in which members are deserialized must match the order of serializatio
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">target</span></td>
+        <td><p><span class="xref">System.Span&lt;T&gt;</span> of bytes to write to.</p>
+</td>
+      </tr>
       <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
@@ -333,11 +373,11 @@ The order in which members are deserialized must match the order of serializatio
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_ValueField_2_Serialize__0___remarks">Remarks</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_Serialize_System_Span_System_Byte___0___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This method should only be called when a field instance is used directly
 by the application, otherwise the corresponding <a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a>
 will take care of calling it through its overloaded versions of 
-<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Nullable___0__">SerializeStruct&lt;T&gt;(Nullable&lt;T&gt;)</a> or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___KdSoft_Serialization_ValueField___0__0__">SerializeStructs&lt;T&gt;(T[], ValueField&lt;T, F&gt;)</a>.
+<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Span_System_Byte____0_">SerializeStruct&lt;T&gt;(Span&lt;Byte&gt;, T)</a> or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Span_System_Byte____0___">SerializeStructs&lt;T&gt;(Span&lt;Byte&gt;, T[])</a>.
 <p>Passing the value type by reference avoids copy overhead which is useful
 for large value types. However, this does not allow to pass <code>nulls</code>.
 To serialize a <code>null</code>, call <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeNull">SerializeNull()</a>.</p></p>
@@ -345,13 +385,13 @@ To serialize a <code>null</code>, call <a class="xref" href="KdSoft.Serializatio
   
   
   <a id="KdSoft_Serialization_ValueField_2_Serialize_" data-uid="KdSoft.Serialization.ValueField`2.Serialize*"></a>
-  <h4 id="KdSoft_Serialization_ValueField_2_Serialize_System_Nullable__0__" data-uid="KdSoft.Serialization.ValueField`2.Serialize(System.Nullable{`0})">Serialize(Nullable&lt;T&gt;)</h4>
+  <h4 id="KdSoft_Serialization_ValueField_2_Serialize_System_Span_System_Byte__System_Nullable__0__" data-uid="KdSoft.Serialization.ValueField`2.Serialize(System.Span{System.Byte},System.Nullable{`0})">Serialize(Span&lt;Byte&gt;, Nullable&lt;T&gt;)</h4>
   <div class="markdown level1 summary"><p>Serializes a nullable value type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Serialize(T? value)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Serialize(Span&lt;byte&gt; target, T? value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -363,6 +403,12 @@ To serialize a <code>null</code>, call <a class="xref" href="KdSoft.Serializatio
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">target</span></td>
+        <td><p><span class="xref">System.Span&lt;T&gt;</span> of bytes to write to.</p>
+</td>
+      </tr>
       <tr>
         <td><span class="xref">System.Nullable</span>&lt;T&gt;</td>
         <td><span class="parametername">value</span></td>
@@ -371,22 +417,22 @@ To serialize a <code>null</code>, call <a class="xref" href="KdSoft.Serializatio
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_ValueField_2_Serialize_System_Nullable__0___remarks">Remarks</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_Serialize_System_Span_System_Byte__System_Nullable__0___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This method should only be called when a field instance is used directly
 by the application, otherwise the corresponding <a class="xref" href="KdSoft.Serialization.Formatter-1.html">Formatter&lt;F&gt;</a>
 will take care of calling it through its overloaded versions of 
-<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Nullable___0__">SerializeStruct&lt;T&gt;(Nullable&lt;T&gt;)</a> or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___KdSoft_Serialization_ValueField___0__0__">SerializeStructs&lt;T&gt;(T[], ValueField&lt;T, F&gt;)</a>.</p>
+<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Span_System_Byte____0_">SerializeStruct&lt;T&gt;(Span&lt;Byte&gt;, T)</a> or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Span_System_Byte____0___">SerializeStructs&lt;T&gt;(Span&lt;Byte&gt;, T[])</a>.</p>
 </div>
   
   
   <a id="KdSoft_Serialization_ValueField_2_SerializeValue_" data-uid="KdSoft.Serialization.ValueField`2.SerializeValue*"></a>
-  <h4 id="KdSoft_Serialization_ValueField_2_SerializeValue__0__" data-uid="KdSoft.Serialization.ValueField`2.SerializeValue(`0@)">SerializeValue(ref T)</h4>
+  <h4 id="KdSoft_Serialization_ValueField_2_SerializeValue_System_Span_System_Byte___0__" data-uid="KdSoft.Serialization.ValueField`2.SerializeValue(System.Span{System.Byte},`0@)">SerializeValue(Span&lt;Byte&gt;, ref T)</h4>
   <div class="markdown level1 summary"><p>Specifies how and in which order struct members are serialized.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void SerializeValue(ref T value)</code></pre>
+    <pre><code class="lang-csharp hljs">protected abstract void SerializeValue(Span&lt;byte&gt; target, ref T value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -399,6 +445,12 @@ will take care of calling it through its overloaded versions of
     </thead>
     <tbody>
       <tr>
+        <td><span class="xref">System.Span</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">target</span></td>
+        <td><p><span class="xref">System.Span&lt;T&gt;</span> of bytes to write to.</p>
+</td>
+      </tr>
+      <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
         <td><p>The struct instance to serialize.</p>
@@ -406,13 +458,13 @@ will take care of calling it through its overloaded versions of
       </tr>
     </tbody>
   </table>
-  <h5 id="KdSoft_Serialization_ValueField_2_SerializeValue__0___remarks">Remarks</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_SerializeValue_System_Span_System_Byte___0___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>For any given member data type, this must be implemented by calling one of the
-overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObject__1___0_">SerializeObject&lt;T&gt;(T)</a>,
-<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Nullable___0__">SerializeStruct&lt;T&gt;(Nullable&lt;T&gt;)</a>, <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1___0___KdSoft_Serialization_ReferenceField___0__0__">SerializeObjects&lt;T&gt;(T[], ReferenceField&lt;T, F&gt;)</a>
-or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1___0___KdSoft_Serialization_ValueField___0__0__">SerializeStructs&lt;T&gt;(T[], ValueField&lt;T, F&gt;)</a>.</p>
+overloaded versions of <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObject__1_System_Span_System_Byte____0_">SerializeObject&lt;T&gt;(Span&lt;Byte&gt;, T)</a>,
+<a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStruct__1_System_Span_System_Byte____0_">SerializeStruct&lt;T&gt;(Span&lt;Byte&gt;, T)</a>, <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeObjects__1_System_Span_System_Byte____0___">SerializeObjects&lt;T&gt;(Span&lt;Byte&gt;, T[])</a>
+or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serialization_Formatter_1_SerializeStructs__1_System_Span_System_Byte____0___">SerializeStructs&lt;T&gt;(Span&lt;Byte&gt;, T[])</a>.</p>
 </div>
-  <h5 id="KdSoft_Serialization_ValueField_2_SerializeValue__0___examples">Examples</h5>
+  <h5 id="KdSoft_Serialization_ValueField_2_SerializeValue_System_Span_System_Byte___0___examples">Examples</h5>
   <p>Here is an example of such an implementation:</p>
 <pre><code>protected override void SerializeValue(ref StockItem value) {
   Fmt.SerializeObject&lt;string>(value.name);
@@ -461,7 +513,7 @@ or <a class="xref" href="KdSoft.Serialization.Formatter-1.html#KdSoft_Serializat
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+            <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

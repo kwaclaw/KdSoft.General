@@ -4,23 +4,12 @@
   "xrefmap": "xrefmap.yml",
   "files": [
     {
-      "type": "Resource",
-      "source_relative_path": "../KdSoft.Serialization/Serialization of Object Graphs.html",
-      "output": {
-        "resource": {
-          "relative_path": "KdSoft.Serialization/Serialization of Object Graphs.html"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
       "type": "ManagedReference",
       "source_relative_path": "api/KdSoft.Common.BindableBase.yml",
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Common.BindableBase.html",
-          "hash": "VMoVwYCOn0wUogoTIv9aPw=="
+          "hash": "SrvBLDGbJuoF2bKhGJuKBA=="
         }
       },
       "is_incremental": false,
@@ -32,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Common.UpdatableBase.html",
-          "hash": "bBWAlFZMRSxt7L4NEltaDw=="
+          "hash": "n1Q1LzqPsAePgM+Sm4+9kw=="
         }
       },
       "is_incremental": false,
@@ -44,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Common.WebExtensions.html",
-          "hash": "j7MEvocgoUaLvwyFLZP8QA=="
+          "hash": "rw/a5kFCDMkbvakuXprKXQ=="
         }
       },
       "is_incremental": false,
@@ -56,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Common.html",
-          "hash": "MfT5fjQ7vOJsfytjA8pOLg=="
+          "hash": "WqH6y7jRRxdTn7jg5lty3w=="
         }
       },
       "is_incremental": false,
@@ -68,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Config.Compile.html",
-          "hash": "kE8oYZnVLfOx7qQtU8bXLQ=="
+          "hash": "PSNR/34aQm9U+u/zI0BHng=="
         }
       },
       "is_incremental": false,
@@ -80,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Config.ConfigUtil.html",
-          "hash": "xbou/cIPTBSwHK1v+CLEBw=="
+          "hash": "xDObExJ/hAquh1Ivu0td0g=="
         }
       },
       "is_incremental": false,
@@ -92,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Config.Configurator.html",
-          "hash": "ItUjD+S1O0zy8iZDWxKXnQ=="
+          "hash": "YQt9OjP5hZhJwMUxBr4PDA=="
         }
       },
       "is_incremental": false,
@@ -104,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Config.IConfigurator-1.html",
-          "hash": "auZXjyrqvlFDtymBNowGpQ=="
+          "hash": "GRCrL+PNWQiQ5eL6NZBsNA=="
         }
       },
       "is_incremental": false,
@@ -116,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Config.html",
-          "hash": "T72MAbeR6CBryo8fbkIJpg=="
+          "hash": "38KMRdDOIu8naHKnByHyhw=="
         }
       },
       "is_incremental": false,
@@ -128,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.IIdentifiable-1.html",
-          "hash": "5NG8l5hhNFd0XMcY/5+D9Q=="
+          "hash": "ZdE0A5YIqxRS4sFO+EJ9jA=="
         }
       },
       "is_incremental": false,
@@ -140,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Reflection.PropertyUtils.PropertyAccessor.html",
-          "hash": "d6MIUVBQL9dRFHMComykng=="
+          "hash": "Turf46pCERbn1w3Tvw3Otg=="
         }
       },
       "is_incremental": false,
@@ -152,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Reflection.PropertyUtils.html",
-          "hash": "g8DMsWxO6eSC4/SWTGJYnQ=="
+          "hash": "4H66a9fKX45Ibv/gM8x2pQ=="
         }
       },
       "is_incremental": false,
@@ -164,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Reflection.ReflectUtils.html",
-          "hash": "2KPuCOUxa08W4c+MLZgi0A=="
+          "hash": "In78X/nzRl6qmg8j6BxFbw=="
         }
       },
       "is_incremental": false,
@@ -176,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Reflection.Reflection.html",
-          "hash": "jA55w/ZR4HrscaU7Syl6Kg=="
+          "hash": "ZWh034Yw3VJ7RAQhxdHJSw=="
         }
       },
       "is_incremental": false,
@@ -188,7 +177,19 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Reflection.html",
-          "hash": "7fsfQknSKE+9v/m3gXzqHQ=="
+          "hash": "lvIKbAqFJCyMm9Jyrhx+yg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.AddItem-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.AddItem-1.html",
+          "hash": "uwPbQHQ1hD6Hind1DVyZYQ=="
         }
       },
       "is_incremental": false,
@@ -200,7 +201,19 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.AddItem-2.html",
-          "hash": "h4RsAVcHYl83CD6YKATANw=="
+          "hash": "JVSCz/Qg6EttRZL2QtU7Uw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.AddValueItem-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.AddValueItem-1.html",
+          "hash": "SAlZAl3rFZrQs5BuimK/LQ=="
         }
       },
       "is_incremental": false,
@@ -212,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.AddValueItem-2.html",
-          "hash": "pfFg3q1tqKpUseKNLzFuWg=="
+          "hash": "IaQSe0f44r8zGxgtrnYV4w=="
         }
       },
       "is_incremental": false,
@@ -220,11 +233,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.BinaryField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.BinaryField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.BinaryField.html",
-          "hash": "H7ZaZUtm7aReVUs14nHHJw=="
+          "relative_path": "api/KdSoft.Serialization.BinaryField.html",
+          "hash": "mdB83d1l0CiGncd+qAnuFg=="
         }
       },
       "is_incremental": false,
@@ -232,11 +245,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.BlobField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.BlobField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.BlobField.html",
-          "hash": "SgOF9NJdsZVegnjHtxb/FQ=="
+          "relative_path": "api/KdSoft.Serialization.BlobField.html",
+          "hash": "h2h63OU5eYqgkYdD06YpzA=="
         }
       },
       "is_incremental": false,
@@ -244,11 +257,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.BoolField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.BoolField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.BoolField.html",
-          "hash": "7kBozbgtWMQ1dL9I2mnnLw=="
+          "relative_path": "api/KdSoft.Serialization.BoolField.html",
+          "hash": "4QOEpCvW7QXe7kpxyWvlEg=="
         }
       },
       "is_incremental": false,
@@ -256,11 +269,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ByteConverter.yml",
+      "source_relative_path": "api/KdSoft.Serialization.ByteConverter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ByteConverter.html",
-          "hash": "Qpj+44bPHAy/KrJ3VZYMFA=="
+          "relative_path": "api/KdSoft.Serialization.ByteConverter.html",
+          "hash": "+zWolkLNp4sFyBp48Tdy3Q=="
         }
       },
       "is_incremental": false,
@@ -268,11 +281,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ByteField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.ByteField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ByteField.html",
-          "hash": "QCh4ebb99ZCrRrgqlZuMCA=="
+          "relative_path": "api/KdSoft.Serialization.ByteField.html",
+          "hash": "T/Fj4ZL2LjQDybKDazCvRQ=="
         }
       },
       "is_incremental": false,
@@ -280,11 +293,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ByteOrder.yml",
+      "source_relative_path": "api/KdSoft.Serialization.ByteOrder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ByteOrder.html",
-          "hash": "6ekWl3TyQuxb3UPQZrS1Vw=="
+          "relative_path": "api/KdSoft.Serialization.ByteOrder.html",
+          "hash": "qE63a4sUYBsUG98KTn8eYA=="
         }
       },
       "is_incremental": false,
@@ -292,11 +305,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.CharArrayField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.CharArrayField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.CharArrayField.html",
-          "hash": "L7h2usMwgN3KQAXxVj04ag=="
+          "relative_path": "api/KdSoft.Serialization.CharArrayField.html",
+          "hash": "+oKzvEC9iBR/LaGKEXvcUA=="
         }
       },
       "is_incremental": false,
@@ -304,11 +317,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.CharField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.CharField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.CharField.html",
-          "hash": "5jpUPaBKhVAWLmxDA7SYUw=="
+          "relative_path": "api/KdSoft.Serialization.CharField.html",
+          "hash": "Ryv/LSuddxxUe7nTskf3gQ=="
         }
       },
       "is_incremental": false,
@@ -316,11 +329,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.DateTimeField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.DateTimeField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.DateTimeField.html",
-          "hash": "jPSlM2NCY7OopeyHxQ2ehw=="
+          "relative_path": "api/KdSoft.Serialization.DateTimeField.html",
+          "hash": "ubdG6C+aqsCuodICfX8QRA=="
         }
       },
       "is_incremental": false,
@@ -328,11 +341,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.DecimalField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.DateTimeOffsetField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.DecimalField.html",
-          "hash": "wTj4DpZCfD1zjFYbndWa4Q=="
+          "relative_path": "api/KdSoft.Serialization.DateTimeOffsetField.html",
+          "hash": "5hoo16DzJcO3muejIiknyg=="
         }
       },
       "is_incremental": false,
@@ -340,11 +353,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.DecimalLongUnion.yml",
+      "source_relative_path": "api/KdSoft.Serialization.DecimalBytes.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.DecimalLongUnion.html",
-          "hash": "7O3SpEbPBkndn6HqlrfgcQ=="
+          "relative_path": "api/KdSoft.Serialization.DecimalBytes.html",
+          "hash": "HfT3FeHJ+0EojyF4K0EsKw=="
         }
       },
       "is_incremental": false,
@@ -352,11 +365,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.DoubleField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.DecimalField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.DoubleField.html",
-          "hash": "RFOKmT3LBt/T6oRjKohOLQ=="
+          "relative_path": "api/KdSoft.Serialization.DecimalField.html",
+          "hash": "9yKz41YRIHO12/K6U4oelw=="
         }
       },
       "is_incremental": false,
@@ -364,287 +377,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.FixedCharArrayField.yml",
+      "source_relative_path": "api/KdSoft.Serialization.DoubleField.yml",
       "output": {
         ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.FixedCharArrayField.html",
-          "hash": "GzGJ5nM2XKCCUgigChE8rg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.Formatter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.Formatter.html",
-          "hash": "b6lt5QU30mZmU24aW3OpDQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntArrayField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.IntArrayField.html",
-          "hash": "LFZKvL9a3Noa35GdYm9azQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntArrayUnion.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.IntArrayUnion.html",
-          "hash": "Egej8li0Hu9cGgSr5QipsA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntBytes.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.IntBytes.html",
-          "hash": "w+GAOAuItwAxIC8SSPvUpQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.IntField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.IntField.html",
-          "hash": "zuXAN2f3e/tREsZpL0GoeA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.LongBytes.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.LongBytes.html",
-          "hash": "rypYPjFXeOsUhx7jxtiz2A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.LongField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.LongField.html",
-          "hash": "p6Q0zgN9OpTxeQ5voad5HQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ReferenceField-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ReferenceField-1.html",
-          "hash": "JOL2PlqZq0X5XAdP3z8ivw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.SByteField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.SByteField.html",
-          "hash": "22PH0Ds/L8RKd2kj0byO0g=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayField.html",
-          "hash": "JbmSquwWzZ2RbZcdlSpS9A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayUnion.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ShortArrayUnion.html",
-          "hash": "AfNY5Dj1NiGDvyYhUrb0sQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortBytes.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ShortBytes.html",
-          "hash": "0BlryZAIuyFaanCGeY2qgg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ShortField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ShortField.html",
-          "hash": "3jWo8G/FUczkGWtgX5WpxQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.SingleField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.SingleField.html",
-          "hash": "ktrP0YFNTjxNnCiHZ/syMg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.StdFormatter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.StdFormatter.html",
-          "hash": "Z6FvZ/cK8u195PxTy92XYw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.StringField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.StringField.html",
-          "hash": "6HZORgtzyzGAytyGxSOWdg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.UIntArrayField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.UIntArrayField.html",
-          "hash": "TCsrljkXwv3g1VSptsmuRQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.UIntField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.UIntField.html",
-          "hash": "vY3wQtUV4N74djBs0QReYw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ULongField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ULongField.html",
-          "hash": "31vmMKqq20oenzTx4mNxbQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.UShortArrayField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.UShortArrayField.html",
-          "hash": "7snOooKtf6eVoCJXHj43+w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.UShortField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.UShortField.html",
-          "hash": "0ESlV5/Yz2JIOivGpzMZ/g=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.ValueField-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.ValueField-1.html",
-          "hash": "giBHDGYlLPDkZJAMpsvlwA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/KdSoft.Serialization.Buffer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/KdSoft.Serialization.Buffer.html",
-          "hash": "c7yGQp7TvBF7i6qM6Rqf+A=="
+          "relative_path": "api/KdSoft.Serialization.DoubleField.html",
+          "hash": "fBJtQZyaN5MEe0+fDAt/jg=="
         }
       },
       "is_incremental": false,
@@ -656,7 +393,19 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.Field-2.html",
-          "hash": "/1VVzjHxPTM8lsYwiJ8q6Q=="
+          "hash": "5IdGqWIaKS5uMgahm6Goog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.FixedCharArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.FixedCharArrayField.html",
+          "hash": "HD8+8TebhhP2ejw52e7Ytg=="
         }
       },
       "is_incremental": false,
@@ -668,7 +417,19 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.Formatter-1.html",
-          "hash": "B4CTpTa1847OCEPhngGMwA=="
+          "hash": "VEt6GIjDu9ZY8DFYzSImfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.Formatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.Formatter.html",
+          "hash": "qudDn3WaEc1czOr/mgqMMQ=="
         }
       },
       "is_incremental": false,
@@ -680,7 +441,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.InitSequence-2.html",
-          "hash": "UuGfW3eoPtBQQRuIb3EJOQ=="
+          "hash": "oDVsjxt2SHABWXPMEdw1VQ=="
         }
       },
       "is_incremental": false,
@@ -692,7 +453,91 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.InitValueSequence-2.html",
-          "hash": "PFaHl42am0+2b3ix7uePgg=="
+          "hash": "MdsnL/5obIkzJUAI+n8ARQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.IntArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.IntArrayField.html",
+          "hash": "OruSE8BSOREkSv3X5O9HOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.IntArrayUnion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.IntArrayUnion.html",
+          "hash": "PjLQcUgpbc8rf3uvP6YPRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.IntBytes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.IntBytes.html",
+          "hash": "i8wPPS1j1vAQl9S0aWntug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.IntField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.IntField.html",
+          "hash": "2WgGfmqhE01v9AXBGtw0EA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.LongBytes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.LongBytes.html",
+          "hash": "8MleBU/6Q7X7nCPaJxR+kg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.LongField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.LongField.html",
+          "hash": "X0KE2tL3gQkFztFKu01H5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ReferenceField-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ReferenceField-1.html",
+          "hash": "wgDLY2iVw1PYq2AL5P5WSg=="
         }
       },
       "is_incremental": false,
@@ -704,7 +549,19 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.ReferenceField-2.html",
-          "hash": "CjdUi7gbyXEY0juQQ233mQ=="
+          "hash": "7qw283IReQPcPL7d3PUITw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.SByteField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.SByteField.html",
+          "hash": "ijmpBoTScnCERuGgEUogyQ=="
         }
       },
       "is_incremental": false,
@@ -716,7 +573,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.SerialStatus.html",
-          "hash": "Ahd2L8cdjb2jh9dAnIqFbw=="
+          "hash": "kOL++rA8gp/mpSeAmqiHyw=="
         }
       },
       "is_incremental": false,
@@ -728,7 +585,187 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.SerializationException.html",
-          "hash": "defPkuwMHGpeUyZfFt381g=="
+          "hash": "GqMtZoScqqme2C4Dw51x9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ShortArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ShortArrayField.html",
+          "hash": "ZWRNKY2qWrq4as2PWrhtjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ShortArrayUnion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ShortArrayUnion.html",
+          "hash": "AYcYXJxK//LT0NxzLyNM1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ShortBytes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ShortBytes.html",
+          "hash": "pz+eRkVw2ct4pE53PJMpTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ShortField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ShortField.html",
+          "hash": "CNYSSFXXJ2Pg7Hrw0D6/QQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.SingleField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.SingleField.html",
+          "hash": "AJOEJCXyFS8oDhjWtYArcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.SpanHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.SpanHelpers.html",
+          "hash": "0J4IaAsurgJOgclzFLLpbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.StdFormatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.StdFormatter.html",
+          "hash": "XWNwjpq0u+jSzzW93aUYkg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.StringField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.StringField.html",
+          "hash": "GhEXEJMXw9Rdr/UusX972A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.TimeSpanField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.TimeSpanField.html",
+          "hash": "vm/68mYEH0tu0YaDtDe8AA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.UIntArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.UIntArrayField.html",
+          "hash": "JnPUdZln1Nc6Il2IIVKYUg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.UIntField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.UIntField.html",
+          "hash": "B1EByokqYAq2myJ2LjKiiw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ULongField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ULongField.html",
+          "hash": "sj4bFbMl+0eonKvnjSjaaA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.UShortArrayField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.UShortArrayField.html",
+          "hash": "zx2+pLlWMAYaXY+yAHHSXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.UShortField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.UShortField.html",
+          "hash": "fwuQNg1wfMGQSI6gzACNGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ValueField-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ValueField-1.html",
+          "hash": "bK1xu/lvDfzB5Fp9GbUQ9w=="
         }
       },
       "is_incremental": false,
@@ -740,7 +777,19 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.ValueField-2.html",
-          "hash": "+DctiqbbJ8X5X0k5QGWmxQ=="
+          "hash": "Z3FDbc1/dBgZiYCc3V3vdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Serialization.ValueTypeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Serialization.ValueTypeExtensions.html",
+          "hash": "IoGa2+HG4fC9pZHPnuCUSw=="
         }
       },
       "is_incremental": false,
@@ -752,7 +801,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Serialization.html",
-          "hash": "b5zvioRI9EHsAK9oX2CBuA=="
+          "hash": "oWHLWJqpMwkRecXBlZL3Xg=="
         }
       },
       "is_incremental": false,
@@ -764,7 +813,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.AsyncBufferedReader.html",
-          "hash": "nUiibIbpMG5VoJ9VnmGdkw=="
+          "hash": "+uZrry5Ge07/M5lviqt9Yg=="
         }
       },
       "is_incremental": false,
@@ -776,7 +825,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.AsyncReadWritePump.html",
-          "hash": "kFPRWSGcIDLUr17q3/Kxiw=="
+          "hash": "kx2sqiMoadU17AhjQrfyzQ=="
         }
       },
       "is_incremental": false,
@@ -788,7 +837,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.BufferedReader.html",
-          "hash": "Nksf2p6LYQp3VZVWLK/wuw=="
+          "hash": "MvGus5JZMaDwTWuFwAIPRw=="
         }
       },
       "is_incremental": false,
@@ -800,7 +849,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.Constants.html",
-          "hash": "6JoKf7y/+zgW6Au+SJfJPQ=="
+          "hash": "+8P2cVhJL3JocHYF1iAVMw=="
         }
       },
       "is_incremental": false,
@@ -812,7 +861,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.CryptoWriter.html",
-          "hash": "E0AYY8C61u8of1MHvcxVvA=="
+          "hash": "bwk940gwD6r7iXnfFFrlYg=="
         }
       },
       "is_incremental": false,
@@ -824,7 +873,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.ExhaustiveReadWritePump.html",
-          "hash": "CAhAAJK70bn2aKY62WdZRQ=="
+          "hash": "NXHmgLVVIbZGc5Snac7DaQ=="
         }
       },
       "is_incremental": false,
@@ -836,7 +885,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.FilterStreamWriter-1.html",
-          "hash": "SV27q2lGlEzIP8/fj2X/nA=="
+          "hash": "UzaMC8QY8exkU3USE5KlEQ=="
         }
       },
       "is_incremental": false,
@@ -848,7 +897,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IFilterWriter.html",
-          "hash": "08dkTpLpPPceMGatkuBX0w=="
+          "hash": "/d3BSNUhREW0sCes+4RJSA=="
         }
       },
       "is_incremental": false,
@@ -860,7 +909,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IOResult.html",
-          "hash": "0VBMu1dHnz+1QOwc7YoV0w=="
+          "hash": "EhM129aDL4d8QUCfOaSQig=="
         }
       },
       "is_incremental": false,
@@ -872,7 +921,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IRandomAsyncReader.html",
-          "hash": "kxpbFvcEgnrYGNy0n8DT8A=="
+          "hash": "I7byPwrZIxPs0Fs0PYsISw=="
         }
       },
       "is_incremental": false,
@@ -884,7 +933,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IRandomAsyncWriter.html",
-          "hash": "VQnp1QhWgdmfQWF84qXdIA=="
+          "hash": "NFaxJfynDW5Uov7gffH6ng=="
         }
       },
       "is_incremental": false,
@@ -896,7 +945,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IRandomReader.html",
-          "hash": "Ncw+MM1edDT4Yx4aQuG2yw=="
+          "hash": "jXqv58feMTUvPB85ZwGnuQ=="
         }
       },
       "is_incremental": false,
@@ -908,7 +957,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IRandomWriter.html",
-          "hash": "PMDjVg2myv/v0bPpgyNZsg=="
+          "hash": "yzAQcYwsuH2W1Sa9O8bk0g=="
         }
       },
       "is_incremental": false,
@@ -920,7 +969,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IReader.html",
-          "hash": "YewXGewer4kZuZSHYWCWow=="
+          "hash": "KXLB4/aak9zZOHQJlzH4YA=="
         }
       },
       "is_incremental": false,
@@ -932,7 +981,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.ISerialAsyncReader.html",
-          "hash": "4P0SmqrEw7tkuHA3+hbziA=="
+          "hash": "pdCdzAC4c+4qSTpT+/2Slw=="
         }
       },
       "is_incremental": false,
@@ -944,7 +993,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.ISerialAsyncWriter.html",
-          "hash": "tulOAD9Nk8w33tOhNIo6YQ=="
+          "hash": "wSKc5YFdtjros3rdUyAKGA=="
         }
       },
       "is_incremental": false,
@@ -956,7 +1005,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.ISerialReader.html",
-          "hash": "bOemJgECtBRcQvWWdfnfJA=="
+          "hash": "/THqPXmqiExo3vjoOmU/Kw=="
         }
       },
       "is_incremental": false,
@@ -968,7 +1017,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.ISerialWriter.html",
-          "hash": "OF9W9/UXStxGVHz6WOBcXQ=="
+          "hash": "VzefgBwX0ruT/1WC84hDQw=="
         }
       },
       "is_incremental": false,
@@ -980,7 +1029,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.IWriter.html",
-          "hash": "uKEVYvWvQcf2ToJymaW3jQ=="
+          "hash": "MZiG0ainurJnqxLIFgWRZg=="
         }
       },
       "is_incremental": false,
@@ -992,7 +1041,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.MemoryReader.html",
-          "hash": "o7pOQD4NGkYt4jXbxPl48w=="
+          "hash": "NFDtYFiN7d9jDN4Dx3JZ8w=="
         }
       },
       "is_incremental": false,
@@ -1004,7 +1053,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomAsyncStreamReader-1.html",
-          "hash": "2rS8RUyRzww1sb1+dZd0Lw=="
+          "hash": "30a8UDXIkHuii0z9LIKesA=="
         }
       },
       "is_incremental": false,
@@ -1016,7 +1065,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomAsyncStreamWriter-1.html",
-          "hash": "8hnHqm5+6hvLI8dXUGvtrQ=="
+          "hash": "3ExOCA0ukCb6I0vDxLgdgA=="
         }
       },
       "is_incremental": false,
@@ -1028,7 +1077,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomDataRequestHandler.html",
-          "hash": "dQmjsMq80vbcJfTUyUaRrw=="
+          "hash": "vncebYbzEIAGzPEEIVuUZQ=="
         }
       },
       "is_incremental": false,
@@ -1040,7 +1089,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomFileAsyncStreamReader.html",
-          "hash": "NW8rScewpFHqcaDAEQpiEw=="
+          "hash": "LTnhdgiO+PxyURgNgw+eTA=="
         }
       },
       "is_incremental": false,
@@ -1052,7 +1101,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomFileAsyncStreamWriter.html",
-          "hash": "l76ol/XKgM+8KDo1Czs1iA=="
+          "hash": "zWh5P5VAf49qlpOwJEluZA=="
         }
       },
       "is_incremental": false,
@@ -1064,7 +1113,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomFileStreamReader.html",
-          "hash": "rMrK9Uhu9CICM4+0FYThTg=="
+          "hash": "FbGDKvyJhk3wdjwjmiFvUQ=="
         }
       },
       "is_incremental": false,
@@ -1076,7 +1125,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomFileStreamWriter.html",
-          "hash": "pweIuYdh3PD7y0dwpBnk4A=="
+          "hash": "KPOXPKNyodPVAguKd/dkbQ=="
         }
       },
       "is_incremental": false,
@@ -1088,7 +1137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomStreamReader-1.html",
-          "hash": "3xZvijMNVpg7QIUVnxE69A=="
+          "hash": "nbyh5qn68noT/Y291hCH7w=="
         }
       },
       "is_incremental": false,
@@ -1100,7 +1149,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomStreamWriter-1.html",
-          "hash": "7cB07hv/oGcp8/5hceVWZg=="
+          "hash": "CIySuabWDMiEL+m366ZX7g=="
         }
       },
       "is_incremental": false,
@@ -1112,7 +1161,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RandomWriteSequentializer.html",
-          "hash": "PJUxLOs5YgxDp+0WnLIw4g=="
+          "hash": "ATvX9ONeEfbo/uSafqrgKQ=="
         }
       },
       "is_incremental": false,
@@ -1124,7 +1173,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.RingBuffer-1.html",
-          "hash": "XRMuDLureW79ggp4eU2Kkw=="
+          "hash": "HRAVXfQb2RTpW0+ABloJ7g=="
         }
       },
       "is_incremental": false,
@@ -1136,7 +1185,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialAsyncStreamReader-1.html",
-          "hash": "IdIItQbTGTzel6oNoMKtFA=="
+          "hash": "DEO1N+TIZrOsvBMctx/iHA=="
         }
       },
       "is_incremental": false,
@@ -1148,7 +1197,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialAsyncStreamWriter-1.html",
-          "hash": "ZRF5t6Bur0db0AmIM9HbTw=="
+          "hash": "WNGrMaP8YudlBttHFmBejg=="
         }
       },
       "is_incremental": false,
@@ -1160,7 +1209,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialDataRequestHandler.html",
-          "hash": "cbfHzML/OmfmcDc2dsVVFQ=="
+          "hash": "37wkRGpkK4U/TLysp7qQnQ=="
         }
       },
       "is_incremental": false,
@@ -1172,7 +1221,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialFileAsyncStreamReader.html",
-          "hash": "qITtpLQHs6Gsb/AeOdVM7w=="
+          "hash": "Ro028e35S7+qHK88mZG+cw=="
         }
       },
       "is_incremental": false,
@@ -1184,7 +1233,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialFileAsyncStreamWriter.html",
-          "hash": "HXDWCrzvRy8zgBk+T58H9Q=="
+          "hash": "6ypF45uo33wNQTASArFg7w=="
         }
       },
       "is_incremental": false,
@@ -1196,7 +1245,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialFileStreamReader.html",
-          "hash": "NtYoCT9hvi+iMVvB+NdP9w=="
+          "hash": "AQnnQORyq7nD8EVvYy0ZuA=="
         }
       },
       "is_incremental": false,
@@ -1208,7 +1257,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialFileStreamWriter.html",
-          "hash": "/gsRLsHpn3r4DGnF1bqaHA=="
+          "hash": "JLyoBCgyZB++h4ZvONuPVw=="
         }
       },
       "is_incremental": false,
@@ -1220,7 +1269,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialFilterWriter.html",
-          "hash": "15CV/Ww0Y4Xg+BcJslFZlQ=="
+          "hash": "0vaVJTA2wnwgFt0ZKVJLdg=="
         }
       },
       "is_incremental": false,
@@ -1232,7 +1281,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialStreamReader-1.html",
-          "hash": "8jzxThFZ2KwWqcQ3jzh5pg=="
+          "hash": "9k2o+UgyN8/nchxigvKUkQ=="
         }
       },
       "is_incremental": false,
@@ -1244,7 +1293,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialStreamWriter-1.html",
-          "hash": "i++rlvMBB8/HAhPeiItyaQ=="
+          "hash": "VaO+061J2UqD76gzuHH83Q=="
         }
       },
       "is_incremental": false,
@@ -1256,7 +1305,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.SerialWriterException.html",
-          "hash": "2dDsFN/JSKrbXoUXPygzAQ=="
+          "hash": "5g0pWTRdYCN5t+TQW8Rxww=="
         }
       },
       "is_incremental": false,
@@ -1268,7 +1317,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.StreamReader-1.html",
-          "hash": "cIT7FA1cfiNAlXkTbvQz9g=="
+          "hash": "7jM0WA+vnT8Fglebd7O1VQ=="
         }
       },
       "is_incremental": false,
@@ -1280,7 +1329,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.StreamWriter-1.html",
-          "hash": "5a7s5MSxIaqiumOALnT9IA=="
+          "hash": "ZbFYLDIYBbF+uOtUoFzSlw=="
         }
       },
       "is_incremental": false,
@@ -1292,7 +1341,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.TransformFilterWriter.html",
-          "hash": "N3qXekAuXEkbYJHJpIBwRg=="
+          "hash": "tAZFesjYMVSJ3O7JMs2GaQ=="
         }
       },
       "is_incremental": false,
@@ -1304,7 +1353,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.StreamUtils.html",
-          "hash": "zkH2CKsNEVAjewQWPtfMmg=="
+          "hash": "Kbg9fEX8KurPUzE1fRvx1A=="
         }
       },
       "is_incremental": false,
@@ -1316,7 +1365,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.AsyncEventHandlerWrapper-1.html",
-          "hash": "nZArUcK5h/id/X85ivSCTA=="
+          "hash": "vjhkzGBYkse9q2vafhkwzA=="
         }
       },
       "is_incremental": false,
@@ -1328,7 +1377,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.AsyncTaskResult-2.html",
-          "hash": "5tTxfrsKFao/2bgPi62hzQ=="
+          "hash": "7Xv0wSQ8vp2SMtFkMBt8Ow=="
         }
       },
       "is_incremental": false,
@@ -1340,7 +1389,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.AsyncUtils.html",
-          "hash": "r9Bij01Ss5qTu4zQ93RV3g=="
+          "hash": "0AYCIs8d4dBSC1dEPAlUfg=="
         }
       },
       "is_incremental": false,
@@ -1352,7 +1401,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.BufferPool.html",
-          "hash": "SuaISgJ9dhEfB3r5ETl/Zg=="
+          "hash": "uPH7Kyy4ZCGc7W3fN+ayrQ=="
         }
       },
       "is_incremental": false,
@@ -1364,7 +1413,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.BulkObservableCollection-1.html",
-          "hash": "+wrCNkwsH0hKMc0hM9KxsQ=="
+          "hash": "oT5L/ziR2n/JMSZO2K8ErA=="
         }
       },
       "is_incremental": false,
@@ -1376,7 +1425,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.Common.html",
-          "hash": "JDwkaowNloZ6DkZ5qzU+2Q=="
+          "hash": "fSnujRwgLf6TRogGba8X4A=="
         }
       },
       "is_incremental": false,
@@ -1388,7 +1437,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.html",
-          "hash": "wc4hc+bOnJ4B3334c+h7Pw=="
+          "hash": "4aoSKcLSs6NL5kx3awhKUw=="
         }
       },
       "is_incremental": false,
@@ -1400,7 +1449,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.Crc64.html",
-          "hash": "zyDya0qfd1b/iAMqebZCJQ=="
+          "hash": "ZlOB4+tSA0ESAoJiGEcnBw=="
         }
       },
       "is_incremental": false,
@@ -1412,7 +1461,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.CryptUtils.html",
-          "hash": "BDGHw6TD1NHh9lWbHWVAZw=="
+          "hash": "W63kf+Ou7Puma28I55yE1A=="
         }
       },
       "is_incremental": false,
@@ -1424,7 +1473,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.DailyXmlWriterTraceListener.html",
-          "hash": "4W+R+AuQJSDqbWzajxrVSg=="
+          "hash": "wUfE7vRBTwqFV7R7XjjVCg=="
         }
       },
       "is_incremental": false,
@@ -1436,7 +1485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.DateEnumerable.html",
-          "hash": "Nbr1Cxh2F7H0k22aUfYEJg=="
+          "hash": "FSAeX+yNaFGMlQePoTa5cA=="
         }
       },
       "is_incremental": false,
@@ -1448,7 +1497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.DateEnumerator.html",
-          "hash": "CQUGIegvcXR3hLHtNXPBIg=="
+          "hash": "bfMy2xf9HLIeLdMwB8mxgA=="
         }
       },
       "is_incremental": false,
@@ -1460,7 +1509,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.DateTimeExtensions.html",
-          "hash": "gM0odJvtr6fl/HJMds6DFw=="
+          "hash": "XBLdc3rTxMaTpj9IqK0pIQ=="
         }
       },
       "is_incremental": false,
@@ -1472,7 +1521,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.EventArgs-1.html",
-          "hash": "p0es+1T/zXxFSGvsBp/ccQ=="
+          "hash": "sqdS7qEOpfQMeFSNGA3UjA=="
         }
       },
       "is_incremental": false,
@@ -1484,7 +1533,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.EventArgs-2.html",
-          "hash": "CssXqVekELDMMqm57MzD7Q=="
+          "hash": "Zi4Y0OYPnRLdMvsORSMHHA=="
         }
       },
       "is_incremental": false,
@@ -1496,7 +1545,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.FileChangeDetector.html",
-          "hash": "DTErGmMOs4OTftcAIBa5Xg=="
+          "hash": "31W4WuuyXi9fb+e6OexH7w=="
         }
       },
       "is_incremental": false,
@@ -1508,7 +1557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.Grouping-2.html",
-          "hash": "hG6TWcvZUfs8RmH87GRIdw=="
+          "hash": "a0tU6hTRvdoHUwr5iT9oWg=="
         }
       },
       "is_incremental": false,
@@ -1520,7 +1569,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.Holder-1.html",
-          "hash": "Ro2DB6mkVPRH817nbAxgoQ=="
+          "hash": "8dL+R4rNv96bLsFNVCWD2A=="
         }
       },
       "is_incremental": false,
@@ -1532,7 +1581,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ILifeCycle.html",
-          "hash": "LjKLN5EPZHtnnhMaP0IDAQ=="
+          "hash": "p22eZG7oAe7JxWMvis6V7A=="
         }
       },
       "is_incremental": false,
@@ -1544,7 +1593,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ILifeCycleAware-1.html",
-          "hash": "dH4S8BNveoWf2+nKbNakIw=="
+          "hash": "fxK+6cFD9l9vc8CeUsPpjg=="
         }
       },
       "is_incremental": false,
@@ -1556,7 +1605,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.IRefCountLifeCycle.html",
-          "hash": "dIIME/+P2ascApCIt6nd5w=="
+          "hash": "OSW7gqKqagvsk4hzbfMbhQ=="
         }
       },
       "is_incremental": false,
@@ -1568,7 +1617,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ITimedLifeCycle.html",
-          "hash": "1+IvzNEw8Lv8mLt6bLMTGA=="
+          "hash": "+73T1znmJPGnRvwZFyhzLg=="
         }
       },
       "is_incremental": false,
@@ -1580,7 +1629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.IValueWrapper.html",
-          "hash": "l3RDkIMIGvDhKa0g6O4+gg=="
+          "hash": "ZW+b8MwbADHI6zlT47pRhg=="
         }
       },
       "is_incremental": false,
@@ -1592,7 +1641,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.KeyOnlyComparer-2.html",
-          "hash": "rVJFfwQR4cwOTKEtHvv88Q=="
+          "hash": "f2mKSemRsAh6BdU32OBM8g=="
         }
       },
       "is_incremental": false,
@@ -1604,7 +1653,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.LambdaComparer-1.html",
-          "hash": "AgtEJDBzuwqQtzTXRpimhw=="
+          "hash": "XgBBcwZC35rq/Su0M/QpHQ=="
         }
       },
       "is_incremental": false,
@@ -1616,7 +1665,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.LinkedListExtensions.html",
-          "hash": "w4eXkprZj8DNwi9xIlb+xA=="
+          "hash": "7/UeQke1yepODUBFJTwPJg=="
         }
       },
       "is_incremental": false,
@@ -1628,7 +1677,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.LinqExtensions.html",
-          "hash": "pLl/UMQB4aheX+DCmiMsFA=="
+          "hash": "tT95zSi3/gY3O6EbqT0aAA=="
         }
       },
       "is_incremental": false,
@@ -1640,7 +1689,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ListExtensions.PickFirst-1.html",
-          "hash": "O3PhdbbuGqmjZUCKLUXWQA=="
+          "hash": "Sncnx+2G/gp0JV85ZLU7Ug=="
         }
       },
       "is_incremental": false,
@@ -1652,7 +1701,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ListExtensions.html",
-          "hash": "SXxW79ocnXbTq74K7s8e2Q=="
+          "hash": "F44AwvKirzTldN5PypMwgA=="
         }
       },
       "is_incremental": false,
@@ -1664,7 +1713,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ListSegment-1.html",
-          "hash": "dxMO0tf9Yr19Gsd+NOQFag=="
+          "hash": "Px2EVNzkMiBj9tRQASUBtg=="
         }
       },
       "is_incremental": false,
@@ -1676,7 +1725,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.MiscExtensions.html",
-          "hash": "UkmgdAyEIEG4Q6MFz8Xnfg=="
+          "hash": "UpRFft0VDMMAGhhSlSSWow=="
         }
       },
       "is_incremental": false,
@@ -1688,7 +1737,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.MonthEnumerable.html",
-          "hash": "iXOvLBvON5KVgH5M1PKU8w=="
+          "hash": "H9msUFlVDx/vHriIvq3Xvw=="
         }
       },
       "is_incremental": false,
@@ -1700,7 +1749,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.MonthEnumerator.html",
-          "hash": "KrZS+l5H5YvM7LjvruT/NQ=="
+          "hash": "7mpHJRnkVwYryBzynpEfeA=="
         }
       },
       "is_incremental": false,
@@ -1712,7 +1761,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ObjectPool-1.html",
-          "hash": "WUGAObh2q4uuDHU1O0QfVA=="
+          "hash": "lod0uqPRClLPTwScV87WTw=="
         }
       },
       "is_incremental": false,
@@ -1724,7 +1773,31 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.PathUtils.html",
-          "hash": "h8WP168jZ0092qYAErCJCQ=="
+          "hash": "bfmkk1m3KYDFUry4jqz0Zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.Portable.ObjectEqualityComparer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.Portable.ObjectEqualityComparer.html",
+          "hash": "KocDPnREYxyah4uMPX3cxw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.Portable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.Portable.html",
+          "hash": "u75WtqYWR9Vvqp/MAiIKqw=="
         }
       },
       "is_incremental": false,
@@ -1736,7 +1809,31 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.RangeObservableCollection-1.html",
-          "hash": "3jjCCABCU7SeBh7Mc8a37A=="
+          "hash": "Qy+wsppS3dy8DdWyDjZ39g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.RollingTextFile.AsyncTextFileWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.RollingTextFile.AsyncTextFileWriter.html",
+          "hash": "kR86hKswCEiKzhHoIOZWwg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/KdSoft.Utils.RollingTextFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/KdSoft.Utils.RollingTextFile.html",
+          "hash": "elpPPkck0rWGVv0gFNAEOg=="
         }
       },
       "is_incremental": false,
@@ -1748,7 +1845,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.SortedRingQueue-1.html",
-          "hash": "OjQb5BIOACYvLeSCclXigA=="
+          "hash": "pepobS+UqsgWEMgTjxdX9Q=="
         }
       },
       "is_incremental": false,
@@ -1760,7 +1857,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TaskAwaiter-1.html",
-          "hash": "AoKhQojc+e6fIF/ZQLm14A=="
+          "hash": "60nVQnjLfGhyefWVd+x3tA=="
         }
       },
       "is_incremental": false,
@@ -1772,7 +1869,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TaskEnumerable-1.html",
-          "hash": "rvy/1rpIgNZ+CDWme2NffA=="
+          "hash": "uXKM9nIkWRp0axoZnTwC4A=="
         }
       },
       "is_incremental": false,
@@ -1784,7 +1881,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TaskEnumerator-1.html",
-          "hash": "oZvtFlUkkGzEP/lb0wd75w=="
+          "hash": "MWmWwVRBvVPgheDUxIVcDQ=="
         }
       },
       "is_incremental": false,
@@ -1796,7 +1893,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TaskEx.html",
-          "hash": "E+rBzKgnk0EUHujM3tkTWg=="
+          "hash": "zLaD3XvhWqJuVk9p9Cq0Pg=="
         }
       },
       "is_incremental": false,
@@ -1808,7 +1905,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TaskWaiter.html",
-          "hash": "UH8+j8Ws8YilRhA2DPKUyQ=="
+          "hash": "CbFzf5se9t9MYx1KuyHPog=="
         }
       },
       "is_incremental": false,
@@ -1820,7 +1917,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TimeSpanExtensions.html",
-          "hash": "uEw9n8Gf/f7ac5JtfPlaRw=="
+          "hash": "HoQmhAuJqqeKFsRUbTbv0A=="
         }
       },
       "is_incremental": false,
@@ -1832,7 +1929,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TimedLifeCycle.html",
-          "hash": "iD9lvOXVFR41hw2ShkiUIA=="
+          "hash": "Uxfaq+YAl+vGNaSNI+ziVA=="
         }
       },
       "is_incremental": false,
@@ -1844,7 +1941,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TimedLifeCycleAware.html",
-          "hash": "HdMNlH/kYDfyp26bJ/Rl5g=="
+          "hash": "4ELTZiIaPqMSoFgc5gpYZw=="
         }
       },
       "is_incremental": false,
@@ -1856,7 +1953,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TimedLifeCycleManager-2.html",
-          "hash": "Pp7OjiFiColknEElkzRCAg=="
+          "hash": "ee6VxoJTtsIc5wRoToMxsQ=="
         }
       },
       "is_incremental": false,
@@ -1868,7 +1965,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.TraceExtensions.html",
-          "hash": "PqpJVYE1leIkzDImUYxHbg=="
+          "hash": "Sipm5mvfzPdiW9A7ZwiS9g=="
         }
       },
       "is_incremental": false,
@@ -1880,7 +1977,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ValueWrapper-1.html",
-          "hash": "G+gqnvVCW6fbiO4A279UBQ=="
+          "hash": "OAxiNV9ub4hhEHkLx3HZmw=="
         }
       },
       "is_incremental": false,
@@ -1892,7 +1989,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.ValueWrapper.html",
-          "hash": "DkCeSq/5rEM40sTcB5CFrQ=="
+          "hash": "BI6K06tiJoT6aErLS3O+6Q=="
         }
       },
       "is_incremental": false,
@@ -1904,7 +2001,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.WeekEnumerable.html",
-          "hash": "iZGV9rh4p9yCmPg9kT9d1w=="
+          "hash": "yv58Tv/KFFRWGZPmSywXIQ=="
         }
       },
       "is_incremental": false,
@@ -1916,7 +2013,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.WeekEnumerator.html",
-          "hash": "Z+SbMFO4Y3HG7//N/kpGVw=="
+          "hash": "xWdOnLCJhqk01J9+YjdqCw=="
         }
       },
       "is_incremental": false,
@@ -1928,7 +2025,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.YearWeek.html",
-          "hash": "xqJ03A/HyWwurL5NWQ9nzQ=="
+          "hash": "FvlR2NYjXRXYBjH+VzJ40A=="
         }
       },
       "is_incremental": false,
@@ -1940,7 +2037,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.Utils.html",
-          "hash": "qM0j77romqGOWIWp4sweRQ=="
+          "hash": "lU41+dgt83V3XFJsJRvKIg=="
         }
       },
       "is_incremental": false,
@@ -1952,7 +2049,7 @@
       "output": {
         ".html": {
           "relative_path": "api/KdSoft.html",
-          "hash": "csdhB1jmDLY6cmKUqdagGA=="
+          "hash": "Nf2jvFgcbFmnOAI4whMtLw=="
         }
       },
       "is_incremental": false,
@@ -1964,7 +2061,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "GZHtjeS1+mqSaiHC7gt2pw=="
+          "hash": "xdTOFEgjnSUbfUQlGCS1FA=="
         }
       },
       "is_incremental": false,
@@ -1976,7 +2073,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "4WmH642mUnpnA9UCm7xE7w=="
+          "hash": "WCYKyK6exE3G4gYxYuPaew=="
         }
       },
       "is_incremental": false,
@@ -1988,7 +2085,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/builddocs.html",
-          "hash": "gCKCYbWSd0gYOeuFowIdzg=="
+          "hash": "LE5/jtr+8RM9LRIxGHaEHA=="
         }
       },
       "is_incremental": false,
@@ -2000,7 +2097,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/toc.html",
-          "hash": "p/ulkod7g0jnTCtp2MT2mA=="
+          "hash": "vSBvJFW2HD7Vu5wr21IStA=="
         }
       },
       "is_incremental": false,
@@ -2012,7 +2109,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "3KrIuptDCY0Zy484ejQZ2Q=="
+          "hash": "Y59W3i+z1RIuZgsEZNfCfg=="
         }
       },
       "is_incremental": false,
@@ -2024,7 +2121,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "PVzVqw2uQjIuFzToGdc/rw=="
+          "hash": "g4HCkht5hH5Aveupq+XF6Q=="
         }
       },
       "is_incremental": false,
@@ -2041,25 +2138,15 @@
       "processors": {
         "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "RestApiDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ResourceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
