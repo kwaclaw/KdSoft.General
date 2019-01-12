@@ -173,12 +173,15 @@ namespace KdSoft.Utils
 
     /// <summary>Flush and close file.</summary>
     public Task CloseAsync() {
-      return asyncWriter?.CloseAsync(true);
+      return asyncWriter?.CloseAsync(true) ?? Task.CompletedTask;
     }
 
     /// <inheritdoc/>
     public void Dispose() {
-      asyncWriter?.CloseAsync(false).Wait();
+      var aw = asyncWriter;
+      if (aw == null)
+        return;
+      aw.CloseAsync(false).Wait();
     }
 
     /// <summary>
