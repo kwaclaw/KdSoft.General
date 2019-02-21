@@ -22,13 +22,9 @@ namespace KdSoft.Utils
     readonly long rollSizeInBytes;
     readonly Action<string, Exception> errorCallback;
 
+    object syncObj = new object();
     string currentTimestampPattern;
-
-    /// <summary>Internal text file writer.</summary>
-    protected AsyncTextFileWriter asyncWriter;
-
-    int rollingFileStatus;
-    const int creatingNewFile = 99;
+    Task<AsyncTextFileWriter> asyncWriterTask;
 
     /// <summary>
     /// Constructor.
@@ -116,31 +112,26 @@ namespace KdSoft.Utils
     }
 
     /// <summary>
-    /// Checks file rollover conditions and if necessary, rolls file to next file name, closing current file.
+    /// Checks file rollover conditions and if necessary, rolls the file to the next file name, closing the current file.
     /// </summary>
-    protected async Task CheckRollover() {
-      int oldStatus = Interlocked.CompareExchange(ref rollingFileStatus, creatingNewFile, 0);
-      if (oldStatus == creatingNewFile)
-        return;
-
-      // the code below is never run concurrently (see Interlocked.CompareExchange above)
-      try {
+    protected Task<AsyncTextFileWriter> CheckRollover() {
+      lock (syncObj) {
         var now = DateTime.Now;
         string ts = timestampPattern(now);
+        var createWriterTask = asyncWriterTask;
 
-        // needs to create next file
-        var currentWriter = asyncWriter;
-        bool createNewFile = currentWriter == null
-                             || currentWriter?.CurrentStreamLength >= rollSizeInBytes
-                             || ts != currentTimestampPattern;
-        if (!createNewFile)
-          return;
+        AsyncTextFileWriter currentWriter = null;
+        if (createWriterTask != null) {
+          currentWriter = createWriterTask.Result;
+          bool createNewFile = currentWriter.CurrentStreamLength >= rollSizeInBytes || ts != currentTimestampPattern;
+          if (!createNewFile)
+            return createWriterTask;
+        }
 
-        asyncWriter = await CreateNewFileWriter(currentWriter, now).ConfigureAwait(false);
+        createWriterTask = CreateNewFileWriter(currentWriter, now);
         currentTimestampPattern = ts;
-      }
-      finally {
-        Interlocked.Exchange(ref rollingFileStatus, 0);
+        asyncWriterTask = createWriterTask;
+        return createWriterTask;
       }
     }
 
@@ -164,24 +155,37 @@ namespace KdSoft.Utils
     /// </summary>
     /// <param name="text">Text to write.</param>
     public async Task WriteAsync(string text) {
-      if (asyncWriter?.IsDisposed ?? false)
+      var asyncWriter = await CheckRollover().ConfigureAwait(false);
+      if (asyncWriter.IsDisposed)
         throw new ObjectDisposedException(nameof(RollingTextFile));
 
-      await CheckRollover().ConfigureAwait(false);
       await asyncWriter.WriteAsync(text).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Write plain bytes bytes to file, ignoring configured encoding.
+    /// Can be used to write UTF-8 encoded text directly.
+    /// Rolls file name if necessary.
+    /// </summary>
+    /// <param name="data">Bytes to write.</param>
+    public async Task WriteAsync(ArraySegment<byte> data) {
+      var asyncWriter = await CheckRollover().ConfigureAwait(false);
+      if (asyncWriter.IsDisposed)
+        throw new ObjectDisposedException(nameof(RollingTextFile));
+
+      await asyncWriter.WriteAsync(data).ConfigureAwait(false);
+    }
+
     /// <summary>Flush and close file.</summary>
-    public Task CloseAsync() {
-      return asyncWriter?.CloseAsync(true) ?? Task.CompletedTask;
+    public async Task CloseAsync() {
+      var asyncWriter = await CheckRollover().ConfigureAwait(false);
+      await asyncWriter.CloseAsync(true);
     }
 
     /// <inheritdoc/>
     public void Dispose() {
-      var aw = asyncWriter;
-      if (aw == null)
-        return;
-      aw.CloseAsync(false).Wait();
+      var asyncWriter = CheckRollover().Result;
+      asyncWriter.CloseAsync(false).Wait();
     }
 
     /// <summary>
@@ -242,6 +246,18 @@ namespace KdSoft.Utils
         }
         finally {
           bufPool.Return(buffer);
+        }
+      }
+
+      /// <summary>
+      /// Writes plain bytes to stream, ignoring the configured encoding.
+      /// </summary>
+      /// <param name="data">Bytes to write.</param>
+      public async Task WriteAsync(ArraySegment<byte> data) {
+        CurrentStreamLength += data.Count;
+        await fileStream.WriteAsync(data.Array, data.Offset, data.Count, cts.Token);
+        if (autoFlush) {
+          await fileStream.FlushAsync(cts.Token);
         }
       }
 
