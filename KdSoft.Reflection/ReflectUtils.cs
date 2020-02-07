@@ -2,10 +2,10 @@
 using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using Microsoft.DotNet.PlatformAbstractions;
 #if !COREFX
+using System.IO;
 using System.Security;
 using System.Security.Permissions;
 using System.Security.Policy;
