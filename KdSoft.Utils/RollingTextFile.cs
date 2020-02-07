@@ -25,6 +25,7 @@ namespace KdSoft.Utils
     object syncObj = new object();
     string currentTimestampPattern;
     Task<AsyncTextFileWriter> asyncWriterTask;
+    int createNewFileOnRollOver;
 
     /// <summary>
     /// Constructor.
@@ -34,6 +35,7 @@ namespace KdSoft.Utils
     /// <param name="rollSizeKB">When this size is exceeded, start next file.</param>
     /// <param name="encoding">String encoding.</param>
     /// <param name="autoFlush">If true, call Flush on every write.</param>
+    /// <param name="newFileOnStart">If true, a new log file is created on startup, even if the rollover conditions are not met.</param>
     /// <param name="errorCallback">Gets called when file I/O errors occur.</param>
     public RollingTextFile(
         Func<DateTime, int, string> fileNameSelector,
@@ -41,6 +43,7 @@ namespace KdSoft.Utils
         int rollSizeKB,
         Encoding encoding,
         bool autoFlush,
+        bool newFileOnStart,
         Action<string, Exception> errorCallback
     ) {
       this.timestampPattern = timestampPattern;
@@ -49,6 +52,7 @@ namespace KdSoft.Utils
       this.encoding = encoding;
       this.autoFlush = autoFlush;
       this.errorCallback = errorCallback;
+      this.createNewFileOnRollOver = newFileOnStart ? 1 : 0;
 
       ValidateFileNameSelector(nameof(fileNameSelector));
     }
@@ -81,7 +85,7 @@ namespace KdSoft.Utils
       }
     }
 
-    async Task<AsyncTextFileWriter> CreateNewFileWriter(AsyncTextFileWriter oldWriter, DateTime now) {
+    async Task<AsyncTextFileWriter> CreateNewFileWriter(AsyncTextFileWriter oldWriter, DateTime now, bool createNewFile) {
       int sequenceNo = 0;
       if (oldWriter != null) {
         sequenceNo = ExtractCurrentSequence(oldWriter.FileName) + 1;
@@ -97,7 +101,7 @@ namespace KdSoft.Utils
         fn = newFn;
         var fi = new FileInfo(fn);
         if (fi.Exists) {
-          if (fi.Length >= rollSizeInBytes) {
+          if (createNewFile || fi.Length >= rollSizeInBytes) {
             sequenceNo++;
             continue;
           }
@@ -128,7 +132,8 @@ namespace KdSoft.Utils
             return createWriterTask;
         }
 
-        createWriterTask = CreateNewFileWriter(currentWriter, now);
+        var oldCreateNewFileOnRollOver = Interlocked.Exchange(ref createNewFileOnRollOver, 0);
+        createWriterTask = CreateNewFileWriter(currentWriter, now, oldCreateNewFileOnRollOver == 1);
         currentTimestampPattern = ts;
         asyncWriterTask = createWriterTask;
         return createWriterTask;

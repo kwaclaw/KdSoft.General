@@ -5,10 +5,10 @@
   <PropertyGroup>
     <Title>KdSoft.Utils</Title>
     <Description>KdSoft.Utils Class Library</Description>
-    <VersionPrefix>2.2.0</VersionPrefix>
+    <VersionPrefix>2.3.0</VersionPrefix>
     <TargetFrameworks>netstandard1.3;net461</TargetFrameworks>
     <PackageReleaseNotes>
-      Fixed race condition in RollingTextFile. Added binary writer method.
+      Added 'newFileOnStart' argument to RollingTextFile constructor.
     </PackageReleaseNotes>
   </PropertyGroup>
 
