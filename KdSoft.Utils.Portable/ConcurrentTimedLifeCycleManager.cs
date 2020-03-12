@@ -254,6 +254,14 @@ namespace KdSoft.Utils
       }
     }
 
+    /// <summary>
+    /// Returns snapshot of object entries.
+    /// </summary>
+    public KeyValuePair<K, O>[] GetSnapshot() {
+      CheckDisposed();
+      return objectMap.ToArray();
+    }
+
     #region IDisposable Members
 
     protected virtual void Dispose(bool disposing) {

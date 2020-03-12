@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Title>KdSoft.Utils.Portable</Title>
     <Description>KdSoft.Utils.Portable Class Library</Description>
-    <VersionPrefix>3.6.1</VersionPrefix>
+    <VersionPrefix>3.6.2</VersionPrefix>
     <TargetFrameworks>netstandard1.2;net461</TargetFrameworks>
   </PropertyGroup>
 
