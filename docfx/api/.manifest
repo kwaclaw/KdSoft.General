@@ -805,6 +805,7 @@
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.Dispose(System.Boolean)": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.GetOrAdd(`0,`1)": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.GetOrAdd(`0,System.Func{`0,`1})": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
+  "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.GetSnapshot": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.TerminateAll": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.Terminated": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.TryAdd(`0,`1)": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
