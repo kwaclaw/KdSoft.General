@@ -8,7 +8,7 @@ MKDIR upload
 PUSHD ..
 
 FOR /R %%I IN (*.csproj) DO IF EXIST %%~fI (
-  XCOPY "%%~dpIbin\debug\*.nupkg" "artifacts\upload"
+  XCOPY "%%~dpIbin\release\*.nupkg" "artifacts\upload"
 )
 
 REM Add only files to the nuget folder that don't exist there already
