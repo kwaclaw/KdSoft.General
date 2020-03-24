@@ -23,9 +23,13 @@ namespace KdSoft.Utils
     /// Constructor.
     /// </summary>
     /// <param name="reapPeriod">Time interval for periodic life-cycle checking.</param>
-    public ConcurrentTimedLifeCycleManager(TimeSpan reapPeriod) {
+    /// <param name="comparer">Optional, custom key equality comparer.</param>
+    public ConcurrentTimedLifeCycleManager(TimeSpan reapPeriod, IEqualityComparer<K> comparer = null) {
       this.lifeCycleTimer = new Timer(LifeCycleHandler, this, reapPeriod, reapPeriod);
-      objectMap = new ConcurrentDictionary<K, O>();
+      if (comparer is null)
+        objectMap = new ConcurrentDictionary<K, O>();
+      else
+        objectMap = new ConcurrentDictionary<K, O>(comparer);
     }
 
     // must not throw exceptions

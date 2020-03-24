@@ -798,7 +798,7 @@
   "KdSoft.Utils.Common.HexCharToByte(System.Char)": "KdSoft.Utils.Common.yml",
   "KdSoft.Utils.Common.HexStrToBytes(System.String)": "KdSoft.Utils.Common.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
-  "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.#ctor(System.TimeSpan)": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
+  "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.#ctor(System.TimeSpan,System.Collections.Generic.IEqualityComparer{`0})": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.AddOrUpdate(`0,`1)": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.AddOrUpdate(`0,`1,System.Func{`0,`1,`1})": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
   "KdSoft.Utils.ConcurrentTimedLifeCycleManager`2.Dispose": "KdSoft.Utils.ConcurrentTimedLifeCycleManager-2.yml",
