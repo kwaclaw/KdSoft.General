@@ -216,7 +216,8 @@ namespace KdSoft.Utils
     /// <param name="toAppend">Element to append.</param>
     /// <returns>The original enumeration with a single element appended at the end.</returns>
     public static IEnumerable<T> Append<T>(this IEnumerable<T> sequence, T toAppend) {
-      if (sequence == null) throw new ArgumentNullException("sequence");
+      if (sequence == null)
+        throw new ArgumentNullException("sequence");
       return AppendImpl(sequence, toAppend);
     }
 
@@ -236,7 +237,8 @@ namespace KdSoft.Utils
     /// <param name="toPrepend">Element to prepend.</param>
     /// <returns>The original enumeration with a single element inserted at the start.</returns>
     public static IEnumerable<T> Prepend<T>(this IEnumerable<T> sequence, T toPrepend) {
-      if (sequence == null) throw new ArgumentNullException("sequence");
+      if (sequence == null)
+        throw new ArgumentNullException("sequence");
       return PrependImpl(sequence, toPrepend);
     }
 

@@ -30,7 +30,8 @@ namespace KdSoft.Utils
 
     public T this[int index] {
       get {
-        if (index >= count) throw new IndexOutOfRangeException();
+        if (index >= count)
+          throw new IndexOutOfRangeException();
         return list[offset + index];
       }
       set {
@@ -59,16 +60,19 @@ namespace KdSoft.Utils
     public int FindIndex(Predicate<T> match) {
       int limit = offset + count;
       for (int i = offset; i < limit; ++i)
-        if (match(list[i])) return i - offset;
+        if (match(list[i]))
+          return i - offset;
       return -1;
     }
 
     public int FindIndex(int startIndex, Predicate<T> match) {
-      if (startIndex >= count) throw new IndexOutOfRangeException();
+      if (startIndex >= count)
+        throw new IndexOutOfRangeException();
 
       int limit = offset + count;
       for (int i = offset + startIndex; i < limit; ++i)
-        if (match(list[i])) return i - offset;
+        if (match(list[i]))
+          return i - offset;
       return -1;
     }
 
@@ -78,22 +82,26 @@ namespace KdSoft.Utils
 
       int limit = offset + startIndex + count;
       for (int i = offset + startIndex; i < limit; ++i)
-        if (match(list[i])) return i - offset;
+        if (match(list[i]))
+          return i - offset;
       return -1;
     }
 
     public int FindLastIndex(Predicate<T> match) {
       for (int i = offset + count; --i >= offset; ++i)
-        if (match(list[i])) return i - offset;
+        if (match(list[i]))
+          return i - offset;
       return -1;
     }
 
     public int FindLastIndex(int startIndex, Predicate<T> match) {
-      if (startIndex >= count) throw new IndexOutOfRangeException();
+      if (startIndex >= count)
+        throw new IndexOutOfRangeException();
 
       int limit = offset + startIndex;
       for (int i = offset + count; --i >= limit; ++i)
-        if (match(list[i])) return i - offset;
+        if (match(list[i]))
+          return i - offset;
       return -1;
     }
 
@@ -103,20 +111,23 @@ namespace KdSoft.Utils
 
       int limit = offset + startIndex;
       for (int i = offset + count; --i >= limit; ++i)
-        if (match(list[i])) return i - offset;
+        if (match(list[i]))
+          return i - offset;
       return -1;
     }
 
     public T Find(Predicate<T> match) {
       int limit = offset + count;
       for (int i = offset; i < limit; ++i)
-        if (match(list[i])) return list[i];
+        if (match(list[i]))
+          return list[i];
       return default(T);
     }
 
     public T FindLast(Predicate<T> match) {
       for (int i = offset + count; --i >= offset;)
-        if (match(list[i])) return list[i];
+        if (match(list[i]))
+          return list[i];
       return default(T);
     }
 
@@ -127,7 +138,8 @@ namespace KdSoft.Utils
 
     public bool TrueForAll(Predicate<T> match) {
       for (int i = offset; i < count; ++i)
-        if (!match(list[i])) return false;
+        if (!match(list[i]))
+          return false;
       return true;
     }
 
@@ -135,14 +147,16 @@ namespace KdSoft.Utils
       List<T> result = new List<T>();
       int limit = offset + count;
       for (int i = offset; i < limit; ++i)
-        if (match(list[i])) result.Add(list[i]);
+        if (match(list[i]))
+          result.Add(list[i]);
       return result;
     }
 
     public int IndexOf(T item) {
       int limit = offset + count;
       for (int i = offset; i < limit; ++i)
-        if (list[i].Equals(item)) return i - offset;
+        if (list[i].Equals(item))
+          return i - offset;
       return -1;
     }
 

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace System.Reflection
 {
   // Copy of RuntimeReflectionExtensions from .NET 4.5.

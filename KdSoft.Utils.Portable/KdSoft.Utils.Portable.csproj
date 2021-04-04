@@ -9,10 +9,6 @@
     <TargetFrameworks>netstandard1.2;net461</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard1.2' ">COREFX</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>

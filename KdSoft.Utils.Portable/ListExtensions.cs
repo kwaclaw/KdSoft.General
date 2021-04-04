@@ -163,7 +163,8 @@ namespace KdSoft.Utils
         int i = lo + ((hi - lo) >> 1);
         int order = compare(list[i]);
 
-        if (order == 0) return i;
+        if (order == 0)
+          return i;
         if (order < 0) {
           lo = i + 1;
         }

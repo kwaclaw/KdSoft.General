@@ -31,8 +31,7 @@ namespace KdSoft.Utils
       }
 
       var tokenBuilder = new StringBuilder();
-      bool HandleDesignator(bool handleTime, ref double target)
-      {
+      bool HandleDesignator(bool handleTime, ref double target) {
         if (inTimeSection != handleTime || tokenBuilder.Length == 0) {
           return false;
         }

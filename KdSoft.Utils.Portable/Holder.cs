@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KdSoft.Utils
+﻿namespace KdSoft.Utils
 {
   /// <summary>
   /// Helper class that can serve as a reference holder for values that get set later.

@@ -36,7 +36,8 @@ namespace KdSoft.Utils
       var onCompleted = OnCompleted;
       if (onCompleted != null) {
         AggregateException aggEx = null;
-        if (!_errors.IsEmpty) aggEx = new AggregateException(_errors);
+        if (!_errors.IsEmpty)
+          aggEx = new AggregateException(_errors);
         onCompleted(this, new EventArgs<Exception>(aggEx));
       }
     }
@@ -72,7 +73,8 @@ namespace KdSoft.Utils
     /// <param name="t">Task to wait for.</param>
     /// <returns><c>true</c> if the task could be added, <c>false</c> otherwise.</returns>
     public bool Add(Task t) {
-      if (t == null) throw new ArgumentNullException("t");
+      if (t == null)
+        throw new ArgumentNullException("t");
       if (AddingComplete)
         return false;
 
@@ -107,7 +109,8 @@ namespace KdSoft.Utils
     public void Wait(CancellationToken ct) {
       CompleteAdding();
       _ce.Wait(ct);
-      if (!_errors.IsEmpty) throw new AggregateException(_errors);
+      if (!_errors.IsEmpty)
+        throw new AggregateException(_errors);
     }
 
     #region IDisposable Members

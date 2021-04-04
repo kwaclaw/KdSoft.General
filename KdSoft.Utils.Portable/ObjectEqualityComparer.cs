@@ -11,7 +11,7 @@ namespace KdSoft.Utils.Portable
   /// even if <see cref="Object.Equals(object)"/> and <see cref="Object.GetHashCode"/>
   /// have been overridden to implement value type semantics. 
   /// </summary>
-  public class ObjectEqualityComparer : IEqualityComparer<object>
+  public class ObjectEqualityComparer: IEqualityComparer<object>
   {
     /// <inheritdoc />
     public new bool Equals(object x, object y) {
