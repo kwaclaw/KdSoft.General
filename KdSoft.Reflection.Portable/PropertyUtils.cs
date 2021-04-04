@@ -240,7 +240,7 @@ namespace KdSoft.Reflection
       return result;
     }
 
-#if COREFX
+#if NETSTANDARD1_1
     static MethodInfo GetterMethod(PropertyInfo propInfo) {
       return propInfo.GetMethod;
     }
@@ -259,7 +259,7 @@ namespace KdSoft.Reflection
 #endif
 
     static PropertyAccessor[] CreatePropertyAccessors(Type type) {
-#if COREFX
+#if NETSTANDARD1_1
       var props = type.GetRuntimeProperties();
 #else
       var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
@@ -373,7 +373,7 @@ namespace KdSoft.Reflection
     }
 
     public static IEnumerable<PropertyInfo> GetPublicGetSetProperties(this Type type) {
-#if COREFX
+#if NETSTANDARD1_1
       var props = type.GetRuntimeProperties();
 #else
       var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
