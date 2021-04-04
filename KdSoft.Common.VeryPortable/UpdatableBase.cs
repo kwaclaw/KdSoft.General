@@ -14,17 +14,17 @@ namespace KdSoft.Common
   {
     public UpdatableBase() {
       publicProperties = new List<PropertyInfo>();
-#if !COREFX
-            var props = this.GetType().GetProperties(
-              BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            foreach (var prop in props) {
-                var getMethod = prop.GetGetMethod();
-                var setMethod = prop.GetSetMethod();
-                if (getMethod == null || setMethod == null)
-                    continue;
-                if (getMethod.IsPublic && setMethod.IsPublic)
-                    publicProperties.Add(prop);
-            }
+#if !NETSTANDARD1_1
+      var props = this.GetType().GetProperties(
+        BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+      foreach (var prop in props) {
+        var getMethod = prop.GetGetMethod();
+        var setMethod = prop.GetSetMethod();
+        if (getMethod == null || setMethod == null)
+          continue;
+        if (getMethod.IsPublic && setMethod.IsPublic)
+          publicProperties.Add(prop);
+      }
 #else
       var props = this.GetType().GetRuntimeProperties();
       foreach (var prop in props) {
@@ -147,7 +147,8 @@ namespace KdSoft.Common
     /// <returns>True if the value was changed, false if the existing value matched the
     /// desired value.</returns>
     protected bool SetProperty<T>(ref T storage, T value, String propertyName) {
-      if (object.Equals(storage, value)) return false;
+      if (object.Equals(storage, value))
+        return false;
 
       if (isTracking) {  // don't want to validate on object initialization
         SetModified();

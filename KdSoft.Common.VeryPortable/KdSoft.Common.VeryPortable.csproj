@@ -13,10 +13,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard1.1' ">COREFX</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
     <PackageReference Include="System.Net.Requests" Version="4.3.0" />
   </ItemGroup>
