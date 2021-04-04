@@ -1,12 +1,12 @@
-﻿using KdSoft.Reflection;
-using Microsoft.CSharp;
-using System;
+﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
+using KdSoft.Reflection;
+using Microsoft.CSharp;
 
 namespace KdSoft.Config
 {
@@ -89,7 +89,7 @@ namespace KdSoft.Config
       List<string> result = new List<string>();
       foreach (string reference in references) {
         string refNoExtension = reference;
-        if (reference.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) || 
+        if (reference.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
             reference.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
           refNoExtension = Path.GetFileNameWithoutExtension(reference);
         AssemblyName refName = CheckDisplayName(refNoExtension);

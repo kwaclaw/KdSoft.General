@@ -1,10 +1,10 @@
-﻿using KdSoft.Reflection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
+using KdSoft.Reflection;
 
 namespace KdSoft.Config
 {
@@ -21,7 +21,7 @@ namespace KdSoft.Config
     /// <typeparam name="T">Type for which to load configurator - parameter for <see cref="IConfigurator{T}"/>.</typeparam>
     /// <param name="configAssembly">Assembly to load configurator from.</param>
     /// <returns>Configurator instance as <see cref="IConfigurator{T}"/> interface.</returns>
-    public static IConfigurator<T> GetConfigurator<T>(Assembly configAssembly) where T: class {
+    public static IConfigurator<T> GetConfigurator<T>(Assembly configAssembly) where T : class {
       Type confType = typeof(IConfigurator<T>);
       List<Type> cts = configAssembly.FindSubClasses(confType, true);
       if (cts.Count == 0)
@@ -40,7 +40,7 @@ namespace KdSoft.Config
     /// <remarks>If the application domain is not the current domain, then the configurator class should be
     /// accessible across domains, e.g. by being serializable, or by deriving from <see cref="MarshalByRefObject"/>.</remarks>
     [SecurityCritical]
-    public static IConfigurator<T> GetConfigurator<T>(AppDomain domain, AssemblyName assemblyName) where T: class {
+    public static IConfigurator<T> GetConfigurator<T>(AppDomain domain, AssemblyName assemblyName) where T : class {
       Assembly configAssembly = domain.FindAssembly(assemblyName);
       if (configAssembly == null)
         configAssembly = domain.Load(assemblyName);
@@ -60,7 +60,7 @@ namespace KdSoft.Config
     /// <remarks>When the compilation fails, error information will be written to a new file with the name of
     ///   the source file and the extension ".error".</remarks>
     [SecurityCritical]
-    public static IConfigurator<T> GetConfigurator<T>(string baseDir, string configFileCs, string outFileDll, bool deleteCs) where T: class {
+    public static IConfigurator<T> GetConfigurator<T>(string baseDir, string configFileCs, string outFileDll, bool deleteCs) where T : class {
       string configSource = Path.Combine(baseDir, configFileCs);
       if (!File.Exists(configSource))
         return null;
@@ -107,7 +107,7 @@ namespace KdSoft.Config
     /// <param name="deleteCs">Indicates if the configuration source file (if present) should be deleted.</param>
     /// <returns>Configurator instance as <see cref="IConfigurator{T}"/> interface, or <c>null</c> if no
     /// configuration assembly was found.</returns>
-    public static IConfigurator<T> CheckConfigurator<T>(string assemblyName, bool throwIfMissing, bool deleteCs) where T: class {
+    public static IConfigurator<T> CheckConfigurator<T>(string assemblyName, bool throwIfMissing, bool deleteCs) where T : class {
       IConfigurator<T> result;
       string baseDir = AppDomain.CurrentDomain.BaseDirectory;
       result = GetConfigurator<T>(baseDir, assemblyName + ".cs", assemblyName + ".dll", deleteCs);
