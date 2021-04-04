@@ -73,7 +73,7 @@ namespace KdSoft.StreamUtils
       get { lock (syncObj) return serialRequestError; }
     }
 
-    #region IReader Members
+#region IReader Members
 
     /// <inheritdoc/>
     public bool GetSize(out long size) {
@@ -83,9 +83,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-    #endregion
+#endregion
 
-    #region ISerialReader Members
+#region ISerialReader Members
 
     IOResult InternalRead(byte[] buffer, int start, int count) {
       var offset = reader.Position;
@@ -120,9 +120,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-    #endregion
+#endregion
 
-    #region ISerialAsyncReader Members
+#region ISerialAsyncReader Members
 
     /// <inheritdoc/>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
@@ -142,9 +142,9 @@ namespace KdSoft.StreamUtils
       return taskSource.Task;
     }
 
-    #endregion
+#endregion
 
-    #region IRandomReader Members
+#region IRandomReader Members
 
     /// <inheritdoc/>
     public IOResult Read(byte[] buffer, int start, int count, long sourceOffset) {
@@ -162,9 +162,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-    #endregion
+#endregion
 
-    #region IRandomAsyncReader Members
+#region IRandomAsyncReader Members
 
     /// <inheritdoc/>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options) {
@@ -179,9 +179,9 @@ namespace KdSoft.StreamUtils
       return taskSource.Task;
     }
 
-    #endregion
+#endregion
 
-    #region IFilterWriter Members
+#region IFilterWriter Members
 
     /// <inheritdoc/>
     public int Write(byte[] buffer, int start, int count) {
@@ -203,9 +203,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-    #endregion
+#endregion
 
-    #region IDisposable Members
+#region IDisposable Members
 
     /// <inheritdoc/>
     protected virtual void Dispose(bool disposing) {
@@ -227,7 +227,7 @@ namespace KdSoft.StreamUtils
       GC.SuppressFinalize(this);
     }
 
-    #endregion
+#endregion
   }
 }
 

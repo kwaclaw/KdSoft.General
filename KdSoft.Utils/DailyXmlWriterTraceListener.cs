@@ -94,7 +94,7 @@ namespace KdSoft.Utils
       return true;
     }
 
-  #region Overrides
+    #region Overrides
 
     public override void Fail(string message) {
       CheckRollover();
@@ -176,7 +176,7 @@ namespace KdSoft.Utils
       base.WriteLine(message, category);
     }
 
-  #endregion
+    #endregion
   }
 #endif
 }

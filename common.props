@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Copyright>Copyright © Karl Waclawek 2014</Copyright>
+    <Copyright>Copyright © Karl Waclawek 2021</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/kwaclaw/KdSoft.General</PackageProjectUrl>
 
