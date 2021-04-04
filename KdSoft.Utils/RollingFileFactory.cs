@@ -9,8 +9,13 @@ using System.Threading.Tasks;
 namespace KdSoft.Utils
 {
   /// <summary>
-  /// 
+  /// Manages creation of file streams based on configured roll-over conditions.
   /// </summary>
+  /// <remarks>
+  /// Whenever a re-check of the roll-over conditions is desired, simply call <see cref="GetCurrentFileStream"/>,
+  /// and the file stream returned will be the currently applicable one (the last one  or a new one).
+  /// This evaluates the roll-over conditions and therefore has some overhead.
+  /// </remarks>
   public class RollingFileFactory: IDisposable, IAsyncDisposable
   {
     readonly DirectoryInfo _dirInfo;
