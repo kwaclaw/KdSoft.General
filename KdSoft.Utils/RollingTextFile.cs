@@ -226,7 +226,8 @@ namespace KdSoft.Utils
           bool autoFlush
       ) {
         this.FileName = fileName;
-        this.fileStream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read, 4096, useAsync: true);
+        // NOTE: it seems when using "useAsync: true" we get random spurious stretches of null bytes in the output, why??
+        this.fileStream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read, 4096, useAsync: false);
         this.encoding = encoding;
         this.autoFlush = autoFlush;
 
