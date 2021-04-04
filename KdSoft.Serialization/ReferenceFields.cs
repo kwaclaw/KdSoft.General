@@ -7,7 +7,7 @@ namespace KdSoft.Serialization
   /// <summary>Base class for all <see cref="ReferenceField{T, F}"/> classes
   /// that are designed to cooperate with <see cref="Formatter"/>.</summary>
   /// <typeparam name="T">Reference type that the class will serialize/deserialize.</typeparam>
-  public abstract class ReferenceField<T> : ReferenceField<T, Formatter>
+  public abstract class ReferenceField<T>: ReferenceField<T, Formatter>
     where T : class
   {
     /// <summary>
@@ -27,7 +27,7 @@ namespace KdSoft.Serialization
   }
 
   /// <summary>Field representing <c>byte</c> arrays.</summary>
-  public class BlobField : ReferenceField<byte[]>
+  public class BlobField: ReferenceField<byte[]>
   {
     /// <inheritdoc />
     public BlobField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -65,7 +65,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing fixed size <c>byte</c> arrays.</summary>
   /// <remarks>Fixed size byte buffer field (as opposed to <see cref="BlobField"/>).</remarks>
-  public class BinaryField : ReferenceField<byte[]>
+  public class BinaryField: ReferenceField<byte[]>
   {
     private int size;
 
@@ -117,7 +117,7 @@ namespace KdSoft.Serialization
   /// <remarks>Serializes string value in UTF-8 encoding, without null-terminator.
   /// If the string value itself contains separators (e.g. null-terminators) one
   /// can store multiple strings with it.</remarks>
-  public class StringField : ReferenceField<String>
+  public class StringField: ReferenceField<String>
   {
     UTF8Encoding utf8;
     BufferPool buffers;
@@ -172,7 +172,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>UInt16</c> arrays.</summary>
   [CLSCompliant(false)]
-  public class UShortArrayField : ReferenceField<UInt16[]>
+  public class UShortArrayField: ReferenceField<UInt16[]>
   {
     /// <inheritdoc />
     public UShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -203,7 +203,7 @@ namespace KdSoft.Serialization
   /// <summary>Field representing <c>Char</c> arrays.</summary>
   /// <remarks>Serializes each character as <c>UInt16</c>, that is, in its native
   /// .NET encoding. Can be used to serialize strings encoded as UTF-16.</remarks>
-  public class CharArrayField : ReferenceField<Char[]>
+  public class CharArrayField: ReferenceField<Char[]>
   {
     /// <inheritdoc />
     public CharArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -232,7 +232,7 @@ namespace KdSoft.Serialization
   }
 
   /// <summary>Field representing fixed size <c>Char</c> arrays.</summary>
-  public class FixedCharArrayField : ReferenceField<Char[]>
+  public class FixedCharArrayField: ReferenceField<Char[]>
   {
     private int size;
 
@@ -273,7 +273,7 @@ namespace KdSoft.Serialization
   }
 
   /// <summary>Field representing <c>Int16</c> arrays.</summary>
-  public class ShortArrayField : ReferenceField<Int16[]>
+  public class ShortArrayField: ReferenceField<Int16[]>
   {
     /// <inheritdoc />
     public ShortArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -303,7 +303,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing a <c>UInt32</c> arrays.</summary>
   [CLSCompliant(false)]
-  public class UIntArrayField : ReferenceField<UInt32[]>
+  public class UIntArrayField: ReferenceField<UInt32[]>
   {
     /// <inheritdoc />
     public UIntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -332,7 +332,7 @@ namespace KdSoft.Serialization
   }
 
   /// <summary>Field representing a <c>Int32</c> arrays.</summary>
-  public class IntArrayField : ReferenceField<Int32[]>
+  public class IntArrayField: ReferenceField<Int32[]>
   {
     /// <inheritdoc />
     public IntArrayField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }

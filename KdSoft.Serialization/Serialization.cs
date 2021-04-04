@@ -1122,7 +1122,7 @@ namespace KdSoft.Serialization
   /// <summary>Base field class for serializing value types.</summary>
   /// <typeparam name="T">Restricts serializable type to value types.</typeparam>
   /// <typeparam name="F">Associates this class with a <see cref="Formatter&lt;F>"/> subclass.</typeparam>
-  public abstract class ValueField<T, F> : Field<T, F>
+  public abstract class ValueField<T, F>: Field<T, F>
     where T : struct
     where F : Formatter<F>
   {
@@ -1271,7 +1271,7 @@ namespace KdSoft.Serialization
   /// <summary>Base field class for serializing reference types.</summary>
   /// <typeparam name="T">Restricts serializable type to reference types.</typeparam>
   /// <typeparam name="F">Associates this class with a <see cref="Formatter{F}"/> subclass.</typeparam>
-  public abstract class ReferenceField<T, F> : Field<T, F>
+  public abstract class ReferenceField<T, F>: Field<T, F>
     where T : class
     where F : Formatter<F>
   {
@@ -1463,7 +1463,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Exception class that indicates invalid serialized data, or incorrect
   /// use of the serialization framework.</summary>
-  public class SerializationException : Exception
+  public class SerializationException: Exception
   {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public SerializationException() { }

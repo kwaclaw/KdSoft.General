@@ -5,7 +5,7 @@ namespace KdSoft.Serialization
   /// <summary>Base class for all <see cref="ValueField{T, F}"/> classes
   /// that are designed to cooperate with <see cref="Formatter"/>.</summary>
   /// <typeparam name="T">Value type that the class will serialize/deserialize.</typeparam>
-  public abstract class ValueField<T> : ValueField<T, Formatter>
+  public abstract class ValueField<T>: ValueField<T, Formatter>
     where T : struct
   {
     /// <summary>
@@ -25,7 +25,7 @@ namespace KdSoft.Serialization
   }
 
   /// <summary>Field representing <c>Byte</c> values.</summary>
-  public class ByteField : ValueField<Byte>
+  public class ByteField: ValueField<Byte>
   {
     /// <inheritdoc />
     public ByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -48,7 +48,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>Boolean</c> values.</summary>
   /// <remarks>Stored as <c>Byte</c> values <c>0xFF, 0x00</c>.</remarks>
-  public class BoolField : ValueField<Boolean>
+  public class BoolField: ValueField<Boolean>
   {
     /// <inheritdoc />
     public BoolField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -74,7 +74,7 @@ namespace KdSoft.Serialization
   /// inverted, so that with big-endian byte/bit order negative numbers are
   /// sorted first.</remarks>
   [CLSCompliant(false)]
-  public class SByteField : ValueField<SByte>
+  public class SByteField: ValueField<SByte>
   {
     /// <inheritdoc />
     public SByteField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -97,7 +97,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>UInt16</c> values.</summary>
   [CLSCompliant(false)]
-  public class UShortField : ValueField<UInt16>
+  public class UShortField: ValueField<UInt16>
   {
     /// <inheritdoc />
     public UShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -122,7 +122,7 @@ namespace KdSoft.Serialization
   /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
   /// inverted, so that with big-endian byte order negative numbers are sorted first
   /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
-  public class ShortField : ValueField<Int16>
+  public class ShortField: ValueField<Int16>
   {
     /// <inheritdoc />
     public ShortField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -146,7 +146,7 @@ namespace KdSoft.Serialization
   }
 
   /// <summary>Field representing <c>Char</c> values.</summary>
-  public class CharField : ValueField<Char>
+  public class CharField: ValueField<Char>
   {
     /// <inheritdoc />
     public CharField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -169,7 +169,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>UInt32</c> values.</summary>
   [CLSCompliant(false)]
-  public class UIntField : ValueField<UInt32>
+  public class UIntField: ValueField<UInt32>
   {
     /// <inheritdoc />
     public UIntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -194,7 +194,7 @@ namespace KdSoft.Serialization
   /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
   /// inverted, so that with big-endian byte order negative numbers are sorted first
   /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
-  public class IntField : ValueField<Int32>
+  public class IntField: ValueField<Int32>
   {
     /// <inheritdoc />
     public IntField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -218,7 +218,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>UInt64</c> values.</summary>
   [CLSCompliant(false)]
-  public class ULongField : ValueField<UInt64>
+  public class ULongField: ValueField<UInt64>
   {
     /// <inheritdoc />
     public ULongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -243,7 +243,7 @@ namespace KdSoft.Serialization
   /// <remarks>We serialize signed integers with their sign-bit (high-order bit)
   /// inverted, so that with big-endian byte order negative numbers are sorted first
   /// when comparing them in lexical order (as unsigned byte arrays).</remarks>
-  public class LongField : ValueField<Int64>
+  public class LongField: ValueField<Int64>
   {
     /// <inheritdoc />
     public LongField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -269,7 +269,7 @@ namespace KdSoft.Serialization
   /// <remarks>No sign bit reversion here, as the first part contains the scaling
   /// exponent, which grows larger the smaller the number is. It is recommended
   /// to provide a comparison function.</remarks>
-  public class DecimalField : ValueField<Decimal>
+  public class DecimalField: ValueField<Decimal>
   {
     /// <inheritdoc />
     public DecimalField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -292,7 +292,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>Single</c> values.</summary>
   /// <remarks>Stored in standard IEEE 754 bit representation.</remarks>
-  public class SingleField : ValueField<Single>
+  public class SingleField: ValueField<Single>
   {
     /// <inheritdoc />
     public SingleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -315,7 +315,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>Double</c> values.</summary>
   /// <remarks>Stored in standard IEEE 754 bit representation.</remarks>
-  public class DoubleField : ValueField<Double>
+  public class DoubleField: ValueField<Double>
   {
     /// <inheritdoc />
     public DoubleField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -341,7 +341,7 @@ namespace KdSoft.Serialization
   /// is assigned. Time values are measured in 100-nanosecond units called ticks,
   /// and a particular date is the number of ticks since 12:00 midnight, January 1,
   /// 0001 A.D. (C.E.) in the Gregorian calendar.</remarks>
-  public class DateTimeField : ValueField<DateTime>
+  public class DateTimeField: ValueField<DateTime>
   {
     /// <inheritdoc />
     public DateTimeField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -366,7 +366,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>TimeSpan</c> values.</summary>
   /// <remarks>Serialized as 64bit integer.</remarks>
-  public class TimeSpanField : ValueField<TimeSpan>
+  public class TimeSpanField: ValueField<TimeSpan>
   {
     /// <inheritdoc />
     public TimeSpanField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
@@ -391,7 +391,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Field representing <c>DateTimeOffset</c> values.</summary>
   /// <remarks>Serialized as 64bit integer (UTC ticks), followed by 16 bit integer (offset).</remarks>
-  public class DateTimeOffsetField : ValueField<DateTimeOffset>
+  public class DateTimeOffsetField: ValueField<DateTimeOffset>
   {
     /// <inheritdoc />
     public DateTimeOffsetField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }

@@ -5,8 +5,8 @@
   <PropertyGroup>
     <Title>KdSoft.Serialization.Tests</Title>
     <Description>KdSoft.Serialization.Tests Class Library</Description>
-    <VersionPrefix>1.0.2</VersionPrefix>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <VersionPrefix>1.0.3</VersionPrefix>
+    <TargetFrameworks>netcoreapp3.1;net461;net50</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

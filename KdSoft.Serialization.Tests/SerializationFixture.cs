@@ -6,7 +6,7 @@ using Xunit;
 
 namespace KdSoft.Serialization.Tests
 {
-  public class SerializationFixture : IDisposable
+  public class SerializationFixture: IDisposable
   {
     const string dataDirName = @"Data";
     readonly string dataPath;
@@ -132,7 +132,7 @@ namespace KdSoft.Serialization.Tests
   }
 
   [CollectionDefinition("DataModel")]
-  public class SerializationGroup : ICollectionFixture<SerializationFixture>
+  public class SerializationGroup: ICollectionFixture<SerializationFixture>
   {
     // This class has no code, and is never created. Its purpose is simply to be
     // the place to apply [CollectionDefinition] and all the ICollectionFixture<> interfaces. 

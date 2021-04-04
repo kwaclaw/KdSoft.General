@@ -5,24 +5,27 @@
   <PropertyGroup>
     <Title>KdSoft.Serialization</Title>
     <Description>KdSoft.Serialization Class Library</Description>
-    <VersionPrefix>2.0.2</VersionPrefix>
-    <TargetFrameworks>netstandard1.2;net461</TargetFrameworks>
+    <VersionPrefix>2.0.3</VersionPrefix>
+    <TargetFrameworks>netstandard1.2;net461;netstandard2.0;netstandard2.1;net50</TargetFrameworks>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>KdSoft.Utils.Shared.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard1.2' ">COREFX</DefineConstants>
-    <DefineConstants>BUFFER_API</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.2' ">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.3" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

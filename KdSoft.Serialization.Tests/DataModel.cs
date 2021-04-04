@@ -40,7 +40,7 @@ namespace KdSoft.Serialization.Tests
     public static bool operator !=(Vendor x, Vendor y) { return !(x == y); }
   }
 
-  public class VendorField : ReferenceField<Vendor>
+  public class VendorField: ReferenceField<Vendor>
   {
     public VendorField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
@@ -103,7 +103,7 @@ namespace KdSoft.Serialization.Tests
     public static bool operator !=(SalesRep x, SalesRep y) { return !(x == y); }
   }
 
-  public class SalesRepField : ReferenceField<SalesRep>
+  public class SalesRepField: ReferenceField<SalesRep>
   {
     public SalesRepField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
@@ -160,7 +160,7 @@ namespace KdSoft.Serialization.Tests
     public static bool operator !=(StockItem x, StockItem y) { return !(x == y); }
   }
 
-  public class StockItemField : ReferenceField<StockItem>
+  public class StockItemField: ReferenceField<StockItem>
   {
     public StockItemField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
@@ -220,7 +220,7 @@ namespace KdSoft.Serialization.Tests
     public static bool operator !=(LineItem x, LineItem y) { return !(x == y); }
   }
 
-  public class LineItemField : ReferenceField<LineItem>
+  public class LineItemField: ReferenceField<LineItem>
   {
     public LineItemField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 
@@ -282,7 +282,7 @@ namespace KdSoft.Serialization.Tests
     public static bool operator !=(Order x, Order y) { return !(x == y); }
   }
 
-  public class OrderField : ReferenceField<Order>
+  public class OrderField: ReferenceField<Order>
   {
     public OrderField(Formatter fmt, bool isDefault) : base(fmt, isDefault) { }
 

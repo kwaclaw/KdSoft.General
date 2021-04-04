@@ -216,7 +216,7 @@ namespace KdSoft.Serialization
     /// <inheritdoc />
     public override void SetPermanentReferences(IEnumerable<object> objects) {
       foreach (object obj in objects) {
-        if (permanentObjSet.Add(obj))          
+        if (permanentObjSet.Add(obj))
           permanentObjects.Add(obj);
         else
           throw new SerializationException("Permanent object already registered.");
@@ -1160,7 +1160,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    public StdFormatter(ByteOrder byteOrder): base(byteOrder) {
+    public StdFormatter(ByteOrder byteOrder) : base(byteOrder) {
       RegisterFieldConverters();
     }
 
@@ -1168,11 +1168,11 @@ namespace KdSoft.Serialization
       list.Add(item);
     }
 
-    static void AddValueItem<T>(ref T item, bool isNull, List<T> list) where T: struct {
+    static void AddValueItem<T>(ref T item, bool isNull, List<T> list) where T : struct {
       list.Add(isNull ? default(T) : item);
     }
 
-    static void AddValueItem<T>(ref T item, bool isNull, List<T?> list) where T: struct {
+    static void AddValueItem<T>(ref T item, bool isNull, List<T?> list) where T : struct {
       list.Add(isNull ? (T?)null : item);
     }
 
@@ -1195,7 +1195,7 @@ namespace KdSoft.Serialization
     /// where null values will be deserialized as the value type's default value.
     /// </summary>
     /// <seealso cref="InitValueSequence{T, C}"/>
-    public static AddValueItem<T, List<T>> InitValueList<T>(int capacity, ref List<T> collection) where T: struct {
+    public static AddValueItem<T, List<T>> InitValueList<T>(int capacity, ref List<T> collection) where T : struct {
       if (capacity < 0)
         return null;
       if (collection == null)
@@ -1210,7 +1210,7 @@ namespace KdSoft.Serialization
     /// where values will be deserialized as <see cref="Nullable{T}"/>.
     /// </summary>
     /// <seealso cref="InitValueSequence{T, C}"/>
-    public static AddValueItem<T, List<T?>> InitNullableList<T>(int capacity, ref List<T?> collection) where T: struct {
+    public static AddValueItem<T, List<T?>> InitNullableList<T>(int capacity, ref List<T?> collection) where T : struct {
       if (capacity < 0)
         return null;
       if (collection == null)
