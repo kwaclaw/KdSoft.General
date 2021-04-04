@@ -1,10 +1,10 @@
-﻿using System;
+﻿#if NETSTANDARD2_0
+
+using System;
 using System.Security.Cryptography;
 
 namespace KdSoft.StreamUtils
 {
-#if (false)  // we have to wait for netstandard2.0 for this to work - HashAlgorith.TransformBlock is not yet supported
-
   /// <summary>
   /// <see cref="TransformFilterWriter"/> that calculates the hash value of a data stream while passing the data through unchanged.
   /// </summary>
@@ -12,8 +12,7 @@ namespace KdSoft.StreamUtils
   {
     HashAlgorithm hasher;
 
-    public HashWriter(IFilterWriter outWriter, HashAlgorithm hasher) : base(outWriter)
-    {
+    public HashWriter(IFilterWriter outWriter, HashAlgorithm hasher) : base(outWriter) {
       this.hasher = hasher;
     }
 
@@ -45,6 +44,6 @@ namespace KdSoft.StreamUtils
       get { return hasher; }
     }
   }
+}
 
 #endif
-}

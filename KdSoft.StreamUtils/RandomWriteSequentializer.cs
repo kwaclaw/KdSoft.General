@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace KdSoft.StreamUtils
 {
@@ -15,7 +14,7 @@ namespace KdSoft.StreamUtils
   /// there are no more pending write requests. It will not be necessary to call <see cref="SetComplete"/>, and if
   /// it is called with <c>abort == false</c> before all write requests are satisfied, an exception will be thrown.</description></item>
   /// </list></remarks>
-  public class RandomWriteSequentializer : IRandomWriter
+  public class RandomWriteSequentializer: IRandomWriter
   {
     IFilterWriter writer;
     byte[] outBuffer;
@@ -41,7 +40,7 @@ namespace KdSoft.StreamUtils
       public long Offset { get; set; }
     }
 
-    class RequestComparer : IComparer<WriteRequest>
+    class RequestComparer: IComparer<WriteRequest>
     {
       IComparer<long> longComparer = Comparer<long>.Default;
 

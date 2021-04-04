@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Threading;
-using System.Diagnostics;
 
 namespace KdSoft.StreamUtils
 {
@@ -112,7 +110,8 @@ namespace KdSoft.StreamUtils
       if (readTask == null)
         return null;
       int index;
-      lock (syncObj) index = readIndex++;
+      lock (syncObj)
+        index = readIndex++;
       readTask.ContinueWith((antecedent) => {
         bool doWrite = false;
         lock (syncObj) {

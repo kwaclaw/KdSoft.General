@@ -2,7 +2,6 @@
 
 namespace KdSoft.StreamUtils
 {
-
   /// <summary>
   /// Circular generic buffer with fixed capacity. Not thread-safe.
   /// </summary>
@@ -40,7 +39,7 @@ namespace KdSoft.StreamUtils
     /// Amount of space available to write/add into.
     /// </summary>
     public int AvailableToWrite {
-      get { 
+      get {
         if (!hasDataToTake)
           return buffer.Length;
         int distance = tail - head;

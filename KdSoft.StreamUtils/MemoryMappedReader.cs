@@ -1,11 +1,11 @@
-﻿using System;
+﻿#if NETSTANDARD2_0
+
+using System;
 using System.IO.MemoryMappedFiles;
 using System.Threading.Tasks;
 
 namespace KdSoft.StreamUtils
 {
-#if (false)  // we have to wait for netstandard2.0 for this to work - MemoryMappedViewAccessor.ReadArray is not yet supported
-
   /// <summary>
   ///	Implements <see cref="IReader"/> based interfaces through a memory mapped cache file. Allows *all* (random) re-read requests 
   ///	to be satisfied from this cache, unlike <see cref="BufferedReader"/>.
@@ -73,7 +73,7 @@ namespace KdSoft.StreamUtils
       get { lock (syncObj) return serialRequestError; }
     }
 
-  #region IReader Members
+    #region IReader Members
 
     public bool GetSize(out long size) {
       lock (syncObj) {
@@ -82,9 +82,8 @@ namespace KdSoft.StreamUtils
       }
     }
 
-  #endregion
 
-  #region ISerialReader Members
+    #region ISerialReader Members
 
     IOResult InternalRead(byte[] buffer, int start, int count) {
       var offset = reader.Position;
@@ -118,9 +117,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-  #endregion
+    #endregion
 
-  #region ISerialAsyncReader Members
+    #region ISerialAsyncReader Members
 
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
       var taskSource = new TaskCompletionSource<IOResult>(options);
@@ -139,9 +138,9 @@ namespace KdSoft.StreamUtils
       return taskSource.Task;
     }
 
-  #endregion
+    #endregion
 
-  #region IRandomReader Members
+    #region IRandomReader Members
 
     public IOResult Read(byte[] buffer, int start, int count, long sourceOffset) {
       lock (syncObj) {
@@ -158,9 +157,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-  #endregion
+    #endregion
 
-  #region IRandomAsyncReader Members
+    #region IRandomAsyncReader Members
 
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options) {
       var taskSource = new TaskCompletionSource<IOResult>(options);
@@ -174,9 +173,9 @@ namespace KdSoft.StreamUtils
       return taskSource.Task;
     }
 
-  #endregion
+    #endregion
 
-  #region IFilterWriter Members
+    #region IFilterWriter Members
 
     public int Write(byte[] buffer, int start, int count) {
       lock (syncObj) {
@@ -196,9 +195,9 @@ namespace KdSoft.StreamUtils
       }
     }
 
-  #endregion
+    #endregion
 
-  #region IDisposable Members
+    #region IDisposable Members
 
     protected virtual void Dispose(bool disposing) {
       if (disposing) {
@@ -218,8 +217,8 @@ namespace KdSoft.StreamUtils
       GC.SuppressFinalize(this);
     }
 
-  #endregion
+    #endregion
   }
+}
 
 #endif
-}

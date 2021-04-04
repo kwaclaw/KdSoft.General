@@ -91,7 +91,7 @@ namespace KdSoft.StreamUtils
           Interlocked.MemoryBarrier();
         }
       }
-    } 
+    }
 
     /// <summary>
     /// Pumps data from reader to writer until the read count is <c>0</c> or the end is reached.

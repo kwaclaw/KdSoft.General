@@ -41,7 +41,7 @@ namespace KdSoft.StreamUtils
   /// <summary>
   /// Synchronous interface for writing sequentially to a data sink.
   /// </summary>
-  public interface ISerialWriter : IWriter
+  public interface ISerialWriter: IWriter
   {
     /// <summary>
     /// Write operation, to be called at start and in middle of processing.
@@ -70,7 +70,7 @@ namespace KdSoft.StreamUtils
   /// <summary>
   /// Asynchronous interface for writing sequentially to a data sink.
   /// </summary>
-  public interface ISerialAsyncWriter : IWriter
+  public interface ISerialAsyncWriter: IWriter
   {
     /// <summary>
     /// Writes buffer to the underlying data sink sequentially.
@@ -104,7 +104,7 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <remarks>Intended to completely fill the underlying data entity without gaps. The implementaion may,
   /// but does not have to, ignore parts of a write operation that would overlap with already written data.</remarks>
-  public interface IRandomWriter : IWriter
+  public interface IRandomWriter: IWriter
   {
     /// <summary>
     /// Writes buffer to the underlying data sink at a given offset.
@@ -154,7 +154,7 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <remarks>Intended to completely fill the underlying data entity without gaps. The implementaion may,
   /// but does not have to, ignore parts of a write operation that would overlap with already written data.</remarks>
-  public interface IRandomAsyncWriter : IWriter
+  public interface IRandomAsyncWriter: IWriter
   {
     /// <summary>
     /// Writes buffer to the underlying data sink at a given offset.

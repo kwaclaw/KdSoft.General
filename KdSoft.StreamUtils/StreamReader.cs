@@ -9,7 +9,7 @@ namespace KdSoft.StreamUtils
   /// Base class for stream reader implementations.
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
-  public class StreamReader<T> where T: Stream
+  public class StreamReader<T> where T : Stream
   {
     protected readonly T stream;
 
@@ -38,7 +38,7 @@ namespace KdSoft.StreamUtils
   /// <item><description>The correctness of operations relies on the stream position not being modified
   /// outside of this <see cref="SerialStreamReader{T}"/> instance.</description></item>
   /// </list></remarks>
-  public class SerialStreamReader<T> : StreamReader<T>, ISerialReader where T : Stream
+  public class SerialStreamReader<T>: StreamReader<T>, ISerialReader where T : Stream
   {
     protected bool endEncountered;
 
@@ -116,7 +116,8 @@ namespace KdSoft.StreamUtils
         return new IOResult(position, readCount, isEnd);
       }
       finally {
-        if (lockWasTaken) Monitor.Exit(stream);
+        if (lockWasTaken)
+          Monitor.Exit(stream);
       }
 
       #endregion
@@ -131,9 +132,9 @@ namespace KdSoft.StreamUtils
   /// <item><description>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
   /// so that it can be used concurrently with a <see cref="SerialStreamReader{T}"/> instance on the same underlying stream.</description></item>
   /// </list></remarks>
-  public class RandomStreamReader<T> : StreamReader<T>, IRandomReader where T : Stream
+  public class RandomStreamReader<T>: StreamReader<T>, IRandomReader where T : Stream
   {
-    public RandomStreamReader(T stream):base(stream) {
+    public RandomStreamReader(T stream) : base(stream) {
       if (!stream.CanSeek)
         throw new ArgumentException("Stream must support seeking.", "stream");
     }
@@ -179,9 +180,9 @@ namespace KdSoft.StreamUtils
   /// <item><description>This implementation  modifies the stream position temporarily under lock protection and resets it at the end of each call,
   /// so that it can be used concurrently with a <see cref="SerialAsyncStreamReader{T}"/> instance on the same underlying stream.</description></item>
   /// </list></remarks>
-  public class RandomAsyncStreamReader<T> : StreamReader<T>, IRandomAsyncReader where T : Stream
+  public class RandomAsyncStreamReader<T>: StreamReader<T>, IRandomAsyncReader where T : Stream
   {
-    public RandomAsyncStreamReader(T stream): base(stream) {
+    public RandomAsyncStreamReader(T stream) : base(stream) {
       if (!stream.CanSeek)
         throw new ArgumentException("Stream must support seeking.", "stream");
     }
@@ -218,7 +219,8 @@ namespace KdSoft.StreamUtils
         }
       }
       finally {
-        if (lockWasTaken) Monitor.Exit(stream);
+        if (lockWasTaken)
+          Monitor.Exit(stream);
       }
     }
 

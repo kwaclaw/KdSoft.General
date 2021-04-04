@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace KdSoft.StreamUtils
 {
@@ -20,7 +19,7 @@ namespace KdSoft.StreamUtils
   /// <summary>
   /// Synchronous interface for reading sequentially from a data source.
   /// </summary>
-  public interface ISerialReader : IReader
+  public interface ISerialReader: IReader
   {
     /// <summary>
     /// Reads up to <c>count</c> bytes sequentially from underlying entity (e.g. stream).
@@ -38,7 +37,7 @@ namespace KdSoft.StreamUtils
   /// <summary>
   /// Asynchronous interface for reading sequentially from a data source.
   /// </summary>
-  public interface ISerialAsyncReader : IReader
+  public interface ISerialAsyncReader: IReader
   {
     /// <summary>
     /// Reads up to <c>count</c> bytes sequentially from underlying entity (e.g. stream).

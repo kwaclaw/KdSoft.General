@@ -52,11 +52,11 @@ namespace KdSoft.StreamUtils
   /// <item><description>The correctness of operations relies on the stream position not being modified
   /// outside of this <see cref="SerialStreamWriter{T}"/> instance.</description></item>
   /// </list></remarks>
-  public class SerialStreamWriter<T> : StreamWriter<T>, ISerialWriter where T : Stream
+  public class SerialStreamWriter<T>: StreamWriter<T>, ISerialWriter where T : Stream
   {
     protected bool endEncountered;
 
-    public SerialStreamWriter(T stream): base(stream) {
+    public SerialStreamWriter(T stream) : base(stream) {
       endEncountered = false;
     }
 
@@ -95,11 +95,11 @@ namespace KdSoft.StreamUtils
   /// <item><description>The correctness of operations relies on the stream position not being modified
   /// outside of this <see cref="SerialAsyncStreamWriter{T}"/> instance.</description></item>
   /// </list></remarks>
-  public class SerialAsyncStreamWriter<T> : StreamWriter<T>, ISerialAsyncWriter where T : Stream
+  public class SerialAsyncStreamWriter<T>: StreamWriter<T>, ISerialAsyncWriter where T : Stream
   {
     protected bool endEncountered;
 
-    public SerialAsyncStreamWriter(T stream): base(stream) {
+    public SerialAsyncStreamWriter(T stream) : base(stream) {
       endEncountered = false;
     }
 
@@ -114,12 +114,13 @@ namespace KdSoft.StreamUtils
         return ioResult;
       }
       finally {
-        if (lockWasTaken) Monitor.Exit(stream);
+        if (lockWasTaken)
+          Monitor.Exit(stream);
       }
     }
 
     public Task<IOResult> WriteAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
-      lock(stream) {
+      lock (stream) {
         if (endEncountered) {
           return null;
         }
@@ -137,12 +138,13 @@ namespace KdSoft.StreamUtils
         return endPos;
       }
       finally {
-        if (lockWasTaken) Monitor.Exit(stream);
+        if (lockWasTaken)
+          Monitor.Exit(stream);
       }
     }
 
     public Task<long> FinalWriteAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
-      lock(stream) {
+      lock (stream) {
         if (endEncountered) {
           return null;
         }
@@ -162,13 +164,13 @@ namespace KdSoft.StreamUtils
   /// so that it can be used concurrently with a <see cref="SerialStreamWriter{T}"/> instance on the same underlying stream.</description></item>
   /// <item><description>This implementations allows multiple writes to the same range in the target stream.</description></item>
   /// </list></remarks>
-  public class RandomStreamWriter<T> : StreamWriter<T>, IRandomWriter where T : Stream 
+  public class RandomStreamWriter<T>: StreamWriter<T>, IRandomWriter where T : Stream
   {
     protected bool endEncountered;
     protected bool isComplete;
     long length;
 
-    public RandomStreamWriter(T stream): base(stream) {
+    public RandomStreamWriter(T stream) : base(stream) {
       if (!stream.CanSeek)
         throw new ArgumentException("Stream must support seeking.", "stream");
       endEncountered = false;
@@ -260,14 +262,14 @@ namespace KdSoft.StreamUtils
   /// so that it can be used concurrently with a <see cref="SerialAsyncStreamWriter{T}"/> instance on the same underlying stream.</description></item>
   /// <item><description>This implementations allows multiple writes to the same range in the target stream.</description></item>
   /// </list></remarks>
-  public class RandomAsyncStreamWriter<T> : StreamWriter<T>, IRandomAsyncWriter, IDisposable where T : Stream
+  public class RandomAsyncStreamWriter<T>: StreamWriter<T>, IRandomAsyncWriter, IDisposable where T : Stream
   {
     protected bool endEncountered;
     protected bool setComplete;
     readonly TaskWaiter completeWaiter;
     long length;
 
-    public RandomAsyncStreamWriter(T stream): base(stream) {
+    public RandomAsyncStreamWriter(T stream) : base(stream) {
       if (!stream.CanSeek)
         throw new ArgumentException("Stream must support seeking.", "stream");
       completeWaiter = new TaskWaiter(true);
@@ -370,7 +372,7 @@ namespace KdSoft.StreamUtils
   /// </summary>
   /// <typeparam name="T">Stream type.</typeparam>
   /// <remarks>Not thread-safe.</remarks>
-  public class FilterStreamWriter<T>: IFilterWriter where T: Stream
+  public class FilterStreamWriter<T>: IFilterWriter where T : Stream
   {
     T stream;
 

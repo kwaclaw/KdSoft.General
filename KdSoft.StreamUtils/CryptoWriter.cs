@@ -10,8 +10,7 @@ namespace KdSoft.StreamUtils
   {
     ICryptoTransform crypter;
 
-    public CryptoWriter(IFilterWriter outWriter, ICryptoTransform crypter) : base(outWriter)
-    {
+    public CryptoWriter(IFilterWriter outWriter, ICryptoTransform crypter) : base(outWriter) {
       this.crypter = crypter;
     }
 
@@ -75,6 +74,6 @@ namespace KdSoft.StreamUtils
 
     public ICryptoTransform CryptoTransform {
       get { return crypter; }
-    } 
+    }
   }
 }
