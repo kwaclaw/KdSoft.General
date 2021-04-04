@@ -75,6 +75,7 @@ namespace KdSoft.StreamUtils
 
     #region IReader Members
 
+    /// <inheritdoc/>
     public bool GetSize(out long size) {
       lock (syncObj) {
         size = writer.Position;
@@ -82,6 +83,7 @@ namespace KdSoft.StreamUtils
       }
     }
 
+    #endregion
 
     #region ISerialReader Members
 
@@ -111,6 +113,7 @@ namespace KdSoft.StreamUtils
       return readResult;
     }
 
+    /// <inheritdoc/>
     public IOResult Read(byte[] buffer, int start, int count) {
       lock (syncObj) {
         return InternalRead(buffer, start, count);
@@ -121,6 +124,7 @@ namespace KdSoft.StreamUtils
 
     #region ISerialAsyncReader Members
 
+    /// <inheritdoc/>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
       var taskSource = new TaskCompletionSource<IOResult>(options);
       try {
@@ -142,6 +146,7 @@ namespace KdSoft.StreamUtils
 
     #region IRandomReader Members
 
+    /// <inheritdoc/>
     public IOResult Read(byte[] buffer, int start, int count, long sourceOffset) {
       lock (syncObj) {
         var available = (int)(writer.Position - sourceOffset);
@@ -161,6 +166,7 @@ namespace KdSoft.StreamUtils
 
     #region IRandomAsyncReader Members
 
+    /// <inheritdoc/>
     public Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options) {
       var taskSource = new TaskCompletionSource<IOResult>(options);
       try {
@@ -177,6 +183,7 @@ namespace KdSoft.StreamUtils
 
     #region IFilterWriter Members
 
+    /// <inheritdoc/>
     public int Write(byte[] buffer, int start, int count) {
       lock (syncObj) {
         if (isComplete)
@@ -186,6 +193,7 @@ namespace KdSoft.StreamUtils
       }
     }
 
+    /// <inheritdoc/>
     public void FinalWrite(byte[] buffer, int start, int count) {
       lock (syncObj) {
         if (isComplete)
@@ -199,6 +207,7 @@ namespace KdSoft.StreamUtils
 
     #region IDisposable Members
 
+    /// <inheritdoc/>
     protected virtual void Dispose(bool disposing) {
       if (disposing) {
         lock (syncObj) {
@@ -212,6 +221,7 @@ namespace KdSoft.StreamUtils
       }
     }
 
+    /// <inheritdoc/>
     public void Dispose() {
       Dispose(true);
       GC.SuppressFinalize(this);
