@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\common.props" />
+
+  <PropertyGroup>
+    <Description>Utilities based on Microsoft.FASTER.Core.</Description>
+    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <PackageReleaseNotes>
+      Added FasterChannel, a persistent queue similar to System.Threading.Channels.Channel.
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.FASTER.Core" Version="1.8.4" />
+  </ItemGroup>
+
+</Project>
