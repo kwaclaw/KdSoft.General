@@ -16,31 +16,43 @@ namespace KdSoft.Faster
     readonly IDevice _device;
     long _logicalAddress;
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="deviceLogPath">Path to storage file.</param>
     public FasterChannel(string deviceLogPath) {
       _device = Devices.CreateLogDevice(deviceLogPath);
       _log = new FasterLog(new FasterLogSettings { LogDevice = _device });
     }
 
+    /// <inheritdoc cref="FasterLog.TryEnqueue(ReadOnlySpan{byte}, out long)"/>
     public bool TryWrite(ReadOnlyMemory<byte> item) {
       return _log.TryEnqueue(item.Span, out _logicalAddress);
     }
 
+    /// <inheritdoc cref="FasterLog.EnqueueAsync(byte[], CancellationToken)"/>
     public async ValueTask WriteAsync(ReadOnlyMemory<byte> item, CancellationToken cancellationToken = default) {
       _logicalAddress = await _log.EnqueueAsync(item, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Returns new instance of <see cref="FasterReader"/>
+    /// </summary>
     public FasterReader GetNewReader() {
       return new FasterReader(_log);
     }
 
+    /// <inheritdoc cref="FasterLog.Commit(bool)"/>
     public void Commit(bool spinWait = false) {
       _log.Commit(spinWait);
     }
 
+    /// <inheritdoc cref="FasterLog.CommitAsync(CancellationToken)"/>
     public ValueTask CommitAsync(CancellationToken cancellationToken = default) {
       return _log.CommitAsync(cancellationToken);
     }
 
+    /// <inheritdoc cref="IDisposable.Dispose()"/>
     public void Dispose() {
       _log.Dispose();
       _device.Dispose();

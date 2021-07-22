@@ -21,6 +21,10 @@ namespace KdSoft.Faster
 
     long _nextAddress;
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="log"><see cref="FasterLog"/> to iterate over.</param>
     public FasterReader(FasterLog log) {
       this._log = log;
       _nextAddress = log.BeginAddress;
@@ -28,6 +32,13 @@ namespace KdSoft.Faster
       _pool = MemoryPool<byte>.Shared;
     }
 
+    /// <summary>
+    /// <inheritdoc cref="FasterLogScanIterator.GetNext(MemoryPool{Byte}, out IMemoryOwner{Byte}, out int, out long, out long)"/>
+    /// </summary>
+    /// <param name="item"><inheritdoc cref="FasterLogScanIterator.GetNext(MemoryPool{Byte}, out IMemoryOwner{Byte}, out int, out long, out long)"/></param>
+    /// <param name="entryLength"><inheritdoc cref="FasterLogScanIterator.GetNext(MemoryPool{Byte}, out IMemoryOwner{Byte}, out int, out long, out long)"/></param>
+    /// <returns><inheritdoc cref="FasterLogScanIterator.GetNext(MemoryPool{Byte}, out IMemoryOwner{Byte}, out int, out long, out long)"/></returns>
+    /// <remarks>Updates internal _nextAddress field.</remarks>
     public bool TryRead([MaybeNullWhen(false)] out IMemoryOwner<byte> item, out int entryLength) {
       if (_iter.GetNext(_pool, out item, out entryLength, out var currentAddress, out _nextAddress)) {
         return true;
@@ -36,6 +47,12 @@ namespace KdSoft.Faster
       return false;
     }
 
+    /// <summary>
+    /// Like <see cref="TryRead"/> but waits for iteration to be ready to continue.
+    /// See <see cref="WaitToReadAsync(CancellationToken)"/>.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <exception cref="ChannelClosedException">When no more data can be read.</exception>
     public async ValueTask<(IMemoryOwner<byte>, int)> ReadAsync(CancellationToken cancellationToken = default) {
       while (true) {
         if (!await WaitToReadAsync(cancellationToken).ConfigureAwait(false))
@@ -46,7 +63,11 @@ namespace KdSoft.Faster
       }
     }
 
-    // this approach completes the iteration wheren there is no more data to read and does not wait for the next commit
+    /// <inheritdoc cref="FasterLogScanIterator.GetAsyncEnumerable(MemoryPool{Byte}, CancellationToken)"/>
+    /// <remarks>
+    /// This approach completes the iteration where there is no more data to read
+    /// and does not wait for the next commit.
+    /// </remarks>
     public async IAsyncEnumerable<(IMemoryOwner<byte>, int)> ReadAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default) {
       await foreach ((IMemoryOwner<byte> entry, var entryLength, var currentAddress, var nextAddress) in _iter.GetAsyncEnumerable(_pool, cancellationToken)) {
         _nextAddress = nextAddress;
@@ -60,19 +81,23 @@ namespace KdSoft.Faster
       }
     }
 
-    // this approach will wait for the next commit
+    /// <inheritdoc cref="FasterLogScanIterator.GetAsyncEnumerable(MemoryPool{Byte}, CancellationToken)"/>
+    /// <remarks>This approach will wait for the next commit.</remarks>
     public IAsyncEnumerable<(IMemoryOwner<byte> entry, int entryLength, long currentAddress, long nextAddress)> GetAsyncEnumerable(CancellationToken token = default) {
       return _iter.GetAsyncEnumerable(_pool, token);
     }
 
+    /// <inheritdoc cref="FasterLogScanIterator.WaitAsync(CancellationToken)"/>
     public ValueTask<bool> WaitToReadAsync(CancellationToken cancellationToken = default) {
       return _iter.WaitAsync(cancellationToken);
     }
 
+    /// <inheritdoc cref="FasterLog.TruncateUntil(long)"/>
     public void Truncate() {
       _log.TruncateUntil(_nextAddress);
     }
 
+    /// <inheritdoc cref="IDisposable.Dispose()"/>
     public void Dispose() {
       _iter.Dispose();
       _pool.Dispose();
