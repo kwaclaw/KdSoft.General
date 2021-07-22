@@ -8,7 +8,7 @@
     <VersionPrefix>1.0.1</VersionPrefix>
     <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
     <PackageReleaseNotes>
-      Includes RollingFileLogger for Microsoft.Extensions.Logging.
+      Dependency updates.
     </PackageReleaseNotes>
   </PropertyGroup>
 
