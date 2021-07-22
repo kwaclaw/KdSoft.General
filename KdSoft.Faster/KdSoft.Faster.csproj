@@ -13,10 +13,6 @@
     </PackageReleaseNotes>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
   </ItemGroup>
