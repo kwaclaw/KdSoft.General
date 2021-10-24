@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Description>Utilities based on Microsoft.FASTER.Core.</Description>
     <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.0.2</VersionPrefix>
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
@@ -18,7 +18,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.FASTER.Core" Version="1.9.5" />
+    <PackageReference Include="Microsoft.FASTER.Core" Version="1.9.6" />
   </ItemGroup>
 
 </Project>
