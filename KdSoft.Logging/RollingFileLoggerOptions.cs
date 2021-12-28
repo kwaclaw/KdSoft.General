@@ -28,7 +28,7 @@
 
     /// <summary>
     /// The file size limit determines at which size a file should be closed and a new file should be created.
-    /// When the file name would stay the same (based on <see cref="FileNameFormat")/> then the sequence number
+    /// When the file name would stay the same (based on <see cref="FileNameFormat"/>) then the sequence number
     /// usded in the file name format will be incremented.
     /// </summary>
     public int FileSizeLimitKB { get; set; } = 4096;

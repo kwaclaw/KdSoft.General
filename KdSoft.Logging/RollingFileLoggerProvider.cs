@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 namespace KdSoft.Logging
 {
   [ProviderAlias("RollingFile")]  // name for this provider's settings in the Logging section of appsettings.json
-  public class RollingFileLoggerProvider: ILoggerProvider, IAsyncDisposable
+  public sealed class RollingFileLoggerProvider: ILoggerProvider, IAsyncDisposable
   {
     readonly RollingFileFactory _fileFactory;
     readonly IOptions<RollingFileLoggerOptions> _options;

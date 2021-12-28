@@ -30,7 +30,7 @@ namespace KdSoft.Logging
       }
     }
 
-    public static void AppendLogScope(this StringBuilder sb, object scope) {
+    public static void AppendLogScope(this StringBuilder sb, object? scope) {
       sb.Append("=> ").Append(scope);
     }
 
@@ -67,7 +67,7 @@ namespace KdSoft.Logging
         LogLevel logLevel,
         EventId eventId,
         string message,
-        Exception exception,
+        Exception? exception,
         IExternalScopeProvider? scopeProvider,
         DateTimeOffset timestamp
     ) {
