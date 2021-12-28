@@ -13,7 +13,7 @@ namespace KdSoft.Faster
   /// <summary>
   /// Helper routines to iterate over a <see cref="FasterLog"/> in a channel-like way.
   /// </summary>
-  public class FasterReader: IDisposable
+  public sealed class FasterReader: IDisposable
   {
     readonly FasterLog _log;
     readonly FasterLogScanIterator _iter;

@@ -10,7 +10,7 @@ namespace KdSoft.Faster
   /// A persistent queue, similar to <see cref="Channel"/>.
   /// Uses <see cref="FasterLog"/> as the storage mechanism.
   /// </summary>
-  public class FasterChannel: IDisposable
+  public sealed class FasterChannel: IDisposable
   {
     readonly FasterLog _log;
     readonly IDevice _device;
