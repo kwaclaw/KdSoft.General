@@ -8,7 +8,7 @@ namespace KdSoft.Utils
     TKey key;
     IEnumerable<TElement> elements;
 
-    static readonly TElement[] defaultEnumerable = new TElement[0];
+    static readonly IEnumerable<TElement> defaultEnumerable = Enumerable.Empty<TElement>();
 
     public Grouping(TKey key, IEnumerable<TElement> elements = null) {
       Initialize(key, elements);

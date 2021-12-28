@@ -8,7 +8,6 @@ namespace KdSoft.Utils
     /// <summary>
     /// Wraps an event handler for asynchronous invokation on the calling thread.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="handler"></param>
     /// <returns></returns>
     public static EventHandler WrapAsync(EventHandler handler) {
