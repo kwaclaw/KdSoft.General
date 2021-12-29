@@ -12,33 +12,34 @@ namespace KdSoft.StreamUtils
   /// <typeparam name="T">Stream type.</typeparam>
   public class StreamWriter<T> where T : Stream
   {
-    protected readonly T stream;
+    protected readonly T stream_;
+    protected readonly object syncObj = new object();
 
     public T Stream {
-      get { return stream; }
+      get { return stream_; }
     }
 
     public StreamWriter(T stream) {
       if (!stream.CanWrite)
         throw new ArgumentException("Stream must support writing.", "stream");
-      this.stream = stream;
+      this.stream_ = stream;
     }
 
     // requires lock on stream
     protected virtual void Abort() {
-      stream.SetLength(0);
+      stream_.SetLength(0);
     }
 
     public void Close(bool abort = false) {
-      lock (stream) {
+      lock (syncObj) {
         try {
           if (abort)
             Abort();
           else
-            stream.Flush();
+            stream_.Flush();
         }
         finally {
-          stream.Dispose();
+          stream_.Dispose();
         }
       }
     }
@@ -63,22 +64,22 @@ namespace KdSoft.StreamUtils
     #region ISerialWriter Members
 
     public IOResult Write(byte[] buffer, int start, int count) {
-      lock (stream) {
+      lock (syncObj) {
         if (endEncountered) {
           return new IOResult(-1, 0, true);
         }
-        var ioResult = new IOResult(stream.Position, count, false);
-        stream.Write(buffer, start, count);
+        var ioResult = new IOResult(stream_.Position, count, false);
+        stream_.Write(buffer, start, count);
         return ioResult;
       }
     }
 
     public long FinalWrite(byte[] buffer, int start, int count) {
-      lock (stream) {
+      lock (syncObj) {
         if (endEncountered)
           return -1;
-        long endPos = stream.Position + count;
-        stream.Write(buffer, start, count);
+        long endPos = stream_.Position + count;
+        stream_.Write(buffer, start, count);
         endEncountered = true;
         return endPos;
       }
@@ -108,19 +109,19 @@ namespace KdSoft.StreamUtils
     async Task<IOResult> InternalWriteAsync(byte[] buffer, int start, int count) {
       bool lockWasTaken = false;
       try {
-        Monitor.Enter(stream, ref lockWasTaken);
-        var ioResult = new IOResult(stream.Position, count, false);
-        await stream.WriteAsync(buffer, start, count).ConfigureAwait(false);
+        Monitor.Enter(syncObj, ref lockWasTaken);
+        var ioResult = new IOResult(stream_.Position, count, false);
+        await stream_.WriteAsync(buffer, start, count).ConfigureAwait(false);
         return ioResult;
       }
       finally {
         if (lockWasTaken)
-          Monitor.Exit(stream);
+          Monitor.Exit(syncObj);
       }
     }
 
     public Task<IOResult> WriteAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
-      lock (stream) {
+      lock (syncObj) {
         if (endEncountered) {
           return null;
         }
@@ -131,20 +132,20 @@ namespace KdSoft.StreamUtils
     async Task<long> InternalFinalWriteAsync(byte[] buffer, int start, int count) {
       bool lockWasTaken = false;
       try {
-        Monitor.Enter(stream, ref lockWasTaken);
-        long endPos = stream.Position + count;
-        await stream.WriteAsync(buffer, start, count).ConfigureAwait(false);
+        Monitor.Enter(syncObj, ref lockWasTaken);
+        long endPos = stream_.Position + count;
+        await stream_.WriteAsync(buffer, start, count).ConfigureAwait(false);
         endEncountered = true;
         return endPos;
       }
       finally {
         if (lockWasTaken)
-          Monitor.Exit(stream);
+          Monitor.Exit(syncObj);
       }
     }
 
     public Task<long> FinalWriteAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
-      lock (stream) {
+      lock (syncObj) {
         if (endEncountered) {
           return null;
         }
@@ -192,18 +193,18 @@ namespace KdSoft.StreamUtils
 
     // must be called under protection of lock
     void InternalWrite(byte[] buffer, int start, int count, long targetOffset) {
-      long position = stream.Position;
+      long position = stream_.Position;
       try {
-        stream.Seek(targetOffset, SeekOrigin.Begin);
-        stream.Write(buffer, start, count);
+        stream_.Seek(targetOffset, SeekOrigin.Begin);
+        stream_.Write(buffer, start, count);
       }
       finally {  // reset position to keep serial writes correct
-        stream.Position = position;
+        stream_.Position = position;
       }
     }
 
     public bool Write(byte[] buffer, int start, int count, long targetOffset) {
-      lock (stream) {
+      lock (syncObj) {
         if (isComplete)
           return false;
         if (endEncountered && (targetOffset + count) > length)
@@ -214,12 +215,12 @@ namespace KdSoft.StreamUtils
     }
 
     public bool EndWrite(byte[] buffer, int start, int count, long targetOffset) {
-      lock (stream) {
+      lock (syncObj) {
         if (isComplete || endEncountered) {
           return false;
         }
         long targetSize = targetOffset + count;
-        if (stream.Length > targetSize)
+        if (stream_.Length > targetSize)
           throw new InvalidOperationException("Data stream already exceeds end position.");
         InternalWrite(buffer, start, count, targetOffset);
         endEncountered = true;
@@ -229,7 +230,7 @@ namespace KdSoft.StreamUtils
     }
 
     public bool SetComplete(bool abort) {
-      lock (stream) {
+      lock (syncObj) {
         if (isComplete)
           return false;
         if (!abort && !endEncountered)
@@ -243,11 +244,11 @@ namespace KdSoft.StreamUtils
     #endregion
 
     public bool GetSize(out long size) {
-      lock (stream) {
+      lock (syncObj) {
         if (endEncountered)
           size = length;
         else
-          size = stream.Position;
+          size = stream_.Position;
         return endEncountered;
       }
     }
@@ -265,7 +266,7 @@ namespace KdSoft.StreamUtils
   public class RandomAsyncStreamWriter<T>: StreamWriter<T>, IRandomAsyncWriter, IDisposable where T : Stream
   {
     protected bool endEncountered;
-    protected bool setComplete;
+    protected bool setComplete_;
     readonly TaskWaiter completeWaiter;
     long length;
 
@@ -278,22 +279,22 @@ namespace KdSoft.StreamUtils
     #region IRandomAsyncWriter Members
 
     Task InternalWriteAsync(byte[] buffer, int start, int count, long targetOffset) {
-      long position = stream.Position;
+      long position = stream_.Position;
       try {
-        stream.Seek(targetOffset, SeekOrigin.Begin);
-        var task = stream.WriteAsync(buffer, start, count);
+        stream_.Seek(targetOffset, SeekOrigin.Begin);
+        var task = stream_.WriteAsync(buffer, start, count);
         completeWaiter.Add(task);
         return task;
       }
       finally {  // reset position to keep serial writes correct
-        stream.Position = position;
+        stream_.Position = position;
       }
     }
 
     public Task WriteAsync(byte[] buffer, int start, int count, long targetOffset, TaskCreationOptions options) {
       Task task;
-      lock (stream) {
-        if (setComplete)
+      lock (syncObj) {
+        if (setComplete_)
           return null;
         if (endEncountered && (targetOffset + count) > length)
           throw new InvalidOperationException("Writable range of data stream exceeded.");
@@ -304,11 +305,11 @@ namespace KdSoft.StreamUtils
 
     public Task EndWriteAsync(byte[] buffer, int start, int count, long targetOffset, TaskCreationOptions options) {
       Task task;
-      lock (stream) {
-        if (setComplete || endEncountered)
+      lock (syncObj) {
+        if (setComplete_ || endEncountered)
           return null;
         long targetSize = targetOffset + count;
-        if (stream.Length > targetSize)
+        if (stream_.Length > targetSize)
           throw new InvalidOperationException("Data stream already exceeds end position.");
         task = InternalWriteAsync(buffer, start, count, targetOffset);
         endEncountered = true;
@@ -318,12 +319,12 @@ namespace KdSoft.StreamUtils
     }
 
     public Task SetComplete(bool abort, TaskCreationOptions options) {
-      lock (stream) {
-        if (setComplete)
+      lock (syncObj) {
+        if (setComplete_)
           return null;
         if (!abort && !endEncountered)
           throw new InvalidOperationException("Cannot set complete before EndWrite was called.");
-        setComplete = true;
+        setComplete_ = true;
       }
       var tcs = new TaskCompletionSource<object>(options);
       completeWaiter.OnCompleted += (s, e) => {
@@ -339,11 +340,11 @@ namespace KdSoft.StreamUtils
     #endregion
 
     public bool GetSize(out long size) {
-      lock (stream) {
+      lock (syncObj) {
         if (endEncountered)
           size = length;
         else
-          size = stream.Position;
+          size = stream_.Position;
         return endEncountered;
       }
     }

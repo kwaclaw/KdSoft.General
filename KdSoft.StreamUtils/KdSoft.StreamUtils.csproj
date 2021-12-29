@@ -6,13 +6,14 @@
     <Title>KdSoft.StreamUtils</Title>
     <Description>KdSoft.StreamUtils Class Library</Description>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFrameworks>netstandard1.4;net461;netstandard2.0;netstandard2.1;net50</TargetFrameworks>
+    <TargetFrameworks>netstandard1.4;net461;netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>KdSoft.Utils.Shared.pfx</AssemblyOriginatorKeyFile>
     <PackageReleaseNotes>
-      Exposed MemoryMappedReader and HashWriter classes.
-      Added netstandard2.0, netstandard2.1 and net50 target frameworks.
+      Replaced net5.0 with net6.0 target framework.
     </PackageReleaseNotes>
+    <Nullable>disable</Nullable>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

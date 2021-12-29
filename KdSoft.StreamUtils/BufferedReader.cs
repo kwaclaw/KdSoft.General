@@ -77,7 +77,7 @@ namespace KdSoft.StreamUtils
     /// <remarks>><list type="bullet">
     ///   <item><description>Random *synchronous* read requests will never call this handler.</description></item>
     ///   <item><description>This class will pass any task faults returned from the event handler to the
-    ///   <see cref="ReadAsync">originating random read request</see></description></item>.
+    ///   <see cref="ReadAsync(byte[],int,int,TaskCreationOptions)">originating random read request</see></description></item>.
     /// </list></remarks>
     public RandomDataRequestHandler RandomDataRequested { get; set; }
 
@@ -135,7 +135,6 @@ namespace KdSoft.StreamUtils
     /// <param name="buffer">Byte buffer that contains the data to write.</param>
     /// <param name="start">Start index of data.</param>
     /// <param name="count">Amount of data to write.</param>
-    /// <param name="cancelToken">Cancellation token to break a long wait.</param>
     /// <returns>Number of bytes written. May be less that <c>count</c> if the
     /// buffer does not have sufficient free space.</returns>
     public int Write(byte[] buffer, int start, int count) {

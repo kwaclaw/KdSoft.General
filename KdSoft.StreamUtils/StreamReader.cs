@@ -11,21 +11,22 @@ namespace KdSoft.StreamUtils
   /// <typeparam name="T">Stream type.</typeparam>
   public class StreamReader<T> where T : Stream
   {
-    protected readonly T stream;
+    protected readonly T stream_;
+    protected readonly object syncObj = new object();
 
     public T Stream {
-      get { return stream; }
+      get { return stream_; }
     }
 
     public StreamReader(T stream) {
       if (!stream.CanRead)
         throw new ArgumentException("Stream must support reading.", "stream");
-      this.stream = stream;
+      this.stream_ = stream;
     }
 
     public void Close() {
-      lock (stream) {
-        stream.Dispose();
+      lock (syncObj) {
+        stream_.Dispose();
       }
     }
   }
@@ -49,8 +50,8 @@ namespace KdSoft.StreamUtils
     #region IReader
 
     public bool GetSize(out long size) {
-      lock (stream) {
-        size = stream.Position;
+      lock (syncObj) {
+        size = stream_.Position;
         return endEncountered;
       }
     }
@@ -60,9 +61,9 @@ namespace KdSoft.StreamUtils
     #region ISerialReader Members
 
     public IOResult Read(byte[] buffer, int start, int count) {
-      lock (stream) {
-        var offset = stream.Position;
-        var readCount = stream.Read(buffer, start, count);
+      lock (syncObj) {
+        var offset = stream_.Position;
+        var readCount = stream_.Read(buffer, start, count);
         bool isEnd = readCount == 0;
         if (isEnd) {
           endEncountered = true;
@@ -93,8 +94,8 @@ namespace KdSoft.StreamUtils
     #region IReader
 
     public bool GetSize(out long size) {
-      lock (stream) {
-        size = stream.Position;
+      lock (syncObj) {
+        size = stream_.Position;
         return endEncountered;
       }
     }
@@ -106,9 +107,9 @@ namespace KdSoft.StreamUtils
     public async Task<IOResult> ReadAsync(byte[] buffer, int start, int count, TaskCreationOptions options) {
       bool lockWasTaken = false;
       try {
-        Monitor.Enter(stream, ref lockWasTaken);
-        long position = stream.Position;
-        int readCount = await stream.ReadAsync(buffer, start, count).ConfigureAwait(false);
+        Monitor.Enter(syncObj, ref lockWasTaken);
+        long position = stream_.Position;
+        int readCount = await stream_.ReadAsync(buffer, start, count).ConfigureAwait(false);
         bool isEnd = readCount == 0;
         if (isEnd) {
           endEncountered = true;
@@ -117,7 +118,7 @@ namespace KdSoft.StreamUtils
       }
       finally {
         if (lockWasTaken)
-          Monitor.Exit(stream);
+          Monitor.Exit(syncObj);
       }
 
       #endregion
@@ -142,8 +143,8 @@ namespace KdSoft.StreamUtils
     #region IReader
 
     public bool GetSize(out long size) {
-      lock (stream) {
-        size = stream.Length;
+      lock (syncObj) {
+        size = stream_.Length;
         return true;
       }
     }
@@ -153,18 +154,18 @@ namespace KdSoft.StreamUtils
     #region IRandomReader Members
 
     public IOResult Read(byte[] buffer, int start, int count, long sourceOffset) {
-      long slen = stream.Length;
+      long slen = stream_.Length;
       // since it is legal to set the stream position beyond the end of the stream, we have to check
       long readOffset = sourceOffset >= slen ? slen : sourceOffset;
-      lock (stream) {
-        long position = stream.Position;
+      lock (syncObj) {
+        long position = stream_.Position;
         try {
-          stream.Position = readOffset;
-          var readCount = stream.Read(buffer, start, count);
+          stream_.Position = readOffset;
+          var readCount = stream_.Read(buffer, start, count);
           return new IOResult(readOffset, readCount, readOffset + readCount >= slen);
         }
         finally {  // reset position so that sequential reads don't get messed up
-          stream.Position = position;
+          stream_.Position = position;
         }
       }
     }
@@ -190,8 +191,8 @@ namespace KdSoft.StreamUtils
     #region IReader
 
     public bool GetSize(out long size) {
-      lock (stream) {
-        size = stream.Length;
+      lock (syncObj) {
+        size = stream_.Length;
         return true;
       }
     }
@@ -201,26 +202,26 @@ namespace KdSoft.StreamUtils
     #region IRandomAsyncReader Members
 
     public async Task<IOResult> ReadAsync(byte[] buffer, int start, int count, long sourceOffset, TaskCreationOptions options) {
-      long slen = stream.Length;
+      long slen = stream_.Length;
       // since it is legal to set the stream position beyond the end of the stream, we have to check
       long readOffset = sourceOffset >= slen ? slen : sourceOffset;
       bool lockWasTaken = false;
       try {
-        Monitor.Enter(stream, ref lockWasTaken);
-        long position = stream.Position;
+        Monitor.Enter(syncObj, ref lockWasTaken);
+        long position = stream_.Position;
         try {
-          stream.Position = readOffset;
-          int readCount = await stream.ReadAsync(buffer, start, count).ConfigureAwait(false);
-          bool isEnd = readOffset + readCount >= stream.Length;
+          stream_.Position = readOffset;
+          int readCount = await stream_.ReadAsync(buffer, start, count).ConfigureAwait(false);
+          bool isEnd = readOffset + readCount >= stream_.Length;
           return new IOResult(readOffset, readCount, isEnd);
         }
         finally {  // reset position so that sequential reads don't get messed up
-          stream.Position = position;
+          stream_.Position = position;
         }
       }
       finally {
         if (lockWasTaken)
-          Monitor.Exit(stream);
+          Monitor.Exit(syncObj);
       }
     }
 
