@@ -305,8 +305,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Value type instance to serialize.</param>
-    public void SerializeStruct<T>(Span<byte> target, T? value)
-      where T : struct {
+    public void SerializeStruct<T>(Span<byte> target, T? value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Serialize(target, value);
     }
@@ -317,8 +316,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Value type instance to serialize.</param>
-    public void SerializeStruct<T>(Span<byte> target, ref T value)
-      where T : struct {
+    public void SerializeStruct<T>(Span<byte> target, ref T value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Serialize(target, ref value);
     }
@@ -327,8 +325,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be serialized.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Value type instance to serialize.</param>
-    public void SerializeStruct<T>(Span<byte> target, T value)
-      where T : struct {
+    public void SerializeStruct<T>(Span<byte> target, T value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Serialize(target, ref value);
     }
@@ -344,8 +341,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Reference type to be serialized.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="obj">Object to serialize.</param>
-    public void SerializeObject<T>(Span<byte> target, T obj)
-      where T : class {
+    public void SerializeObject<T>(Span<byte> target, T obj) where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       field.Serialize(target, obj);
     }
@@ -359,8 +355,7 @@ namespace KdSoft.Serialization
     /// <remarks>One can cast the return value to the non-nullable value type.</remarks>
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
-    public T? DeserializeStruct<T>(ReadOnlySpan<byte> source)
-      where T : struct {
+    public T? DeserializeStruct<T>(ReadOnlySpan<byte> source) where T : struct {
       T? result;
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       result = field.Deserialize(source);
@@ -373,8 +368,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Value type that is to be deserialized.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="defaultValue">A specific default value to return instead of <c>null</c>, optional.</param>
-    public T DeserializeStructDefault<T>(ReadOnlySpan<byte> source, T defaultValue = default(T))
-      where T : struct {
+    public T DeserializeStructDefault<T>(ReadOnlySpan<byte> source, T defaultValue = default(T)) where T : struct {
       T result = defaultValue;
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Deserialize(source, ref result, out bool isNull);
@@ -388,8 +382,7 @@ namespace KdSoft.Serialization
     /// <param name="value">Value to serialize, passed by reference.</param>
     /// <param name="isNull">Indicates <c>null</c>. If this parameter returns <c>true</c>
     /// then the <c>value</c> has not been modified.</param>
-    public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull)
-      where T : struct {
+    public void DeserializeStruct<T>(ReadOnlySpan<byte> source, ref T value, out bool isNull) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       field.Deserialize(source, ref value, out isNull);
     }
@@ -399,8 +392,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="obj">Object to deserialize, or <c>null</c>.</param>
-    public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T obj)
-      where T : class {
+    public void DeserializeObject<T>(ReadOnlySpan<byte> source, ref T? obj) where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       field.Deserialize(source, ref obj);
     }
@@ -428,8 +420,7 @@ namespace KdSoft.Serialization
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    public void SerializeStructs<T>(Span<byte> target, T[] value, ValueField<T, F> field)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, T[] value, ValueField<T, F> field) where T : struct {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -445,8 +436,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
-    public void SerializeStructs<T>(Span<byte> target, T[] value)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, T[] value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(target, value, field);
     }
@@ -457,8 +447,7 @@ namespace KdSoft.Serialization
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
     /// <param name="field">Field that serializes the array elements.</param>
-    public void SerializeStructs<T>(Span<byte> target, T?[] value, ValueField<T, F> field)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, T?[] value, ValueField<T, F> field) where T : struct {
       if (value == null) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -474,8 +463,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of array elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value">Array to serialize.</param>
-    public void SerializeStructs<T>(Span<byte> target, T?[] value)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, T?[] value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(target, value, field);
     }
@@ -490,8 +478,7 @@ namespace KdSoft.Serialization
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    public void SerializeStructs<T>(Span<byte> target, IList<T> value, ValueField<T, F> field)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, IList<T> value, ValueField<T, F> field) where T : struct {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -507,8 +494,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IList{T}"/> sequence to serialize.</param>
-    public void SerializeStructs<T>(Span<byte> target, IList<T> value)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, IList<T> value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(target, value, field);
     }
@@ -519,8 +505,7 @@ namespace KdSoft.Serialization
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
     /// <param name="field">Field that serializes the sequence elements.</param>
-    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ValueField<T, F> field)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value, ValueField<T, F> field) where T : struct {
       if (ReferenceEquals(value, null)) {
         WriteStatus(SerialStatus.Null);
         return;
@@ -541,8 +526,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
     /// <param name="value"><see cref="IEnumerable{T}"/> sequence to serialize.</param>
-    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value)
-      where T : struct {
+    public void SerializeStructs<T>(Span<byte> target, IEnumerable<T> value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       SerializeStructs<T>(target, value, field);
     }
@@ -561,8 +545,7 @@ namespace KdSoft.Serialization
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value, ValueField<T, F> field)
-      where T : struct {
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[]? value, ValueField<T, F> field) where T : struct {
       SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
@@ -592,8 +575,7 @@ namespace KdSoft.Serialization
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize. Passed  by reference
     /// to avoid copying overhead - suitable for large value types.</param>
-    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[] value)
-      where T : struct {
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T[]? value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       DeserializeStructs<T>(source, out value, field);
     }
@@ -604,8 +586,7 @@ namespace KdSoft.Serialization
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value, ValueField<T, F> field)
-      where T : struct {
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[]? value, ValueField<T, F> field) where T : struct {
       SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
@@ -630,8 +611,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be value type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Value type to deserialize.</param>
-    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[] value)
-      where T : struct {
+    public void DeserializeStructs<T>(ReadOnlySpan<byte> source, out T?[]? value) where T : struct {
       ValueField<T, F> field = (ValueField<T, F>)GetField<T>();
       DeserializeStructs<T>(source, out value, field);
     }
@@ -896,8 +876,7 @@ namespace KdSoft.Serialization
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">Reference type array to deserialize.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] value, ReferenceField<T, F> field)
-      where T : class {
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[]? value, ReferenceField<T, F> field) where T : class {
       SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
@@ -919,8 +898,7 @@ namespace KdSoft.Serialization
     /// <typeparam name="T">Type of sequence elements - must be reference type.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="obj">Reference type array to deserialize.</param>
-    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[] obj)
-      where T : class {
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, ref T[]? obj) where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       DeserializeObjects(source, ref obj, field);
     }
@@ -941,7 +919,8 @@ namespace KdSoft.Serialization
     /// <param name="field">Field that deserializes the sequence elements.</param>
     public void DeserializeObjects<T, C>(ReadOnlySpan<byte> source, InitSequence<T, C> initSequence, ref C collection, ReferenceField<T, F> field)
       where T : class
-      where C : class {
+      where C : class
+    {
       SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
@@ -1033,8 +1012,7 @@ namespace KdSoft.Serialization
   /// <typeparam name="T">Data type to be serialized and deserialized.</typeparam>
   /// <typeparam name="F">Subclass of <see cref="KdSoft.Serialization.Formatter&lt;F>"/>
   /// which cooperates with this class.</typeparam>
-  public abstract class Field<T, F>
-    where F : Formatter<F>
+  public abstract class Field<T, F> where F : Formatter<F>
   {
     internal F fmt;
 

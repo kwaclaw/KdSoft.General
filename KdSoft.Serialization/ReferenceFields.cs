@@ -7,8 +7,7 @@ namespace KdSoft.Serialization
   /// <summary>Base class for all <see cref="ReferenceField{T, F}"/> classes
   /// that are designed to cooperate with <see cref="Formatter"/>.</summary>
   /// <typeparam name="T">Reference type that the class will serialize/deserialize.</typeparam>
-  public abstract class ReferenceField<T>: ReferenceField<T, Formatter>
-    where T : class
+  public abstract class ReferenceField<T>: ReferenceField<T, Formatter> where T : class
   {
     /// <summary>
     /// Constructor.
@@ -69,7 +68,12 @@ namespace KdSoft.Serialization
   {
     private int size;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
+    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
+    /// for the given type, <c>false</c> otherwise.</param>
     /// <param name="size">Fixed size of <c>byte</c> array to be serialized/deserialized.</param>
     public BinaryField(Formatter fmt, bool isDefault, int size) : base(fmt, isDefault) {
       this.size = size;
@@ -122,7 +126,12 @@ namespace KdSoft.Serialization
     UTF8Encoding utf8;
     BufferPool buffers;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
+    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
+    /// for the given type, <c>false</c> otherwise.</param>
     /// <param name="buffers">Buffer pool to use for encoding and decoding.</param>
     public StringField(Formatter fmt, bool isDefault, BufferPool buffers) : base(fmt, isDefault) {
       utf8 = new UTF8Encoding();
@@ -236,7 +245,12 @@ namespace KdSoft.Serialization
   {
     private int size;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="fmt"><see cref="Formatter"/> to register this instance with.</param>
+    /// <param name="isDefault"><c>true</c> if registereing as the default field instance
+    /// for the given type, <c>false</c> otherwise.</param>
     /// <param name="size">Size in characters (not bytes!)</param>
     public FixedCharArrayField(Formatter fmt, bool isDefault, int size) : base(fmt, isDefault) {
       this.size = size;

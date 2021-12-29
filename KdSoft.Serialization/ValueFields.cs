@@ -5,8 +5,7 @@ namespace KdSoft.Serialization
   /// <summary>Base class for all <see cref="ValueField{T, F}"/> classes
   /// that are designed to cooperate with <see cref="Formatter"/>.</summary>
   /// <typeparam name="T">Value type that the class will serialize/deserialize.</typeparam>
-  public abstract class ValueField<T>: ValueField<T, Formatter>
-    where T : struct
+  public abstract class ValueField<T>: ValueField<T, Formatter> where T : struct
   {
     /// <summary>
     /// Constructor.

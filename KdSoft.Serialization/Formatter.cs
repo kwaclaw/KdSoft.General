@@ -58,22 +58,22 @@ namespace KdSoft.Serialization
     //TODO add Keyed<T> type/field to identify instances by key (for deserializing from multiple buffers)
 
     // buffer for status bits, used for write operations only
-    private byte[] statusBuffer;
+    byte[] statusBuffer;
     // save status buffer for re-use
-    private byte[] statusBuf;
+    byte[] statusBuf;
 
-    private int statusIndx;  // two-bit index (four per byte)
-    private int startIndx;   // index where (de)serialization starts
+    int statusIndx;  // two-bit index (four per byte)
+    int startIndx;   // index where (de)serialization starts
     internal int valueIndx;  // byte index
 
-    private int openObjCount;
-    private object[] openObjects;               // maps object handle to object
-    private Dictionary<object, int> openObjMap; // maps object to object handle
-    private List<object> permanentObjects;
-    private HashSet<object> permanentObjSet;
+    int openObjCount;
+    object[] openObjects;               // maps object handle to object
+    Dictionary<object, int> openObjMap; // maps object to object handle
+    List<object> permanentObjects;
+    HashSet<object> permanentObjSet;
 
-    private ByteConverter converter;
-    private Dictionary<Type, object> fieldRegistry;
+    ByteConverter converter;
+    Dictionary<Type, object> fieldRegistry;
 
     /// <summary>
     /// Constructor. Sets the byte order.
@@ -247,7 +247,7 @@ namespace KdSoft.Serialization
 
     #region Serialization API
 
-    private static int nextStatusByte(int statusIndx) {
+    static int nextStatusByte(int statusIndx) {
       return (statusIndx + 3) >> 2;
     }
 

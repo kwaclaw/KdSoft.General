@@ -56,7 +56,7 @@ namespace KdSoft.Serialization
     #region WriteBytes
 
     /// <summary>
-    /// Writes value type to byte span like <see cref="SpanHelpers.TryWriteBytes{T}(T, Span{byte}, ref int)" />,
+    /// Writes value type to byte span like <see cref="SpanHelpers.TryWriteBytes{T}(in T, Span{byte}, ref int)" />,
     /// but throws exception if not successfull.
     /// </summary>
     public void WriteValueBytes<T>(in T value, Span<byte> bytes, ref int index) where T : struct {
@@ -67,7 +67,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     [CLSCompliant(false)]
     public void WriteBytes(UInt16 value, Span<byte> bytes, ref int index) {
       if (reverse)
@@ -78,7 +78,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Int16 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
@@ -88,7 +88,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Char value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
@@ -98,7 +98,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     [CLSCompliant(false)]
     public void WriteBytes(UInt32 value, Span<byte> bytes, ref int index) {
       if (reverse)
@@ -109,7 +109,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Int32 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
@@ -119,7 +119,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Single value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
@@ -129,7 +129,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     [CLSCompliant(false)]
     public void WriteBytes(UInt64 value, Span<byte> bytes, ref int index) {
       if (reverse)
@@ -140,7 +140,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Int64 value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
@@ -150,7 +150,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Double value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();
@@ -160,7 +160,7 @@ namespace KdSoft.Serialization
     /// <summary>
     /// Writes value type to byte span in configured byte order.
     /// </summary>
-    /// <seealso cref="WriteValueBytes{T}(T, Span{byte}, ref int)"/>
+    /// <seealso cref="WriteValueBytes{T}(in T, Span{byte}, ref int)"/>
     public void WriteBytes(Decimal value, Span<byte> bytes, ref int index) {
       if (reverse)
         value = value.ReverseByteOrder();

@@ -504,19 +504,19 @@ namespace KdSoft.Serialization
     /// <summary>Constructor taking an <c>UInt16[]</c> value.</summary>
     [CLSCompliant(false)]
     public ShortArrayUnion(UInt16[] value) {
-      this = new ShortArrayUnion();  // keeps the compiler happy
+      this = default;  // keeps the compiler happy
       UShortValue = value;
     }
 
     /// <summary>Constructor taking an <c>Int16[]</c> value.</summary>
     public ShortArrayUnion(Int16[] value) {
-      this = new ShortArrayUnion();  // keeps the compiler happy
+      this = default;  // keeps the compiler happy
       ShortValue = value;
     }
 
     /// <summary>Constructor taking a <c>Char[]</c> value.</summary>
     public ShortArrayUnion(Char[] value) {
-      this = new ShortArrayUnion();  // keeps the compiler happy
+      this = default;  // keeps the compiler happy
       CharValue = value;
     }
   }
@@ -536,13 +536,13 @@ namespace KdSoft.Serialization
     /// <summary>Constructor taking a <c>UInt32[]</c> value.</summary>
     [CLSCompliant(false)]
     public IntArrayUnion(UInt32[] value) {
-      IntValue = null;  // keeps the compiler happy
+      this = default;  // keeps the compiler happy
       UIntValue = value;
     }
 
     /// <summary>Constructor taking an <c>Int32[]</c> value.</summary>
     public IntArrayUnion(Int32[] value) {
-      UIntValue = null;  // keeps the compiler happy
+      this = default;  // keeps the compiler happy
       IntValue = value;
     }
   }
@@ -578,7 +578,7 @@ namespace KdSoft.Serialization
 
     /// <summary>Constructor taking a <c>Decimal</c> value.</summary>
     public DecimalBytes(Decimal value) {
-      this = new DecimalBytes();
+      this = default;
       DecimalValue = value;
     }
 
