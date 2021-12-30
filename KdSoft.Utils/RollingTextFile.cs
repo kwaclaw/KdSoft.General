@@ -11,7 +11,11 @@ namespace KdSoft.Utils
   /// <summary>
   /// Class that writes to text file and rolls it when necessary.
   /// </summary>
+#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+  public class RollingTextFile: IDisposable, IAsyncDisposable
+#else
   public class RollingTextFile: IDisposable
+#endif
   {
     static readonly Regex NumberRegex = new Regex("(\\d)+$", RegexOptions.Compiled);
 
@@ -124,7 +128,7 @@ namespace KdSoft.Utils
         string ts = timestampPattern(now);
         var createWriterTask = asyncWriterTask;
 
-        AsyncTextFileWriter currentWriter = null;
+        AsyncTextFileWriter? currentWriter = null;
         if (createWriterTask != null) {
           currentWriter = createWriterTask.Result;
           bool createNewFile = currentWriter.CurrentStreamLength >= rollSizeInBytes || ts != currentTimestampPattern;
@@ -187,16 +191,40 @@ namespace KdSoft.Utils
       await asyncWriter.CloseAsync(true);
     }
 
+    #region IDisposable
+
+    protected virtual void Dispose(bool disposing) {
+      if (disposing) {
+        var asyncWriter = CheckRollover().Result;
+        asyncWriter.CloseAsync(false).GetAwaiter().GetResult();
+      }
+    }
+
     /// <inheritdoc/>
     public void Dispose() {
-      var asyncWriter = CheckRollover().Result;
-      asyncWriter.CloseAsync(false).Wait();
+      // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+      Dispose(disposing: true);
+      GC.SuppressFinalize(this);
     }
+
+#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+    public async ValueTask DisposeAsync() {
+      var asyncWriter = await CheckRollover().ConfigureAwait(false);
+      await asyncWriter.DisposeAsync().ConfigureAwait(false);
+      GC.SuppressFinalize(this);
+    }
+#endif
+
+#endregion
 
     /// <summary>
     /// Implements encoded writing of text.
     /// </summary>
+#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+    protected class AsyncTextFileWriter: IAsyncDisposable
+#else
     protected class AsyncTextFileWriter
+#endif
     {
       readonly FileStream fileStream;
       readonly Encoding encoding;
@@ -272,7 +300,11 @@ namespace KdSoft.Utils
       /// Closes stream after flushing it (optional).
       /// </summary>
       /// <param name="wait">Flushes stream and waits for flush to complete before closing the stream.</param>
+#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+      public async ValueTask CloseAsync(bool wait = true) {
+#else
       public async Task CloseAsync(bool wait = true) {
+#endif
         if (Interlocked.Increment(ref disposedCount) == 1) {
           if (wait) {
             await fileStream.FlushAsync();
@@ -281,9 +313,16 @@ namespace KdSoft.Utils
             cts.Cancel();
           }
 
+          cts.Dispose();
           fileStream.Dispose();
+
+          GC.SuppressFinalize(this);
         }
       }
+
+#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+      public ValueTask DisposeAsync() => CloseAsync();
+#endif
     }
   }
 }

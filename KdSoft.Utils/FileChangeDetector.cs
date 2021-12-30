@@ -14,7 +14,7 @@ namespace KdSoft.Utils
   /// Wrapper for FileSystemWatcher. Accumulates changes and allows for changes to settle before they are reported.
   /// Reports only the last change of a set of changes that are observed together.
   /// </summary>
-  public class FileChangeDetector: IDisposable
+  public sealed class FileChangeDetector: IDisposable
   {
     object syncObj = new object();
 
@@ -233,9 +233,13 @@ namespace KdSoft.Utils
           return;
 #if !NETSTANDARD1_3
         var delayedCts = cts;
-        Delay(timeout).ContinueWith(_ => delayedCts.Cancel());
+        Delay(timeout).ContinueWith(_ => {
+          delayedCts.Cancel();
+          delayedCts.Dispose();
+        });
 #else
         cts.CancelAfter(timeout);
+        cts.Dispose();
 #endif
         cts = null;
         fsw.EnableRaisingEvents = false;
@@ -247,6 +251,7 @@ namespace KdSoft.Utils
         if (cts == null)
           return;
         cts.Cancel(true);
+        cts.Dispose();
         cts = null;
 
         fsw.EnableRaisingEvents = false;

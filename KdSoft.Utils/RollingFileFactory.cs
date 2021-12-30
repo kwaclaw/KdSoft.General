@@ -1,3 +1,5 @@
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
 
 using System;
@@ -16,7 +18,7 @@ namespace KdSoft.Utils
   /// and the file stream returned will be the currently applicable one (the last one  or a new one).
   /// This evaluates the roll-over conditions and therefore has some overhead.
   /// </remarks>
-  public class RollingFileFactory: IDisposable, IAsyncDisposable
+  public sealed class RollingFileFactory: IDisposable, IAsyncDisposable
   {
     readonly DirectoryInfo _dirInfo;
     readonly Func<DateTimeOffset, string> _fileNameSelector;
@@ -37,7 +39,9 @@ namespace KdSoft.Utils
 
     // used to enable file creation on startup (regardless of other checks)
     int _createNewFileOnStartup;
+#pragma warning disable CA2213 // Disposable fields should be disposed
     FileStream? _stream;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
     /// <summary>
     /// Constructor
@@ -202,9 +206,7 @@ namespace KdSoft.Utils
     /// <summary>
     /// The currently open file stream is flushed and disposed.
     /// </summary>
-#pragma warning disable CA1063 // Implement IDisposable Correctly
     public void Dispose() {
-#pragma warning restore CA1063 // Implement IDisposable Correctly
       var oldStream = Interlocked.Exchange(ref _stream, null);
       if (oldStream != null) {
         oldStream.Flush();
