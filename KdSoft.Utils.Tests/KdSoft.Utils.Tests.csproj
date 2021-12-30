@@ -6,7 +6,7 @@
     <Title>KdSoft.Utils.Tests</Title>
     <Description>KdSoft.Utils.Tests Class Library</Description>
     <VersionPrefix>1.0.4</VersionPrefix>
-    <TargetFrameworks>netcoreapp3.1;net461;net50</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net461;net6.0</TargetFrameworks>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
