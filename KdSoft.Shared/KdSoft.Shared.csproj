@@ -7,6 +7,7 @@
     <Description>KdSoft.Shared Class Library</Description>
     <VersionPrefix>1.0.0</VersionPrefix>
     <TargetFrameworks>netstandard1.2;net461</TargetFrameworks>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
