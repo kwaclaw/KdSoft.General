@@ -8,7 +8,7 @@ namespace KdSoft.Utils
   /// </summary>
   public interface IValueWrapper
   {
-    object Unwrap();
+    object? Unwrap();
     Type GetValueType();
   }
 
@@ -25,7 +25,7 @@ namespace KdSoft.Utils
 
     public T Value { get; set; }
 
-    public object Unwrap() {
+    public object? Unwrap() {
       return Value;
     }
 
@@ -43,8 +43,8 @@ namespace KdSoft.Utils
       return new ValueWrapper<T>(value);
     }
 
-    public static IList<object> Unwrap(this IList<IValueWrapper> wrappedvalues) {
-      var result = new List<object>(wrappedvalues.Count);
+    public static IList<object?> Unwrap(this IList<IValueWrapper> wrappedvalues) {
+      var result = new List<object?>(wrappedvalues.Count);
       for (int indx = 0; indx < wrappedvalues.Count; indx++)
         result.Add(wrappedvalues[indx].Unwrap());
       return result;

@@ -19,7 +19,7 @@ namespace KdSoft.Utils
     /// <summary>
     /// Event that is triggered when the life-cycle has ended. Useful for clean-up purposes.
     /// </summary>
-    public event EventHandler Ended;
+    public event EventHandler? Ended;
 
     #region ITimedLifeCycle Members
 

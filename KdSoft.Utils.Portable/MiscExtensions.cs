@@ -24,8 +24,8 @@ namespace KdSoft.Utils
     /// <param name="key">Key to use.</param>
     /// <param name="value">Value to use.</param>
     /// <returns><c>true</c> if the dictionary contains the specified key-value pair, <c>false</c> otherwise.</returns>
-    public static bool HasKeyValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value) {
-      TValue entry;
+    public static bool HasKeyValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value) where TKey : notnull {
+      TValue? entry;
       if (dict.TryGetValue(key, out entry)) {
         return object.Equals(value, entry);
       }

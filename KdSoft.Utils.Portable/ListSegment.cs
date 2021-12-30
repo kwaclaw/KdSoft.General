@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -116,7 +118,7 @@ namespace KdSoft.Utils
       return -1;
     }
 
-    public T Find(Predicate<T> match) {
+    public T? Find(Predicate<T> match) {
       int limit = offset + count;
       for (int i = offset; i < limit; ++i)
         if (match(list[i]))
@@ -124,7 +126,7 @@ namespace KdSoft.Utils
       return default(T);
     }
 
-    public T FindLast(Predicate<T> match) {
+    public T? FindLast(Predicate<T> match) {
       for (int i = offset + count; --i >= offset;)
         if (match(list[i]))
           return list[i];
@@ -155,7 +157,7 @@ namespace KdSoft.Utils
     public int IndexOf(T item) {
       int limit = offset + count;
       for (int i = offset; i < limit; ++i)
-        if (list[i].Equals(item))
+        if (object.Equals(list[i], item))
           return i - offset;
       return -1;
     }

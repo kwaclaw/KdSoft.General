@@ -10,8 +10,7 @@ namespace KdSoft.Utils
     }
     public T Value { get; private set; }
 
-    public new static readonly EventArgs<T> Empty =
-        new EventArgs<T>(default(T));
+    public new static readonly EventArgs<T?> Empty = new EventArgs<T?>(default(T));
   }
 
   public class EventArgs<T, U>: EventArgs<T>
@@ -21,7 +20,6 @@ namespace KdSoft.Utils
     }
     public U OtherValue { get; private set; }
 
-    public new static readonly EventArgs<T, U> Empty =
-        new EventArgs<T, U>(default(T), default(U));
+    public new static readonly EventArgs<T?, U?> Empty = new EventArgs<T?, U?>(default(T), default(U));
   }
 }

@@ -14,7 +14,7 @@ namespace KdSoft.Utils.Portable
   public class ObjectEqualityComparer: IEqualityComparer<object>
   {
     /// <inheritdoc />
-    public new bool Equals(object x, object y) {
+    public new bool Equals(object? x, object? y) {
       return object.ReferenceEquals(x, y);
     }
 

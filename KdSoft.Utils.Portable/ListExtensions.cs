@@ -60,7 +60,7 @@ namespace KdSoft.Utils
     /// <param name="list">Sorted <see cref="List{T}"/> to makie distinct.</param>
     /// <param name="equals">Delegate to be used for list item equality comparison.
     /// Must be compatible with sorting comparison logic.</param>
-    public static void DistinctWhenSorted<T>(this List<T> list, Func<T, T, bool> equals = null) {
+    public static void DistinctWhenSorted<T>(this List<T> list, Func<T, T, bool>? equals = null) {
       if (list.Count == 0)
         return;
       if (equals == null)
@@ -106,7 +106,7 @@ namespace KdSoft.Utils
     /// the first item (the "next duplicate" in the list) and remove the previous one.</param>
     /// <param name="equals">Delegate to be used for list item equality comparison.
     /// Must be compatible with sorting comparison logic.</param>
-    public static void DistinctWhenSorted<T>(this List<T> list, PickFirst<T> keepNext, Func<T, T, bool> equals = null) {
+    public static void DistinctWhenSorted<T>(this List<T> list, PickFirst<T> keepNext, Func<T, T, bool>? equals = null) {
       if (list.Count == 0)
         return;
       if (equals == null)
@@ -239,7 +239,7 @@ namespace KdSoft.Utils
     /// of the index of the next element that is larger than the given element or, if there is no
     /// larger element, the bitwise complement of System.Collections.Generic.List`1.Count.
     /// </returns>
-    public static int BinarySearch<T>(this IList<T> list, int index, int length, T item, Comparison<T> compare = null) {
+    public static int BinarySearch<T>(this IList<T> list, int index, int length, T item, Comparison<T>? compare = null) {
       if (index >= list.Count || index + length > list.Count)
         throw new IndexOutOfRangeException();
       if (compare == null)
@@ -261,7 +261,7 @@ namespace KdSoft.Utils
     /// of the index of the next element that is larger than the given element or, if there is no
     /// larger element, the bitwise complement of System.Collections.Generic.List`1.Count.
     /// </returns>
-    public static int BinarySearch<T>(this IList<T> list, T item, Comparison<T> compare = null) {
+    public static int BinarySearch<T>(this IList<T> list, T item, Comparison<T>? compare = null) {
       if (compare == null)
         compare = Comparer<T>.Default.Compare;
       return BinarySearchImpl(list, 0, list.Count, (x) => compare(x, item));

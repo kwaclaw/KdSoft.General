@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KdSoft.Utils
@@ -10,12 +12,12 @@ namespace KdSoft.Utils
 
     static readonly IEnumerable<TElement> defaultEnumerable = Enumerable.Empty<TElement>();
 
-    public Grouping(TKey key, IEnumerable<TElement> elements = null) {
+    public Grouping(TKey key, IEnumerable<TElement>? elements = null) {
       Initialize(key, elements);
     }
 
     // Use this to re-use the instance, if applicable.
-    public void Initialize(TKey key, IEnumerable<TElement> elements = null) {
+    public void Initialize(TKey key, IEnumerable<TElement>? elements = null) {
       this.key = key;
       this.elements = elements ?? defaultEnumerable;
     }

@@ -25,13 +25,17 @@ namespace KdSoft.Utils
   {
     Comparison<T> compare;
 
-    public LambdaComparer(Comparison<T> compare) {
+    public LambdaComparer(Comparison<T>? compare) {
       if (compare == null)
         throw new ArgumentNullException("compare");
       this.compare = compare;
     }
 
-    public int Compare(T x, T y) {
+    public int Compare(T? x, T? y) {
+      if (object.ReferenceEquals(x, null))
+        return object.ReferenceEquals(y, null) ? 0 : -1;
+      else if (object.ReferenceEquals(y, null))
+        return 1;
       return compare(x, y);
     }
   }

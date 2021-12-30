@@ -12,7 +12,7 @@ namespace KdSoft.Utils
 
     public KeyOnlyComparer() : this(null) { }
 
-    public KeyOnlyComparer(IComparer<TKey> keyComparer) {
+    public KeyOnlyComparer(IComparer<TKey>? keyComparer) {
       if (keyComparer == null) {
         this.keyComparer = Comparer<TKey>.Default;
       }

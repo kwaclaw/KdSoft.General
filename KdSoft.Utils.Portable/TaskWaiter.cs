@@ -35,10 +35,10 @@ namespace KdSoft.Utils
     void HandleCompleted() {
       var onCompleted = OnCompleted;
       if (onCompleted != null) {
-        AggregateException aggEx = null;
+        AggregateException? aggEx = null;
         if (!_errors.IsEmpty)
           aggEx = new AggregateException(_errors);
-        onCompleted(this, new EventArgs<Exception>(aggEx));
+        onCompleted(this, new EventArgs<Exception?>(aggEx));
       }
     }
 
@@ -65,7 +65,7 @@ namespace KdSoft.Utils
     /// Event that notifies of the completion of all tasks.
     /// An alternative to using <see cref="Wait"/>.
     /// </summary>
-    public event EventHandler<EventArgs<Exception>> OnCompleted;
+    public event EventHandler<EventArgs<Exception?>>? OnCompleted;
 
     /// <summary>
     /// Adds a new task to be waited for.

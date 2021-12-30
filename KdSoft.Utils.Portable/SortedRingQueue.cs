@@ -82,7 +82,7 @@ namespace KdSoft.Utils
       return true;
     }
 
-    public bool TryPeek(out T item) {
+    public bool TryPeek(out T? item) {
       if (count == 0) {
         item = default(T);
         return false;
@@ -94,7 +94,7 @@ namespace KdSoft.Utils
       return true;
     }
 
-    public bool TryDequeue(out T item) {
+    public bool TryDequeue(out T? item) {
       bool result = TryPeek(out item);
       if (result)
         count--;

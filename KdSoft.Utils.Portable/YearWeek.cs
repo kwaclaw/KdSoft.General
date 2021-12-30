@@ -97,7 +97,7 @@ namespace KdSoft.Utils
       return new YearWeek(nextDay);
     }
 
-    public override bool Equals(object obj) {
+    public override bool Equals(object? obj) {
       if (obj is YearWeek) {
         return Equals((YearWeek)obj);
       }
@@ -120,8 +120,8 @@ namespace KdSoft.Utils
       return string.Format(format, year, week);
     }
 
-    public int CompareTo(object obj) {
-      return CompareTo((YearWeek)obj);
+    public int CompareTo(object? obj) {
+      return CompareTo((YearWeek?)obj);
     }
 
     public int CompareTo(YearWeek other) {

@@ -8,7 +8,7 @@ namespace KdSoft.Utils
   public class ObjectPool<T> where T : class
   {
     ConcurrentBag<T> pool;
-    Timer idleTimer;
+    Timer? idleTimer;
     int minCount;
     int maxIdleSteps;
 
@@ -21,8 +21,11 @@ namespace KdSoft.Utils
       idleTimer = new Timer(IdleCallback, this, TimeSpan.Zero, idleTimeout);
     }
 
-    static void IdleCallback(object state) {
-      var objPool = (ObjectPool<T>)state;
+    static void IdleCallback(object? state) {
+      var objPool = (ObjectPool<T>?)state;
+      if (objPool == null)
+        return;
+
       int steps = objPool.Count - objPool.minCount;
       if (steps > objPool.maxIdleSteps)
         steps = objPool.maxIdleSteps;
@@ -33,19 +36,19 @@ namespace KdSoft.Utils
     }
 
     bool TryRemove() {
-      T obj;
+      T? obj;
       return pool.TryTake(out obj);
     }
 
     public T Borrow<O>() where O : T, new() {
-      T obj;
+      T? obj;
       if (!pool.TryTake(out obj))
         obj = new O();
       return obj;
     }
 
     public T Borrow(Func<T> creator) {
-      T obj;
+      T? obj;
       if (!pool.TryTake(out obj))
         obj = creator();
       return obj;

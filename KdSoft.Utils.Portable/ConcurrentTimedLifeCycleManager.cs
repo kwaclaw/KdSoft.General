@@ -14,7 +14,9 @@ namespace KdSoft.Utils
   /// </summary>
   /// <typeparam name="K">Type of key that identifies tracked objects.</typeparam>
   /// <typeparam name="O">Type of <see cref="ILifeCycleAware{ITimedLifeCycle}"/> objects being tracked.</typeparam>
-  public class ConcurrentTimedLifeCycleManager<K, O>: IDisposable where O : ILifeCycleAware<ITimedLifeCycle>
+  public class ConcurrentTimedLifeCycleManager<K, O>: IDisposable
+    where K : notnull
+    where O : ILifeCycleAware<ITimedLifeCycle>
   {
     readonly ConcurrentDictionary<K, O> objectMap;
     Timer lifeCycleTimer;
@@ -24,7 +26,7 @@ namespace KdSoft.Utils
     /// </summary>
     /// <param name="reapPeriod">Time interval for periodic life-cycle checking.</param>
     /// <param name="comparer">Optional, custom key equality comparer.</param>
-    public ConcurrentTimedLifeCycleManager(TimeSpan reapPeriod, IEqualityComparer<K> comparer = null) {
+    public ConcurrentTimedLifeCycleManager(TimeSpan reapPeriod, IEqualityComparer<K>? comparer = null) {
       this.lifeCycleTimer = new Timer(LifeCycleHandler, this, reapPeriod, reapPeriod);
       if (comparer is null)
         objectMap = new ConcurrentDictionary<K, O>();
@@ -33,13 +35,16 @@ namespace KdSoft.Utils
     }
 
     // must not throw exceptions
-    static void LifeCycleHandler(object state) {
-      var lfMgr = (ConcurrentTimedLifeCycleManager<K, O>)state;
+    static void LifeCycleHandler(object? state) {
+      var lfMgr = (ConcurrentTimedLifeCycleManager<K, O>?)state;
+      if (lfMgr == null)
+        return;
+
       var termHandler = lfMgr.Terminated;
       foreach (var objectEntry in lfMgr.objectMap) {
         var lc = objectEntry.Value.GetLifeCycle();
         if (!lc.CheckAlive()) {  // not supposed to throw exception
-          O value;
+          O? value;
           if (lfMgr.objectMap.TryRemove(objectEntry.Key, out value))
             termHandler?.Invoke(lfMgr, new EventArgs<K, O>(objectEntry.Key, value));
         }
@@ -55,7 +60,7 @@ namespace KdSoft.Utils
     /// Called when an object is terminated, passing key and instance.
     /// </summary>
     /// <remarks>Must not throw exceptions.</remarks>
-    public event EventHandler<EventArgs<K, O>> Terminated;
+    public event EventHandler<EventArgs<K, O>>? Terminated;
 
     /// <summary>
     /// Adds new object to life-cycle management and tracking. Does not check the life-cycle of the new object.
@@ -203,7 +208,7 @@ namespace KdSoft.Utils
     /// <param name="key">Key by which object can be identified.</param>
     /// <param name="obj">Object to return if it is "alive", <c>null</c> otherwise.</param>
     /// <returns><c>true</c> if "live" object was found, <c>false</c> otherwise.</returns>
-    public bool TryGetValue(K key, out O obj) {
+    public bool TryGetValue(K key, out O? obj) {
       CheckDisposed();
       if (objectMap.TryGetValue(key, out obj)) {
         var lc = obj.GetLifeCycle();
@@ -214,7 +219,7 @@ namespace KdSoft.Utils
         lc.Terminate();
         obj = default(O);
         //TODO threading issue: what if new object for same key was added since we retrieved it
-        O currObj;
+        O? currObj;
         objectMap.TryRemove(key, out currObj);
       }
       return false;
@@ -226,7 +231,7 @@ namespace KdSoft.Utils
     /// <param name="key">Key by which object is identified.</param>
     /// <param name="obj">Object instance that was removed, if applicable.</param>
     /// <returns><c>true</c> if object matching the key was found and removed, <c>false</c> otherwise.</returns>
-    public bool TryRemove(K key, out O obj) {
+    public bool TryRemove(K key, out O? obj) {
       CheckDisposed();
       return objectMap.TryRemove(key, out obj);
     }
@@ -238,7 +243,7 @@ namespace KdSoft.Utils
     /// <returns><c>true</c> if object was found and terminated, <c>false</c> otherwise.</returns>
     public bool TryTerminate(K key) {
       CheckDisposed();
-      O obj;
+      O? obj;
       if (objectMap.TryRemove(key, out obj)) {
         var lc = obj.GetLifeCycle();
         lc.Terminate();
@@ -271,10 +276,7 @@ namespace KdSoft.Utils
     protected virtual void Dispose(bool disposing) {
       if (disposing) {
         var lt = lifeCycleTimer;
-        if (lt != null) {
-          lifeCycleTimer = null;
-          lt.Dispose();
-        }
+        lt.Dispose();
       }
     }
 

@@ -127,7 +127,7 @@ namespace KdSoft.Utils
         this IEnumerable<TSource> source,
         Func<TSource, TKey> keySelector,
         Func<TSource, TElement> elementSelector,
-        IEqualityComparer<TKey> comparer = null
+        IEqualityComparer<TKey>? comparer = null
     ) {
       if (source == null)
         throw new ArgumentNullException("source");
@@ -178,7 +178,7 @@ namespace KdSoft.Utils
     public static IEnumerable<IGrouping<TKey, TElement>> SortedGroupBy<TElement, TKey>(
         this IEnumerable<TElement> elements,
         Func<TElement, TKey> keySelector,
-        IEqualityComparer<TKey> comparer = null
+        IEqualityComparer<TKey>? comparer = null
     ) {
       return SortedGroupBy<TElement, TKey, TElement>(elements, keySelector, el => el, comparer);
     }
@@ -225,7 +225,6 @@ namespace KdSoft.Utils
       foreach (T item in sequence) {
         yield return item;
       }
-      sequence = null;
       yield return toAppend;
     }
 
@@ -257,7 +256,7 @@ namespace KdSoft.Utils
     /// <param name="size">Number of items in each batch.</param>
     /// <returns>An enumeration of IEnumerable{T} batches.</returns>
     public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int size) {
-      T[] bucket = null;
+      T[]? bucket = null;
       var count = 0;
 
       foreach (var item in source) {

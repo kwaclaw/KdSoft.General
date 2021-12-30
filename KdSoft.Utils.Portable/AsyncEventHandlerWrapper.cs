@@ -7,7 +7,7 @@ namespace KdSoft.Utils
   {
     public EventHandler<T> Handler { get; private set; }
     public TaskScheduler Scheduler { get; private set; }
-    public Exception Error { get; private set; }
+    public Exception? Error { get; private set; }
 
     public AsyncEventHandlerWrapper(EventHandler<T> handler) {
       if (handler == null)
@@ -16,7 +16,7 @@ namespace KdSoft.Utils
       this.Scheduler = TaskScheduler.FromCurrentSynchronizationContext();
     }
 
-    public void Invoke(object s, T e) {
+    public void Invoke(object? s, T e) {
       var task = new Task(() => {
         try {
           Handler(s, e);

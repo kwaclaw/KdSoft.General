@@ -15,7 +15,9 @@ namespace KdSoft.Utils
   /// <typeparam name="O">Type of <see cref="ILifeCycleAware{ITimedLifeCycle}"/> objects being tracked.</typeparam>
   /// <remarks>Not thread-safe by default, external synchronization should be performed against the
   /// <c>syncObj</c> parameter passed to the constructor.</remarks>
-  public class TimedLifeCycleManager<K, O>: IDisposable where O : ILifeCycleAware<ITimedLifeCycle>
+  public class TimedLifeCycleManager<K, O>: IDisposable
+    where K : notnull
+    where O : ILifeCycleAware<ITimedLifeCycle>
   {
     public readonly object SyncObj;
     readonly Dictionary<K, O> objectMap;
@@ -27,15 +29,18 @@ namespace KdSoft.Utils
     /// <param name="reapPeriod">Time interval for periodic life-cycle checking.</param>
     /// <param name="syncObj">Synchronization object for external locking. The internal timer handler
     /// will lock on this object when calling the <see cref="Terminated"/> event handler.</param>
-    public TimedLifeCycleManager(TimeSpan reapPeriod, object syncObj) {
+    public TimedLifeCycleManager(TimeSpan reapPeriod, object? syncObj) {
       this.SyncObj = syncObj ?? new object();
       this.lifeCycleTimer = new Timer(LifeCycleHandler, this, reapPeriod, reapPeriod);
       objectMap = new Dictionary<K, O>();
     }
 
     // must not throw exceptions
-    static void LifeCycleHandler(object state) {
-      var lfMgr = (TimedLifeCycleManager<K, O>)state;
+    static void LifeCycleHandler(object? state) {
+      var lfMgr = (TimedLifeCycleManager<K, O>?)state;
+      if (lfMgr == null)
+        return;
+
       var keyList = new List<K>();
       lock (lfMgr.SyncObj) {
         foreach (var objectEntry in lfMgr.objectMap) {
@@ -60,7 +65,7 @@ namespace KdSoft.Utils
     /// Called when a list of objects is terminated.
     /// </summary>
     /// <remarks>Must not throw exceptions.</remarks>
-    public event EventHandler<EventArgs<IList<K>>> Terminated;
+    public event EventHandler<EventArgs<IList<K>>>? Terminated;
 
     /// <summary>
     /// Adds new object to life-cycle management and tracking.
@@ -100,7 +105,7 @@ namespace KdSoft.Utils
       CheckDisposed();
       if (obj == null)
         throw new ArgumentNullException("obj");
-      O oldObj;
+      O? oldObj;
       if (objectMap.TryGetValue(key, out oldObj)) {
         var lc = oldObj.GetLifeCycle();
         lc.Terminate();
@@ -121,7 +126,7 @@ namespace KdSoft.Utils
       CheckDisposed();
       if (obj == null)
         throw new ArgumentNullException("obj");
-      O oldObj;
+      O? oldObj;
       if (objectMap.TryGetValue(key, out oldObj)) {
         var lc = oldObj.GetLifeCycle();
         if (lc.CheckAlive()) {
@@ -147,7 +152,7 @@ namespace KdSoft.Utils
       CheckDisposed();
       if (getNew == null)
         throw new ArgumentNullException("getNew");
-      O obj;
+      O? obj;
       if (objectMap.TryGetValue(key, out obj)) {
         var lc = obj.GetLifeCycle();
         if (lc.CheckAlive()) {
@@ -167,7 +172,7 @@ namespace KdSoft.Utils
     /// <param name="key">Key by which object can be identified.</param>
     /// <param name="obj">Object to return.</param>
     /// <returns><c>true</c> if "live" object was found, <c>false</c> otherwise.</returns>
-    public bool TryGetValue(K key, out O obj) {
+    public bool TryGetValue(K key, out O? obj) {
       CheckDisposed();
       if (objectMap.TryGetValue(key, out obj)) {
         var lc = obj.GetLifeCycle();
@@ -194,7 +199,7 @@ namespace KdSoft.Utils
     /// <returns><c>true</c> if object was found and terminated, <c>false</c> otherwise.</returns>
     public bool Terminate(K key) {
       CheckDisposed();
-      O obj;
+      O? obj;
       if (objectMap.TryGetValue(key, out obj)) {
         var lc = obj.GetLifeCycle();
         lc.Terminate();
@@ -219,10 +224,7 @@ namespace KdSoft.Utils
     protected virtual void Dispose(bool disposing) {
       if (disposing) {
         var lt = lifeCycleTimer;
-        if (lt != null) {
-          lifeCycleTimer = null;
-          lt.Dispose();
-        }
+        lt.Dispose();
       }
     }
 

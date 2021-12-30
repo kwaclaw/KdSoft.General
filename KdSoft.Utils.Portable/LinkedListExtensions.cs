@@ -30,6 +30,8 @@ namespace KdSoft.Utils
     public static void RotateRight<T>(this LinkedList<T> list, int rotationSteps) {
       for (int indx = 0; indx < rotationSteps; indx++) {
         var first = list.First;
+        if (first == null)
+          break;
         list.RemoveFirst();
         list.AddLast(first);
       }
@@ -44,6 +46,8 @@ namespace KdSoft.Utils
     public static void RotateLeft<T>(this LinkedList<T> list, int rotationSteps) {
       for (int indx = 0; indx < rotationSteps; indx++) {
         var last = list.Last;
+        if (last == null)
+          break;
         list.RemoveLast();
         list.AddFirst(last);
       }

@@ -18,7 +18,7 @@ namespace KdSoft.Utils
     // we discard non-matching buffers, keeping the pool's buffers close to the desired buffer sizes;
     // this works well when consecutive requests require similar buffer sizes
     public byte[] Acquire(int minSize, int maxSize) {
-      byte[] buffer;
+      byte[]? buffer;
       if (!pool.TryTake(out buffer) || (buffer.Length < minSize || buffer.Length > maxSize)) {
         buffer = new byte[minSize];
       }
@@ -26,7 +26,7 @@ namespace KdSoft.Utils
     }
 
     public byte[] AcquireExact(int size) {
-      byte[] buffer;
+      byte[]? buffer;
       if (!pool.TryTake(out buffer) || (buffer.Length != size)) {
         buffer = new byte[size];
       }

@@ -14,7 +14,7 @@ namespace KdSoft.Utils
       lifeCycle.Ended += lifeCycle_Ended;
     }
 
-    void lifeCycle_Ended(object sender, EventArgs e) {
+    void lifeCycle_Ended(object? sender, EventArgs e) {
       Close();
     }
 

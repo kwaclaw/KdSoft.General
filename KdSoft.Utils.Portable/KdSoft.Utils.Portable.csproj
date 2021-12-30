@@ -7,6 +7,8 @@
     <Description>KdSoft.Utils.Portable Class Library</Description>
     <VersionPrefix>4.0.0</VersionPrefix>
     <TargetFrameworks>netstandard1.2;net461</TargetFrameworks>
+    <LangVersion>10</LangVersion>
+    <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
