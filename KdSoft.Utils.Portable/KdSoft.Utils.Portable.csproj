@@ -10,6 +10,10 @@
     <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
+    <PackageReleaseNotes>
+      Updated to net6.0 and netstandard2.1 target frameworks. Enabled nullable reference types.
+      Removed obsolete TaskAwaiter and TaskExtensions classes. Minor bug fixes.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Dependency updates.
+      Updated to net6.0 target framework. Enabled nullable reference types.
     </PackageReleaseNotes>
   </PropertyGroup>
 

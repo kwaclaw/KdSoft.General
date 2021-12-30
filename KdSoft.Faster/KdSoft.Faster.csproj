@@ -8,7 +8,7 @@
     <VersionPrefix>1.1.0</VersionPrefix>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
-      Dependency updates.
+      Updated to Microsoft.FASTER.Core v1.9.10 and net6.0 target framework.
     </PackageReleaseNotes>
   </PropertyGroup>
 
