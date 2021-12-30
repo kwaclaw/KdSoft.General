@@ -5,7 +5,7 @@ using System.Threading;
 namespace KdSoft.Utils
 {
   // thread-safe
-  public class ObjectPool<T> where T : class
+  public sealed class ObjectPool<T>: IDisposable where T : class?
   {
     ConcurrentBag<T> pool;
     Timer? idleTimer;
@@ -100,6 +100,10 @@ namespace KdSoft.Utils
           throw new ArgumentOutOfRangeException("MaxIdleSteps");
         maxIdleSteps = value;
       }
+    }
+
+    public void Dispose() {
+      idleTimer?.Dispose();
     }
   }
 }

@@ -10,6 +10,7 @@ namespace KdSoft.Utils
     DateTimeOffset lastUsed;
     TimeSpan lifeTime;
     bool isEnded;
+    readonly object syncObj = new object();
 
     public TimedLifeCycle(TimeSpan lifeTime) {
       this.lifeTime = lifeTime;
@@ -28,7 +29,7 @@ namespace KdSoft.Utils
     }
 
     public DateTimeOffset? Used() {
-      lock (this) {
+      lock (syncObj) {
         if (isEnded)
           return null;
         lastUsed = DateTime.UtcNow;
@@ -37,7 +38,7 @@ namespace KdSoft.Utils
     }
 
     public DateTimeOffset LastUsed {
-      get { lock (this) return lastUsed; }
+      get { lock (syncObj) return lastUsed; }
     }
 
     #endregion
@@ -46,7 +47,7 @@ namespace KdSoft.Utils
 
     public bool CheckAlive() {
       bool isEnding;
-      lock (this) {
+      lock (syncObj) {
         if (isEnded)
           return false;
         var unused = DateTimeOffset.UtcNow - lastUsed;
@@ -57,21 +58,21 @@ namespace KdSoft.Utils
       if (isEnding) {
         var ended = Ended;
         if (ended != null)
-          Ended(this, EventArgs.Empty);
+          ended(this, EventArgs.Empty);
         return false;
       }
       return true;
     }
 
     public void Terminate() {
-      lock (this) {
+      lock (syncObj) {
         if (isEnded)
           return;
         isEnded = true;
       }
       var ended = Ended;
       if (ended != null)
-        Ended(this, EventArgs.Empty);
+        ended(this, EventArgs.Empty);
     }
 
     #endregion

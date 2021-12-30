@@ -113,7 +113,7 @@ namespace KdSoft.Utils
     }
 
     /// <summary>
-    /// Like <see cref="Enumerable.GroupBy"/>, but takes advantage of an existing sort order on the collection.
+    /// Like <see cref="Enumerable.GroupBy{S, K, E}(IEnumerable{S}, Func{S, K}, Func{S, E}, IEqualityComparer{K}?)"/>, but takes advantage of an existing sort order on the collection.
     /// </summary>
     /// <typeparam name="TSource">Element type of source collection to be grouped.</typeparam>
     /// <typeparam name="TKey">Type of key that the collection is sorted on.</typeparam>
@@ -167,7 +167,7 @@ namespace KdSoft.Utils
     }
 
     /// <summary>
-    /// Like <see cref="Enumerable.GroupBy"/>, but takes advantage of an existing sort order on the collection.
+    /// Like <see cref="Enumerable.GroupBy{E, K}(IEnumerable{E}, Func{E, K}, IEqualityComparer{K}?)"/>, but takes advantage of an existing sort order on the collection.
     /// </summary>
     /// <typeparam name="TElement">Element type of collection to be grouped.</typeparam>
     /// <typeparam name="TKey">Type of key that the collection is sorted on.</typeparam>

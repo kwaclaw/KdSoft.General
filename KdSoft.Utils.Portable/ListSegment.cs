@@ -33,7 +33,7 @@ namespace KdSoft.Utils
     public T this[int index] {
       get {
         if (index >= count)
-          throw new IndexOutOfRangeException();
+          throw new ArgumentOutOfRangeException(nameof(index));
         return list[offset + index];
       }
       set {
@@ -47,7 +47,7 @@ namespace KdSoft.Utils
 
     public ListSegment<T> GetSegment(int offset, int count) {
       if (offset >= this.count || offset + count > this.count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(offset));
       return new ListSegment<T>(list, this.offset + offset, count);
     }
 
@@ -69,7 +69,7 @@ namespace KdSoft.Utils
 
     public int FindIndex(int startIndex, Predicate<T> match) {
       if (startIndex >= count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(startIndex));
 
       int limit = offset + count;
       for (int i = offset + startIndex; i < limit; ++i)
@@ -80,7 +80,7 @@ namespace KdSoft.Utils
 
     public int FindIndex(int startIndex, int count, Predicate<T> match) {
       if (startIndex >= this.count || startIndex + count > this.count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(startIndex));
 
       int limit = offset + startIndex + count;
       for (int i = offset + startIndex; i < limit; ++i)
@@ -98,7 +98,7 @@ namespace KdSoft.Utils
 
     public int FindLastIndex(int startIndex, Predicate<T> match) {
       if (startIndex >= count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(startIndex));
 
       int limit = offset + startIndex;
       for (int i = offset + count; --i >= limit; ++i)
@@ -109,7 +109,7 @@ namespace KdSoft.Utils
 
     public int FindLastIndex(int startIndex, int count, Predicate<T> match) {
       if (startIndex >= this.count || startIndex + count > this.count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(startIndex));
 
       int limit = offset + startIndex;
       for (int i = offset + count; --i >= limit; ++i)

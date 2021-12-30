@@ -28,6 +28,7 @@ namespace KdSoft.Utils
     /// </summary>
     /// <typeparam name="T">Type of list items.</typeparam>
     /// <param name="collection"><see cref="IEnumerable{T}"/> to create a list from.</param>
+    /// <param name="comparer">Compares list elements.</param>
     /// <returns>Sorted <see cref="List{T}"/>.</returns>
     public static List<T> ToSortedList<T>(this IEnumerable<T> collection, Comparison<T> comparer) {
       var result = new List<T>(collection);
@@ -41,6 +42,7 @@ namespace KdSoft.Utils
     /// </summary>
     /// <typeparam name="T">Type of list items.</typeparam>
     /// <param name="collection"><see cref="IEnumerable{T}"/> to create a list from.</param>
+    /// <param name="comparer">Compares list elements.</param>
     /// <returns>Sorted <see cref="List{T}"/>.</returns>
     public static List<T> ToSortedList<T>(this IEnumerable<T> collection, IComparer<T> comparer) {
       var result = new List<T>(collection);
@@ -197,7 +199,7 @@ namespace KdSoft.Utils
       if (compare == null)
         throw new ArgumentNullException(nameof(compare));
       if (index >= list.Count || index + length > list.Count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(index));
       return BinarySearchImpl(list, index, length, compare);
     }
 
@@ -241,7 +243,7 @@ namespace KdSoft.Utils
     /// </returns>
     public static int BinarySearch<T>(this IList<T> list, int index, int length, T item, Comparison<T>? compare = null) {
       if (index >= list.Count || index + length > list.Count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(index));
       if (compare == null)
         compare = Comparer<T>.Default.Compare;
       return BinarySearchImpl(list, index, length, (x) => compare(x, item));
@@ -285,7 +287,7 @@ namespace KdSoft.Utils
     /// </returns>
     public static int BinarySearch<T>(this IList<T> list, int index, int length, T item, IComparer<T> comparer) {
       if (index >= list.Count || index + length > list.Count)
-        throw new IndexOutOfRangeException();
+        throw new ArgumentOutOfRangeException(nameof(index));
       if (comparer == null)
         comparer = Comparer<T>.Default;
       return BinarySearchImpl(list, index, length, (x) => comparer.Compare(x, item));
