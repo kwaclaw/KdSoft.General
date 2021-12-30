@@ -23,8 +23,8 @@ namespace KdSoft.Utils
     readonly Action<string, Exception> errorCallback;
 
     object syncObj = new object();
-    string currentTimestampPattern;
-    Task<AsyncTextFileWriter> asyncWriterTask;
+    string? currentTimestampPattern;
+    Task<AsyncTextFileWriter>? asyncWriterTask;
     int createNewFileOnRollOver;
 
     /// <summary>
@@ -46,7 +46,7 @@ namespace KdSoft.Utils
         bool newFileOnStart,
         Action<string, Exception> errorCallback
     ) {
-      this.timestampPattern = timestampPattern;
+      this.timestampPattern = timestampPattern ?? (dt => string.Empty);
       this.fileNameSelector = fileNameSelector;
       this.rollSizeInBytes = rollSizeKB * 1024;
       this.encoding = encoding;
@@ -85,13 +85,13 @@ namespace KdSoft.Utils
       }
     }
 
-    async Task<AsyncTextFileWriter> CreateNewFileWriter(AsyncTextFileWriter oldWriter, DateTime now, bool createNewFile) {
+    async Task<AsyncTextFileWriter> CreateNewFileWriter(AsyncTextFileWriter? oldWriter, DateTime now, bool createNewFile) {
       int sequenceNo = 0;
       if (oldWriter != null) {
         sequenceNo = ExtractCurrentSequence(oldWriter.FileName) + 1;
       }
 
-      string fn = null;
+      string? fn = null;
       while (true) {
         var newFn = fileNameSelector(now, sequenceNo);
         if (fn == newFn) {
@@ -261,7 +261,8 @@ namespace KdSoft.Utils
       /// <param name="data">Bytes to write.</param>
       public async Task WriteAsync(ArraySegment<byte> data) {
         CurrentStreamLength += data.Count;
-        await fileStream.WriteAsync(data.Array, data.Offset, data.Count, cts.Token);
+        if (data.Array != null)
+          await fileStream.WriteAsync(data.Array, data.Offset, data.Count, cts.Token);
         if (autoFlush) {
           await fileStream.FlushAsync(cts.Token);
         }

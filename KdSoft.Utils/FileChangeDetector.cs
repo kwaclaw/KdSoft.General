@@ -22,9 +22,9 @@ namespace KdSoft.Utils
     Dictionary<string, FileChangeTracker> activeFiles;
     ConcurrentQueue<FileChange> fileChangeQueue;
 
-    CancellationTokenSource cts;
+    CancellationTokenSource? cts;
     CancellationToken cancelToken = CancellationToken.None;
-    Timer timer;
+    Timer? timer;
 
     TimeSpan settleTime;
     public TimeSpan SettleTime {
@@ -35,9 +35,9 @@ namespace KdSoft.Utils
       get { return fsw.Path; }
     }
 
-    public event FileSystemEventHandler FileChanged;
+    public event FileSystemEventHandler? FileChanged;
 
-    public event ErrorEventHandler Error {
+    public event ErrorEventHandler? Error {
       add { fsw.Error += value; }
       remove { fsw.Error -= value; }
     }
@@ -73,7 +73,7 @@ namespace KdSoft.Utils
       }
 
       public string FilePath { get; private set; }
-      public FileChange LastChange { get; set; }
+      public FileChange? LastChange { get; set; }
     }
 
     public FileChangeDetector(string baseDirectory, string filter, bool subDirectories, NotifyFilters notifyFilters, TimeSpan settleTime) {
@@ -107,8 +107,7 @@ namespace KdSoft.Utils
     void RegisterFileEvent(FileSystemEventArgs eventArgs) {
       FileChange fcChange;
       lock (syncObj) {
-        FileChangeTracker fcEvent;
-        if (!activeFiles.TryGetValue(eventArgs.FullPath, out fcEvent)) {
+        if (!activeFiles.TryGetValue(eventArgs.FullPath, out var fcEvent)) {
           fcEvent = new FileChangeTracker(eventArgs.FullPath);
           activeFiles[eventArgs.FullPath] = fcEvent;
         }
@@ -121,9 +120,8 @@ namespace KdSoft.Utils
     void RegisterFileEvents(IEnumerable<FileSystemEventArgs> eventArgsList) {
       var fcChangeList = new List<FileChange>();
       lock (syncObj) {
-        FileChangeTracker fcEvent;
         foreach (var eventArgs in eventArgsList) {
-          if (!activeFiles.TryGetValue(eventArgs.FullPath, out fcEvent)) {
+          if (!activeFiles.TryGetValue(eventArgs.FullPath, out var fcEvent)) {
             fcEvent = new FileChangeTracker(eventArgs.FullPath);
             activeFiles[eventArgs.FullPath] = fcEvent;
           }
@@ -154,10 +152,9 @@ namespace KdSoft.Utils
       }
     }
 
-    void TimerCallback(object state) {
+    void TimerCallback(object? state) {
       try {
-        FileChange fileChange;
-        while (fileChangeQueue.TryPeek(out fileChange)) {
+        while (fileChangeQueue.TryPeek(out var fileChange)) {
           var timeDiff = DateTimeOffset.UtcNow - fileChange.ChangeTime;
           if (timeDiff < SettleTime)
             return;
@@ -204,7 +201,7 @@ namespace KdSoft.Utils
         var option = fsw.IncludeSubdirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
         var dirInfo = new DirectoryInfo(fsw.Path);
         existingFileEvents = dirInfo.EnumerateFiles(fsw.Filter, option)
-            .Select(fi => new FileSystemEventArgs(WatcherChangeTypes.Created, fi.DirectoryName, fi.Name));
+            .Select(fi => new FileSystemEventArgs(WatcherChangeTypes.Created, fi.DirectoryName!, fi.Name));
       }
 
       lock (syncObj) {
@@ -224,7 +221,7 @@ namespace KdSoft.Utils
 
 #if !NETSTANDARD1_3
     static Task Delay(TimeSpan timeout) {
-      var tcs = new TaskCompletionSource<object>();
+      var tcs = new TaskCompletionSource<object?>();
       new Timer(_ => tcs.SetResult(null), null, (int)timeout.TotalMilliseconds, -1);
       return tcs.Task;
     }
