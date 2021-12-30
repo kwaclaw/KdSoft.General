@@ -36,6 +36,12 @@ namespace KdSoft.Serialization.Tests
       return Equals(this, obj as Vendor);
     }
 
+    public override int GetHashCode() {
+      var hash = name?.GetHashCode() ^ street?.GetHashCode() ^ city?.GetHashCode() ^ state?.GetHashCode()
+        ^ zipCode?.GetHashCode() ^ phoneNumber?.GetHashCode() ^ salesRep?.GetHashCode();
+      return hash ?? 0;
+    }
+
     public static bool operator ==(Vendor x, Vendor y) { return Equals(x, y); }
     public static bool operator !=(Vendor x, Vendor y) { return !(x == y); }
   }
@@ -99,6 +105,12 @@ namespace KdSoft.Serialization.Tests
     public override bool Equals(object obj) {
       return Equals(this, obj as SalesRep);
     }
+
+    public override int GetHashCode() {
+      var hash = name?.GetHashCode() ^ phoneNumber?.GetHashCode();
+      return hash ?? 0;
+    }
+
     public static bool operator ==(SalesRep x, SalesRep y) { return Equals(x, y); }
     public static bool operator !=(SalesRep x, SalesRep y) { return !(x == y); }
   }
@@ -156,6 +168,13 @@ namespace KdSoft.Serialization.Tests
     public override bool Equals(object obj) {
       return Equals(this, obj as StockItem);
     }
+
+    public override int GetHashCode() {
+      var hash = name?.GetHashCode() ^ category?.GetHashCode() ^ vendor?.GetHashCode() ^ sku?.GetHashCode()
+        ^ price?.GetHashCode() ^ quantity?.GetHashCode();
+      return hash ?? 0;
+    }
+
     public static bool operator ==(StockItem x, StockItem y) { return Equals(x, y); }
     public static bool operator !=(StockItem x, StockItem y) { return !(x == y); }
   }
@@ -216,6 +235,11 @@ namespace KdSoft.Serialization.Tests
     public override bool Equals(object obj) {
       return Equals(this, obj as LineItem);
     }
+    public override int GetHashCode() {
+      var hash = quantity.GetHashCode() ^ item?.GetHashCode();
+      return hash ?? 0;
+    }
+
     public static bool operator ==(LineItem x, LineItem y) { return Equals(x, y); }
     public static bool operator !=(LineItem x, LineItem y) { return !(x == y); }
   }
@@ -278,6 +302,12 @@ namespace KdSoft.Serialization.Tests
     public override bool Equals(object obj) {
       return Equals(this, obj as Order);
     }
+
+    public override int GetHashCode() {
+      var hash = orderNumber?.GetHashCode() ^ creationTime.GetHashCode();
+      return hash ?? 0;
+    }
+
     public static bool operator ==(Order x, Order y) { return Equals(x, y); }
     public static bool operator !=(Order x, Order y) { return !(x == y); }
   }
