@@ -75,6 +75,8 @@ namespace KdSoft.Serialization
     ByteConverter converter;
     Dictionary<Type, object> fieldRegistry;
 
+    static readonly byte[] emptyBuffer = new byte[0];
+
     /// <summary>
     /// Constructor. Sets the byte order.
     /// </summary>
@@ -86,6 +88,8 @@ namespace KdSoft.Serialization
       permanentObjSet = new HashSet<object>(new ObjectEqualityComparer());
       converter = new ByteConverter(byteOrder);
       fieldRegistry = new Dictionary<Type, object>();
+      statusBuffer = emptyBuffer;
+      statusBuf = emptyBuffer;
     }
 
     /// <summary>ByteConverter instance used for serialization.</summary>
@@ -225,7 +229,7 @@ namespace KdSoft.Serialization
 
     /// <inheritdoc/>
     public override Field<T, Formatter> GetField<T>() {
-      object field;
+      object? field;
       Type dataType = typeof(T);
       if (!fieldRegistry.TryGetValue(dataType, out field))
         throw new SerializationException("No field registered for type '" + dataType.Name + "'.");
@@ -283,7 +287,7 @@ namespace KdSoft.Serialization
       statusIndx = 0;
       startIndx = index;
       valueIndx = index + sizeof(uint); // leave space for length prefix
-      if (statusBuf == null)
+      if (statusBuf == emptyBuffer)
         statusBuf = new byte[4];
       statusBuffer = statusBuf;
     }
@@ -308,7 +312,7 @@ namespace KdSoft.Serialization
       converter.WriteBytes(bufSize, target, ref bufIndx);
       int endIndex = valueIndx + nextStatusByte(statusIndx);
       if (target.Length < endIndex)
-        throw new IndexOutOfRangeException("Buffer size too small.");
+        throw new InvalidOperationException("Buffer size too small.");
 
       // clear unused bits in status buffer
       if (statusIndx > 0)
@@ -734,7 +738,7 @@ namespace KdSoft.Serialization
       // we cannot copy to a local status buffer because we don't know its size until
       // we have deserialized the last item. And since the source argument is a stack -only
       // value type, we cannot store a reference to it, so we only have statusIndx to work with.
-      statusBuffer = null;  // not used for reading
+      statusBuffer = emptyBuffer;  // not used for reading
     }
 
     /// <summary>Completes deserialization process.</summary>
@@ -747,7 +751,7 @@ namespace KdSoft.Serialization
     /// serialized data in the buffer.</returns>
     public int FinishDeserialization() {
       int endIndex = nextStatusByte(statusIndx);
-      statusBuffer = null;
+      statusBuffer = emptyBuffer;
       return endIndex;
     }
 
@@ -1180,7 +1184,7 @@ namespace KdSoft.Serialization
     /// A <see cref="List{T}"/> based implementation of <see cref="InitSequence{T, C}"/>.
     /// </summary>
     /// <seealso cref="InitSequence{T, C}"/>
-    public static AddItem<T, List<T>> InitList<T>(int size, ref List<T> collection) {
+    public static AddItem<T, List<T>>? InitList<T>(int size, ref List<T> collection) {
       if (size < 0)
         return null;
       if (collection == null)
@@ -1195,7 +1199,7 @@ namespace KdSoft.Serialization
     /// where null values will be deserialized as the value type's default value.
     /// </summary>
     /// <seealso cref="InitValueSequence{T, C}"/>
-    public static AddValueItem<T, List<T>> InitValueList<T>(int capacity, ref List<T> collection) where T : struct {
+    public static AddValueItem<T, List<T>>? InitValueList<T>(int capacity, ref List<T> collection) where T : struct {
       if (capacity < 0)
         return null;
       if (collection == null)
@@ -1210,7 +1214,7 @@ namespace KdSoft.Serialization
     /// where values will be deserialized as <see cref="Nullable{T}"/>.
     /// </summary>
     /// <seealso cref="InitValueSequence{T, C}"/>
-    public static AddValueItem<T, List<T?>> InitNullableList<T>(int capacity, ref List<T?> collection) where T : struct {
+    public static AddValueItem<T, List<T?>>? InitNullableList<T>(int capacity, ref List<T?> collection) where T : struct {
       if (capacity < 0)
         return null;
       if (collection == null)

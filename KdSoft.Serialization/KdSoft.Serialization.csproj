@@ -12,6 +12,7 @@
     <PackageReleaseNotes>
       Added netstandard2.0, netstandard2.1 and net50 target frameworks.
     </PackageReleaseNotes>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

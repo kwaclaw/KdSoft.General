@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KdSoft.Serialization
 {
@@ -127,7 +128,7 @@ namespace KdSoft.Serialization
 
     #region Skipping Fields
 
-    private int[] skipPath;
+    int[] skipPath = new int[0];
     internal int skipLevel;
     internal int inSequence;
 
@@ -164,7 +165,7 @@ namespace KdSoft.Serialization
       return Skip(source, field);
     }
 
-    private void DoSkipSequence<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
+    void DoSkipSequence<T>(ReadOnlySpan<byte> source, Field<T, F> field) {
       SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
@@ -240,17 +241,17 @@ namespace KdSoft.Serialization
     /// <code>
     /// class A
     /// {
-    ///   private int num;
-    ///   private string name;
-    ///   private B child;
-    ///   private float price;
+    ///   int num;
+    ///   string name;
+    ///   B child;
+    ///   float price;
     ///   ...
     /// }
     /// 
     /// class B
     /// {
-    ///   private string name;
-    ///   private int count;
+    ///   string name;
+    ///   int count;
     ///   ...
     /// }
     /// 
@@ -401,9 +402,11 @@ namespace KdSoft.Serialization
     /// <returns>New object instance.</returns>
     /// <typeparam name="T">Reference type that is to be deserialized.</typeparam>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
-    public T DeserializeObject<T>(ReadOnlySpan<byte> source)
-      where T : class {
-      T obj = null;
+//#if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+//    [return: MaybeNull]
+//#endif
+    public T? DeserializeObject<T>(ReadOnlySpan<byte> source) where T : class {
+      T? obj = default;
       DeserializeObject(source, ref obj);
       return obj;
     }
@@ -642,7 +645,7 @@ namespace KdSoft.Serialization
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
           Int32 count = ReadCount(source);
-          AddValueItem<T, C> addItem = initSequence(count, ref collection);
+          AddValueItem<T, C> addItem = initSequence(count, ref collection)!;
           T value = new T();
           for (int indx = 0; indx < count; indx++) {
             bool isNull;
@@ -691,7 +694,7 @@ namespace KdSoft.Serialization
           throw new SerializationException("Value types cannot be referenced.");
         case SerialStatus.Value:
           Int32 count = ReadCount(source);
-          AddItem<T?, C> addItem = initSequence(count, ref collection);
+          AddItem<T?, C> addItem = initSequence(count, ref collection)!;
           for (int indx = 0; indx < count; indx++) {
             T? value = field.Deserialize(source);
             addItem(value, collection);
@@ -888,7 +891,7 @@ namespace KdSoft.Serialization
           Int32 count = ReadCount(source);
           value = new T[count];
           for (int indx = 0; indx < count; indx++)
-            field.Deserialize(source, ref value[indx]);
+            field.Deserialize(source, ref value[indx]!);
           break;
       }
     }
@@ -930,9 +933,9 @@ namespace KdSoft.Serialization
           throw new SerializationException("Sequences cannot be referenced.");
         case SerialStatus.Value:
           Int32 count = ReadCount(source);
-          AddItem<T, C> addItem = initSequence(count, ref collection);
+          AddItem<T?, C> addItem = initSequence(count, ref collection)!;
           for (int indx = 0; indx < count; indx++) {
-            T value = null;
+            T? value = null;
             field.Deserialize(source, ref value);
             addItem(value, collection);
           }
@@ -963,7 +966,7 @@ namespace KdSoft.Serialization
     /// <param name="addItem">Call-back delegate to add sequence elements to a collection.</param>
     /// <param name="isNull">Indicates if the sequence should be deserialized as <c>null</c>.</param>
     /// <param name="field">Field that deserializes the sequence elements.</param>
-    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, AddItem<T> addItem, out bool isNull, ReferenceField<T, F> field) where T : class {
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, AddItem<T?> addItem, out bool isNull, ReferenceField<T, F> field) where T : class {
       SerialStatus status = ReadStatus(source);
       switch (status) {
         case SerialStatus.Null:
@@ -975,7 +978,7 @@ namespace KdSoft.Serialization
           isNull = false;
           Int32 count = ReadCount(source);
           for (int indx = 0; indx < count; indx++) {
-            T value = null;
+            T? value = null;
             field.Deserialize(source, ref value);
             addItem(value);
           }
@@ -992,7 +995,7 @@ namespace KdSoft.Serialization
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="addItem">Call-back delegate to add sequence elements to a collection.</param>
     /// <param name="isNull">Indicates if the sequence should be deserialized as <c>null</c>.</param>
-    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, AddItem<T> addItem, out bool isNull) where T : class {
+    public void DeserializeObjects<T>(ReadOnlySpan<byte> source, AddItem<T?> addItem, out bool isNull) where T : class {
       ReferenceField<T, F> field = (ReferenceField<T, F>)GetField<T>();
       DeserializeObjects(source, addItem, out isNull, field);
     }
@@ -1297,7 +1300,7 @@ namespace KdSoft.Serialization
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="instance">Instance to initialize. Can be <c>null</c>, in which
     /// case a new instance must be created.</param>
-    protected abstract void DeserializeInstance(ReadOnlySpan<byte> source, ref T instance);
+    protected abstract void DeserializeInstance(ReadOnlySpan<byte> source, ref T? instance);
 
     /// <summary>Specifies how and in which order class members are deserialized.</summary>
     /// <remarks>
@@ -1332,8 +1335,8 @@ namespace KdSoft.Serialization
     /// <see cref="Formatter{F}.SerializeObject{T}(Span{byte}, T)"/> or <see cref="Formatter{F}.SerializeObjects{T}(Span{byte}, T[])"/>.
     /// </remarks>
     /// <param name="target"><see cref="Span{T}"/> of bytes to write to.</param>
-    /// <param name="value">The object to serialize.</param>
-    public void Serialize(Span<byte> target, T value) {
+    /// <param name="value">The object to serialize. Can be <c>null</c>.</param>
+    public void Serialize(Span<byte> target, T? value) {
       if (ReferenceEquals(value, null)) {
         Fmt.WriteStatus(SerialStatus.Null);
         return;
@@ -1359,7 +1362,7 @@ namespace KdSoft.Serialization
     /// </remarks>
     /// <param name="source">Source to read from, a <see cref="ReadOnlySpan{T}"/> of bytes.</param>
     /// <param name="value">The object to deserialize, or <c>null</c>.</param>
-    public void Deserialize(ReadOnlySpan<byte> source, ref T value) {
+    public void Deserialize(ReadOnlySpan<byte> source, ref T? value) {
       Int64 handle;
       SerialStatus status = Fmt.ReadStatus(source);
       switch (status) {
@@ -1375,6 +1378,8 @@ namespace KdSoft.Serialization
           break;
         case SerialStatus.Value:
           DeserializeInstance(source, ref value);
+          if (ReferenceEquals(value, null))
+            throw new SerializationException("Object value deserialized as null.");
           if (Fmt.OpenReference(value, out handle))
             throw new SerializationException("Object deserialized multiple times.");
           DeserializeMembers(source, value);
@@ -1421,7 +1426,7 @@ namespace KdSoft.Serialization
   /// <param name="collection">Collection to add elements to.</param>
   /// <returns>A delegate for adding elements to the collection, if <c>size > 0</c>,
   /// or <c>null</c> otherwise.</returns>
-  public delegate AddItem<T, C> InitSequence<T, C>(int size, ref C collection) where C : class;
+  public delegate AddItem<T, C>? InitSequence<T, C>(int size, ref C collection) where C : class;
 
   /// <summary>Like <see cref="AddItem{T}"/>, but intended for large value types.</summary>
   /// <remarks>Passing the value by reference avoids copy overhead.</remarks>
@@ -1435,7 +1440,7 @@ namespace KdSoft.Serialization
 
   /// <summary>Like <see cref="InitSequence{T, C}"/>, but intended for large value types.</summary>
   /// <remarks>Passing the value by reference avoids copy overhead.</remarks>
-  public delegate AddValueItem<T, C> InitValueSequence<T, C>(int capacity, ref C collection)
+  public delegate AddValueItem<T, C>? InitValueSequence<T, C>(int capacity, ref C collection)
     where T : struct
     where C : class;
 

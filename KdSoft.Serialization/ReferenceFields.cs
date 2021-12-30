@@ -41,7 +41,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[]? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
       if (instance == null || instance.Length != len)
         instance = new byte[len];
@@ -101,7 +101,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref byte[]? instance) {
       if (instance == null || instance.Length != size)
         instance = new byte[size];
 
@@ -157,7 +157,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref string instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref string? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int len);
 
       var bytes = buffers.Acquire(len);
@@ -195,7 +195,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref ushort[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref ushort[]? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(ushort);
       instance = new ushort[count];
@@ -226,7 +226,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[]? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(char);
       instance = new char[count];
@@ -274,7 +274,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref char[]? instance) {
       if (instance == null || instance.Length != size)
         instance = new char[size];
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, instance);
@@ -301,7 +301,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref short[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref short[]? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(short);
       instance = new short[count];
@@ -331,7 +331,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref uint[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref uint[]? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(uint);
       instance = new uint[count];
@@ -360,7 +360,7 @@ namespace KdSoft.Serialization
     }
 
     /// <inheritdoc />
-    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref int[] instance) {
+    protected override void DeserializeInstance(ReadOnlySpan<byte> source, ref int[]? instance) {
       Fmt.Converter.ReadBytes(source, ref Fmt.valueIndx, out int count);
       count = count / sizeof(int);
       instance = new int[count];
