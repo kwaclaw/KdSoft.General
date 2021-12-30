@@ -7,6 +7,7 @@
     <Description>KdSoft.Utils.Tests Class Library</Description>
     <VersionPrefix>1.0.4</VersionPrefix>
     <TargetFrameworks>netcoreapp3.1;net461;net50</TargetFrameworks>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

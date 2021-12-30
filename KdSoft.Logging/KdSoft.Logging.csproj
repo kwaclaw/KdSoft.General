@@ -8,6 +8,7 @@
     <VersionPrefix>1.1.0</VersionPrefix>
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
+    <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
       Dependency updates.
     </PackageReleaseNotes>

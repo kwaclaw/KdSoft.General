@@ -11,6 +11,7 @@
       Added 'RollingFileFactory' (.NET5.0 only). Fixed RollingTextFile async usage.
       Added netstandard2.0, netstandard2.1 and net50 target frameworks.
     </PackageReleaseNotes>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

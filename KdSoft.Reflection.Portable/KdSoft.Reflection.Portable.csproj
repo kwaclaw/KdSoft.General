@@ -7,6 +7,7 @@
     <Description>KdSoft.Reflection.Portable Class Library</Description>
     <VersionPrefix>1.0.4</VersionPrefix>
     <TargetFrameworks>netstandard1.1;net461</TargetFrameworks>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

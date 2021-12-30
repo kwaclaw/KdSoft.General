@@ -17,6 +17,7 @@ namespace KdSoft.Utils
 #endif
     }
 
+    [CLSCompliant(false)]
     public Crc64(ulong polynome, ulong initCrc) {
       GC.SuppressFinalize(this);
 #if !NETSTANDARD1_3
@@ -74,6 +75,7 @@ namespace KdSoft.Utils
       get { return unchecked((long)initCrc); }
     }
 
+    [CLSCompliant(false)]
     public ulong Crc {
       get { return crc; }
     }
