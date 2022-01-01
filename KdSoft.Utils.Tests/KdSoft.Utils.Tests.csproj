@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KdSoft.Reflection.Portable\KdSoft.Reflection.Portable.csproj" />
+    <ProjectReference Include="..\KdSoft.Utils.Portable\KdSoft.Utils.Portable.csproj" />
+    <ProjectReference Include="..\KdSoft.Utils\KdSoft.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>

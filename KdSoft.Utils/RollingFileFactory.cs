@@ -133,7 +133,9 @@ namespace KdSoft.Utils
       if (delta > oldFiles.Count)
         delta = oldFiles.Count;
       for (int indx = 0; indx < delta; indx++) {
-        oldFiles[indx].Delete();
+        var oldFile = oldFiles[indx];
+        sortedFiles.Remove(oldFile.Name);
+        oldFile.Delete();
       }
 
       int lastSequenceNo = 0;
