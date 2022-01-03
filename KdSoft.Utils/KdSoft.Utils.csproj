@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Title>KdSoft.Utils</Title>
     <Description>KdSoft.Utils Class Library</Description>
-    <VersionPrefix>3.0.1</VersionPrefix>
+    <VersionPrefix>3.0.3</VersionPrefix>
     <TargetFrameworks>netstandard1.3;net461;netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>

@@ -26,6 +26,7 @@ namespace KdSoft.Utils
     readonly long _fileSizeLimitBytes;
     readonly int _maxFileCount;
     readonly bool _useLocalTime;
+    readonly FileStream _lockFile;
 
     /// <summary>
     /// Number of files to delete in  one roll-over check operation.
@@ -70,6 +71,9 @@ namespace KdSoft.Utils
       this._fileSizeLimitBytes = fileSizeLimitKB * 1024;
       this._maxFileCount = maxFileCount;
       this._createNewFileOnStartup = newFileOnStartup ? 1 : 0;
+
+      var lockFilePath = Path.Combine(dirInfo.FullName, "fileFactory.lock");
+      _lockFile = new FileStream(lockFilePath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.Delete, 64, FileOptions.DeleteOnClose);
     }
 
     bool TimestampPatternChanged(FileStream stream, DateTimeOffset now) {
@@ -86,61 +90,39 @@ namespace KdSoft.Utils
       return int.TryParse(sequenceNoSpan, out value);
     }
 
+    // NOT THREAD-SAFE
     FileStream CreateNextSuitableFileStream(DateTimeOffset now, bool alwaysCreateNewFile) {
       var newFnBase = _fileNameSelector(now);
+      var newNameStart = $"{newFnBase}-";
+
       var enumOptions = new EnumerationOptions {
         IgnoreInaccessible = true,
         RecurseSubdirectories = false,
       };
-      var sortedFiles = new SortedList<string, FileInfo>(StringComparer.CurrentCultureIgnoreCase);
-      var oldFiles = new List<FileInfo>();
+      var currentFiles = _dirInfo.GetFiles($"*-*{_fileExtension}", enumOptions);
+      Array.Sort(currentFiles, (x, y) => DateTime.Compare(x.LastWriteTimeUtc, y.LastWriteTimeUtc));
 
-      var newNameStart = $"{newFnBase}-";
-      int fileCount = 0;
-      foreach (var file in _dirInfo.EnumerateFiles($"*-*{_fileExtension}", enumOptions)) {
-        fileCount++;
+      var matchingFiles = new SortedList<string, FileInfo>(StringComparer.CurrentCultureIgnoreCase);
+      var maxDeleteCount = currentFiles.Length - _maxFileCount;
+      if (maxDeleteCount > MaxFilesToDelete)
+        maxDeleteCount = MaxFilesToDelete;
+      var deleteCount = 0;
 
-        // determine the MaxFilesToDelete oldest files
-        if (oldFiles.Count == 0)
-          oldFiles.Add(file);
-        else {
-          // start with the oldest file
-          bool inserted = false;
-          for (int indx = 0; indx < oldFiles.Count; indx++) {
-            var oldFile = oldFiles[indx];
-            // if file is older then insert at this position 
-            if (file.LastWriteTimeUtc < oldFile.LastWriteTimeUtc) {
-              oldFiles.Insert(indx, file);
-              inserted = true;
-              break;
-            }
-          }
-          if (inserted && oldFiles.Count > MaxFilesToDelete) {
-            oldFiles.RemoveAt(MaxFilesToDelete);
-          }
-          else if (oldFiles.Count < MaxFilesToDelete) {
-            oldFiles.Add(file);
-          }
+      for (int fileIndx = 0; fileIndx < currentFiles.Length; fileIndx++) {
+        var file = currentFiles[fileIndx];
+        // maintain file count
+        if (deleteCount < maxDeleteCount) {
+          file.Delete();
+          deleteCount++;
         }
-
-        // sort the files that match our new name (except for the sequence number)
-        if (file.Name.StartsWith(newNameStart))
-          sortedFiles.Add(file.Name, file);
-      }
-
-      // if we have too many files, delete at most <MaxFilesToDelete> old files
-      var delta = fileCount - _maxFileCount;
-      if (delta > oldFiles.Count)
-        delta = oldFiles.Count;
-      for (int indx = 0; indx < delta; indx++) {
-        var oldFile = oldFiles[indx];
-        sortedFiles.Remove(oldFile.Name);
-        oldFile.Delete();
+        // collect files that match our new name
+        else if (file.Name.StartsWith(newNameStart))
+          matchingFiles.Add(file.Name, file);
       }
 
       int lastSequenceNo = 0;
-      if (sortedFiles.Count > 0) {
-        var lastFileName = sortedFiles.Values[sortedFiles.Count - 1].Name;
+      if (matchingFiles.Count > 0) {
+        var lastFileName = matchingFiles.Values[matchingFiles.Count - 1].Name;
         if (!TryGetSequenceNo(lastFileName, out lastSequenceNo)) {
           lastSequenceNo = 0;
         }
@@ -150,7 +132,7 @@ namespace KdSoft.Utils
       for (int sequenceNo = lastSequenceNo; sequenceNo < 1000; sequenceNo++) {
         var seqNoStr = sequenceNo.ToString("D2");
         var newFn = $"{newFnBase}-{seqNoStr}{_fileExtension}";
-        if (sortedFiles.TryGetValue(newFn, out var newFi)) {
+        if (matchingFiles.TryGetValue(newFn, out var newFi) /* && newFi.Exists */) {
           if (alwaysCreateNewFile || newFi.Length >= _fileSizeLimitBytes) {
             continue;
           }
@@ -172,6 +154,7 @@ namespace KdSoft.Utils
       throw new InvalidOperationException($"Too many files like {newFnBase} for same timestamp.");
     }
 
+    // NOT THREAD-SAFE
     async ValueTask<FileStream> CreateNewFileStream(FileStream? oldStream, DateTimeOffset now, bool alwaysCreateNewFile) {
       var newStream = CreateNextSuitableFileStream(now, alwaysCreateNewFile);
       if (oldStream != null) {
@@ -211,8 +194,13 @@ namespace KdSoft.Utils
     public void Dispose() {
       var oldStream = Interlocked.Exchange(ref _stream, null);
       if (oldStream != null) {
-        oldStream.Flush();
-        oldStream.Dispose();
+        try {
+          oldStream.Flush();
+          oldStream.Dispose();
+        }
+        finally {
+          _lockFile.Close();
+        }
       }
       GC.SuppressFinalize(this);
     }
@@ -223,8 +211,13 @@ namespace KdSoft.Utils
     public async ValueTask DisposeAsync() {
       var oldStream = Interlocked.Exchange(ref _stream, null);
       if (oldStream != null) {
-        await oldStream.FlushAsync().ConfigureAwait(false);
-        await oldStream.DisposeAsync().ConfigureAwait(false);
+        try {
+          await oldStream.FlushAsync().ConfigureAwait(false);
+          await oldStream.DisposeAsync().ConfigureAwait(false);
+        }
+        finally {
+          _lockFile.Close();
+        }
       }
       GC.SuppressFinalize(this);
     }
