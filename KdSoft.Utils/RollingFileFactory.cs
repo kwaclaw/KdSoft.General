@@ -1,6 +1,6 @@
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 
-#if NETSTANDARD2_1 || NET5_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 
 using System;
 using System.Collections.Generic;
@@ -73,7 +73,7 @@ namespace KdSoft.Utils
       this._createNewFileOnStartup = newFileOnStartup ? 1 : 0;
 
       var lockFilePath = Path.Combine(dirInfo.FullName, "fileFactory.lock");
-      _lockFile = new FileStream(lockFilePath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.Delete, 64, FileOptions.DeleteOnClose);
+      _lockFile = new FileStream(lockFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Delete, 64, FileOptions.DeleteOnClose);
     }
 
     bool TimestampPatternChanged(FileStream stream, DateTimeOffset now) {
