@@ -11,6 +11,7 @@ namespace KdSoft.Logging
   public sealed class RollingFileLoggerProvider: ILoggerProvider, IAsyncDisposable
   {
     readonly RollingFileFactory _fileFactory;
+    readonly IExternalScopeProvider? _scopeProvider;
     readonly IOptions<RollingFileLoggerOptions> _options;
 
     // See https://github.com/adams85/filelogger/blob/master/source/FileLogger/FileLoggerProvider.cs
@@ -33,11 +34,14 @@ namespace KdSoft.Logging
           opts.MaxFileCount,
           opts.NewFileOnStartup
       );
+
+      if (opts.IncludeScopes)
+        _scopeProvider = new LoggerExternalScopeProvider();
     }
 
     public ILogger CreateLogger(string categoryName) {
       var opts = _options.Value;
-      return new RollingFileLogger(_fileFactory, categoryName, LogLevel.Trace, opts.BatchSize, opts.MaxWriteDelayMSecs);
+      return new RollingFileLogger(_fileFactory, categoryName, LogLevel.Trace, opts.BatchSize, opts.MaxWriteDelayMSecs, _scopeProvider);
     }
 
     public void Dispose() => _fileFactory?.Dispose();

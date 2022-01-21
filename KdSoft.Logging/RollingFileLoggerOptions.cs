@@ -1,4 +1,6 @@
-﻿namespace KdSoft.Logging
+﻿using Microsoft.Extensions.Logging;
+
+namespace KdSoft.Logging
 {
   public class RollingFileLoggerOptions
   {
@@ -54,5 +56,10 @@
     /// This setting indiactes how long to wait in milliseconds before writing/flusing the incomplete batch.
     /// </summary>
     public int MaxWriteDelayMSecs { get; set; } = 400;
+
+    /// <summary>
+    /// Enables log scopes. See <see cref="ILogger.BeginScope"/>.
+    /// </summary>
+    public bool IncludeScopes { get; set; }
   }
 }

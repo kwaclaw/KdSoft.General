@@ -66,7 +66,7 @@ namespace KdSoft.Logging
         string categoryName,
         LogLevel logLevel,
         EventId eventId,
-        string message,
+        string? message,
         Exception? exception,
         IExternalScopeProvider? scopeProvider,
         DateTimeOffset timestamp

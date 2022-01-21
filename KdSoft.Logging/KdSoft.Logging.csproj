@@ -5,12 +5,12 @@
   <PropertyGroup>
     <Title>KdSoft.Logging</Title>
     <Description>KdSoft.Logging Class Library</Description>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.1.1</VersionPrefix>
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Updated to net6.0 target framework. Enabled nullable reference types.
+      Enabled Scope logging.
     </PackageReleaseNotes>
   </PropertyGroup>
 

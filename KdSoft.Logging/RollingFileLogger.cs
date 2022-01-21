@@ -22,6 +22,7 @@ namespace KdSoft.Logging
     readonly Channel<string> _channel;
     readonly int _batchSize;
     readonly int _maxWriteDelayMSecs;
+    readonly IExternalScopeProvider? _externalScopeProvider;
 
     static readonly string _batchTerminator = string.Intern("##batch##");
 
@@ -31,12 +32,20 @@ namespace KdSoft.Logging
 
     public Task<bool> RunTask { get; }
 
-    public RollingFileLogger(RollingFileFactory fileFactory, string category, LogLevel minLevel, int batchSize, int maxWriteDelayMSecs) {
+    public RollingFileLogger(
+      RollingFileFactory fileFactory,
+      string category,
+      LogLevel minLevel,
+      int batchSize,
+      int maxWriteDelayMSecs,
+      IExternalScopeProvider? externalScopeProvider = null
+    ) {
       this._fileFactory = fileFactory;
       this._category = category;
       this._minLevel = minLevel;
       this._batchSize = batchSize;
       this._maxWriteDelayMSecs = maxWriteDelayMSecs;
+      this._externalScopeProvider = externalScopeProvider;
 
       this._channel = Channel.CreateUnbounded<string>(new UnboundedChannelOptions {
         AllowSynchronousContinuations = false,
@@ -109,7 +118,7 @@ namespace KdSoft.Logging
       try {
         sb.Clear();
         var timestamp = _fileFactory.UseLocalTime ? DateTimeOffset.Now : DateTimeOffset.UtcNow;
-        sb.BuildLogMessage(_category, logLevel, eventId, message, exception, null, timestamp);
+        sb.BuildLogMessage(_category, logLevel, eventId, message, exception, _externalScopeProvider, timestamp);
         var written = _channel.Writer.TryWrite(sb.ToString());
 
         var itemCount = Interlocked.Increment(ref _batchCounter);
