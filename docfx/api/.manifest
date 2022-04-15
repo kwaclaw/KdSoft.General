@@ -48,6 +48,7 @@
   "KdSoft.Faster.FasterChannel.Dispose": "KdSoft.Faster.FasterChannel.yml",
   "KdSoft.Faster.FasterChannel.GetNewReader": "KdSoft.Faster.FasterChannel.yml",
   "KdSoft.Faster.FasterChannel.TryWrite(ReadOnlyMemory{System.Byte})": "KdSoft.Faster.FasterChannel.yml",
+  "KdSoft.Faster.FasterChannel.TryWrite(ReadOnlyMemory{System.Byte},System.Int64@)": "KdSoft.Faster.FasterChannel.yml",
   "KdSoft.Faster.FasterChannel.WriteAsync(ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)": "KdSoft.Faster.FasterChannel.yml",
   "KdSoft.Faster.FasterReader": "KdSoft.Faster.FasterReader.yml",
   "KdSoft.Faster.FasterReader.#ctor(FasterLog)": "KdSoft.Faster.FasterReader.yml",
