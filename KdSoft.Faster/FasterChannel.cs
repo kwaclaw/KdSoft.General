@@ -14,7 +14,6 @@ namespace KdSoft.Faster
   {
     readonly FasterLog _log;
     readonly IDevice _device;
-    long _logicalAddress;
 
     /// <summary>
     /// Constructor.
@@ -26,13 +25,18 @@ namespace KdSoft.Faster
     }
 
     /// <inheritdoc cref="FasterLog.TryEnqueue(ReadOnlySpan{byte}, out long)"/>
+    public bool TryWrite(ReadOnlyMemory<byte> item, out long logicalAddress) {
+      return _log.TryEnqueue(item.Span, out logicalAddress);
+    }
+
+    /// <inheritdoc cref="FasterLog.TryEnqueue(ReadOnlySpan{byte}, out long)"/>
     public bool TryWrite(ReadOnlyMemory<byte> item) {
-      return _log.TryEnqueue(item.Span, out _logicalAddress);
+      return _log.TryEnqueue(item.Span, out var _);
     }
 
     /// <inheritdoc cref="FasterLog.EnqueueAsync(byte[], CancellationToken)"/>
-    public async ValueTask WriteAsync(ReadOnlyMemory<byte> item, CancellationToken cancellationToken = default) {
-      _logicalAddress = await _log.EnqueueAsync(item, cancellationToken).ConfigureAwait(false);
+    public ValueTask<long> WriteAsync(ReadOnlyMemory<byte> item, CancellationToken cancellationToken = default) {
+      return _log.EnqueueAsync(item, cancellationToken);
     }
 
     /// <summary>

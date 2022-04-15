@@ -5,10 +5,10 @@
   <PropertyGroup>
     <Description>Utilities based on Microsoft.FASTER.Core.</Description>
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
-      Updated to Microsoft.FASTER.Core v1.9.10 and net6.0 target framework.
+      Updated to Microsoft.FASTER.Core v2.0.1. Exposed logical address.
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -17,7 +17,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.FASTER.Core" Version="1.9.10" />
+    <PackageReference Include="Microsoft.FASTER.Core" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
