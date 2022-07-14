@@ -76,7 +76,7 @@ namespace KdSoft.Utils
       public FileChange? LastChange { get; set; }
     }
 
-    public FileChangeDetector(string baseDirectory, string filter, bool subDirectories, NotifyFilters notifyFilters, TimeSpan settleTime) {
+    FileChangeDetector(string baseDirectory, bool subDirectories, NotifyFilters notifyFilters, TimeSpan settleTime) {
       this.settleTime = settleTime;
       activeFiles = new Dictionary<string, FileChangeTracker>();
       fileChangeQueue = new ConcurrentQueue<FileChange>();
@@ -85,12 +85,35 @@ namespace KdSoft.Utils
       fsw.EnableRaisingEvents = false;
       fsw.NotifyFilter = notifyFilters;
       fsw.IncludeSubdirectories = subDirectories;
-      fsw.Filter = filter;
       fsw.Changed += fsw_Changed;
       fsw.Created += fsw_Changed;
       fsw.Renamed += fsw_Renamed;
       fsw.Error += fsw_Error;
     }
+
+    public FileChangeDetector(
+      string baseDirectory,
+      string filter,
+      bool subDirectories,
+      NotifyFilters notifyFilters,
+      TimeSpan settleTime
+    ) : this(baseDirectory, subDirectories, notifyFilters, settleTime) {
+      fsw.Filter = filter;
+    }
+
+#if NET6_0_OR_GREATER
+    public FileChangeDetector(
+      string baseDirectory,
+      IEnumerable<string> filters,
+      bool subDirectories,
+      NotifyFilters notifyFilters,
+      TimeSpan settleTime
+    ) : this(baseDirectory, subDirectories, notifyFilters, settleTime) {
+      foreach (var filter in filters) {
+        fsw.Filters.Add(filter);
+      }
+    }
+#endif
 
     void fsw_Renamed(object sender, RenamedEventArgs e) {
       RegisterFileEvent(e);
