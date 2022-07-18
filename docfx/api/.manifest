@@ -894,7 +894,7 @@
   "KdSoft.Utils.FileChangeDetector.#ctor(System.String,System.String,System.Boolean,System.IO.NotifyFilters,System.TimeSpan)": "KdSoft.Utils.FileChangeDetector.yml",
   "KdSoft.Utils.FileChangeDetector.BaseDirectory": "KdSoft.Utils.FileChangeDetector.yml",
   "KdSoft.Utils.FileChangeDetector.Dispose": "KdSoft.Utils.FileChangeDetector.yml",
-  "KdSoft.Utils.FileChangeDetector.Error": "KdSoft.Utils.FileChangeDetector.yml",
+  "KdSoft.Utils.FileChangeDetector.ErrorEvent": "KdSoft.Utils.FileChangeDetector.yml",
   "KdSoft.Utils.FileChangeDetector.FileChanged": "KdSoft.Utils.FileChangeDetector.yml",
   "KdSoft.Utils.FileChangeDetector.IsStopped": "KdSoft.Utils.FileChangeDetector.yml",
   "KdSoft.Utils.FileChangeDetector.SettleTime": "KdSoft.Utils.FileChangeDetector.yml",
