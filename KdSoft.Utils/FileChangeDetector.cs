@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 namespace KdSoft.Utils
 {
   /// <summary>
-  /// Wrapper for FileSystemWatcher. Accumulates changes and allows for changes to settle before they are reported.
-  /// Reports only the last change of a set of changes that are observed together.
+  /// Wrapper for <see cref="FileSystemWatcher"/>. Accumulates changes and allows for changes to settle before they are reported.
+  /// Reports all change types as well as the initial and last file name (if applicable).
   /// </summary>
   public sealed class FileChangeDetector: IDisposable
   {
     object syncObj = new object();
 
     FileSystemWatcher fsw;
-    Dictionary<string, FileChangeTracker> activeFiles;
+    Dictionary<string, FileChangeAccumulator> activeFiles;
     ConcurrentQueue<FileChange> fileChangeQueue;
 
     CancellationTokenSource? cts;
@@ -27,70 +27,96 @@ namespace KdSoft.Utils
     Timer? timer;
 
     TimeSpan settleTime;
+    /// <summary>
+    /// Time span to allow for changes to settle before reporting them.
+    /// </summary>
     public TimeSpan SettleTime {
       get { return settleTime; }
     }
 
+    /// <summary>
+    /// The directory to monitor, in standard or Universal Naming Convention (UNC) notation.
+    /// </summary>
     public string BaseDirectory {
       get { return fsw.Path; }
     }
 
-    public event FileSystemEventHandler? FileChanged;
+    /// <summary>
+    /// Occurs when a file or directory in the specified <see cref="BaseDirectory"/> is created, deleted, renamed or changed.
+    /// The initial and final file names are reported (if applicable). For deleted files only the initial  file name
+    /// (OldName) is reported, while the (new) name is null. All change types since the last event are indicated in the
+    /// <see cref="FileSystemEventArgs.ChangeType"/> property, but no distinction is possible as to how often a specific type occurred.
+    /// </summary>
+    public event RenamedEventHandler? FileChanged;
 
-    public event ErrorEventHandler? Error {
-      add { fsw.Error += value; }
-      remove { fsw.Error -= value; }
+    ErrorEventHandler? errorEvent;
+    /// <summary>
+    /// Occurs when an error in the underlying <see cref="FileSystemWatcher"/> is reported, or when an internal error happens.
+    /// </summary>
+    public event ErrorEventHandler? ErrorEvent {
+      add {
+        errorEvent -= value;
+        errorEvent += value;
+      }
+      remove {
+        errorEvent -= value;
+      }
     }
+    class FileChangeAccumulator
+    {
+      public FileChangeAccumulator(WatcherChangeTypes changeTypes, string fullPath, string name) {
+        this.ChangeTypes = changeTypes;
+        this.FullPath = fullPath;
+        this.Name = name;
+      }
 
-    void CallHandler(FileSystemEventArgs eventArgs) {
-      var fcEvent = FileChanged;
-      if (fcEvent == null)
-        return;
-      fcEvent(this, eventArgs);
+      public WatcherChangeTypes ChangeTypes { get; set; }
+      public string? FullPath { get; set; }
+      public string? Name { get; set; }
+      public string? OldFullPath { get; set; }
+      public string? OldName { get; set; }
+
+      public FileChange? FileChange { get; set; }
     }
 
     class FileChange
     {
-      public FileChange(FileSystemEventArgs eventArgs, DateTimeOffset changeTime, FileChangeTracker fcEvent) {
-        this.EventArgs = eventArgs;
+      public FileChange(FileChangeAccumulator changeAccumulator, DateTimeOffset changeTime) {
+        this.ChangeAccumulator = changeAccumulator;
         this.ChangeTime = changeTime;
-        this.Tracker = fcEvent;
       }
-
-      public FileSystemEventArgs EventArgs { get; private set; }
-      public DateTimeOffset ChangeTime { get; private set; }
-      public FileChangeTracker Tracker { get; set; }
-
       public bool IsLastChange {
-        get { return Object.ReferenceEquals(this, Tracker.LastChange); }
-      }
-    }
-
-    class FileChangeTracker
-    {
-      public FileChangeTracker(string filePath) {
-        this.FilePath = filePath;
+        get { return Object.ReferenceEquals(this, ChangeAccumulator.FileChange); }
       }
 
-      public string FilePath { get; private set; }
-      public FileChange? LastChange { get; set; }
+      public FileChangeAccumulator ChangeAccumulator { get; }
+      public DateTimeOffset ChangeTime { get; }
     }
 
     FileChangeDetector(string baseDirectory, bool subDirectories, NotifyFilters notifyFilters, TimeSpan settleTime) {
       this.settleTime = settleTime;
-      activeFiles = new Dictionary<string, FileChangeTracker>();
+      activeFiles = new Dictionary<string, FileChangeAccumulator>();
       fileChangeQueue = new ConcurrentQueue<FileChange>();
 
       fsw = new FileSystemWatcher(baseDirectory);
       fsw.EnableRaisingEvents = false;
       fsw.NotifyFilter = notifyFilters;
       fsw.IncludeSubdirectories = subDirectories;
-      fsw.Changed += fsw_Changed;
-      fsw.Created += fsw_Changed;
-      fsw.Renamed += fsw_Renamed;
-      fsw.Error += fsw_Error;
+      fsw.Changed += Fsw_Changed;
+      fsw.Created += Fsw_Changed;
+      fsw.Renamed += Fsw_Renamed;
+      fsw.Deleted += Fsw_Deleted;
+      fsw.Error += Fsw_Error;
     }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="baseDirectory">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
+    /// <param name="filter">Filter string used to determine what files are monitored in the directory. Default "*.*".</param>
+    /// <param name="subDirectories"><c>true</c> if you want to monitor subdirectories; otherwise, <c>false</c>.</param>
+    /// <param name="notifyFilters">Type of changes to watch for.</param>
+    /// <param name="settleTime">Time span to allow for changes to settle before reporting them.</param>
     public FileChangeDetector(
       string baseDirectory,
       string filter,
@@ -102,6 +128,14 @@ namespace KdSoft.Utils
     }
 
 #if NET6_0_OR_GREATER
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="baseDirectory">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
+    /// <param name="filters">Collection of all the filters used to determine what files are monitored.</param>
+    /// <param name="subDirectories"><c>true</c> if you want to monitor subdirectories; otherwise, <c>false</c>.</param>
+    /// <param name="notifyFilters">Type of changes to watch for.</param>
+    /// <param name="settleTime">Time span to allow for changes to settle before reporting them.</param>
     public FileChangeDetector(
       string baseDirectory,
       IEnumerable<string> filters,
@@ -115,47 +149,100 @@ namespace KdSoft.Utils
     }
 #endif
 
-    void fsw_Renamed(object sender, RenamedEventArgs e) {
-      RegisterFileEvent(e);
-    }
-
-    void fsw_Error(object sender, ErrorEventArgs e) {
-      //TODO log error
-    }
-
-    void fsw_Changed(object sender, FileSystemEventArgs e) {
-      RegisterFileEvent(e);
-    }
-
-    void RegisterFileEvent(FileSystemEventArgs eventArgs) {
-      FileChange fcChange;
+    void Fsw_Renamed(object sender, RenamedEventArgs e) {
       lock (syncObj) {
-        if (!activeFiles.TryGetValue(eventArgs.FullPath, out var fcEvent)) {
-          fcEvent = new FileChangeTracker(eventArgs.FullPath);
-          activeFiles[eventArgs.FullPath] = fcEvent;
-        }
-        fcEvent.LastChange = fcChange = new FileChange(eventArgs, DateTimeOffset.UtcNow, fcEvent);
-        CheckTimerStarted();
+        RegisterRenamedEvent(e);
       }
-      fileChangeQueue.Enqueue(fcChange);
     }
 
-    void RegisterFileEvents(IEnumerable<FileSystemEventArgs> eventArgsList) {
-      var fcChangeList = new List<FileChange>();
+    void Fsw_Error(object sender, ErrorEventArgs e) {
+      errorEvent?.Invoke(sender, e);
+    }
+
+    void Fsw_Changed(object sender, FileSystemEventArgs e) {
+      lock (syncObj) {
+        RegisterChangedEvent(e);
+      }
+    }
+
+    void Fsw_Deleted(object sender, FileSystemEventArgs e) {
+      lock (syncObj) {
+        RegisterDeletedEvent(e);
+      }
+    }
+
+    void RegisterChangedEvent(FileSystemEventArgs eventArgs) {
+      if (activeFiles.TryGetValue(eventArgs.FullPath, out var fcAccumulator)) {
+        fcAccumulator.ChangeTypes |= eventArgs.ChangeType;
+      }
+      else {
+        fcAccumulator = new FileChangeAccumulator(eventArgs.ChangeType, eventArgs.FullPath, eventArgs.Name!);
+        activeFiles[eventArgs.FullPath] = fcAccumulator;
+      }
+
+      fcAccumulator.FileChange = new FileChange(fcAccumulator, DateTimeOffset.UtcNow);
+      fileChangeQueue.Enqueue(fcAccumulator.FileChange);
+
+      CheckTimerStarted();
+    }
+
+    void RegisterDeletedEvent(FileSystemEventArgs eventArgs) {
+      if (!activeFiles.TryGetValue(eventArgs.FullPath, out var fcAccumulator)) {
+        return;
+      }
+
+      fcAccumulator.ChangeTypes |= eventArgs.ChangeType;
+      // handle multiple rename events
+      if (fcAccumulator.OldFullPath == null) {
+        fcAccumulator.OldFullPath = fcAccumulator.FullPath;
+        fcAccumulator.OldName = fcAccumulator.Name;
+      }
+      fcAccumulator.FullPath = null;
+      fcAccumulator.Name = null;
+
+      fcAccumulator.FileChange = new FileChange(fcAccumulator, DateTimeOffset.UtcNow);
+      fileChangeQueue.Enqueue(fcAccumulator.FileChange);
+
+      CheckTimerStarted();
+    }
+
+    void RegisterRenamedEvent(RenamedEventArgs eventArgs) {
+      if (activeFiles.TryGetValue(eventArgs.OldFullPath, out var fcAccumulator)) {
+        activeFiles.Remove(eventArgs.OldFullPath);
+        activeFiles[eventArgs.FullPath] = fcAccumulator;
+
+        fcAccumulator.ChangeTypes |= eventArgs.ChangeType;
+        // handle multiple rename events
+        if (fcAccumulator.OldFullPath == null) {
+          fcAccumulator.OldFullPath = eventArgs.OldFullPath;
+          fcAccumulator.OldName = eventArgs.OldName;
+        }
+        fcAccumulator.FullPath = eventArgs.FullPath;
+        fcAccumulator.Name = eventArgs.Name;
+      }
+      else {
+        fcAccumulator = new FileChangeAccumulator(eventArgs.ChangeType, eventArgs.FullPath, eventArgs.Name!);
+        activeFiles[eventArgs.FullPath] = fcAccumulator;
+      }
+
+      fcAccumulator.FileChange = new FileChange(fcAccumulator, DateTimeOffset.UtcNow);
+      fileChangeQueue.Enqueue(fcAccumulator.FileChange);
+
+      CheckTimerStarted();
+    }
+
+    void RegisterInitialEvents(IEnumerable<FileSystemEventArgs> eventArgsList) {
+      var now = DateTimeOffset.UtcNow;
       lock (syncObj) {
         foreach (var eventArgs in eventArgsList) {
-          if (!activeFiles.TryGetValue(eventArgs.FullPath, out var fcEvent)) {
-            fcEvent = new FileChangeTracker(eventArgs.FullPath);
-            activeFiles[eventArgs.FullPath] = fcEvent;
-          }
-          var fcChange = new FileChange(eventArgs, DateTimeOffset.UtcNow, fcEvent);
-          fcEvent.LastChange = fcChange;
-          fcChangeList.Add(fcChange);
+          var fcAccumulator = new FileChangeAccumulator(eventArgs.ChangeType, eventArgs.FullPath, eventArgs.Name!);
+          activeFiles[eventArgs.FullPath] = fcAccumulator;
+          fcAccumulator.FileChange = new FileChange(fcAccumulator, now);
+          fileChangeQueue.Enqueue(fcAccumulator.FileChange);
         }
+
         CheckTimerStarted();
       }
-      foreach (var fcChange in fcChangeList)
-        fileChangeQueue.Enqueue(fcChange);
     }
 
     // must run under sync lock
@@ -188,22 +275,29 @@ namespace KdSoft.Utils
           if (!fileChangeQueue.TryDequeue(out fileChange))
             return;
 
-          string filePath;
+          string? filePath;
+          FileChangeAccumulator fcAccumulator;
           lock (syncObj) {
             // if no other file changes are active then we process this one
             if (!fileChange.IsLastChange)
               continue;
-            filePath = fileChange.Tracker.FilePath;
-            activeFiles.Remove(filePath);
-            if (activeFiles.Count == 0)
-              CloseTimer();
+            fcAccumulator = fileChange.ChangeAccumulator;
+            // when deletion was the last event, then Name and FullPath are null
+            filePath = fcAccumulator.FullPath ?? fcAccumulator.OldFullPath;
+            if (filePath != null) {
+              activeFiles.Remove(filePath!);
+              if (activeFiles.Count == 0)
+                CloseTimer();
+            }
           }
 
           try {
-            CallHandler(fileChange.EventArgs);
+            var baseDir = Path.GetDirectoryName(filePath);
+            var eventArgs = new RenamedEventArgs(fcAccumulator.ChangeTypes, baseDir!, fcAccumulator.Name, fcAccumulator.OldName);
+            FileChanged?.Invoke(this, eventArgs);
           }
-          catch (Exception) {
-            //TODO log exception?
+          catch (Exception ex) {
+            errorEvent?.Invoke(this, new ErrorEventArgs(ex));
           }
         }
       }
@@ -216,6 +310,11 @@ namespace KdSoft.Utils
       get { lock (syncObj) return cts == null; }
     }
 
+    /// <summary>
+    /// Turns on file change monitoring.
+    /// </summary>
+    /// <param name="detectExisting">If <c>true</c>, then existing files will be reported as newly created files./</param>
+    /// <returns></returns>
     public bool Start(bool detectExisting) {
       // check existing files beforehand so that we don't have a long time gap between 
       // starting the file system watcher and reporting the existing files
@@ -237,7 +336,7 @@ namespace KdSoft.Utils
       }
 
       // now quickly register the existing files as "created" file events
-      RegisterFileEvents(existingFileEvents);
+      RegisterInitialEvents(existingFileEvents);
 
       return true;
     }
@@ -250,6 +349,11 @@ namespace KdSoft.Utils
     }
 #endif
 
+
+    /// <summary>
+    /// Stops file change monitoring after a given time span.
+    /// </summary>
+    /// <param name="timeout">Time span after which to stop.</param>
     public void Stop(TimeSpan timeout) {
       lock (syncObj) {
         if (cts == null)
@@ -269,6 +373,9 @@ namespace KdSoft.Utils
       }
     }
 
+    /// <summary>
+    /// Stops file change monitoring immediately.
+    /// </summary>
     public void Stop() {
       lock (syncObj) {
         if (cts == null)
@@ -283,6 +390,7 @@ namespace KdSoft.Utils
       }
     }
 
+    /// <inheritdoc cref="IDisposable"/>
     public void Dispose() {
       try {
         Stop();
