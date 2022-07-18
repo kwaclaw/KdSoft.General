@@ -325,12 +325,21 @@ namespace KdSoft.Utils
     public bool Start(bool detectExisting) {
       // check existing files beforehand so that we don't have a long time gap between 
       // starting the file system watcher and reporting the existing files
-      IEnumerable<FileSystemEventArgs> existingFileEvents = new FileSystemEventArgs[0];
+      var existingFileEvents = new List<FileSystemEventArgs>();
       if (detectExisting) {
         var option = fsw.IncludeSubdirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
         var dirInfo = new DirectoryInfo(fsw.Path);
-        existingFileEvents = dirInfo.EnumerateFiles(fsw.Filter, option)
-            .Select(fi => new FileSystemEventArgs(WatcherChangeTypes.Created, fi.DirectoryName!, fi.Name));
+#if NET6_0_OR_GREATER
+        foreach (var filter in fsw.Filters) {
+          existingFileEvents.AddRange(
+            dirInfo.EnumerateFiles(filter, option).Select(fi => new FileSystemEventArgs(WatcherChangeTypes.Created, fi.DirectoryName!, fi.Name))
+          );
+        }
+#else
+        existingFileEvents.AddRange(
+          dirInfo.EnumerateFiles(fsw.Filter, option).Select(fi => new FileSystemEventArgs(WatcherChangeTypes.Created, fi.DirectoryName!, fi.Name))
+        );
+#endif
       }
 
       lock (syncObj) {
