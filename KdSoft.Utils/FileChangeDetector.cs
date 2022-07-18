@@ -43,9 +43,10 @@ namespace KdSoft.Utils
 
     /// <summary>
     /// Occurs when a file or directory in the specified <see cref="BaseDirectory"/> is created, deleted, renamed or changed.
-    /// The initial and final file names are reported (if applicable). For deleted files only the initial  file name
-    /// (OldName) is reported, while the (new) name is null. All change types since the last event are indicated in the
-    /// <see cref="FileSystemEventArgs.ChangeType"/> property, but no distinction is possible as to how often a specific type occurred.
+    /// The initial and final file names are reported (if applicable). If deletion was the last event, then only the initial
+    /// file name (OldName) is reported, while the final file name (Name) is null.
+    /// All change types since the last event are indicated in the <see cref="FileSystemEventArgs.ChangeType"/> property,
+    /// but no distinction is possible as to how often a specific change type occurred.
     /// </summary>
     public event RenamedEventHandler? FileChanged;
 
@@ -62,6 +63,7 @@ namespace KdSoft.Utils
         errorEvent -= value;
       }
     }
+
     class FileChangeAccumulator
     {
       public FileChangeAccumulator(WatcherChangeTypes changeTypes, string fullPath, string name) {
@@ -85,11 +87,13 @@ namespace KdSoft.Utils
         this.ChangeAccumulator = changeAccumulator;
         this.ChangeTime = changeTime;
       }
+
       public bool IsLastChange {
-        get { return Object.ReferenceEquals(this, ChangeAccumulator.FileChange); }
+        get { return object.ReferenceEquals(this, ChangeAccumulator.FileChange); }
       }
 
       public FileChangeAccumulator ChangeAccumulator { get; }
+
       public DateTimeOffset ChangeTime { get; }
     }
 
@@ -113,18 +117,19 @@ namespace KdSoft.Utils
     /// Constructor.
     /// </summary>
     /// <param name="baseDirectory">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
-    /// <param name="filter">Filter string used to determine what files are monitored in the directory. Default "*.*".</param>
+    /// <param name="filter">Filter string used to determine what files are monitored in the directory. Defaults to "*.*" when <c>null</c> is passed.</param>
     /// <param name="subDirectories"><c>true</c> if you want to monitor subdirectories; otherwise, <c>false</c>.</param>
     /// <param name="notifyFilters">Type of changes to watch for.</param>
     /// <param name="settleTime">Time span to allow for changes to settle before reporting them.</param>
     public FileChangeDetector(
       string baseDirectory,
-      string filter,
+      string? filter,
       bool subDirectories,
       NotifyFilters notifyFilters,
       TimeSpan settleTime
     ) : this(baseDirectory, subDirectories, notifyFilters, settleTime) {
-      fsw.Filter = filter;
+      if (filter != null)
+        fsw.Filter = filter;
     }
 
 #if NET6_0_OR_GREATER
@@ -138,13 +143,15 @@ namespace KdSoft.Utils
     /// <param name="settleTime">Time span to allow for changes to settle before reporting them.</param>
     public FileChangeDetector(
       string baseDirectory,
-      IEnumerable<string> filters,
+      IEnumerable<string>? filters,
       bool subDirectories,
       NotifyFilters notifyFilters,
       TimeSpan settleTime
     ) : this(baseDirectory, subDirectories, notifyFilters, settleTime) {
-      foreach (var filter in filters) {
-        fsw.Filters.Add(filter);
+      if (filters != null) {
+        foreach (var filter in filters) {
+          fsw.Filters.Add(filter);
+        }
       }
     }
 #endif

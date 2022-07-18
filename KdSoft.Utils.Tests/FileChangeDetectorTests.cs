@@ -15,6 +15,22 @@ namespace KdSoft.Utils.Tests
       this._output = output;
     }
 
+#if NET6_0_OR_GREATER
+    [Fact]
+    public void CheckFilters() {
+      //var nf = NotifyFilters.FileName | NotifyFilters.CreationTime | NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.Attributes;
+      //var settleTime = TimeSpan.FromSeconds(2);
+      using var fsw1 = new FileSystemWatcher("C:\\Temp", "*.txt");
+      using var fsw2 = new FileSystemWatcher("C:\\Temp", "*.bin") {
+        Filters = { "*.txt", "*.dat" }
+      };
+
+      Assert.Equal(fsw1.Filters, new[] { "*.txt" });
+      Assert.Equal(fsw2.Filters, new[] { "*.bin", "*.txt", "*.dat" });
+    }
+#endif
+
+
     [Fact]
     public async Task DetectDirectoryChanges() {
       var changedDir = new DirectoryInfo(Path.Combine(TestUtils.ProjectDir!, "ChangedFiles"));
@@ -57,7 +73,7 @@ namespace KdSoft.Utils.Tests
       // change, rename, delete
       File.WriteAllText(testFile3, "12345");
       File.Move(testFile3, testFile3A);  // rename
-      File.Delete(testFile3A); 
+      File.Delete(testFile3A);
 
       // create + change, move out (= delete), re-create + change, rename
       File.WriteAllText(testFile3, "12345");
