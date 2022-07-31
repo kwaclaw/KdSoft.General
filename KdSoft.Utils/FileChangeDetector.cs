@@ -194,11 +194,14 @@ namespace KdSoft.Utils
     }
 
     void RegisterDeletedEvent(FileSystemEventArgs eventArgs) {
-      if (!activeFiles.TryGetValue(eventArgs.FullPath, out var fcAccumulator)) {
-        return;
+      if (activeFiles.TryGetValue(eventArgs.FullPath, out var fcAccumulator)) {
+        fcAccumulator.ChangeTypes |= eventArgs.ChangeType;
+      }
+      else {
+        fcAccumulator = new FileChangeAccumulator(eventArgs.ChangeType, eventArgs.FullPath, eventArgs.Name!);
+        activeFiles[eventArgs.FullPath] = fcAccumulator;
       }
 
-      fcAccumulator.ChangeTypes |= eventArgs.ChangeType;
       // handle multiple rename events
       if (fcAccumulator.OldFullPath == null) {
         fcAccumulator.OldFullPath = fcAccumulator.FullPath;
@@ -219,17 +222,18 @@ namespace KdSoft.Utils
         activeFiles[eventArgs.FullPath] = fcAccumulator;
 
         fcAccumulator.ChangeTypes |= eventArgs.ChangeType;
-        // handle multiple rename events
-        if (fcAccumulator.OldFullPath == null) {
-          fcAccumulator.OldFullPath = eventArgs.OldFullPath;
-          fcAccumulator.OldName = eventArgs.OldName;
-        }
         fcAccumulator.FullPath = eventArgs.FullPath;
         fcAccumulator.Name = eventArgs.Name;
       }
       else {
         fcAccumulator = new FileChangeAccumulator(eventArgs.ChangeType, eventArgs.FullPath, eventArgs.Name!);
         activeFiles[eventArgs.FullPath] = fcAccumulator;
+      }
+
+      // handle multiple rename events
+      if (fcAccumulator.OldFullPath == null) {
+        fcAccumulator.OldFullPath = eventArgs.OldFullPath;
+        fcAccumulator.OldName = eventArgs.OldName;
       }
 
       fcAccumulator.FileChange = new FileChange(fcAccumulator, DateTimeOffset.UtcNow);
