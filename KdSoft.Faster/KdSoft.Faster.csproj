@@ -5,10 +5,10 @@
   <PropertyGroup>
     <Description>Utilities based on Microsoft.FASTER.Core.</Description>
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
-    <VersionPrefix>2.0.0</VersionPrefix>
+    <VersionPrefix>2.0.1</VersionPrefix>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
-      Updated to Microsoft.FASTER.Core v2.10, which is binary incompatible with versions &lt; 2.0.8.
+      Updated to Microsoft.FASTER.Core v2.5.0, which is binary incompatible with versions &lt; 2.0.8.
     </PackageReleaseNotes>
   </PropertyGroup>
 
