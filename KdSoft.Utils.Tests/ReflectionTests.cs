@@ -12,27 +12,27 @@ namespace KdSoft.Utils.Tests
     public class PropAccess
     {
       public int IntProp { get; set; }
-      public string StringProp { get; set; }
+      public string StringProp { get; set; } = string.Empty;
 
       public static int StaticInt { get; set; }
 
-      public ChildClass Child { get; set; }
+      public ChildClass? Child { get; set; }
     }
 
     public class ChildClass
     {
       public int IntProp { get; set; }
-      public string StringProp { get; set; }
+      public string StringProp { get; set; } = string.Empty;
 
       public static int StaticInt { get; set; }
 
-      public GrandChildClass GrandChild { get; set; }
+      public GrandChildClass? GrandChild { get; set; }
     }
 
     public class GrandChildClass
     {
       public int IntProp { get; set; }
-      public string StringProp { get; set; }
+      public string StringProp { get; set; } = string.Empty;
 
       public static int StaticInt { get; set; }
     }
@@ -76,8 +76,8 @@ namespace KdSoft.Utils.Tests
 
       // static property access without instance
       var stacc = typeof(PropAccess).GetPropertyAccessor("StaticInt");
-      stacc.Value.SetValue(null, intValue);
-      intReturn = stacc.Value.GetValue(null);
+      stacc?.SetValue(null, intValue);
+      intReturn = stacc?.GetValue(null);
 
       Assert.Equal(intValue, intReturn);
 
