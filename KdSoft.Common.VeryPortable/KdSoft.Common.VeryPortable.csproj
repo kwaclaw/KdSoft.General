@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Title>KdSoft.Common.VeryPortable</Title>
     <Description>KdSoft.Common.VeryPortable Class Library</Description>
-    <VersionPrefix>2.0.3</VersionPrefix>
+    <VersionPrefix>2.0.4</VersionPrefix>
     <TargetFrameworks>netstandard1.1;net461;net6.0</TargetFrameworks>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>

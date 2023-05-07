@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Title>KdSoft.Reflection.Portable</Title>
     <Description>KdSoft.Reflection.Portable Class Library</Description>
-    <VersionPrefix>1.0.4</VersionPrefix>
+    <VersionPrefix>1.0.5</VersionPrefix>
     <TargetFrameworks>netstandard1.1;net461;net6.0</TargetFrameworks>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
