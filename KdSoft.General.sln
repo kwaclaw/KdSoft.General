@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31129.286
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CE22FC-E764-4A0F-AC68-EE1ED5654A5E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		BuildDocs.cmd = BuildDocs.cmd
 		CleanupBinObj.cmd = CleanupBinObj.cmd
 		CleanupBinObj.targets = CleanupBinObj.targets
 		common.props = common.props
@@ -37,17 +38,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{95A4107F-5E64-465F-A82F-A07146DBD540}"
 	ProjectSection(SolutionItems) = preProject
 		artifacts\CollectPackages.cmd = artifacts\CollectPackages.cmd
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docfx", "docfx\docfx.csproj", "{04EF75A7-999F-4845-A608-86A5F8A19B8F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{ED7BD722-D557-491E-9E02-DC0DE4B05E94} = {ED7BD722-D557-491E-9E02-DC0DE4B05E94}
-		{F0764048-CEFC-454C-8B29-6447E21024FA} = {F0764048-CEFC-454C-8B29-6447E21024FA}
-		{F8323298-86A8-4F93-8AEC-A795F5190E91} = {F8323298-86A8-4F93-8AEC-A795F5190E91}
-		{576A9DA7-6BEF-4F8F-82D8-CC15F6619B01} = {576A9DA7-6BEF-4F8F-82D8-CC15F6619B01}
-		{85E24FCE-2DCF-4AEF-A171-AB23101D5645} = {85E24FCE-2DCF-4AEF-A171-AB23101D5645}
-		{7CFAC2E5-2BFE-4860-B474-CD72FF83254B} = {7CFAC2E5-2BFE-4860-B474-CD72FF83254B}
-		{F21C6AEC-188C-4792-B8E6-E4A4DD3A113B} = {F21C6AEC-188C-4792-B8E6-E4A4DD3A113B}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.Serialization.Tests", "KdSoft.Serialization.Tests\KdSoft.Serialization.Tests.csproj", "{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}"
@@ -110,9 +100,6 @@ Global
 		{F8323298-86A8-4F93-8AEC-A795F5190E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8323298-86A8-4F93-8AEC-A795F5190E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8323298-86A8-4F93-8AEC-A795F5190E91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04EF75A7-999F-4845-A608-86A5F8A19B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04EF75A7-999F-4845-A608-86A5F8A19B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04EF75A7-999F-4845-A608-86A5F8A19B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6C1493B-5FCD-41B4-9B0B-FE1825CC73D8}.Release|Any CPU.ActiveCfg = Release|Any CPU

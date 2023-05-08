@@ -17,7 +17,7 @@ not based on runtime type information.
 *  It requires that any data members to be serialized are accessible to the framework code (public or internal
 visibility).
 * It is intended to serialize only to generalized byte buffers in the form
-  of `Span<byte>` which allows for zero-copy capability. Thsi way one can
+  of `Span<byte>` which allows for zero-copy capability. This way one can
   avoid  intermediate byte buffers.
 
 Any implementation of the framework has to subclass the following
