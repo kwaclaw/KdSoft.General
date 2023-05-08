@@ -5,25 +5,17 @@
   <PropertyGroup>
     <Title>KdSoft.Utils</Title>
     <Description>KdSoft.Utils Class Library</Description>
-    <VersionPrefix>4.0.2</VersionPrefix>
-    <TargetFrameworks>netstandard1.3;net461;netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
+    <VersionPrefix>4.1.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Bug fixes in FileChangeDetector.
+      Dropped explicit target frameworks netstandard 1.X.
     </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.Primitives " Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem.Watcher" Version="4.3.0" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' OR '$(TargetFramework)' == 'netstandard2.0'">

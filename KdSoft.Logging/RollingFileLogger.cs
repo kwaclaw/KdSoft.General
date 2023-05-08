@@ -164,7 +164,7 @@ namespace KdSoft.Logging
       await foreach (var message in _channel.Reader.ReadAllAsync().ConfigureAwait(false)) {
         if (ReferenceEquals(message, _batchTerminator))
           return false;
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
         Encoding.UTF8.GetBytes(message, _bufferWriter);
 #else
         WriteUtf8ToBuffer(message, _bufferWriter);

@@ -8,7 +8,7 @@ using System.Security.Permissions;
 namespace KdSoft.Utils
 {
 
-#if NET461 || NET5_0_OR_GREATER
+#if NET461 || NET6_0_OR_GREATER
   /// <summary>
   /// An extended XmlWriterTraceListener that starts a new file for every day.
   /// <example>

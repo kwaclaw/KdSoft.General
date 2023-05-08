@@ -5,17 +5,16 @@
   <PropertyGroup>
     <Title>KdSoft.Reflection.Portable</Title>
     <Description>KdSoft.Reflection.Portable Class Library</Description>
-    <VersionPrefix>1.0.5</VersionPrefix>
-    <TargetFrameworks>netstandard1.1;net461;net6.0</TargetFrameworks>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;net461;net6.0</TargetFrameworks>
     <NoWarn>1591</NoWarn>
+    <PackageReleaseNotes>
+      Dropped explicit target frameworks netstandard 1.X.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
-    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

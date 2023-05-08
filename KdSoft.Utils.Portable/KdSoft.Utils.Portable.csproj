@@ -5,14 +5,13 @@
   <PropertyGroup>
     <Title>KdSoft.Utils.Portable</Title>
     <Description>KdSoft.Utils.Portable Class Library</Description>
-    <VersionPrefix>4.0.0</VersionPrefix>
-    <TargetFrameworks>netstandard1.2;net461;netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
+    <VersionPrefix>4.1.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net6.0</TargetFrameworks>
     <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Updated to net6.0 and netstandard2.1 target frameworks. Enabled nullable reference types.
-      Removed obsolete TaskAwaiter and TaskExtensions classes. Minor bug fixes.
+      Dropped explicit target frameworks netstandard 1.X.
     </PackageReleaseNotes>
   </PropertyGroup>
 

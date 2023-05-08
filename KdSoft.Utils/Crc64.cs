@@ -12,17 +12,13 @@ namespace KdSoft.Utils
     public const string Name = "KdSoft.Utils.Crc64";
 
     static Crc64() {
-#if !NETSTANDARD1_3
       CryptoConfig.AddAlgorithm(typeof(Crc64), Name, "Crc64");
-#endif
     }
 
     [CLSCompliant(false)]
     public Crc64(ulong polynome, ulong initCrc) {
       GC.SuppressFinalize(this);
-#if !NETSTANDARD1_3
       this.HashSizeValue = 8;
-#endif
       this.initCrc = initCrc;
       this.crc = initCrc;  // initialize CRC value
       CrcTable = MakeCrcTable(polynome);

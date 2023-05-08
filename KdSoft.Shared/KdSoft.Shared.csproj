@@ -5,9 +5,12 @@
   <PropertyGroup>
     <Title>KdSoft.Shared</Title>
     <Description>KdSoft.Shared Class Library</Description>
-    <VersionPrefix>1.0.1</VersionPrefix>
-    <TargetFrameworks>netstandard1.2;net461;net6.0</TargetFrameworks>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;net461;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
+    <PackageReleaseNotes>
+      Dropped explicit target frameworks netstandard 1.X.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

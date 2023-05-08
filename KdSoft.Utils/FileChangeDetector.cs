@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-#if !NETSTANDARD1_3
 using System.Threading.Tasks;
-#endif
 
 namespace KdSoft.Utils
 {
@@ -361,14 +359,11 @@ namespace KdSoft.Utils
       return true;
     }
 
-#if !NETSTANDARD1_3
     static Task Delay(TimeSpan timeout) {
       var tcs = new TaskCompletionSource<object?>();
       new Timer(_ => tcs.SetResult(null), null, (int)timeout.TotalMilliseconds, -1);
       return tcs.Task;
     }
-#endif
-
 
     /// <summary>
     /// Stops file change monitoring after a given time span.
@@ -378,16 +373,11 @@ namespace KdSoft.Utils
       lock (syncObj) {
         if (cts == null)
           return;
-#if !NETSTANDARD1_3
         var delayedCts = cts;
         Delay(timeout).ContinueWith(_ => {
           delayedCts.Cancel();
           delayedCts.Dispose();
         });
-#else
-        cts.CancelAfter(timeout);
-        cts.Dispose();
-#endif
         cts = null;
         fsw.EnableRaisingEvents = false;
       }

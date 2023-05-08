@@ -1,6 +1,6 @@
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
 
 using System;
 using System.Collections.Generic;

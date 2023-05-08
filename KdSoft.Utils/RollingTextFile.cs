@@ -11,7 +11,7 @@ namespace KdSoft.Utils
   /// <summary>
   /// Class that writes to text file and rolls it when necessary.
   /// </summary>
-#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
   public class RollingTextFile: IDisposable, IAsyncDisposable
 #else
   public class RollingTextFile: IDisposable
@@ -207,7 +207,7 @@ namespace KdSoft.Utils
       GC.SuppressFinalize(this);
     }
 
-#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
     public async ValueTask DisposeAsync() {
       var asyncWriter = await CheckRollover().ConfigureAwait(false);
       await asyncWriter.DisposeAsync().ConfigureAwait(false);
@@ -220,7 +220,7 @@ namespace KdSoft.Utils
     /// <summary>
     /// Implements encoded writing of text.
     /// </summary>
-#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
     protected class AsyncTextFileWriter: IAsyncDisposable
 #else
     protected class AsyncTextFileWriter
@@ -300,7 +300,7 @@ namespace KdSoft.Utils
       /// Closes stream after flushing it (optional).
       /// </summary>
       /// <param name="wait">Flushes stream and waits for flush to complete before closing the stream.</param>
-#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
       public async ValueTask CloseAsync(bool wait = true) {
 #else
       public async Task CloseAsync(bool wait = true) {
@@ -320,7 +320,7 @@ namespace KdSoft.Utils
         }
       }
 
-#if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
       public ValueTask DisposeAsync() => CloseAsync();
 #endif
     }

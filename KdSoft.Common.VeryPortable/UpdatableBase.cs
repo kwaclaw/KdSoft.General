@@ -14,7 +14,6 @@ namespace KdSoft.Common
   {
     public UpdatableBase() {
       publicProperties = new List<PropertyInfo>();
-#if !NETSTANDARD1_1
       var props = this.GetType().GetProperties(
         BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
       foreach (var prop in props) {
@@ -25,17 +24,6 @@ namespace KdSoft.Common
         if (getMethod.IsPublic && setMethod.IsPublic)
           publicProperties.Add(prop);
       }
-#else
-      var props = this.GetType().GetRuntimeProperties();
-      foreach (var prop in props) {
-        var getMethod = prop.GetMethod;
-        var setMethod = prop.SetMethod;
-        if (getMethod == null || setMethod == null)
-          continue;
-        if (getMethod.IsPublic && setMethod.IsPublic)
-          publicProperties.Add(prop);
-      }
-#endif
     }
 
     UpdatableBase original;

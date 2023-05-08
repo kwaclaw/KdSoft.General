@@ -240,15 +240,6 @@ namespace KdSoft.Reflection
       return result;
     }
 
-#if NETSTANDARD1_1
-    static MethodInfo GetterMethod(PropertyInfo propInfo) {
-      return propInfo.GetMethod;
-    }
-
-    static MethodInfo SetterMethod(PropertyInfo propInfo) {
-      return propInfo.SetMethod;
-    }
-#else
     static MethodInfo GetterMethod(PropertyInfo propInfo) {
       return propInfo.GetGetMethod();
     }
@@ -256,14 +247,9 @@ namespace KdSoft.Reflection
     static MethodInfo SetterMethod(PropertyInfo propInfo) {
       return propInfo.GetSetMethod();
     }
-#endif
 
     static PropertyAccessor[] CreatePropertyAccessors(Type type) {
-#if NETSTANDARD1_1
-      var props = type.GetRuntimeProperties();
-#else
       var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-#endif
       var result = new List<PropertyAccessor>();
 
       foreach (var pi in props) {
@@ -373,11 +359,7 @@ namespace KdSoft.Reflection
     }
 
     public static IEnumerable<PropertyInfo> GetPublicGetSetProperties(this Type type) {
-#if NETSTANDARD1_1
-      var props = type.GetRuntimeProperties();
-#else
       var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-#endif
 
       foreach (PropertyInfo propInfo in props) {
         // must be readable and writable
