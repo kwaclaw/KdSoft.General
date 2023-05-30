@@ -40,7 +40,7 @@ namespace KdSoft.Faster
     /// <returns><inheritdoc cref="FasterLogScanIterator.GetNext(MemoryPool{Byte}, out IMemoryOwner{Byte}, out int, out long, out long)"/></returns>
     /// <remarks>Updates internal _nextAddress field.</remarks>
     public bool TryRead([MaybeNullWhen(false)] out IMemoryOwner<byte> item, out int entryLength) {
-      if (_iter.GetNext(_pool, out item, out entryLength, out var currentAddress, out _nextAddress)) {
+      if (_iter.GetNext(_pool, out item, out entryLength, out _, out _nextAddress)) {
         return true;
       }
       item = null;
@@ -99,8 +99,8 @@ namespace KdSoft.Faster
 
     /// <inheritdoc cref="IDisposable.Dispose()"/>
     public void Dispose() {
-      _iter.Dispose();
-      _pool.Dispose();
+      _iter?.Dispose();
+      _pool?.Dispose();
     }
   }
 }

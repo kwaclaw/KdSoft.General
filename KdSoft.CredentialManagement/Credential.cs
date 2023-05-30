@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Text;
 using static KdSoft.CredentialManagement.NativeMethods;
 
@@ -174,7 +172,7 @@ namespace KdSoft.CredentialManagement
             return Exists(_target!, _type);
         }
 
-        string? CheckStringLength(string? value, int maxLength, [CallerMemberName] string propertyName = "") {
+        static string? CheckStringLength(string? value, int maxLength, [CallerMemberName] string propertyName = "") {
             if (value?.Length > maxLength)
                 throw new ArgumentOutOfRangeException($"The size of {propertyName} must not exceed {maxLength} characters.");
             return value;

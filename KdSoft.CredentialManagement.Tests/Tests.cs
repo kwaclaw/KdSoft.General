@@ -15,7 +15,7 @@ namespace KdSoft.CredentialManagement.Tests
             this._output = output;
         }
 
-        void CheckWin32Error() {
+        static void CheckWin32Error() {
             var err = Marshal.GetLastWin32Error();
             if (err != 0)
                 throw new Win32Exception(err);

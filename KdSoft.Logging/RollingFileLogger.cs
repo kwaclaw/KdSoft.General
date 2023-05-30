@@ -96,7 +96,8 @@ namespace KdSoft.Logging
       }
     }
 
-    public IDisposable BeginScope<TState>(TState state) => NullLogger.Instance.BeginScope(state);
+    public IDisposable BeginScope<TState>(TState state) where TState: notnull
+        => NullLogger.Instance.BeginScope(state);
 
     public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None && logLevel >= _minLevel;
 

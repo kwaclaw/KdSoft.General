@@ -99,7 +99,7 @@ namespace KdSoft.Utils.Tests
 
       Assert.Equal(WatcherChangeTypes.Changed | WatcherChangeTypes.Renamed | WatcherChangeTypes.Deleted, changeList[0].ChangeType);
       Assert.Equal(testFile3, changeList[0].OldFullPath);
-      Assert.Equal(null, changeList[0].Name);  // due to deletion
+      Assert.Null(changeList[0].Name);  // due to deletion
 
       Assert.Equal(WatcherChangeTypes.All, changeList[1].ChangeType);
       Assert.Equal(testFile3, changeList[1].OldFullPath);
