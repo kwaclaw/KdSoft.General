@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\common.props" />
+
+    <PropertyGroup>
+        <Description>Text message exchange through Named Pipes.</Description>
+        <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PackageReleaseNotes>
+            Initial release.
+        </PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
+    </ItemGroup>
+    
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+        <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
+    </ItemGroup>
+
+</Project>

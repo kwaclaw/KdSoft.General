@@ -58,6 +58,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.CredentialManagement
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.CredentialManagement.Tests", "KdSoft.CredentialManagement.Tests\KdSoft.CredentialManagement.Tests.csproj", "{E84375D2-17A1-4105-A033-BA67A7FB2D09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.NamedPipe", "KdSoft.NamedPipe\KdSoft.NamedPipe.csproj", "{C6E39936-6D58-4EBB-ABD0-EBF19E455312}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.NamedPipe.Tests", "KdSoft.NamedPipe.Tests\KdSoft.NamedPipe.Tests.csproj", "{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +132,14 @@ Global
 		{E84375D2-17A1-4105-A033-BA67A7FB2D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E84375D2-17A1-4105-A033-BA67A7FB2D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E84375D2-17A1-4105-A033-BA67A7FB2D09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E39936-6D58-4EBB-ABD0-EBF19E455312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E39936-6D58-4EBB-ABD0-EBF19E455312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E39936-6D58-4EBB-ABD0-EBF19E455312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E39936-6D58-4EBB-ABD0-EBF19E455312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
