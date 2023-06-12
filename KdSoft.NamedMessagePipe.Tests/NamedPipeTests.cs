@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -18,7 +19,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var server = new NamedMessagePipeServer(PipeName, cts.Token, 16);
             var readTask = Task.Run(async () => {
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                 }
                 _output.WriteLine("End of messages");
@@ -26,7 +27,8 @@ namespace KdSoft.NamedMessagePipe.Tests
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName).ConfigureAwait(false);
             for (int indx = 0; indx < 10; indx++) {
-                await client.WriteAsync(Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}")).ConfigureAwait(false);
+                var msgBytes = Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}");
+                await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
             }
             client.WaitForPipeDrain();
 
@@ -42,7 +44,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var server1 = new NamedMessagePipeServer(PipeName, cts.Token, 16);
             var server1Task = Task.Run(async () => {
                 await foreach (var msgSequence in server1.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                 }
                 _output.WriteLine("Server1: End of messages");
@@ -51,7 +53,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var server2 = new NamedMessagePipeServer(PipeName, cts.Token, 16);
             var server2Task = Task.Run(async () => {
                 await foreach (var msgSequence in server2.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                 }
                 _output.WriteLine("Server2: End of messages");
@@ -60,7 +62,8 @@ namespace KdSoft.NamedMessagePipe.Tests
             async Task RunClient(int clientIndex) {
                 using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName).ConfigureAwait(false);
                 for (int indx = 0; indx < 10; indx++) {
-                    await client.WriteAsync(Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}")).ConfigureAwait(false);
+                    var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
+                    await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
                 }
                 client.WaitForPipeDrain();
             }
@@ -85,25 +88,29 @@ namespace KdSoft.NamedMessagePipe.Tests
             // server listens for incoming messages and replies with a number of messages
             var serverTask = Task.Run(async () => {
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                     for (int indx = 0; indx < 10; indx++) {
-                        await server.WriteAsync(Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}")).ConfigureAwait(false);
+                        var msgBytes = Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}");
+                        await server.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+
                     }
-                    await server.WriteAsync(Encoding.UTF8.GetBytes("Last Message")).ConfigureAwait(false);
+                    var lastBytes = Encoding.UTF8.GetBytes("Last Message");
+                    await server.WriteAsync(lastBytes, 0, lastBytes.Length).ConfigureAwait(false);
                 }
                 _output.WriteLine("End of messages");
             });
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName).ConfigureAwait(false);
-            await client.WriteAsync(Encoding.UTF8.GetBytes($"Hello server")).ConfigureAwait(false);
+            var helloBytes = Encoding.UTF8.GetBytes("Last Message");
+            await client.WriteAsync(helloBytes, 0, helloBytes.Length).ConfigureAwait(false);
             client.WaitForPipeDrain();
 
             // the client's listening loop will only end when the client is disposed, as this triggers the read/listen cancellation token;
             // it depends on the server sending the termination message
             var clientCts = new CancellationTokenSource();
             await foreach (var msgSequence in client.Messages(clientCts.Token).ConfigureAwait(false)) {
-                var msg = Encoding.UTF8.GetString(msgSequence);
+                var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                 _output.WriteLine(msg);
                 if (msg == "Last Message") {
                     clientCts.Cancel();
@@ -127,17 +134,18 @@ namespace KdSoft.NamedMessagePipe.Tests
 
             var serverTask = Task.Run(async () => {
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                     var reply = Encoding.UTF8.GetBytes($"Reply to {msg}");
-                    await server.WriteAsync(reply).ConfigureAwait(false);
+                    await server.WriteAsync(reply, 0, reply.Length).ConfigureAwait(false);
                 }
                 _output.WriteLine("Server: End of messages");
             });
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName).ConfigureAwait(false);
             for (int indx = 0; indx < 10; indx++) {
-                await client.WriteAsync(Encoding.UTF8.GetBytes($"A very long message exceeding 16 bytes, index: {indx}")).ConfigureAwait(false);
+                var msgBytes = Encoding.UTF8.GetBytes($"A very long message exceeding 16 bytes, index: {indx}");
+                await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
 
                 // we can only end the listening loop by cancellation, otherwise the loop will hang
                 var clientCts = new CancellationTokenSource();
@@ -153,7 +161,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 
                 // this restarts the listener
                 await foreach (var msgSequence in client.Messages(clientCts.Token).ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                     // we expect only one message, so we end the loop
                     clientCts.Cancel();
@@ -178,10 +186,10 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var server1 = new NamedMessagePipeServer(PipeName, serverCts.Token, 16);
             var server1Task = Task.Run(async () => {
                 await foreach (var msgSequence in server1.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                     var reply = Encoding.UTF8.GetBytes($"Server1 reply to {msg}");
-                    await server1.WriteAsync(reply).ConfigureAwait(false);
+                    await server1.WriteAsync(reply, 0, reply.Length).ConfigureAwait(false);
                 }
                 _output.WriteLine("Server1: End of messages");
             });
@@ -189,10 +197,10 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var server2 = new NamedMessagePipeServer(PipeName, serverCts.Token, 16);
             var server2Task = Task.Run(async () => {
                 await foreach (var msgSequence in server2.Messages().ConfigureAwait(false)) {
-                    var msg = Encoding.UTF8.GetString(msgSequence);
+                    var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                     _output.WriteLine(msg);
                     var reply = Encoding.UTF8.GetBytes($"Server2 reply to {msg}");
-                    await server2.WriteAsync(reply).ConfigureAwait(false);
+                    await server2.WriteAsync(reply, 0, reply.Length).ConfigureAwait(false);
                 }
                 _output.WriteLine("Server2: End of messages");
             });
@@ -200,14 +208,15 @@ namespace KdSoft.NamedMessagePipe.Tests
             async Task RunClient(int clientIndex) {
                 using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName).ConfigureAwait(false);
                 for (int indx = 0; indx < 10; indx++) {
-                    await client.WriteAsync(Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}")).ConfigureAwait(false);
+                    var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
+                    await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
 
                     // we can only end the listening loop by cancellation, otherwise the loop will hang
                     var clientCts = new CancellationTokenSource();
 
                     // this restarts the listener
                     await foreach (var msgSequence in client.Messages(clientCts.Token).ConfigureAwait(false)) {
-                        var msg = Encoding.UTF8.GetString(msgSequence);
+                        var msg = Encoding.UTF8.GetString(msgSequence.ToArray());
                         _output.WriteLine(msg);
                         // we expect only one message, so we end the loop
                         clientCts.Cancel();

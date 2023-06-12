@@ -59,11 +59,12 @@ namespace KdSoft.NamedMessagePipe
 #endif
             while (!_listenCancelToken.IsCancellationRequested) {
                 try {
+                    //BUG: on .NET Framework, WaitForConnectionAsync cannot be cancelled!
                     await _server.WaitForConnectionAsync(_listenCancelToken).ConfigureAwait(false);
 
                     while (!_listenCancelToken.IsCancellationRequested) {
 #if NETFRAMEWORK
-                        var count = await _server.ReadAsync(buffer, 0, buffer.Length, _listenCancelToken).ConfigureAwait(false);
+                        var count = _server.Read(buffer, 0, buffer.Length);
                         var memory = new ReadOnlyMemory<byte>(buffer, 0, count);
                         pipelineWriter.Write(memory.Span);
 #else
@@ -79,14 +80,11 @@ namespace KdSoft.NamedMessagePipe
                             // we assume UTF8 string data, so we can use 0 as message separator
                             pipelineWriter.Write(_messageSeparator.AsSpan());
                         }
-
                         var flr = await pipelineWriter.FlushAsync(_listenCancelToken).ConfigureAwait(false);
                         if (flr.IsCompleted) {
                             break;
                         }
                     }
-                    // The client will send no more, disconnecting
-                    _server.Disconnect();
                 }
                 catch (OperationCanceledException) {
                     break;
@@ -109,7 +107,7 @@ namespace KdSoft.NamedMessagePipe
             return base.GetMessages(_listenCancelToken, _listenTask);
         }
 
-        /// <inheritdoc cref="NamedPipeServerStream.Disconnect."/>
+        /// <inheritdoc cref="NamedPipeServerStream.Disconnect"/>
         public void Disconnect() {
             _server.Disconnect();
         }
