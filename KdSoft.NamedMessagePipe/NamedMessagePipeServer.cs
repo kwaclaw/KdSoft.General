@@ -7,7 +7,12 @@ namespace KdSoft.NamedMessagePipe
     /// <summary>
     /// NamedPipe server that handles message buffers without null bytes (e.g. UTF8-encoded strings).
     /// </summary>
-    public class NamedMessagePipeServer: NamedMessagePipeBase, IDisposable, IAsyncDisposable
+    public class NamedMessagePipeServer
+#if NETFRAMEWORK
+        : NamedMessagePipeBase, IDisposable
+#else
+        : NamedMessagePipeBase, IDisposable, IAsyncDisposable
+#endif
     {
         readonly NamedPipeServerStream _server;
         readonly int _minBufferSize;
@@ -43,22 +48,32 @@ namespace KdSoft.NamedMessagePipe
         /// <inheritdoc />
         public void Dispose() => _server.Dispose();
 
+#if !NETFRAMEWORK
         /// <inheritdoc />
         public ValueTask DisposeAsync() => _server.DisposeAsync();
+#endif
 
         async Task Listen(PipeLines.PipeWriter pipelineWriter) {
+#if NETFRAMEWORK
+            var buffer = new byte[_minBufferSize];
+#endif
             while (!_listenCancelToken.IsCancellationRequested) {
                 try {
                     await _server.WaitForConnectionAsync(_listenCancelToken).ConfigureAwait(false);
 
                     while (!_listenCancelToken.IsCancellationRequested) {
+#if NETFRAMEWORK
+                        var count = await _server.ReadAsync(buffer, 0, buffer.Length, _listenCancelToken).ConfigureAwait(false);
+                        var memory = new ReadOnlyMemory<byte>(buffer, 0, count);
+                        pipelineWriter.Write(memory.Span);
+#else
                         var memory = pipelineWriter.GetMemory(_minBufferSize);
                         var count = await _server.ReadAsync(memory, _listenCancelToken).ConfigureAwait(false);
+                        pipelineWriter.Advance(count);
+#endif
                         if (count == 0) {
                             break;
                         }
-
-                        pipelineWriter.Advance(count);
 
                         if (_server.IsMessageComplete) {
                             // we assume UTF8 string data, so we can use 0 as message separator
@@ -99,6 +114,7 @@ namespace KdSoft.NamedMessagePipe
             _server.Disconnect();
         }
 
+#if !NETFRAMEWORK
         /// <summary>
         /// Write message buffer to current connection.
         /// See <see cref="PipeStream.WriteAsync(ReadOnlyMemory{byte}, CancellationToken)"/>.
@@ -109,6 +125,19 @@ namespace KdSoft.NamedMessagePipe
         public ValueTask WriteAsync(ReadOnlyMemory<byte> message, CancellationToken cancelToken = default) {
             var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
             return _server.WriteAsync(message, cts.Token);
+        }
+#endif
+
+
+        /// <inheritdoc cref="Stream.WriteAsync(byte[], int, int, CancellationToken)"/>
+        public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
+            return _server.WriteAsync(message, offset, count, cts.Token);
+        }
+
+        /// <inheritdoc cref="Stream.FlushAsync(CancellationToken)"/>
+        public Task FlushAsync(CancellationToken cancelToken = default) {
+            return _server.FlushAsync(cancelToken);
         }
     }
 }
