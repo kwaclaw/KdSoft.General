@@ -70,8 +70,6 @@ namespace KdSoft.NamedMessagePipe
                             break;
                         }
                     }
-                    // The client will send no more, disconnecting
-                    _server.Disconnect();
                 }
                 catch (OperationCanceledException) {
                     break;
@@ -94,7 +92,7 @@ namespace KdSoft.NamedMessagePipe
             return base.GetMessages(_listenCancelToken, _listenTask);
         }
 
-        /// <inheritdoc cref="NamedPipeServerStream.Disconnect."/>
+        /// <inheritdoc cref="NamedPipeServerStream.Disconnect"/>
         public void Disconnect() {
             _server.Disconnect();
         }

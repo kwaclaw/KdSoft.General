@@ -8,6 +8,8 @@
         <VersionPrefix>1.0.0</VersionPrefix>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+
         <PackageReleaseNotes>
             Initial release.
         </PackageReleaseNotes>
