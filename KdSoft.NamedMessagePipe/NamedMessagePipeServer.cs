@@ -2,16 +2,18 @@
 using System.IO.Pipes;
 using PipeLines = System.IO.Pipelines;
 
-namespace KdSoft.NamedPipe
+namespace KdSoft.NamedMessagePipe
 {
     /// <summary>
     /// NamedPipe server that handles message buffers without null bytes (e.g. UTF8-encoded strings).
     /// </summary>
-    public class NamedPipeMessageServer: NamedPipeMessageBase, IDisposable, IAsyncDisposable
+    public class NamedMessagePipeServer: NamedMessagePipeBase, IDisposable, IAsyncDisposable
     {
         readonly NamedPipeServerStream _server;
         readonly int _minBufferSize;
+        /// <summary>CancellationToken that stops the server.</summary>
         protected readonly CancellationToken _listenCancelToken;
+        /// <summary>CancellationToken that stops the server.</summary>
         protected readonly Task _listenTask;
 
         /// <summary>
@@ -21,7 +23,7 @@ namespace KdSoft.NamedPipe
         /// <param name="listenCancelToken">CancellationToken that stops the server.</param>
         /// <param name="maxServers">Maximum number of servers to instantiate.</param>
         /// <param name="minBufferSize">Minimum buffer size for receiving incoming messages.</param>
-        public NamedPipeMessageServer(
+        public NamedMessagePipeServer(
             string name,
             CancellationToken listenCancelToken, 
             int maxServers = NamedPipeServerStream.MaxAllowedServerInstances,
@@ -35,9 +37,13 @@ namespace KdSoft.NamedPipe
             _listenTask = Listen(_pipeline.Writer);
         }
 
+        /// <summary>Task representing the listening process.</summary>
         public Task ListenTask => _listenTask;
 
+        /// <inheritdoc />
         public void Dispose() => _server.Dispose();
+
+        /// <inheritdoc />
         public ValueTask DisposeAsync() => _server.DisposeAsync();
 
         async Task Listen(PipeLines.PipeWriter pipelineWriter) {
@@ -71,6 +77,7 @@ namespace KdSoft.NamedPipe
                     break;
                 }
                 catch (Exception ex) {
+                    //TODO how to log this exception?
                     break;
                 }
                 finally {
@@ -87,15 +94,14 @@ namespace KdSoft.NamedPipe
             return base.GetMessages(_listenCancelToken, _listenTask);
         }
 
-        /// <summary>
-        /// Disconnects from current client.
-        /// </summary>
+        /// <inheritdoc cref="NamedPipeServerStream.Disconnect."/>
         public void Disconnect() {
             _server.Disconnect();
         }
 
         /// <summary>
         /// Write message buffer to current connection.
+        /// See <see cref="PipeStream.WriteAsync(ReadOnlyMemory{byte}, CancellationToken)"/>.
         /// </summary>
         /// <param name="message">Message buffer, must not contain null bytes.</param>
         /// <param name="cancelToken">Cancels write operation.</param>

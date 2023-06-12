@@ -3,17 +3,23 @@ using System.Collections.Immutable;
 using System.IO.Pipelines;
 using System.Runtime.CompilerServices;
 
-namespace KdSoft.NamedPipe
+namespace KdSoft.NamedMessagePipe
 {
-    public abstract class NamedPipeMessageBase
+    /// <summary>
+    /// Base class for <see cref="NamedMessagePipeServer"/> and <see cref="NamedMessagePipeClient"/>.
+    /// </summary>
+    public abstract class NamedMessagePipeBase
     {
+        /// <summary>Name of pipe.</summary>
         protected readonly string _name;
+        /// <summary><see cref="Pipe"/> used internally for message processing.</summary>
         protected readonly Pipe _pipeline;
-
+        /// <summary>Message separator to pass to <see cref="BuffersExtensions.Write{T}(IBufferWriter{T}, ReadOnlySpan{T})"/>.</summary>
         protected readonly static ImmutableArray<byte> _messageSeparator = ImmutableArray<byte>.Empty.Add(0);
 
-        public NamedPipeMessageBase(string name)
-        {
+        /// <summary>Constructor.</summary>
+        /// <param name="name">Name of pipe.</param>
+        public NamedMessagePipeBase(string name) {
             this._name = name;
             _pipeline = new Pipe();
         }
@@ -24,11 +30,9 @@ namespace KdSoft.NamedPipe
         /// <param name="buffer">Buffer to parse, gets updated when a complete message is retrieved.</param>
         /// <param name="msgBytes">The message retrieved.</param>
         /// <returns><c>true</c> if a new complete message could be parsed, <c>false</c> otherwise.</returns>
-        bool TryReadMessage(ref ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> msgBytes)
-        {
+        bool TryReadMessage(ref ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> msgBytes) {
             var pos = buffer.PositionOf((byte)0);
-            if (pos == null)
-            {
+            if (pos == null) {
                 msgBytes = default;
                 return false;
             }
@@ -44,32 +48,27 @@ namespace KdSoft.NamedPipe
         /// Async enumerable returning messages received.
         /// </summary>
         /// <param name="readCancelToken">CancellationToken to cancel reading messages.</param>
-        /// <param name="lastTask">Task com wait for at then end of the enumeration. Can be used for anything.</param>
-        protected async IAsyncEnumerable<ReadOnlySequence<byte>> GetMessages([EnumeratorCancellation] CancellationToken readCancelToken, Task? lastTask = null)
-        {
+        /// <param name="lastTask">Task to wait for at then end of the enumeration. This ensures
+        /// that the enumeration finishes *after* the task has completed. Can be used for anything.</param>
+        protected async IAsyncEnumerable<ReadOnlySequence<byte>> GetMessages([EnumeratorCancellation] CancellationToken readCancelToken, Task? lastTask = null) {
             var pipelineReader = _pipeline.Reader;
-            while (!readCancelToken.IsCancellationRequested)
-            {
+            while (!readCancelToken.IsCancellationRequested) {
                 ReadOnlySequence<byte> buffer;
                 ReadResult readResult;
-                try
-                {
+                try {
                     readResult = await pipelineReader.ReadAsync(readCancelToken).ConfigureAwait(false);
                     buffer = readResult.Buffer;
                 }
-                catch (OperationCanceledException)
-                {
+                catch (OperationCanceledException) {
                     pipelineReader.Complete();
                     break;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     pipelineReader.Complete(ex);
                     throw;
                 }
 
-                while (TryReadMessage(ref buffer, out var msgBytes))
-                {
+                while (TryReadMessage(ref buffer, out var msgBytes)) {
                     yield return msgBytes;
                 }
 

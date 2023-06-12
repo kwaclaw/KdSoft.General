@@ -58,9 +58,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.CredentialManagement
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.CredentialManagement.Tests", "KdSoft.CredentialManagement.Tests\KdSoft.CredentialManagement.Tests.csproj", "{E84375D2-17A1-4105-A033-BA67A7FB2D09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.NamedPipe", "KdSoft.NamedPipe\KdSoft.NamedPipe.csproj", "{C6E39936-6D58-4EBB-ABD0-EBF19E455312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.NamedMessagePipe", "KdSoft.NamedMessagePipe\KdSoft.NamedMessagePipe.csproj", "{C6E39936-6D58-4EBB-ABD0-EBF19E455312}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KdSoft.NamedPipe.Tests", "KdSoft.NamedPipe.Tests\KdSoft.NamedPipe.Tests.csproj", "{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdSoft.NamedMessagePipe.Tests", "KdSoft.NamedMessagePipe.Tests\KdSoft.NamedMessagePipe.Tests.csproj", "{CF1DDCCA-5D22-41FC-81E9-8BDC842C9107}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
