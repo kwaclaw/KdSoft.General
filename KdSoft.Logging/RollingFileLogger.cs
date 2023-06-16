@@ -191,7 +191,7 @@ namespace KdSoft.Logging
       bool isCompleted;
       do {
         // checks rollover conditions and returns appropriate file stream
-        var stream = await _fileFactory.GetCurrentFileStream().ConfigureAwait(false);
+        var stream = _fileFactory.GetCurrentFileStream();
         isCompleted = await ProcessBatchToBuffer().ConfigureAwait(false);
         await WriteBatchAsync(stream).ConfigureAwait(false);
       } while (!isCompleted);

@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
+﻿#if !NETFRAMEWORK
 
 using System;
 using System.Buffers;
@@ -40,11 +40,11 @@ namespace KdSoft.Utils.Tests
         for (int indx = 0; indx < 9790000; indx++) {
           // every 100 lines check for rollover
           if (indx % 100 == 0) {
-            stream = await fileFactory.GetCurrentFileStream().ConfigureAwait(false);
+            stream = fileFactory.GetCurrentFileStream();
           }
           var str = string.Format(line, indx, "T");
           bufferWriter.Clear();
-          var byteCount = Encoding.UTF8.GetBytes(str, bufferWriter);
+          var byteCount = Encoding.UTF8.GetBytes(str, bufferWriter.GetSpan());
           if (stream != null)
             await stream.WriteAsync(bufferWriter.WrittenMemory).ConfigureAwait(false);
         }
@@ -95,10 +95,10 @@ namespace KdSoft.Utils.Tests
         await foreach (var str in channel.Reader.ReadAllAsync().ConfigureAwait(false)) {
           // every 100 lines check for rollover
           if (counter++ % 100 == 0) {
-            stream = await fileFactory.GetCurrentFileStream().ConfigureAwait(false);
+            stream = fileFactory.GetCurrentFileStream();
           }
           bufferWriter.Clear();
-          var byteCount = Encoding.UTF8.GetBytes(str, bufferWriter);
+          var byteCount = Encoding.UTF8.GetBytes(str, bufferWriter.GetSpan());
           if (stream != null)
             await stream.WriteAsync(bufferWriter.WrittenMemory).ConfigureAwait(false);
         }

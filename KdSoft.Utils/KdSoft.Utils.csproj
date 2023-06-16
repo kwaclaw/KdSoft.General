@@ -5,12 +5,12 @@
   <PropertyGroup>
     <Title>KdSoft.Utils</Title>
     <Description>KdSoft.Utils Class Library</Description>
-    <VersionPrefix>4.1.0</VersionPrefix>
+    <VersionPrefix>5.0.0</VersionPrefix>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Dropped explicit target frameworks netstandard 1.X.
+      Changed RollingFileFactory.GetCurrentStream back to a synchronous method. 
     </PackageReleaseNotes>
   </PropertyGroup>
 

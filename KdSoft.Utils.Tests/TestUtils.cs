@@ -4,7 +4,7 @@ using Microsoft.DotNet.PlatformAbstractions;
 
 namespace KdSoft.Utils.Tests
 {
-  static class TestUtils
+  public static class TestUtils
   {
     static string? projectDir;
     public static string? ProjectDir {
