@@ -4,31 +4,29 @@
 
     <PropertyGroup>
         <Description>Text message exchange through Named Pipes.</Description>
-        <TargetFrameworks>net472;netstandard2.1;net6.0</TargetFrameworks>
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <TargetFrameworks>net462;netstandard2.1;net6.0</TargetFrameworks>
+        <VersionPrefix>1.1.0</VersionPrefix>
         <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>latest</LangVersion>
 
         <PackageReleaseNotes>
-            Initial release.
+            Bug fixes, added support for .NET Framework, added EventSource instrumentation.
         </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
     </ItemGroup>
-    
+
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
         <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
+        <PackageReference Include="System.Text.Json" Version="7.0.3" />
     </ItemGroup>
-    
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
-        <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
         <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
-        <PackageReference Include="System.Net.Http" Version="4.3.4" />
-        <PackageReference Include="System.IO.Pipes" Version="4.3.0" />
     </ItemGroup>
 
 </Project>
