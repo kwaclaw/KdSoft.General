@@ -5,19 +5,19 @@
   <PropertyGroup>
     <Description>Utilities based on Microsoft.FASTER.Core.</Description>
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
-    <VersionPrefix>2.0.3</VersionPrefix>
+    <VersionPrefix>2.0.4</VersionPrefix>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
-      Updated to Microsoft.FASTER.Core v2.5.6, which is binary incompatible with versions &lt; 2.0.8.
+      Updated to Microsoft.FASTER.Core v2.5.10, which is binary incompatible with versions &lt; 2.0.8.
     </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="System.Threading.Channels" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Channels" Version="7.0.0" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.FASTER.Core" Version="2.5.6" />
+    <PackageReference Include="Microsoft.FASTER.Core" Version="2.5.10" />
   </ItemGroup>
 
 </Project>
