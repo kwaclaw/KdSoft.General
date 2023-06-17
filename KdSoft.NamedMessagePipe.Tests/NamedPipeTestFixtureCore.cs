@@ -18,6 +18,7 @@ namespace KdSoft.NamedMessagePipe.Tests
         EventPipeSession? _session;
         readonly ArrayBufferWriter<byte> _bufferWriter;
         readonly ReadOnlyMemory<byte> _newLineMemory;
+        readonly object _lock = new object();
 
         public NamedPipeTestFixtureCore() {
             _newLineMemory = base._newLine;
@@ -89,14 +90,16 @@ namespace KdSoft.NamedMessagePipe.Tests
 
                 var source = new EventPipeEventSource(_session.EventStream);
                 source.Dynamic.All += (TraceEvent evt) => {
-                    try {
-                        _bufferWriter.Clear();
-                        WriteEventJson(evt, jsonWriter);
-                        _bufferWriter.Write(_newLineMemory.Span);
-                        _logPipe.Writer.Write(_bufferWriter.WrittenMemory.Span);
-                    }
-                    catch {
-                        //
+                    lock (_lock) {
+                        try {
+                            _bufferWriter.Clear();
+                            WriteEventJson(evt, jsonWriter);
+                            _bufferWriter.Write(_newLineMemory.Span);
+                            _logPipe.Writer.Write(_bufferWriter.WrittenMemory.Span);
+                        }
+                        catch {
+                            //
+                        }
                     }
                 };
                 return source;

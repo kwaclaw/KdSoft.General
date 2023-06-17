@@ -12,14 +12,17 @@ namespace KdSoft.NamedMessagePipe.Tests
         readonly TestEventListener _eventListener;
         readonly Stream _logPipeWriterStream;
         readonly Utf8JsonWriter _jsonWriter;
+        readonly object _lock = new object();
 
         public NamedPipeTestFixtureFramework() {
             _logPipeWriterStream = _logPipe.Writer.AsStream();
             _jsonWriter = new Utf8JsonWriter(_logPipeWriterStream, _jsonOptions);
             _eventListener = new TestEventListener();
             _eventListener.EventWritten += (s, evt) => {
-                WriteEventJson(evt, _jsonWriter);
-                _logPipeWriterStream.Write(_newLine, 0, _newLine.Length);
+                lock (_lock) {
+                    WriteEventJson(evt, _jsonWriter);
+                    _logPipeWriterStream.Write(_newLine, 0, _newLine.Length);
+                }
             };
         }
 
