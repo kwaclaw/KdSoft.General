@@ -12,6 +12,8 @@
         <PackageReleaseNotes>
             Bug fixes, added support for .NET Framework, added EventSource instrumentation.
         </PackageReleaseNotes>
+
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>

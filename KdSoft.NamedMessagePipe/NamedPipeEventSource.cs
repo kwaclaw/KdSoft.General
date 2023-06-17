@@ -16,6 +16,8 @@ namespace KdSoft.NamedMessagePipe
     [EventSource]
     public class NamedPipeEventSource: EventSource
     {
+        public const string DefaultName = "KdSoft." + nameof(NamedMessagePipe);
+
 #if NETFRAMEWORK
         static readonly JsonSerializerSettings JsonSerializerSettings;
 
@@ -84,7 +86,7 @@ namespace KdSoft.NamedMessagePipe
         public static readonly NamedPipeEventSource Log = CreateInstance();
 
         static NamedPipeEventSource CreateInstance() {
-            var instance = new NamedPipeEventSource("KdSoft." + nameof(NamedMessagePipe));
+            var instance = new NamedPipeEventSource(DefaultName);
             return instance;
         }
 
@@ -124,6 +126,198 @@ namespace KdSoft.NamedMessagePipe
                 baseExceptions.Add(baseEx);
             }
         }
+
+        #region Custom WriteEvent overloads
+
+        [NonEvent]
+        public unsafe void WriteEvent(int eventId, string? arg1, string? arg2, int arg3) {
+            if (!IsEnabled()) {
+                return;
+            }
+
+            if (arg1 == null)
+                arg1 = "";
+            if (arg2 == null)
+                arg2 = "";
+            fixed (char* arg1Ptr = arg1, arg2Ptr = arg2) {
+                EventData* dataDesc = stackalloc EventData[3];
+
+                dataDesc[0].DataPointer = (IntPtr)arg1Ptr;
+                dataDesc[0].Size = (arg1.Length + 1) * 2; // Size in bytes, including a null terminator.
+                dataDesc[1].DataPointer = (IntPtr)(arg2Ptr);
+                dataDesc[1].Size = (arg2.Length + 1) * 2;
+                dataDesc[2].DataPointer = (IntPtr)(&arg3);
+                dataDesc[2].Size = sizeof(int);
+
+                WriteEventCore(eventId, 3, dataDesc);
+            }
+        }
+
+        [NonEvent]
+        public unsafe void WriteEvent(int eventId, string? arg1, string? arg2, string? arg3, int arg4) {
+            if (!IsEnabled()) {
+                return;
+            }
+
+            if (arg1 == null)
+                arg1 = "";
+            if (arg2 == null)
+                arg2 = "";
+            if (arg3 == null)
+                arg3 = "";
+            fixed (char* arg1Ptr = arg1, arg2Ptr = arg2, arg3Ptr = arg3) {
+                EventData* dataDesc = stackalloc EventData[4];
+
+                dataDesc[0].DataPointer = (IntPtr)arg1Ptr;
+                dataDesc[0].Size = (arg1.Length + 1) * 2; // Size in bytes, including a null terminator.
+                dataDesc[1].DataPointer = (IntPtr)(arg2Ptr);
+                dataDesc[1].Size = (arg2.Length + 1) * 2;
+                dataDesc[2].DataPointer = (IntPtr)arg3Ptr;
+                dataDesc[2].Size = (arg3.Length + 1) * 2;
+                dataDesc[3].DataPointer = (IntPtr)(&arg4);
+                dataDesc[3].Size = sizeof(int);
+
+                WriteEventCore(eventId, 4, dataDesc);
+            }
+        }
+
+        [NonEvent]
+        public unsafe void WriteEvent(int eventId, string? arg1, string? arg2, string? arg3, string? arg4) {
+            if (!IsEnabled()) {
+                return;
+            }
+
+            if (arg1 == null)
+                arg1 = "";
+            if (arg2 == null)
+                arg2 = "";
+            if (arg3 == null)
+                arg3 = "";
+            if (arg4 == null)
+                arg4 = "";
+            fixed (char* arg1Ptr = arg1, arg2Ptr = arg2, arg3Ptr = arg3, arg4Ptr = arg4) {
+                EventData* dataDesc = stackalloc EventData[4];
+
+                dataDesc[0].DataPointer = (IntPtr)arg1Ptr;
+                dataDesc[0].Size = (arg1.Length + 1) * 2; // Size in bytes, including a null terminator.
+                dataDesc[1].DataPointer = (IntPtr)arg2Ptr;
+                dataDesc[1].Size = (arg2.Length + 1) * 2;
+                dataDesc[2].DataPointer = (IntPtr)arg3Ptr;
+                dataDesc[2].Size = (arg3.Length + 1) * 2;
+                dataDesc[3].DataPointer = (IntPtr)arg4Ptr;
+                dataDesc[3].Size = (arg4.Length + 1) * 2;
+
+                WriteEventCore(eventId, 4, dataDesc);
+            }
+        }
+
+        [NonEvent]
+        public unsafe void WriteEvent(int eventId, string? arg1, string? arg2, string? arg3, string? arg4, string? arg5) {
+            if (!IsEnabled()) {
+                return;
+            }
+
+            if (arg1 == null)
+                arg1 = "";
+            if (arg2 == null)
+                arg2 = "";
+            if (arg3 == null)
+                arg3 = "";
+            if (arg4 == null)
+                arg4 = "";
+            if (arg5 == null)
+                arg5 = "";
+            fixed (char* arg1Ptr = arg1, arg2Ptr = arg2, arg3Ptr = arg3, arg4Ptr = arg4, arg5Ptr = arg5) {
+                EventData* dataDesc = stackalloc EventData[5];
+
+                dataDesc[0].DataPointer = (IntPtr)arg1Ptr;
+                dataDesc[0].Size = (arg1.Length + 1) * 2; // Size in bytes, including a null terminator.
+                dataDesc[1].DataPointer = (IntPtr)arg2Ptr;
+                dataDesc[1].Size = (arg2.Length + 1) * 2;
+                dataDesc[2].DataPointer = (IntPtr)arg3Ptr;
+                dataDesc[2].Size = (arg3.Length + 1) * 2;
+                dataDesc[3].DataPointer = (IntPtr)arg4Ptr;
+                dataDesc[3].Size = (arg4.Length + 1) * 2;
+                dataDesc[4].DataPointer = (IntPtr)arg5Ptr;
+                dataDesc[4].Size = (arg5.Length + 1) * 2;
+
+                WriteEventCore(eventId, 5, dataDesc);
+            }
+        }
+
+        [NonEvent]
+        public unsafe void WriteEvent(int eventId, string? arg1, string? arg2, string? arg3, string? arg4, long arg5, long arg6) {
+            if (!IsEnabled()) {
+                return;
+            }
+
+            if (arg1 == null)
+                arg1 = "";
+            if (arg2 == null)
+                arg2 = "";
+            if (arg3 == null)
+                arg3 = "";
+            if (arg4 == null)
+                arg4 = "";
+            fixed (char* arg1Ptr = arg1, arg2Ptr = arg2, arg3Ptr = arg3, arg4Ptr = arg4) {
+                EventData* dataDesc = stackalloc EventData[6];
+
+                dataDesc[0].DataPointer = (IntPtr)arg1Ptr;
+                dataDesc[0].Size = (arg1.Length + 1) * 2; // Size in bytes, including a null terminator.
+                dataDesc[1].DataPointer = (IntPtr)(arg2Ptr);
+                dataDesc[1].Size = (arg2.Length + 1) * 2;
+                dataDesc[2].DataPointer = (IntPtr)arg3Ptr;
+                dataDesc[2].Size = (arg3.Length + 1) * 2;
+                dataDesc[3].DataPointer = (IntPtr)arg4Ptr;
+                dataDesc[3].Size = (arg4.Length + 1) * 2;
+                dataDesc[4].DataPointer = (IntPtr)(&arg5);
+                dataDesc[4].Size = sizeof(long);
+                dataDesc[5].DataPointer = (IntPtr)(&arg6);
+                dataDesc[5].Size = sizeof(long);
+
+                WriteEventCore(eventId, 6, dataDesc);
+            }
+        }
+
+        [NonEvent]
+        public unsafe void WriteEvent(int eventId, string? arg1, string? arg2, string? arg3, string? arg4, string? arg5, string? arg6) {
+            if (!IsEnabled()) {
+                return;
+            }
+
+            if (arg1 == null)
+                arg1 = "";
+            if (arg2 == null)
+                arg2 = "";
+            if (arg3 == null)
+                arg3 = "";
+            if (arg4 == null)
+                arg4 = "";
+            if (arg5 == null)
+                arg5 = "";
+            if (arg6 == null)
+                arg6 = "";
+            fixed (char* arg1Ptr = arg1, arg2Ptr = arg2, arg3Ptr = arg3, arg4Ptr = arg4, arg5Ptr = arg5, arg6Ptr = arg6) {
+                EventData* dataDesc = stackalloc EventData[6];
+
+                dataDesc[0].DataPointer = (IntPtr)arg1Ptr;
+                dataDesc[0].Size = (arg1.Length + 1) * 2; // Size in bytes, including a null terminator.
+                dataDesc[1].DataPointer = (IntPtr)arg2Ptr;
+                dataDesc[1].Size = (arg2.Length + 1) * 2;
+                dataDesc[2].DataPointer = (IntPtr)arg3Ptr;
+                dataDesc[2].Size = (arg3.Length + 1) * 2;
+                dataDesc[3].DataPointer = (IntPtr)arg4Ptr;
+                dataDesc[3].Size = (arg4.Length + 1) * 2;
+                dataDesc[4].DataPointer = (IntPtr)arg5Ptr;
+                dataDesc[4].Size = (arg5.Length + 1) * 2;
+                dataDesc[5].DataPointer = (IntPtr)arg6Ptr;
+                dataDesc[5].Size = (arg6.Length + 1) * 2;
+
+                WriteEventCore(eventId, 6, dataDesc);
+            }
+        }
+
+        #endregion
 
         [NonEvent]
         static void SerializeException(Exception ex, StringBuilder sb, ExceptionFlyweight? exFlyweight = null) {
@@ -181,7 +375,7 @@ namespace KdSoft.NamedMessagePipe
 
         [Event(6, Level = EventLevel.Informational)]
         public void GetMessagesEnd(string pipeType, string pipeName, string instanceId, bool fromBreak) {
-            WriteEvent(6, pipeType, pipeName, instanceId, fromBreak);
+            WriteEvent(6, pipeType, pipeName, instanceId, fromBreak ? 1 : 0);
         }
 
         [NonEvent]
@@ -299,7 +493,7 @@ namespace KdSoft.NamedMessagePipe
 
         [Event(17, Level = EventLevel.Informational)]
         public void ServerDisconnectedFromClient(string pipeName, string instanceId, bool endedByClient) {
-            WriteEvent(17, pipeName, instanceId, endedByClient);
+            WriteEvent(17, pipeName, instanceId, endedByClient ? 1 : 0); //kw
         }
 
         [NonEvent]
