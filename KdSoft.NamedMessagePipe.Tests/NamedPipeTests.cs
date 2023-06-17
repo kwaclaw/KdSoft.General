@@ -8,9 +8,9 @@ using Xunit.Abstractions;
 namespace KdSoft.NamedMessagePipe.Tests
 {
 #if NETFRAMEWORK
-    public class NamedPipeTests
+    public class NamedPipeTests: IClassFixture<NamedPipeTestFixtureFramework>
 #else
-    public class NamedPipeTests: IClassFixture<NamedPipeTestFixture>
+    public class NamedPipeTests: IClassFixture<NamedPipeTestFixtureCore>
 #endif
     {
         readonly ITestOutputHelper _output;
@@ -19,14 +19,18 @@ namespace KdSoft.NamedMessagePipe.Tests
         const TaskCreationOptions ServerTaskOptions = TaskCreationOptions.LongRunning | TaskCreationOptions.RunContinuationsAsynchronously;
 
 #if NETFRAMEWORK
-        public NamedPipeTests(ITestOutputHelper output) {
-            this._output = output;
-        }
-#else
-        readonly NamedPipeTestFixture _fixture;
-        public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixture fixture) {
+        readonly NamedPipeTestFixtureFramework _fixture;
+        public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixtureFramework fixture) {
             this._output = output;
             this._fixture = fixture;
+            // kick start the EventPipe session
+        }
+#else
+        readonly NamedPipeTestFixtureCore _fixture;
+        public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixtureCore fixture) {
+            this._output = output;
+            this._fixture = fixture;
+            // kick start the EventPipe session
         }
 #endif
 
@@ -40,16 +44,19 @@ namespace KdSoft.NamedMessagePipe.Tests
 
         [Fact]
         public async Task ClientSendMessages() {
+            NamedPipeEventSource.Log.Write(nameof(ClientSendMessages));
+
             using var cts = new CancellationTokenSource();
 
-            using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, 16);
-            var serverTask = Task.Factory.StartNew(async () => {
+            async Task RunServer() {
+                using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, 16);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
                 }
                 _output.WriteLine("End of messages");
-            }, ServerTaskOptions);
+            }
+            var serverTask = RunServer();
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client").ConfigureAwait(false);
             for (int indx = 0; indx < 10; indx++) {
@@ -69,23 +76,14 @@ namespace KdSoft.NamedMessagePipe.Tests
         public async Task MultipleClientSendMessages() {
             using var cts = new CancellationTokenSource();
 
-            using var server1 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendMessages) + "-Server1", cts.Token, 16);
-            var server1Task = Task.Factory.StartNew(async () => {
-                await foreach (var msgSequence in server1.Messages().ConfigureAwait(false)) {
+            async Task RunServer(int serverIndex) {
+                using var server = new NamedMessagePipeServer(PipeName, $"{nameof(MultipleClientSendMessages)}-Server{serverIndex}", cts.Token, 16);
+                await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
                 }
-                _output.WriteLine("Server1: End of messages");
-            }, ServerTaskOptions);
-
-            using var server2 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendMessages) + "-Server2", cts.Token, 16);
-            var server2Task = Task.Factory.StartNew(async () => {
-                await foreach (var msgSequence in server2.Messages().ConfigureAwait(false)) {
-                    var msg = GetString(msgSequence);
-                    _output.WriteLine(msg);
-                }
-                _output.WriteLine("Server2: End of messages");
-            }, ServerTaskOptions);
+                _output.WriteLine($"Server{serverIndex}: End of messages");
+            }
 
             async Task RunClient(int clientIndex) {
                 using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendMessages) + "-Client" + clientIndex).ConfigureAwait(false);
@@ -95,6 +93,9 @@ namespace KdSoft.NamedMessagePipe.Tests
                 }
                 client.WaitForPipeDrain();
             }
+
+            var server1Task = RunServer(1);
+            var server2Task = RunServer(2);
 
             var client1Task = RunClient(1);
             var client2Task = RunClient(2);
@@ -114,9 +115,9 @@ namespace KdSoft.NamedMessagePipe.Tests
         public async Task ServerSendMessages() {
             using var serverCts = new CancellationTokenSource();
 
-            using var server = new NamedMessagePipeServer(PipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16);
             // server listens for incoming messages and replies with a number of messages
-            var serverTask = Task.Factory.StartNew(async () => {
+            async Task RunServer() {
+                using var server = new NamedMessagePipeServer(PipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -129,7 +130,8 @@ namespace KdSoft.NamedMessagePipe.Tests
                     await server.FlushAsync().ConfigureAwait(false);
                 }
                 _output.WriteLine("End of messages");
-            }, ServerTaskOptions);
+            }
+            var serverTask = RunServer();
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ServerSendMessages) + "-Client").ConfigureAwait(false);
             var helloBytes = Encoding.UTF8.GetBytes("Last Message");
@@ -155,8 +157,8 @@ namespace KdSoft.NamedMessagePipe.Tests
         public async Task SendReplyMessage() {
             using var serverCts = new CancellationTokenSource();
 
-            using var server = new NamedMessagePipeServer(PipeName, nameof(SendReplyMessage) + "-Server", serverCts.Token, 16);
-            var serverTask = Task.Factory.StartNew(async () => {
+            async Task RunServer() {
+                using var server = new NamedMessagePipeServer(PipeName, nameof(SendReplyMessage) + "-Server", serverCts.Token, 16);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -165,7 +167,8 @@ namespace KdSoft.NamedMessagePipe.Tests
                     await server.FlushAsync().ConfigureAwait(false);
                 }
                 _output.WriteLine("Server: End of messages");
-            }, ServerTaskOptions);
+            }
+            var serverTask = RunServer();
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client").ConfigureAwait(false);
             var buffer = new byte[1024];
