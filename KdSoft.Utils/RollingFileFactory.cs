@@ -1,7 +1,5 @@
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 
-#if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -86,8 +84,13 @@ namespace KdSoft.Utils
         bool TryGetSequenceNo(string fileName, out int value) {
             int lastDotIndex = fileName.LastIndexOf('.');
             int lastDashIndex = fileName.LastIndexOf('-', lastDotIndex);
+#if NETFRAMEWORK || NETSTANDARD2_0
+            var sequenceStr = fileName.Substring(lastDashIndex + 1, lastDotIndex - lastDashIndex);
+            return int.TryParse(sequenceStr, out value);
+#else
             var sequenceNoSpan = fileName.AsSpan(lastDashIndex + 1, lastDotIndex - lastDashIndex);
             return int.TryParse(sequenceNoSpan, out value);
+#endif
         }
 
         // NOT THREAD-SAFE
@@ -95,11 +98,16 @@ namespace KdSoft.Utils
             var newFnBase = _fileNameSelector(now);
             var newNameStart = $"{newFnBase}-";
 
+#if NETFRAMEWORK || NETSTANDARD2_0
+            var currentFiles = _dirInfo.GetFiles($"*-*{_fileExtension}", SearchOption.TopDirectoryOnly);
+
+#else
             var enumOptions = new EnumerationOptions {
                 IgnoreInaccessible = true,
                 RecurseSubdirectories = false,
             };
             var currentFiles = _dirInfo.GetFiles($"*-*{_fileExtension}", enumOptions);
+#endif
             Array.Sort(currentFiles, (x, y) => DateTime.Compare(x.LastWriteTimeUtc, y.LastWriteTimeUtc));
 
             var matchingFiles = new SortedList<string, FileInfo>(StringComparer.CurrentCultureIgnoreCase);
@@ -207,7 +215,11 @@ namespace KdSoft.Utils
             if (oldStream != null) {
                 try {
                     await oldStream.FlushAsync().ConfigureAwait(false);
+#if NETFRAMEWORK || NETSTANDARD2_0
+                    oldStream.Dispose();
+#else
                     await oldStream.DisposeAsync().ConfigureAwait(false);
+#endif
                 }
                 finally {
                     _lockFile.Close();
@@ -217,5 +229,3 @@ namespace KdSoft.Utils
         }
     }
 }
-
-#endif
