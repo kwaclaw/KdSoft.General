@@ -19,12 +19,14 @@ namespace KdSoft.NamedMessagePipe
         : NamedMessagePipeBase, IDisposable, IAsyncDisposable
 #endif
     {
+        readonly string _server;
         readonly int _minBufferSize;
 
         /// <summary>Internal instance of <see cref="NamedPipeClientStream"/>.</summary>
-        protected readonly NamedPipeClientStream _clientStream;
+        protected NamedPipeClientStream _clientStream;
 
         NamedMessagePipeClient(string server, string pipeName, string instanceId, int minBufferSize) : base(pipeName, instanceId) {
+            this._server = server;
             this._minBufferSize = minBufferSize;
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
             _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions);
@@ -92,6 +94,15 @@ namespace KdSoft.NamedMessagePipe
             using var listenCancelSource = new CancellationTokenSource();
             var messagesCancelSource = CancellationTokenSource.CreateLinkedTokenSource(readCancelToken, listenCancelSource.Token);
             var listenTask = Listen(_pipeline.Writer, messagesCancelSource.Token);
+
+#if NETFRAMEWORK
+            // In the full framework c ancellation does not work, because read operations cannot be cancelled once started.
+            // So we need to dispose (and re-create) the client in order to top the read loop.
+            messagesCancelSource.Token.Register(() => {
+                Dispose();
+            });
+#endif
+
             async Task LastStep() {
                 // we do this to cancel/stop the listen loop
                 messagesCancelSource.Cancel();
@@ -124,7 +135,8 @@ namespace KdSoft.NamedMessagePipe
                 try {
 #if NETFRAMEWORK
                     //NOTE for .NET Framework: the listener loop will advance to the next Read before the cancelToken is triggered,
-                    //     waiting there forever, because in .NET framework we cant cancel the read properly once it has started
+                    //     waiting there forever, because in .NET framework we cant cancel the read properly once it has started;
+                    //     seems we need to dispose and re-create the client in order to stop the read loop while waiting for data.
 
                     NamedPipeEventSource.Log.ListenBeginRead(nameof(NamedMessagePipeClient), PipeName, InstanceId);
                     var byteCount = await MakeCancellable(() => _clientStream.Read(buffer, 0, buffer.Length), cancelToken).ConfigureAwait(false);
