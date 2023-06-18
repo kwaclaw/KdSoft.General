@@ -1,5 +1,7 @@
 ﻿using System;
+#if NETFRAMEWORK
 using System.Buffers;
+#endif
 using System.IO;
 using System.IO.Pipelines;
 using System.Text.Encodings.Web;
@@ -14,7 +16,7 @@ namespace KdSoft.NamedMessagePipe.Tests
     {
         protected readonly RollingFileFactory _fileFactory;
         protected readonly Pipe _logPipe;
-        protected readonly byte[] _newLine = new byte[] { 10 };
+        protected readonly ReadOnlyMemory<byte> _newLine = new byte[] { 10 };
         protected readonly JsonWriterOptions _jsonOptions;
         protected readonly Task _logFileTask;
 
@@ -55,12 +57,12 @@ namespace KdSoft.NamedMessagePipe.Tests
                 while (res.Buffer.TryGet(ref position, out var memory)) {
 #if NETFRAMEWORK
                     var resArray = res.Buffer.ToArray();
-                    _logPipe.Reader.AdvanceTo(res.Buffer.End);
                     await stream.WriteAsync(resArray, 0, resArray.Length).ConfigureAwait(false);
 #else
                     await stream.WriteAsync(memory).ConfigureAwait(false);
 #endif
                 }
+                _logPipe.Reader.AdvanceTo(position);
 
                 if (res.IsCanceled || res.IsCompleted) {
                     break;
@@ -68,8 +70,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
             while (true);
 
-            // do not do this - the fileFactory disposes the last used stream
-            // stream?.Dispose();
+            await _logPipe.Reader.CompleteAsync().ConfigureAwait(false);
         }
 
         protected virtual void Dispose(bool disposing) {

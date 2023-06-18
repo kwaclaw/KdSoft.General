@@ -16,22 +16,16 @@ namespace KdSoft.NamedMessagePipe.Tests
     public class NamedPipeTestFixtureCore: NamedPipeTestFixtureBase
     {
         EventPipeSession? _session;
-        readonly ArrayBufferWriter<byte> _bufferWriter;
-        readonly ReadOnlyMemory<byte> _newLineMemory;
         readonly object _lock = new object();
 
         public NamedPipeTestFixtureCore() {
-            _newLineMemory = base._newLine;
-
-            _bufferWriter = new ArrayBufferWriter<byte>(1024);
-
             var providers = new List<EventPipeProvider>()
             {
                 new EventPipeProvider(NamedPipeEventSource.DefaultName, EventLevel.Informational)
             };
 
             var logTask = Task.Run(() => {
-                using var jsonWriter = new Utf8JsonWriter(_bufferWriter, _jsonOptions);
+                using var jsonWriter = new Utf8JsonWriter(_logPipe.Writer, _jsonOptions);
 
                 var eventPipeSource = InitializeEventPipe(providers, jsonWriter);
                 if (eventPipeSource == null) {
@@ -92,10 +86,8 @@ namespace KdSoft.NamedMessagePipe.Tests
                 source.Dynamic.All += (TraceEvent evt) => {
                     lock (_lock) {
                         try {
-                            _bufferWriter.Clear();
                             WriteEventJson(evt, jsonWriter);
-                            _bufferWriter.Write(_newLineMemory.Span);
-                            _logPipe.Writer.Write(_bufferWriter.WrittenMemory.Span);
+                            _logPipe.Writer.Write(_newLine.Span);
                         }
                         catch {
                             //
@@ -115,6 +107,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             if (disposing) {
                 _session?.StopAsync(new CancellationTokenSource(5000).Token).Wait();
                 _session?.Dispose();
+                _logPipe.Writer.Complete();
                 _logFileTask.Wait();
             }
             base.Dispose(disposing);

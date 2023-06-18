@@ -1,8 +1,8 @@
 ﻿#if NETFRAMEWORK
 
 using System;
+using System.Buffers;
 using System.Diagnostics.Tracing;
-using System.IO;
 using System.Text.Json;
 
 namespace KdSoft.NamedMessagePipe.Tests
@@ -10,18 +10,16 @@ namespace KdSoft.NamedMessagePipe.Tests
     public class NamedPipeTestFixtureFramework: NamedPipeTestFixtureBase
     {
         readonly TestEventListener _eventListener;
-        readonly Stream _logPipeWriterStream;
         readonly Utf8JsonWriter _jsonWriter;
         readonly object _lock = new object();
 
         public NamedPipeTestFixtureFramework() {
-            _logPipeWriterStream = _logPipe.Writer.AsStream();
-            _jsonWriter = new Utf8JsonWriter(_logPipeWriterStream, _jsonOptions);
+            _jsonWriter = new Utf8JsonWriter(_logPipe.Writer, _jsonOptions);
             _eventListener = new TestEventListener();
             _eventListener.EventWritten += (s, evt) => {
                 lock (_lock) {
                     WriteEventJson(evt, _jsonWriter);
-                    _logPipeWriterStream.Write(_newLine, 0, _newLine.Length);
+                    _logPipe.Writer.Write(_newLine.Span);
                 }
             };
         }
@@ -57,8 +55,8 @@ namespace KdSoft.NamedMessagePipe.Tests
         protected override void Dispose(bool disposing) {
             if (disposing) {
                 _eventListener.Dispose();
-                _logPipeWriterStream.Close();
                 _jsonWriter.Dispose();
+                _logPipe.Writer.Complete();
                 _logFileTask.Wait();
             }
             base.Dispose(disposing);
