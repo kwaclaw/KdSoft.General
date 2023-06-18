@@ -39,15 +39,23 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="pipeName">Name of pipe.</param>
         /// <param name="instanceId">Unique identifier of this instance.</param>
         /// <param name="minBufferSize">Minimum buffer size to use for reading messages.</param>
+        /// <param name="timeout">Timeout for connection attempt.</param>
         /// <param name="cancelToken">Cancellation token.</param>
         /// <returns>Connected <see cref="NamedMessagePipeClient"/> instance.</returns>
-        public static async Task<NamedMessagePipeClient> ConnectAsync(string server, string pipeName, string instanceId, int minBufferSize = 512, CancellationToken cancelToken = default) {
+        public static async Task<NamedMessagePipeClient> ConnectAsync(
+            string server,
+            string pipeName,
+            string instanceId,
+            int timeout = Timeout.Infinite,
+            CancellationToken cancelToken = default,
+            int minBufferSize = 512
+        ) {
             var result = new NamedMessagePipeClient(server, pipeName, instanceId, minBufferSize);
             try {
 #if NETFRAMEWORK
-                await MakeCancellable(() => result._clientStream.Connect(), cancelToken).ConfigureAwait(false);
+                await MakeCancellable(() => result._clientStream.Connect(timeout), cancelToken).ConfigureAwait(false);
 #else
-                await result._clientStream.ConnectAsync(cancelToken).ConfigureAwait(false);
+                await result._clientStream.ConnectAsync(timeout, cancelToken).ConfigureAwait(false);
 #endif
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
                 return result;
