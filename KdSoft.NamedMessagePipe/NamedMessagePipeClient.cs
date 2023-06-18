@@ -50,13 +50,13 @@ namespace KdSoft.NamedMessagePipe
                 await result._clientStream.ConnectAsync(cancelToken).ConfigureAwait(false);
 #endif
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
+                return result;
             }
             catch (Exception ex) {
-                NamedPipeEventSource.Log.ClientConnectError(result.PipeName, result.InstanceId, ex);
+                NamedPipeEventSource.Log.ClientConnectionError(result.PipeName, result.InstanceId, ex);
                 result.Dispose();
                 throw;
             }
-            return result;
         }
 
         /// <inheritdoc cref="PipeStream.WaitForPipeDrain"/>
@@ -96,8 +96,8 @@ namespace KdSoft.NamedMessagePipe
             var listenTask = Listen(_pipeline.Writer, messagesCancelSource.Token);
 
 #if NETFRAMEWORK
-            // In the full framework c ancellation does not work, because read operations cannot be cancelled once started.
-            // So we need to dispose (and re-create) the client in order to top the read loop.
+            // In the full framework cancellation does not work, because read operations cannot be cancelled once started.
+            // So we need to dispose (and re-create) the client in order to stop the read loop.
             messagesCancelSource.Token.Register(() => {
                 Dispose();
             });
@@ -172,6 +172,10 @@ namespace KdSoft.NamedMessagePipe
                 }
                 catch (OperationCanceledException) {
                     NamedPipeEventSource.Log.ListenCancel(nameof(NamedMessagePipeClient), PipeName, InstanceId);
+                    break;
+                }
+                catch (IOException ioex) {
+                    NamedPipeEventSource.Log.ClientConnectionError(PipeName, InstanceId, ioex);
                     break;
                 }
                 catch (Exception ex) {

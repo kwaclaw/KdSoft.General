@@ -456,24 +456,24 @@ namespace KdSoft.NamedMessagePipe
         }
 
         [NonEvent]
-        public void ClientConnectError(string pipeName, string instanceId, Exception ex) {
+        public void ClientConnectionError(string pipeName, string instanceId, Exception ex) {
             IList<Exception>? baseExceptions = null;
             AddBaseExceptions(ex, ref baseExceptions);
 
             var sb = new StringBuilder();
             var exFlyweight = new ExceptionFlyweight();
             SerializeException(ex, sb, exFlyweight);
-            ClientConnectError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(ex.Data));
+            ClientConnectionError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(ex.Data));
 
             foreach (var baseEx in baseExceptions!) {
                 sb.Clear();
                 SerializeException(baseEx, sb, exFlyweight);
-                ClientConnectError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(baseEx.Data));
+                ClientConnectionError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(baseEx.Data));
             }
         }
 
         [Event(14, Level = EventLevel.Error)]
-        public void ClientConnectError(string pipeName, string instanceId, string error, string details) {
+        public void ClientConnectionError(string pipeName, string instanceId, string error, string details) {
             WriteEvent(14, pipeName, instanceId, error, details);
         }
 
