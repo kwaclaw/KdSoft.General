@@ -21,7 +21,8 @@ namespace KdSoft.NamedMessagePipe.Tests
         public NamedPipeTestFixtureCore() {
             var providers = new List<EventPipeProvider>()
             {
-                new EventPipeProvider(NamedPipeEventSource.DefaultName, EventLevel.Informational)
+                // if we use EventLevel.LogAlways (=0) then only events with that level will be logged!
+                new EventPipeProvider(NamedPipeEventSource.DefaultName, EventLevel.Verbose)
             };
 
             var logTask = Task.Run(() => {
