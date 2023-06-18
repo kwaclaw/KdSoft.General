@@ -91,12 +91,9 @@ namespace KdSoft.NamedMessagePipe
 #endif
             while (!_listenCancelToken.IsCancellationRequested) {
                 try {
-#if NETFRAMEWORK
-                    //BUG: on .NET Framework, WaitForConnectionAsync cannot be cancelled!
-                    await MakeCancellable(() => WaitForConnection(), _listenCancelToken).ConfigureAwait(false);
-#else
-                    await WaitForConnectionAsync().ConfigureAwait(false);
-#endif
+                    //BUG: on .NET Framework, WaitForConnectionAsync cannot be cancelled properly!
+                    await _serverStream.WaitForConnectionAsync(_listenCancelToken).ConfigureAwait(false);
+
                     PipeLines.FlushResult writeResult = default;
                     int byteCount = 0;
                     while (!_listenCancelToken.IsCancellationRequested) {
@@ -128,6 +125,12 @@ namespace KdSoft.NamedMessagePipe
                     }
                     NamedPipeEventSource.Log.ServerDisconnectedFromClient(PipeName, InstanceId, byteCount == 0);
                 }
+                catch (IOException ioex) {
+                    NamedPipeEventSource.Log.ServerConnectionError(PipeName, InstanceId, ioex);
+                    // we must call Disconnect without checking _serverStream.IsConnected, so we can't let the finally clause handle it
+                    _serverStream.Disconnect();
+                    continue;
+                }
                 catch (OperationCanceledException) {
                     NamedPipeEventSource.Log.ListenCancel(nameof(NamedMessagePipeServer), PipeName, InstanceId);
                     break;
@@ -147,25 +150,6 @@ namespace KdSoft.NamedMessagePipe
         }
 
 #if NETFRAMEWORK
-        void WaitForConnection(int retries = 1) {
-            do {
-                try {
-                    NamedPipeEventSource.Log.ServerWaitForConnection(PipeName, InstanceId);
-                    _serverStream.WaitForConnection();
-                    NamedPipeEventSource.Log.ServerConnectedToClient(PipeName, InstanceId);
-                    return;
-                }
-                catch (IOException ex) {
-                    NamedPipeEventSource.Log.ServerWaitForConnectionError(PipeName, InstanceId, ex);
-                    var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-                    var newServerStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, _maxServers, PipeTransmissionMode.Message, pipeOptions);
-                    var oldServerStream = Interlocked.Exchange(ref _serverStream, newServerStream);
-                    try { oldServerStream.Dispose(); }
-                    catch { }
-                }
-            } while (retries-- > 0);
-        }
-
         /// <inheritdoc cref="Stream.WriteAsync(byte[], int, int, CancellationToken)"/>
         public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
             var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
@@ -180,25 +164,6 @@ namespace KdSoft.NamedMessagePipe
 #else
         /// <inheritdoc />
         public ValueTask DisposeAsync() => _serverStream.DisposeAsync();
-
-        async Task WaitForConnectionAsync(int retries = 1) {
-            do {
-                try {
-                    NamedPipeEventSource.Log.ServerWaitForConnection(PipeName, InstanceId);
-                    await _serverStream.WaitForConnectionAsync(_listenCancelToken).ConfigureAwait(false);
-                    NamedPipeEventSource.Log.ServerConnectedToClient(PipeName, InstanceId);
-                    return;
-                }
-                catch (IOException ex) {
-                    NamedPipeEventSource.Log.ServerWaitForConnectionError(PipeName, InstanceId, ex);
-                    var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-                    var newServerStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, _maxServers, PipeTransmissionMode.Message, pipeOptions);
-                    var oldServerStream = Interlocked.Exchange(ref _serverStream, newServerStream);
-                    try { await oldServerStream.DisposeAsync().ConfigureAwait(false); }
-                    catch { }
-                }
-            } while (retries-- > 0);
-        }
 
         /// <summary>
         /// Write message buffer to current connection.

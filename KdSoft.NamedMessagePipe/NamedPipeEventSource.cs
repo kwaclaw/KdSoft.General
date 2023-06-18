@@ -497,24 +497,24 @@ namespace KdSoft.NamedMessagePipe
         }
 
         [NonEvent]
-        public void ServerWaitForConnectionError(string pipeName, string instanceId, Exception ex) {
+        public void ServerConnectionError(string pipeName, string instanceId, Exception ex) {
             IList<Exception>? baseExceptions = null;
             AddBaseExceptions(ex, ref baseExceptions);
 
             var sb = new StringBuilder();
             var exFlyweight = new ExceptionFlyweight();
             SerializeException(ex, sb, exFlyweight);
-            ServerWaitForConnectionError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(ex.Data));
+            ServerConnectionError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(ex.Data));
 
             foreach (var baseEx in baseExceptions!) {
                 sb.Clear();
                 SerializeException(baseEx, sb, exFlyweight);
-                ServerWaitForConnectionError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(baseEx.Data));
+                ServerConnectionError(pipeName, instanceId, sb.ToString(), SerializeExceptionData(baseEx.Data));
             }
         }
 
         [Event(18, Level = EventLevel.Error)]
-        public void ServerWaitForConnectionError(string pipeName, string instanceId, string error, string details) {
+        public void ServerConnectionError(string pipeName, string instanceId, string error, string details) {
             WriteEvent(18, pipeName, instanceId, error, details);
         }
 
