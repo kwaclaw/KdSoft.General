@@ -50,6 +50,14 @@ namespace KdSoft.NamedMessagePipe
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
             _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Message, pipeOptions);
             _listenTask = Listen(_pipeline.Writer);
+#if NETFRAMEWORK
+            listenCancelToken.Register(() => {
+                if (_serverStream.IsConnected) {
+                    try { _serverStream.Disconnect(); }
+                    catch { }
+                }
+            });
+#endif
         }
 
         /// <summary>Task representing the listening process.</summary>
