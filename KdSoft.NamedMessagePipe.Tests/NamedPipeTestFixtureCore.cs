@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Diagnostics.NETCore.Client;
 using Microsoft.Diagnostics.Tracing;
@@ -15,7 +14,8 @@ namespace KdSoft.NamedMessagePipe.Tests
 {
     public class NamedPipeTestFixtureCore: NamedPipeTestFixtureBase
     {
-        EventPipeSession? _session;
+        EventPipeSession? _eventPipeSession;
+        EventPipeEventSource? _eventPipeSource;
         readonly object _lock = new object();
 
         public NamedPipeTestFixtureCore() {
@@ -32,6 +32,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     Debug.WriteLine("Could not initialize EventPipe.");
                     return;
                 }
+                this._eventPipeSource = eventPipeSource;
                 try {
                     eventPipeSource.Process();
                 }
@@ -77,12 +78,11 @@ namespace KdSoft.NamedMessagePipe.Tests
         }
 
         EventPipeEventSource? InitializeEventPipe(List<EventPipeProvider> providers, Utf8JsonWriter jsonWriter) {
-           try {
+            try {
                 var client = new DiagnosticsClient(Process.GetCurrentProcess().Id);
-                //TODO this hangs in full .NET framework
-                _session = client.StartEventPipeSession(providers, false);
+                _eventPipeSession = client.StartEventPipeSession(providers, false);
 
-                var source = new EventPipeEventSource(_session.EventStream);
+                var source = new EventPipeEventSource(_eventPipeSession.EventStream);
                 source.Dynamic.All += (TraceEvent evt) => {
                     lock (_lock) {
                         try {
@@ -98,15 +98,14 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
             catch (Exception ex) {
                 Debug.WriteLine(ex.ToString());
-                _logPipe.Writer.Complete();
                 return null;
             }
         }
 
         protected override void Dispose(bool disposing) {
             if (disposing) {
-                _session?.StopAsync(new CancellationTokenSource(5000).Token).Wait();
-                _session?.Dispose();
+                _eventPipeSession?.Dispose();
+                _eventPipeSource?.Dispose();
                 _logPipe.Writer.Complete();
                 _logFileTask.Wait();
             }
