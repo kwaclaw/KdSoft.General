@@ -175,14 +175,12 @@ namespace KdSoft.NamedMessagePipe
 #if NETFRAMEWORK
         /// <inheritdoc cref="Stream.WriteAsync(byte[], int, int, CancellationToken)"/>
         public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
-            return MakeCancellable(() => _serverStream.Write(message, offset, count), cts.Token);
+            return MakeCancellable(() => _serverStream.Write(message, offset, count), cancelToken);
         }
 
         /// <inheritdoc cref="Stream.FlushAsync(CancellationToken)"/>
         public Task FlushAsync(CancellationToken cancelToken = default) {
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
-            return MakeCancellable(() => _serverStream.Flush(), cts.Token);
+            return MakeCancellable(() => _serverStream.Flush(), cancelToken);
         }
 #else
         /// <inheritdoc />
@@ -196,20 +194,17 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="cancelToken">Cancels write operation.</param>
         /// <returns></returns>
         public ValueTask WriteAsync(ReadOnlyMemory<byte> message, CancellationToken cancelToken = default) {
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
-            return _serverStream.WriteAsync(message, cts.Token);
+            return _serverStream.WriteAsync(message, cancelToken);
         }
 
         /// <inheritdoc cref="PipeStream.WriteAsync(byte[], int, int, CancellationToken)"/>
         public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
-            return _serverStream.WriteAsync(message, offset, count, cts.Token);
+            return _serverStream.WriteAsync(message, offset, count, cancelToken);
         }
 
         /// <inheritdoc cref="PipeStream.FlushAsync(CancellationToken)"/>
         public Task FlushAsync(CancellationToken cancelToken = default) {
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, _listenCancelToken);
-            return _serverStream.FlushAsync(cts.Token);
+            return _serverStream.FlushAsync(cancelToken);
         }
 #endif
     }
