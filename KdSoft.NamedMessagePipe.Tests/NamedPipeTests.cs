@@ -27,14 +27,12 @@ namespace KdSoft.NamedMessagePipe.Tests
         public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixtureFramework fixture) {
             this._output = output;
             this._fixture = fixture;
-            // kick start the EventPipe session
         }
 #else
         readonly NamedPipeTestFixtureCore _fixture;
         public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixtureCore fixture) {
             this._output = output;
             this._fixture = fixture;
-            // kick start the EventPipe session
         }
 #endif
 
@@ -174,43 +172,47 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
             var serverTask = RunServer();
 
+            async Task RunClient() {
 #if !NETFRAMEWORK
                 using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", ConnectTimeout).ConfigureAwait(false);
 #endif
-            var buffer = new byte[1024];
-            for (int indx = 0; indx < 10; indx++) {
+                for (int indx = 0; indx < 10; indx++) {
 #if NETFRAMEWORK
                     // in full framework we can only use Dispose() to stop the client from reading, cancellation does not work
                     using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", ConnectTimeout).ConfigureAwait(false);
 #endif
-                var msgBytes = Encoding.UTF8.GetBytes($"A very long message exceeding 16 bytes, index: {indx}");
-                await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
-                client.WaitForPipeDrain();
+                    var msgBytes = Encoding.UTF8.GetBytes($"A very long message exceeding 16 bytes, index: {indx}");
+                    await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+                    client.WaitForPipeDrain();
 
-                //var iterator = client.Messages().GetAsyncEnumerator();
-                //while (await iterator.MoveNextAsync().ConfigureAwait(false)) {
-                //    var msgSequence = iterator.Current;
-                //    var msg = GetString(msgSequence);
-                //    _output.WriteLine(msg);
-                //    // we expect only one message, so we end the loop
-                //    break;
-                //}
-                //await iterator.DisposeAsync().ConfigureAwait(false);
+                    //var iterator = client.Messages().GetAsyncEnumerator();
+                    //while (await iterator.MoveNextAsync().ConfigureAwait(false)) {
+                    //    var msgSequence = iterator.Current;
+                    //    var msg = GetString(msgSequence);
+                    //    _output.WriteLine(msg);
+                    //    // we expect only one message, so we end the loop
+                    //    break;
+                    //}
+                    //await iterator.DisposeAsync().ConfigureAwait(false);
 
-                // this restarts the listener
-                await foreach (var msgSequence in client.Messages().ConfigureAwait(false)) {
-                    var msg = GetString(msgSequence);
-                    _output.WriteLine(msg);
-                    // we expect only one message, so we end the loop
-                    break;
-                }
+                    // this restarts the listener
+                    await foreach (var msgSequence in client.Messages().ConfigureAwait(false)) {
+                        var msg = GetString(msgSequence);
+                        _output.WriteLine(msg);
+                        // we expect only one message, so we end the loop
+                        break;
+                    }
 
 #if !NETFRAMEWORK
-                // If we want to restart listening and reading we need to reset the pipeline!
-                // Note: both the pipeline reader and writer must have commpleted!
-                client.Reset();
+                    // If we want to restart listening and reading we need to reset the pipeline!
+                    // Note: both the pipeline reader and writer must have commpleted!
+                    client.Reset();
 #endif
+                }
             }
+            var clientTask = RunClient();
+
+            await clientTask.ConfigureAwait(false);
 
             // brief delay to let _output catch up
             serverCts.CancelAfter(ServerCancelDelay);
