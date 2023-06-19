@@ -100,6 +100,7 @@ namespace KdSoft.NamedMessagePipe
             while (!_listenCancelToken.IsCancellationRequested) {
                 try {
                     //BUG: on .NET Framework, WaitForConnectionAsync cannot be cancelled properly!
+                    //     It might work to call _ServerStream.Disconnect().
                     await _serverStream.WaitForConnectionAsync(_listenCancelToken).ConfigureAwait(false);
 
                     PipeLines.FlushResult writeResult = default;
@@ -133,18 +134,23 @@ namespace KdSoft.NamedMessagePipe
                     }
                     NamedPipeEventSource.Log.ServerDisconnectedFromClient(PipeName, InstanceId, byteCount == 0);
                 }
+                catch (OperationCanceledException) {
+                    NamedPipeEventSource.Log.ListenCancel(nameof(NamedMessagePipeServer), PipeName, InstanceId);
+                    // this ends the  listen loop
+                    await pipelineWriter.CompleteAsync().ConfigureAwait(false);
+                    break;
+                }
                 catch (IOException ioex) {
                     NamedPipeEventSource.Log.ServerConnectionError(PipeName, InstanceId, ioex);
                     // we must call Disconnect without checking _serverStream.IsConnected, so we can't let the finally clause handle it
                     _serverStream.Disconnect();
+                    // we continue the listen loop
                     continue;
-                }
-                catch (OperationCanceledException) {
-                    NamedPipeEventSource.Log.ListenCancel(nameof(NamedMessagePipeServer), PipeName, InstanceId);
-                    break;
                 }
                 catch (Exception ex) {
                     NamedPipeEventSource.Log.ListenError(nameof(NamedMessagePipeServer), PipeName, InstanceId, ex);
+                    // this ends the  listen loop
+                    await pipelineWriter.CompleteAsync().ConfigureAwait(false);
                     break;
                 }
                 finally {
