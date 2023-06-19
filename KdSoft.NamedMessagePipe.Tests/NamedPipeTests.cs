@@ -1,5 +1,6 @@
 using System;
 using System.Buffers;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace KdSoft.NamedMessagePipe.Tests
     public class NamedPipeTests: IClassFixture<NamedPipeTestFixtureCore>
 #endif
     {
+        const int ConnectTimeout = 1000;
+        const int ServerCancelDelay = 500;
+
         readonly ITestOutputHelper _output;
 
         public const string PipeName = "elekta-pipe-test";
@@ -58,7 +62,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
             var serverTask = RunServer();
 
-            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client", 500).ConfigureAwait(false);
+            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
             for (int indx = 0; indx < 10; indx++) {
                 var msgBytes = Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}");
                 await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
@@ -66,7 +70,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
 
             // brief delay to let _output catch up
-            cts.CancelAfter(200);
+            cts.CancelAfter(ServerCancelDelay);
             await serverTask.ConfigureAwait(false);
 
             GC.Collect();
@@ -86,7 +90,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
 
             async Task RunClient(int clientIndex) {
-                using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendMessages) + "-Client" + clientIndex, 500).ConfigureAwait(false);
+                using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendMessages) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false);
                 for (int indx = 0; indx < 10; indx++) {
                     var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
                     await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
@@ -104,7 +108,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             await Task.WhenAll(client1Task, client2Task, client3Task, client4Task).ConfigureAwait(false);
 
             // brief delay to let _output catch up
-            cts.CancelAfter(200);
+            cts.CancelAfter(ServerCancelDelay);
             await server1Task.ConfigureAwait(false);
             await server2Task.ConfigureAwait(false);
 
@@ -133,7 +137,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
             var serverTask = RunServer();
 
-            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ServerSendMessages) + "-Client", 500).ConfigureAwait(false);
+            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ServerSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
             var helloBytes = Encoding.UTF8.GetBytes("Last Message");
             await client.WriteAsync(helloBytes, 0, helloBytes.Length).ConfigureAwait(false);
             client.WaitForPipeDrain();
@@ -149,7 +153,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
 
             // brief delay to let _output catch up
-            serverCts.CancelAfter(200);
+            serverCts.CancelAfter(ServerCancelDelay);
             await serverTask.ConfigureAwait(false);
         }
 
@@ -171,13 +175,13 @@ namespace KdSoft.NamedMessagePipe.Tests
             var serverTask = RunServer();
 
 #if !NETFRAMEWORK
-            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", 500).ConfigureAwait(false);
+                using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", ConnectTimeout).ConfigureAwait(false);
 #endif
             var buffer = new byte[1024];
             for (int indx = 0; indx < 10; indx++) {
 #if NETFRAMEWORK
-                // in full framework we can only use Dispose() to stop the client from reading, cancellation does not work
-                using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", 500).ConfigureAwait(false);
+                    // in full framework we can only use Dispose() to stop the client from reading, cancellation does not work
+                    using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", ConnectTimeout).ConfigureAwait(false);
 #endif
                 var msgBytes = Encoding.UTF8.GetBytes($"A very long message exceeding 16 bytes, index: {indx}");
                 await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
@@ -209,7 +213,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
 
             // brief delay to let _output catch up
-            serverCts.CancelAfter(200);
+            serverCts.CancelAfter(ServerCancelDelay);
             await serverTask.ConfigureAwait(false);
         }
 
@@ -242,7 +246,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 #if NETFRAMEWORK
             async Task RunClient(int clientIndex, int loopCount) {
                 for (int indx = 0; indx < loopCount; indx++) {
-                    using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, 500).ConfigureAwait(false);
+                    using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false);
                     var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
                     await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
                     client.WaitForPipeDrain();
@@ -261,7 +265,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
 #else
             async Task RunClient(int clientIndex, int loopCount) {
-                using (var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, 500).ConfigureAwait(false)) {
+                using (var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false)) {
                     for (int indx = 0; indx < loopCount; indx++) {
                         var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
                         await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
@@ -290,7 +294,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             await Task.WhenAll(client1Task, client2Task, client3Task, client4Task).ConfigureAwait(false);
 
             // brief delay to let _output catch up
-            serverCts.CancelAfter(200);
+            serverCts.CancelAfter(ServerCancelDelay);
             await server1Task.ConfigureAwait(false);
             await server2Task.ConfigureAwait(false);
         }
