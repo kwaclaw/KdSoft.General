@@ -21,7 +21,6 @@ namespace KdSoft.NamedMessagePipe
     {
         readonly int _maxServers;
         readonly int _minBufferSize;
-        /// <summary>CancellationToken that stops the server.</summary>
         readonly Task _listenTask;
 
         /// <summary>Internal instance of <see cref="NamedPipeServerStream"/>.</summary>
@@ -59,6 +58,8 @@ namespace KdSoft.NamedMessagePipe
             });
 #endif
         }
+
+        public bool IsConnected { get => _serverStream.IsConnected; }
 
         /// <summary>Task representing the listening process.</summary>
         public Task ListenTask => _listenTask;
@@ -134,8 +135,11 @@ namespace KdSoft.NamedMessagePipe
 
                         if (_serverStream.IsMessageComplete) {
                             // we assume UTF8 string data, so we can use 0 as message separator
-                            await pipelineWriter.WriteAsync(_messageSeparator, _listenCancelToken).ConfigureAwait(false);
+                            var memory2 = pipelineWriter.GetMemory(_minBufferSize);
+                            _messageSeparator.CopyTo(memory2);
+                            pipelineWriter.Advance(_messageSeparator.Length);
                         }
+
                         writeResult = await pipelineWriter.FlushAsync(_listenCancelToken).ConfigureAwait(false);
                         if (writeResult.IsCompleted || writeResult.IsCanceled) {
                             break;
