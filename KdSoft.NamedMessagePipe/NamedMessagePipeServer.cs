@@ -70,7 +70,7 @@ namespace KdSoft.NamedMessagePipe
         /// Async enumerable returning messages received.
         /// </summary>
         public IAsyncEnumerable<ReadOnlySequence<byte>> Messages() {
-            return base.GetMessages(_listenCancelToken, () => _listenTask);
+            return base.GetMessages(CancellationToken.None, () => _listenTask);;
         }
 
         /// <inheritdoc cref="NamedPipeServerStream.Disconnect"/>
