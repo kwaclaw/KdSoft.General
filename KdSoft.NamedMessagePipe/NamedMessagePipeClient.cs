@@ -58,6 +58,8 @@ namespace KdSoft.NamedMessagePipe
                 await result._clientStream.ConnectAsync(timeout, cancelToken).ConfigureAwait(false);
 #endif
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
+
+                result._clientStream.ReadMode = PipeTransmissionMode.Message;
                 return result;
             }
             catch (Exception ex) {
@@ -102,7 +104,6 @@ namespace KdSoft.NamedMessagePipe
         /// it is ncessary to call <see cref="Reset"/>.
         /// </remarks>
         public IAsyncEnumerable<ReadOnlySequence<byte>> Messages(CancellationToken readCancelToken = default) {
-            _clientStream.ReadMode = PipeTransmissionMode.Message;
             // we need to cancel the Listen() loop in two cases:
             // 1) the readCancelToken is triggered
             // 2) the read loop (base.GetMessages) terminates
@@ -125,7 +126,7 @@ namespace KdSoft.NamedMessagePipe
                 messagesCancelSource.Dispose();
                 await listenTask.ConfigureAwait(false);
             }
-            return base.GetMessages(readCancelToken, LastStep);
+            return base.GetMessages(CancellationToken.None, LastStep);
         }
 
         /// <inheritdoc cref="PipeStream.Read(byte[], int, int)"/>
