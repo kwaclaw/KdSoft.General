@@ -81,9 +81,16 @@ namespace KdSoft.NamedMessagePipe
             _pipeline.Reset();
         }
 
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
+                _clientStream.Dispose();
+            }
+        }
+
         /// <inheritdoc />
         public void Dispose() {
-            _clientStream.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

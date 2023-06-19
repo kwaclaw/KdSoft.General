@@ -63,8 +63,17 @@ namespace KdSoft.NamedMessagePipe
         /// <summary>Task representing the listening process.</summary>
         public Task ListenTask => _listenTask;
 
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
+                _serverStream.Dispose();
+            }
+        }
+
         /// <inheritdoc />
-        public void Dispose() => _serverStream.Dispose();
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
         /// Async enumerable returning messages received.
