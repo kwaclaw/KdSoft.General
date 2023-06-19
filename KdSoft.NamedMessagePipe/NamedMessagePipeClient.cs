@@ -106,7 +106,7 @@ namespace KdSoft.NamedMessagePipe
             // we need to cancel the Listen() loop in two cases:
             // 1) the readCancelToken is triggered
             // 2) the read loop (base.GetMessages) terminates
-            using var listenCancelSource = new CancellationTokenSource();
+            var listenCancelSource = new CancellationTokenSource();
             var messagesCancelSource = CancellationTokenSource.CreateLinkedTokenSource(readCancelToken, listenCancelSource.Token);
             var listenTask = Listen(_pipeline.Writer, messagesCancelSource.Token);
 
@@ -120,7 +120,9 @@ namespace KdSoft.NamedMessagePipe
 
             async Task LastStep() {
                 // we do this to cancel/stop the listen loop
-                messagesCancelSource.Cancel();
+                listenCancelSource.Cancel();
+                listenCancelSource.Dispose();
+                messagesCancelSource.Dispose();
                 await listenTask.ConfigureAwait(false);
             }
             return base.GetMessages(readCancelToken, LastStep);
