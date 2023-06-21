@@ -71,7 +71,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             cts.CancelAfter(ServerCancelDelay);
             await serverTask.ConfigureAwait(false);
 
-            GC.Collect();
+            _output.WriteLine($"Finished {nameof(ClientSendMessages)}");
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             await server1Task.ConfigureAwait(false);
             await server2Task.ConfigureAwait(false);
 
-            GC.Collect();
+            _output.WriteLine($"Finished {nameof(MultipleClientSendMessages)}");
         }
 
         [Fact]
@@ -153,6 +153,8 @@ namespace KdSoft.NamedMessagePipe.Tests
             // brief delay to let _output catch up
             serverCts.CancelAfter(ServerCancelDelay);
             await serverTask.ConfigureAwait(false);
+
+            _output.WriteLine($"Finished {nameof(ServerSendMessages)}");
         }
 
         [Fact]
@@ -217,6 +219,8 @@ namespace KdSoft.NamedMessagePipe.Tests
             // brief delay to let _output catch up
             serverCts.CancelAfter(ServerCancelDelay);
             await serverTask.ConfigureAwait(false);
+
+            _output.WriteLine($"Finished {nameof(SendReplyMessage)}");
         }
 
         [Fact]
@@ -299,6 +303,8 @@ namespace KdSoft.NamedMessagePipe.Tests
             serverCts.CancelAfter(ServerCancelDelay);
             await server1Task.ConfigureAwait(false);
             await server2Task.ConfigureAwait(false);
+
+            _output.WriteLine($"Finished {nameof(MultipleClientSendReplyMessage)}");
         }
     }
 }
