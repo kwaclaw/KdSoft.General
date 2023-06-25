@@ -8,7 +8,7 @@
     <VersionPrefix>2.0.4</VersionPrefix>
     <Nullable>enable</Nullable>
     <PackageReleaseNotes>
-      Updated to Microsoft.FASTER.Core v2.5.10, which is binary incompatible with versions &lt; 2.0.8.
+      Updated to Microsoft.FASTER.Core v2.5.11, which is binary incompatible with versions &lt; 2.0.8.
     </PackageReleaseNotes>
   </PropertyGroup>
 

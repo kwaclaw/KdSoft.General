@@ -10,7 +10,7 @@
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-        Breaking change: changed RollingFileFactory.GetCurrentStream to a synchronous method. RollingFileFactory is now supported for net461 and netstandard2.0.
+        Breaking change: changed RollingFileFactory.GetCurrentStream() to a synchronous method. RollingFileFactory is now supported for net461 and netstandard2.0.
     </PackageReleaseNotes>
   </PropertyGroup>
 
