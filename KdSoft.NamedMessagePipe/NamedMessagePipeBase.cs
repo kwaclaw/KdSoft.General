@@ -19,7 +19,7 @@ namespace KdSoft.NamedMessagePipe
         /// <summary><see cref="Pipe"/> used internally for message processing.</summary>
         protected readonly Pipe _pipeline;
         /// <summary>Message separator to pass to <see cref="BuffersExtensions.Write{T}(IBufferWriter{T}, ReadOnlySpan{T})"/>.</summary>
-        protected readonly static ReadOnlyMemory<byte> _messageSeparator = new ReadOnlyMemory<byte>(new byte[] { 0 });
+        public readonly static ReadOnlyMemory<byte> MessageSeparator = new ReadOnlyMemory<byte>(new byte[] { 0 });
 
         /// <summary>Constructor.</summary>
         /// <param name="name">Name of pipe.</param>

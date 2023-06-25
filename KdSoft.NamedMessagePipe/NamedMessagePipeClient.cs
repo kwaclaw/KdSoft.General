@@ -59,7 +59,6 @@ namespace KdSoft.NamedMessagePipe
 #endif
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
 
-                result._clientStream.ReadMode = PipeTransmissionMode.Message;
                 return result;
             }
             catch (Exception ex) {
@@ -174,13 +173,6 @@ namespace KdSoft.NamedMessagePipe
 
                     if (byteCount == 0) {
                         break;
-                    }
-
-                    if (_clientStream.IsMessageComplete) {
-                        // we assume UTF8 string data, so we can use 0 as message separator
-                        var memory2 = pipelineWriter.GetMemory(_minBufferSize);
-                        _messageSeparator.CopyTo(memory2);
-                        pipelineWriter.Advance(_messageSeparator.Length);
                     }
 
                     writeResult = await pipelineWriter.FlushAsync(cancelToken).ConfigureAwait(false);

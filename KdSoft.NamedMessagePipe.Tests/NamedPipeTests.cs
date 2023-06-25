@@ -1,6 +1,4 @@
-using System;
 using System.Buffers;
-using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,6 +42,30 @@ namespace KdSoft.NamedMessagePipe.Tests
 #endif
         }
 
+        async Task WriteMessage(NamedMessagePipeServer server, string msg) {
+            var buffer = ArrayPool<byte>.Shared.Rent(1024);
+            try {
+                var count = Encoding.UTF8.GetBytes(msg, 0, msg.Length, buffer, 0);
+                buffer[count++] = 0;
+                await server.WriteAsync(buffer, 0, count).ConfigureAwait(false);
+            }
+            finally {
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
+        }
+
+        async Task WriteMessage(NamedMessagePipeClient client, string msg) {
+            var buffer = ArrayPool<byte>.Shared.Rent(1024);
+            try {
+                var count = Encoding.UTF8.GetBytes(msg, 0, msg.Length, buffer, 0);
+                buffer[count++] = 0;
+                await client.WriteAsync(buffer, 0, count).ConfigureAwait(false);
+            }
+            finally {
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
+        }
+
         [Fact]
         public async Task ClientSendMessages() {
             NamedPipeEventSource.Log.Write(nameof(ClientSendMessages));
@@ -62,10 +84,10 @@ namespace KdSoft.NamedMessagePipe.Tests
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
             for (int indx = 0; indx < 10; indx++) {
-                var msgBytes = Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}");
-                await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
-                client.WaitForPipeDrain();
+                await WriteMessage(client, $"A long message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
             }
+            await client.FlushAsync().ConfigureAwait(false);
+            client.WaitForPipeDrain();
 
             // brief delay to let _output catch up
             cts.CancelAfter(ServerCancelDelay);
@@ -90,9 +112,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             async Task RunClient(int clientIndex) {
                 using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendMessages) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false);
                 for (int indx = 0; indx < 10; indx++) {
-                    var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
-                    await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+                    await WriteMessage(client, $"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
                 }
+                await client.FlushAsync().ConfigureAwait(false);
                 client.WaitForPipeDrain();
             }
 
@@ -124,11 +146,9 @@ namespace KdSoft.NamedMessagePipe.Tests
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
                     for (int indx = 0; indx < 10; indx++) {
-                        var msgBytes = Encoding.UTF8.GetBytes($"A long message exceeding 16 bytes, index: {indx}");
-                        await server.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+                        await WriteMessage(server, $"A long message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
                     }
-                    var lastBytes = Encoding.UTF8.GetBytes("Last Message");
-                    await server.WriteAsync(lastBytes, 0, lastBytes.Length).ConfigureAwait(false);
+                    await WriteMessage(server, "Last Message").ConfigureAwait(false);
                     await server.FlushAsync().ConfigureAwait(false);
                 }
                 _output.WriteLine("End of messages");
@@ -136,8 +156,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             var serverTask = RunServer();
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ServerSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
-            var helloBytes = Encoding.UTF8.GetBytes("Last Message");
-            await client.WriteAsync(helloBytes, 0, helloBytes.Length).ConfigureAwait(false);
+            await WriteMessage(client, "Hello from client").ConfigureAwait(false);
             client.WaitForPipeDrain();
 
             // the client's listening loop will only end when the client is disposed, as this triggers the read/listen cancellation token;
@@ -166,8 +185,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
-                    var reply = Encoding.UTF8.GetBytes($"Reply to {msg}");
-                    await server.WriteAsync(reply, 0, reply.Length).ConfigureAwait(false);
+                    await WriteMessage(server, $"Reply to {msg}").ConfigureAwait(false);
                     await server.FlushAsync().ConfigureAwait(false);
                 }
                 _output.WriteLine("Server: End of messages");
@@ -183,8 +201,8 @@ namespace KdSoft.NamedMessagePipe.Tests
                     // in full framework we can only use Dispose() to stop the client from reading, cancellation does not work
                     using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", ConnectTimeout).ConfigureAwait(false);
 #endif
-                    var msgBytes = Encoding.UTF8.GetBytes($"A very long message exceeding 16 bytes, index: {indx}");
-                    await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+                    await WriteMessage(client, $"A nice Hello from client {indx}").ConfigureAwait(false);
+                    await client.FlushAsync().ConfigureAwait(false);
                     client.WaitForPipeDrain();
 
                     //var iterator = client.Messages().GetAsyncEnumerator();
@@ -213,7 +231,6 @@ namespace KdSoft.NamedMessagePipe.Tests
                 }
             }
             var clientTask = RunClient();
-
             await clientTask.ConfigureAwait(false);
 
             // brief delay to let _output catch up
@@ -232,8 +249,8 @@ namespace KdSoft.NamedMessagePipe.Tests
                 await foreach (var msgSequence in server1.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
-                    var reply = Encoding.UTF8.GetBytes($"Server1 reply to {msg}");
-                    await server1.WriteAsync(reply, 0, reply.Length).ConfigureAwait(false);
+                    await WriteMessage(server1, $"Server1 reply to {msg}").ConfigureAwait(false);
+                    await server1.FlushAsync().ConfigureAwait(false);
                 }
                 _output.WriteLine("Server1: End of messages");
             }, ServerTaskOptions);
@@ -243,8 +260,8 @@ namespace KdSoft.NamedMessagePipe.Tests
                 await foreach (var msgSequence in server2.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
-                    var reply = Encoding.UTF8.GetBytes($"Server2 reply to {msg}");
-                    await server2.WriteAsync(reply, 0, reply.Length).ConfigureAwait(false);
+                    await WriteMessage(server2, $"Server2 reply to {msg}").ConfigureAwait(false);
+                    await server2.FlushAsync().ConfigureAwait(false);
                 }
                 _output.WriteLine("Server2: End of messages");
             }, ServerTaskOptions);
@@ -253,8 +270,8 @@ namespace KdSoft.NamedMessagePipe.Tests
             async Task RunClient(int clientIndex, int loopCount) {
                 for (int indx = 0; indx < loopCount; indx++) {
                     using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false);
-                    var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
-                    await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+                    await WriteMessage(client, $"Client{clientIndex}: a nice Hello, index: {indx}").ConfigureAwait(false);
+                    await client.FlushAsync().ConfigureAwait(false);
                     client.WaitForPipeDrain();
 
                     // this restarts the listener
@@ -273,8 +290,8 @@ namespace KdSoft.NamedMessagePipe.Tests
             async Task RunClient(int clientIndex, int loopCount) {
                 using (var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false)) {
                     for (int indx = 0; indx < loopCount; indx++) {
-                        var msgBytes = Encoding.UTF8.GetBytes($"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
-                        await client.WriteAsync(msgBytes, 0, msgBytes.Length).ConfigureAwait(false);
+                        await WriteMessage(client, $"Client{clientIndex}: a nice Hello, index: {indx}").ConfigureAwait(false);
+                        await client.FlushAsync().ConfigureAwait(false);
                         client.WaitForPipeDrain();
 
                         // this restarts the listener

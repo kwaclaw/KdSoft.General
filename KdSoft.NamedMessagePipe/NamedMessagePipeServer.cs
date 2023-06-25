@@ -47,7 +47,7 @@ namespace KdSoft.NamedMessagePipe
             this._maxServers = maxServers;
             this._minBufferSize = minBufferSize;
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-            _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Message, pipeOptions);
+            _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions);
             _listenTask = Listen(_pipeline.Writer);
 #if NETFRAMEWORK
             listenCancelToken.Register(() => {
@@ -131,13 +131,6 @@ namespace KdSoft.NamedMessagePipe
 
                         if (byteCount == 0) {
                             break;
-                        }
-
-                        if (_serverStream.IsMessageComplete) {
-                            // we assume UTF8 string data, so we can use 0 as message separator
-                            var memory2 = pipelineWriter.GetMemory(_minBufferSize);
-                            _messageSeparator.CopyTo(memory2);
-                            pipelineWriter.Advance(_messageSeparator.Length);
                         }
 
                         writeResult = await pipelineWriter.FlushAsync(_listenCancelToken).ConfigureAwait(false);
