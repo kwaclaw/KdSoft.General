@@ -87,7 +87,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                 await WriteMessage(client, $"A long message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
             }
             await client.FlushAsync().ConfigureAwait(false);
-            client.WaitForPipeDrain();
+            //client.WaitForPipeDrain();
 
             // brief delay to let _output catch up
             cts.CancelAfter(ServerCancelDelay);
@@ -115,7 +115,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     await WriteMessage(client, $"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
                 }
                 await client.FlushAsync().ConfigureAwait(false);
-                client.WaitForPipeDrain();
+                //client.WaitForPipeDrain();
             }
 
             var server1Task = RunServer(1);
@@ -163,7 +163,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 
             using var client = await NamedMessagePipeClient.ConnectAsync(".", pipeName, nameof(ServerSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
             await WriteMessage(client, "Hello from client").ConfigureAwait(false);
-            client.WaitForPipeDrain();
+            //client.WaitForPipeDrain();
 
             // the client's listening loop will only end when the server sends the termination message
             await foreach (var msgSequence in client.Messages().ConfigureAwait(false)) {
@@ -208,7 +208,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 #endif
                     await WriteMessage(client, $"A nice Hello from client {indx}").ConfigureAwait(false);
                     await client.FlushAsync().ConfigureAwait(false);
-                    client.WaitForPipeDrain();
+                    //client.WaitForPipeDrain();
 
                     // this restarts the listener
                     //var iterator = client.Messages().GetAsyncEnumerator();
@@ -296,7 +296,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     for (int indx = 0; indx < loopCount; indx++) {
                         await WriteMessage(client, $"Client{clientIndex}: a nice Hello, index: {indx}").ConfigureAwait(false);
                         await client.FlushAsync().ConfigureAwait(false);
-                        client.WaitForPipeDrain();
+                        //client.WaitForPipeDrain();
 
                         // this restarts the listener
                         await foreach (var msgSequence in client.Messages().ConfigureAwait(false)) {
