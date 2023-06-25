@@ -17,7 +17,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 
         readonly ITestOutputHelper _output;
 
-        public const string PipeName = "elekta-pipe-test";
+        public const string PipeName = "kdsoft-pipe-test";
         const TaskCreationOptions ServerTaskOptions = TaskCreationOptions.LongRunning | TaskCreationOptions.RunContinuationsAsynchronously;
 
 #if NETFRAMEWORK
@@ -139,9 +139,15 @@ namespace KdSoft.NamedMessagePipe.Tests
         public async Task ServerSendMessages() {
             using var serverCts = new CancellationTokenSource();
 
+            // Workaround: for some reason, when multiple tests with the same pipe name are run, 
+            //             the server in this test does not start listening, hangs there while
+            //             the client seems to connect to a different, not yet disposed, instance.
+            // So we use a different pipe name here!
+            var pipeName = PipeName + "_special";
+
             // server listens for incoming messages and replies with a number of messages
             async Task RunServer() {
-                using var server = new NamedMessagePipeServer(PipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16);
+                using var server = new NamedMessagePipeServer(pipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -155,12 +161,11 @@ namespace KdSoft.NamedMessagePipe.Tests
             }
             var serverTask = RunServer();
 
-            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ServerSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
+            using var client = await NamedMessagePipeClient.ConnectAsync(".", pipeName, nameof(ServerSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
             await WriteMessage(client, "Hello from client").ConfigureAwait(false);
             client.WaitForPipeDrain();
 
-            // the client's listening loop will only end when the client is disposed, as this triggers the read/listen cancellation token;
-            // it depends on the server sending the termination message
+            // the client's listening loop will only end when the server sends the termination message
             await foreach (var msgSequence in client.Messages().ConfigureAwait(false)) {
                 var msg = GetString(msgSequence);
                 _output.WriteLine(msg);
@@ -205,6 +210,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     await client.FlushAsync().ConfigureAwait(false);
                     client.WaitForPipeDrain();
 
+                    // this restarts the listener
                     //var iterator = client.Messages().GetAsyncEnumerator();
                     //while (await iterator.MoveNextAsync().ConfigureAwait(false)) {
                     //    var msgSequence = iterator.Current;
@@ -269,21 +275,19 @@ namespace KdSoft.NamedMessagePipe.Tests
 #if NETFRAMEWORK
             async Task RunClient(int clientIndex, int loopCount) {
                 for (int indx = 0; indx < loopCount; indx++) {
+                    // in full framework we can only use Dispose() to stop the client from reading, Cancellation and Reset do not work
                     using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout).ConfigureAwait(false);
                     await WriteMessage(client, $"Client{clientIndex}: a nice Hello, index: {indx}").ConfigureAwait(false);
                     await client.FlushAsync().ConfigureAwait(false);
                     client.WaitForPipeDrain();
 
-                    // this restarts the listener
+                    // this starts the listener
                     await foreach (var msgSequence in client.Messages().ConfigureAwait(false)) {
                         var msg = GetString(msgSequence);
                         _output.WriteLine(msg);
                         // we expect only one message, so we end the loop
                         break;
                     }
-
-                    // If we want to restart listening and reading we need to reset the pipeline!
-                    // Note: both the pipeline reader and writer must have commpleted!
                 }
             }
 #else
