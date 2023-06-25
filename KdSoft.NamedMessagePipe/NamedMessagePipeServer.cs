@@ -59,11 +59,13 @@ namespace KdSoft.NamedMessagePipe
 #endif
         }
 
+        /// <inheritdoc cref="NamedPipeServerStream"/>
         public bool IsConnected { get => _serverStream.IsConnected; }
 
         /// <summary>Task representing the listening process.</summary>
         public Task ListenTask => _listenTask;
 
+        /// <summary>Implementation of Dispose pattern.</summary>
         protected virtual void Dispose(bool disposing) {
             if (disposing) {
                 _serverStream.Dispose();
@@ -199,10 +201,18 @@ namespace KdSoft.NamedMessagePipe
             return _serverStream.WriteAsync(message, offset, count, cancelToken);
         }
 
+#if NETSTANDARD2_1
+        /// <inheritdoc cref="Stream.FlushAsync(CancellationToken)"/>
+        public Task FlushAsync(CancellationToken cancelToken = default) {
+            return MakeCancellable(() => _serverStream.Flush(), cancelToken);
+        }
+#else
         /// <inheritdoc cref="PipeStream.FlushAsync(CancellationToken)"/>
         public Task FlushAsync(CancellationToken cancelToken = default) {
             return _serverStream.FlushAsync(cancelToken);
         }
+#endif
+
 #endif
     }
 }

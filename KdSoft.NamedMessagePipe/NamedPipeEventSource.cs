@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 #endif
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace KdSoft.NamedMessagePipe
 {
     /// <summary><see cref="EventSource"/> implementation for instrumenting NamedMessagePipe operations.</summary>
@@ -521,3 +522,4 @@ namespace KdSoft.NamedMessagePipe
         #endregion
     }
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

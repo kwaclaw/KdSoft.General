@@ -103,10 +103,10 @@ namespace KdSoft.NamedMessagePipe
             }
         }
 
-#if NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_1
         /// <summary>
         /// Helper for .NET framework to make methods cancellable where cancelling
-        /// does not work, e.g. Stream.ReadAsync() or Stream.WriteAsync().
+        /// does not work, e.g. Stream.ReadAsync(), Stream.WriteAsync() or Stream.FlushAsync().
         /// NOTE: this DOES NOT perform a real cancellation of the operation,
         /// the operation's Task will simply be abandoned, so its effects may linger on.
         /// </summary>

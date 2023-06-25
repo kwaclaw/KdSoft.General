@@ -3,6 +3,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
+using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 using PipeLines = System.IO.Pipelines;
@@ -69,6 +70,9 @@ namespace KdSoft.NamedMessagePipe
         }
 
         /// <inheritdoc cref="PipeStream.WaitForPipeDrain"/>
+#if NET6_0_OR_GREATER
+        [SupportedOSPlatform("windows")]
+#endif
         public void WaitForPipeDrain() {
             _clientStream.WaitForPipeDrain();
         }
@@ -82,6 +86,7 @@ namespace KdSoft.NamedMessagePipe
             _pipeline.Reset();
         }
 
+        /// <summary>Implementation of Dispose pattern.</summary>
         protected virtual void Dispose(bool disposing) {
             if (disposing) {
                 _clientStream.Dispose();
@@ -240,10 +245,18 @@ namespace KdSoft.NamedMessagePipe
             return _clientStream.ReadAsync(buffer, offset, count, cancelToken);
         }
 
+#if NETSTANDARD2_1
+        /// <inheritdoc cref="Stream.FlushAsync(CancellationToken)"/>
+        public Task FlushAsync(CancellationToken cancelToken = default) {
+            return MakeCancellable(() => _clientStream.Flush(), cancelToken);
+        }
+#else
         /// <inheritdoc cref="PipeStream.FlushAsync(CancellationToken)"/>
         public Task FlushAsync(CancellationToken cancelToken = default) {
             return _clientStream.FlushAsync(cancelToken);
         }
+#endif
+
 #endif
     }
 }
