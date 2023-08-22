@@ -5,12 +5,12 @@
     <PropertyGroup>
         <Description>Text message exchange through Named Pipes.</Description>
         <TargetFrameworks>net462;netstandard2.1;net6.0</TargetFrameworks>
-        <VersionPrefix>1.1.0</VersionPrefix>
+        <VersionPrefix>1.2.0</VersionPrefix>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
 
         <PackageReleaseNotes>
-            Bug fixes, added support for .NET Framework, added EventSource instrumentation.
+            Added support for PipeSecurity, except for netstandard2.1.
         </PackageReleaseNotes>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
