@@ -5,7 +5,7 @@
     <PropertyGroup>
         <Description>Text message exchange through Named Pipes.</Description>
         <TargetFrameworks>net462;netstandard2.1;net6.0</TargetFrameworks>
-        <VersionPrefix>1.2.0</VersionPrefix>
+        <VersionPrefix>1.2.1</VersionPrefix>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
 
