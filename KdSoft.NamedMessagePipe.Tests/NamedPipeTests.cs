@@ -1,3 +1,4 @@
+using System;
 using System.Buffers;
 using System.IO.Pipes;
 using System.Runtime.Versioning;
@@ -18,20 +19,24 @@ namespace KdSoft.NamedMessagePipe.Tests
     {
         const int ConnectTimeout = 1000;
         const int ServerCancelDelay = 500;
+        const TaskCreationOptions ServerTaskOptions = TaskCreationOptions.LongRunning | TaskCreationOptions.RunContinuationsAsynchronously;
 
         readonly ITestOutputHelper _output;
 
         public const string PipeName = "kdsoft-pipe-test";
-        const TaskCreationOptions ServerTaskOptions = TaskCreationOptions.LongRunning | TaskCreationOptions.RunContinuationsAsynchronously;
+
 
 #if NETFRAMEWORK
         readonly NamedPipeTestFixtureFramework _fixture;
+
         public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixtureFramework fixture) {
             this._output = output;
             this._fixture = fixture;
+
         }
 #else
         readonly NamedPipeTestFixtureCore _fixture;
+
         public NamedPipeTests(ITestOutputHelper output, NamedPipeTestFixtureCore fixture) {
             this._output = output;
             this._fixture = fixture;
@@ -62,6 +67,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             var buffer = ArrayPool<byte>.Shared.Rent(1024);
             try {
                 var count = Encoding.UTF8.GetBytes(msg, 0, msg.Length, buffer, 0);
+                // 0 is the message terminator
                 buffer[count++] = 0;
                 await client.WriteAsync(buffer, 0, count).ConfigureAwait(false);
             }
@@ -77,7 +83,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var cts = new CancellationTokenSource();
 
             async Task RunServer() {
-                using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, 16);
+                using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, 2);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -98,6 +104,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             await serverTask.ConfigureAwait(false);
 
             _output.WriteLine($"Finished {nameof(ClientSendMessages)}");
+
+            // give Windows time to release the named pipe
+            await Task.Delay(2000).ConfigureAwait(false);
         }
 
 #if NETFRAMEWORK || NET6_0_OR_GREATER
@@ -106,16 +115,16 @@ namespace KdSoft.NamedMessagePipe.Tests
         [SupportedOSPlatform("windows")]
 #endif
         public async Task SecuredClientSendMessages() {
-            NamedPipeEventSource.Log.Write(nameof(ClientSendMessages));
+            NamedPipeEventSource.Log.Write(nameof(SecuredClientSendMessages));
 
             using var cts = new CancellationTokenSource();
 
             var pipeSecurity = new PipeSecurity();
-            var id = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+            var id = new SecurityIdentifier(WellKnownSidType.AuthenticatedUserSid, null);
             // Allow everyone read and write access to the pipe.
             pipeSecurity.SetAccessRule(new PipeAccessRule(id, PipeAccessRights.ReadWrite, AccessControlType.Allow));
 
-            using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, pipeSecurity, 16);
+            using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, pipeSecurity, 2);
 
             var readTask = Task.Run(async () => {
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
@@ -125,12 +134,12 @@ namespace KdSoft.NamedMessagePipe.Tests
                 _output.WriteLine("End of messages");
             });
 
-            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client", ConnectTimeout);
+            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client", ConnectTimeout).ConfigureAwait(false);
             for (int indx = 0; indx < 10; indx++) {
                 await WriteMessage(client, $"A long message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
             }
             await client.FlushAsync().ConfigureAwait(false);
-            client.WaitForPipeDrain();
+            //client.WaitForPipeDrain();
 #if NET6_0_OR_GREATER
             await client.DisposeAsync().ConfigureAwait(false);
 #else
@@ -142,6 +151,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             await readTask.ConfigureAwait(false);
 
             _output.WriteLine($"Finished {nameof(ClientSendMessages)}");
+
+            // give Windows time to release the named pipe
+            await Task.Delay(2000).ConfigureAwait(false);
         }
 #endif
 
@@ -150,7 +162,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var cts = new CancellationTokenSource();
 
             async Task RunServer(int serverIndex) {
-                using var server = new NamedMessagePipeServer(PipeName, $"{nameof(MultipleClientSendMessages)}-Server{serverIndex}", cts.Token, 16);
+                using var server = new NamedMessagePipeServer(PipeName, $"{nameof(MultipleClientSendMessages)}-Server{serverIndex}", cts.Token, 2);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -182,6 +194,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             await server2Task.ConfigureAwait(false);
 
             _output.WriteLine($"Finished {nameof(MultipleClientSendMessages)}");
+
+            // give Windows time to release the named pipe
+            await Task.Delay(2000).ConfigureAwait(false);
         }
 
         [Fact]
@@ -196,7 +211,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 
             // server listens for incoming messages and replies with a number of messages
             async Task RunServer() {
-                using var server = new NamedMessagePipeServer(pipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16, 0);
+                using var server = new NamedMessagePipeServer(pipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 2);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -228,6 +243,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             await serverTask.ConfigureAwait(false);
 
             _output.WriteLine($"Finished {nameof(ServerSendMessages)}");
+
+            // give Windows time to release the named pipe
+            await Task.Delay(2000).ConfigureAwait(false);
         }
 
         [Fact]
@@ -235,7 +253,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var serverCts = new CancellationTokenSource();
 
             async Task RunServer() {
-                using var server = new NamedMessagePipeServer(PipeName, nameof(SendReplyMessage) + "-Server", serverCts.Token, 16, 0);
+                using var server = new NamedMessagePipeServer(PipeName, nameof(SendReplyMessage) + "-Server", serverCts.Token, 2);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -293,6 +311,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             await serverTask.ConfigureAwait(false);
 
             _output.WriteLine($"Finished {nameof(SendReplyMessage)}");
+
+            // give Windows time to release the named pipe
+            await Task.Delay(2000).ConfigureAwait(false);
         }
 
         [Fact]
@@ -300,7 +321,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var serverCts = new CancellationTokenSource();
 
             var server1Task = Task.Factory.StartNew(async () => {
-                using var server1 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server1", serverCts.Token, 16, 0);
+                using var server1 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server1", serverCts.Token, 2);
                 await foreach (var msgSequence in server1.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -311,7 +332,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }, ServerTaskOptions);
 
             var server2Task = Task.Factory.StartNew(async () => {
-                using var server2 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server2", serverCts.Token, 16, 0);
+                using var server2 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server2", serverCts.Token, 2);
                 await foreach (var msgSequence in server2.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -375,6 +396,9 @@ namespace KdSoft.NamedMessagePipe.Tests
             await server2Task.ConfigureAwait(false);
 
             _output.WriteLine($"Finished {nameof(MultipleClientSendReplyMessage)}");
+
+            // give Windows time to release the named pipe
+            await Task.Delay(2000).ConfigureAwait(false);
         }
     }
 }
