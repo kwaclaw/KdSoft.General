@@ -1,4 +1,8 @@
 using System.Buffers;
+using System.IO.Pipes;
+using System.Runtime.Versioning;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -96,6 +100,51 @@ namespace KdSoft.NamedMessagePipe.Tests
             _output.WriteLine($"Finished {nameof(ClientSendMessages)}");
         }
 
+#if NETFRAMEWORK || NET6_0_OR_GREATER
+        [Fact]
+#if NET6_0_OR_GREATER
+        [SupportedOSPlatform("windows")]
+#endif
+        public async Task SecuredClientSendMessages() {
+            NamedPipeEventSource.Log.Write(nameof(ClientSendMessages));
+
+            using var cts = new CancellationTokenSource();
+
+            var pipeSecurity = new PipeSecurity();
+            var id = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+            // Allow everyone read and write access to the pipe.
+            pipeSecurity.SetAccessRule(new PipeAccessRule(id, PipeAccessRights.ReadWrite, AccessControlType.Allow));
+
+            using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, pipeSecurity, 16);
+
+            var readTask = Task.Run(async () => {
+                await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
+                    var msg = GetString(msgSequence);
+                    _output.WriteLine(msg);
+                }
+                _output.WriteLine("End of messages");
+            });
+
+            using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(ClientSendMessages) + "-Client", ConnectTimeout);
+            for (int indx = 0; indx < 10; indx++) {
+                await WriteMessage(client, $"A long message exceeding 16 bytes, index: {indx}").ConfigureAwait(false);
+            }
+            await client.FlushAsync().ConfigureAwait(false);
+            client.WaitForPipeDrain();
+#if NET6_0_OR_GREATER
+            await client.DisposeAsync().ConfigureAwait(false);
+#else
+            client.Dispose();
+#endif
+
+            // brief delay to let _output catch up
+            cts.CancelAfter(ServerCancelDelay);
+            await readTask.ConfigureAwait(false);
+
+            _output.WriteLine($"Finished {nameof(ClientSendMessages)}");
+        }
+#endif
+
         [Fact]
         public async Task MultipleClientSendMessages() {
             using var cts = new CancellationTokenSource();
@@ -147,7 +196,7 @@ namespace KdSoft.NamedMessagePipe.Tests
 
             // server listens for incoming messages and replies with a number of messages
             async Task RunServer() {
-                using var server = new NamedMessagePipeServer(pipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16);
+                using var server = new NamedMessagePipeServer(pipeName, nameof(ServerSendMessages) + "-Server", serverCts.Token, 16, 0);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -186,7 +235,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var serverCts = new CancellationTokenSource();
 
             async Task RunServer() {
-                using var server = new NamedMessagePipeServer(PipeName, nameof(SendReplyMessage) + "-Server", serverCts.Token, 16);
+                using var server = new NamedMessagePipeServer(PipeName, nameof(SendReplyMessage) + "-Server", serverCts.Token, 16, 0);
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -251,7 +300,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             using var serverCts = new CancellationTokenSource();
 
             var server1Task = Task.Factory.StartNew(async () => {
-                using var server1 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server1", serverCts.Token, 16);
+                using var server1 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server1", serverCts.Token, 16, 0);
                 await foreach (var msgSequence in server1.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
@@ -262,7 +311,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             }, ServerTaskOptions);
 
             var server2Task = Task.Factory.StartNew(async () => {
-                using var server2 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server2", serverCts.Token, 16);
+                using var server2 = new NamedMessagePipeServer(PipeName, nameof(MultipleClientSendReplyMessage) + "-Server2", serverCts.Token, 16, 0);
                 await foreach (var msgSequence in server2.Messages().ConfigureAwait(false)) {
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
