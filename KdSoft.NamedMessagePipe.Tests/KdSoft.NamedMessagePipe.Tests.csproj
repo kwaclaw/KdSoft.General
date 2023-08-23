@@ -36,4 +36,8 @@
         <ProjectReference Include="..\KdSoft.Utils\KdSoft.Utils.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Logs\" />
+    </ItemGroup>
+
 </Project>

@@ -12,6 +12,7 @@ namespace KdSoft.NamedMessagePipe
 {
     /// <summary>
     /// NamedPipe client that handles message buffers without null bytes (e.g. UTF8-encoded strings).
+    /// To be recognized as a message, a null byte must be added to the end of the message buffer.
     /// </summary>
     public class NamedMessagePipeClient
 #if NETFRAMEWORK
@@ -226,6 +227,7 @@ namespace KdSoft.NamedMessagePipe
         }
 
         /// <inheritdoc cref="PipeStream.WriteAsync(ReadOnlyMemory{byte}, CancellationToken)"/>
+        /// <remarks>To mark the end of a message, add a null byte at the end.</remarks>
         public ValueTask WriteAsync(ReadOnlyMemory<byte> message, CancellationToken cancelToken = default) {
             return _clientStream.WriteAsync(message, cancelToken);
         }
@@ -236,6 +238,7 @@ namespace KdSoft.NamedMessagePipe
         }
 
         /// <inheritdoc cref="PipeStream.WriteAsync(byte[], int, int, CancellationToken)"/>
+        /// <remarks>To mark the end of a message, add a null byte at the end.</remarks>
         public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
             return _clientStream.WriteAsync(message, offset, count, cancelToken);
         }

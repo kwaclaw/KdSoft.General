@@ -12,6 +12,7 @@ namespace KdSoft.NamedMessagePipe
 {
     /// <summary>
     /// NamedPipe server that handles message buffers without null bytes (e.g. UTF8-encoded strings).
+    /// The null byte is the message terminator.
     /// </summary>
     public class NamedMessagePipeServer
 #if NETFRAMEWORK
