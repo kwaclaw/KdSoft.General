@@ -5,13 +5,13 @@
   <PropertyGroup>
     <Title>KdSoft.Utils.Portable</Title>
     <Description>KdSoft.Utils.Portable Class Library</Description>
-    <VersionPrefix>4.1.0</VersionPrefix>
+    <VersionPrefix>4.2.0</VersionPrefix>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net6.0</TargetFrameworks>
     <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Dropped explicit target frameworks netstandard 1.X.
+      Added empty string and white space coalescing extensions.
     </PackageReleaseNotes>
   </PropertyGroup>
 
