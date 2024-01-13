@@ -7,9 +7,9 @@
     <VersionPrefix>3.0.0</VersionPrefix>
     <Description>KdSoft.CodeConfig Class Library</Description>
     <TargetFrameworks>netstandard2.0;net462;net6.0</TargetFrameworks>
-      <PackageReleaseNotes>
-          Added netstandard2.0 and net6.0 targets. Changed to net462 target - breaking change.
-      </PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Added netstandard2.0 and net6.0 targets. Changed to net462 target - breaking change.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
