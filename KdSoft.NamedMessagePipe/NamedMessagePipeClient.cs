@@ -3,7 +3,9 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
+#if NET6_0_OR_GREATER
 using System.Runtime.Versioning;
+#endif
 using System.Threading;
 using System.Threading.Tasks;
 using PipeLines = System.IO.Pipelines;
@@ -27,6 +29,8 @@ namespace KdSoft.NamedMessagePipe
         /// <summary>Internal instance of <see cref="NamedPipeClientStream"/>.</summary>
         protected NamedPipeClientStream _clientStream;
 
+#if NETFRAMEWORK
+
         NamedMessagePipeClient(string server, string pipeName, string instanceId, int minBufferSize) : base(pipeName, instanceId) {
             this._server = server;
             this._minBufferSize = minBufferSize;
@@ -40,9 +44,9 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="server">Name of server. "." for local server.</param>
         /// <param name="pipeName">Name of pipe.</param>
         /// <param name="instanceId">Unique identifier of this instance.</param>
-        /// <param name="minBufferSize">Minimum buffer size to use for reading messages.</param>
         /// <param name="timeout">Timeout for connection attempt.</param>
         /// <param name="cancelToken">Cancellation token.</param>
+        /// <param name="minBufferSize">Minimum buffer size to use for reading messages.</param>
         /// <returns>Connected <see cref="NamedMessagePipeClient"/> instance.</returns>
         public static async Task<NamedMessagePipeClient> ConnectAsync(
             string server,
@@ -54,13 +58,8 @@ namespace KdSoft.NamedMessagePipe
         ) {
             var result = new NamedMessagePipeClient(server, pipeName, instanceId, minBufferSize);
             try {
-#if NETFRAMEWORK
                 await MakeCancellable(() => result._clientStream.Connect(timeout), cancelToken).ConfigureAwait(false);
-#else
-                await result._clientStream.ConnectAsync(timeout, cancelToken).ConfigureAwait(false);
-#endif
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
-
                 return result;
             }
             catch (Exception ex) {
@@ -69,6 +68,53 @@ namespace KdSoft.NamedMessagePipe
                 throw;
             }
         }
+
+#else
+
+        NamedMessagePipeClient(string server, string pipeName, string instanceId, bool currentUserOnly, int minBufferSize) : base(pipeName, instanceId) {
+            this._server = server;
+            this._minBufferSize = minBufferSize;
+            var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
+            if (currentUserOnly) {
+                pipeOptions |= PipeOptions.CurrentUserOnly;
+            }
+            _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions);
+        }
+
+                /// <summary>
+        /// Returns new instance of a connected <see cref="NamedMessagePipeClient"/>.
+        /// </summary>
+        /// <param name="server">Name of server. "." for local server.</param>
+        /// <param name="pipeName">Name of pipe.</param>
+        /// <param name="instanceId">Unique identifier of this instance.</param>
+        /// <param name="timeout">Timeout for connection attempt.</param>
+        /// <param name="cancelToken">Cancellation token.</param>
+        /// <param name="currentUserOnly">Can only connect to a server created by the same user.</param>
+        /// <param name="minBufferSize">Minimum buffer size to use for reading messages.</param>
+        /// <returns>Connected <see cref="NamedMessagePipeClient"/> instance.</returns>
+        public static async Task<NamedMessagePipeClient> ConnectAsync(
+            string server,
+            string pipeName,
+            string instanceId,
+            int timeout = Timeout.Infinite,
+            CancellationToken cancelToken = default,
+            bool currentUserOnly = false,
+            int minBufferSize = 512
+        ) {
+            var result = new NamedMessagePipeClient(server, pipeName, instanceId, currentUserOnly, minBufferSize);
+            try {
+                await result._clientStream.ConnectAsync(timeout, cancelToken).ConfigureAwait(false);
+                NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
+                return result;
+            }
+            catch (Exception ex) {
+                NamedPipeEventSource.Log.ClientConnectionError(result.PipeName, result.InstanceId, ex);
+                result.Dispose();
+                throw;
+            }
+        }
+
+#endif
 
         /// <inheritdoc cref="PipeStream.WaitForPipeDrain"/>
 #if NET6_0_OR_GREATER

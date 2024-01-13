@@ -5,30 +5,30 @@
     <PropertyGroup>
         <Description>Text message exchange through Named Pipes.</Description>
         <TargetFrameworks>net462;netstandard2.1;net6.0</TargetFrameworks>
-        <VersionPrefix>1.2.1</VersionPrefix>
+        <VersionPrefix>2.0.0</VersionPrefix>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
 
         <PackageReleaseNotes>
-            Added support for PipeSecurity, except for netstandard2.1.
+            Added support for PipeOptions.CurrentUserOnly, breaking API argument changes.
         </PackageReleaseNotes>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
+        <PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-        <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
-        <PackageReference Include="System.Text.Json" Version="7.0.3" />
+        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+        <PackageReference Include="System.Text.Json" Version="8.0.1" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
-        <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
+        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
     </ItemGroup>
 
 </Project>

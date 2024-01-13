@@ -3,7 +3,9 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
+#if NET6_0_OR_GREATER
 using System.Runtime.Versioning;
+#endif
 using System.Threading;
 using System.Threading.Tasks;
 using PipeLines = System.IO.Pipelines;
@@ -38,15 +40,15 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="pipeName">Name of pipe.</param>
         /// <param name="instanceId">Unique identifier of this instance.</param>
         /// <param name="listenCancelToken">CancellationToken that stops the server.</param>
-        /// <param name="security">Access rights for named pipe.</param>
         /// <param name="maxServers">Maximum number of servers to instantiate.</param>
+        /// <param name="security">Access rights for named pipe.</param>
         /// <param name="minBufferSize">Minimum buffer size for receiving incoming messages.</param>
         public NamedMessagePipeServer(
             string pipeName,
             string instanceId,
             CancellationToken listenCancelToken,
-            PipeSecurity security,
             int maxServers = NamedPipeServerStream.MaxAllowedServerInstances,
+            PipeSecurity? security = null,
             int minBufferSize = 512
         ) : base(pipeName, instanceId) {
             this._listenCancelToken = listenCancelToken;
@@ -65,37 +67,6 @@ namespace KdSoft.NamedMessagePipe
             });
         }
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="pipeName">Name of pipe.</param>
-        /// <param name="instanceId">Unique identifier of this instance.</param>
-        /// <param name="listenCancelToken">CancellationToken that stops the server.</param>
-        /// <param name="maxServers">Maximum number of servers to instantiate.</param>
-        /// <param name="minBufferSize">Minimum buffer size for receiving incoming messages.</param>
-        public NamedMessagePipeServer(
-            string pipeName,
-            string instanceId,
-            CancellationToken listenCancelToken,
-            int maxServers = NamedPipeServerStream.MaxAllowedServerInstances,
-            int minBufferSize = 512
-        ) : base(pipeName, instanceId) {
-            this._listenCancelToken = listenCancelToken;
-            this._maxServers = maxServers;
-            this._minBufferSize = minBufferSize;
-
-            var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-            _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions, 0, 0);
-            
-            _listenTask = Listen(_pipeline.Writer);
-            listenCancelToken.Register(() => {
-                if (_serverStream.IsConnected) {
-                    try { _serverStream.Disconnect(); }
-                    catch { }
-                }
-            });
-        }
-
 #elif NET6_0_OR_GREATER
 
         /// <summary>
@@ -104,16 +75,18 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="pipeName">Name of pipe.</param>
         /// <param name="instanceId">Unique identifier of this instance.</param>
         /// <param name="listenCancelToken">CancellationToken that stops the server.</param>
-        /// <param name="security">Access rights for named pipe.</param>
         /// <param name="maxServers">Maximum number of servers to instantiate.</param>
+        /// <param name="security">Access rights for named pipe.</param>
+        /// <param name="currentUserOnly">Can only be connected to a client created by the same user.</param>
         /// <param name="minBufferSize">Minimum buffer size for receiving incoming messages.</param>
         [SupportedOSPlatform("windows")]
         public NamedMessagePipeServer(
             string pipeName,
             string instanceId,
             CancellationToken listenCancelToken,
-            PipeSecurity security,
             int maxServers = NamedPipeServerStream.MaxAllowedServerInstances,
+            PipeSecurity? security = null,
+            bool currentUserOnly = false,
             int minBufferSize = 512
         ) : base(pipeName, instanceId) {
             this._listenCancelToken = listenCancelToken;
@@ -121,33 +94,16 @@ namespace KdSoft.NamedMessagePipe
             this._minBufferSize = minBufferSize;
 
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-            _serverStream = NamedPipeServerStreamAcl.Create(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions, 0, 0, security);
+            if (currentUserOnly) {
+                pipeOptions |= PipeOptions.CurrentUserOnly;
+            }
 
-            _listenTask = Listen(_pipeline.Writer);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="pipeName">Name of pipe.</param>
-        /// <param name="instanceId">Unique identifier of this instance.</param>
-        /// <param name="listenCancelToken">CancellationToken that stops the server.</param>
-        /// <param name="maxServers">Maximum number of servers to instantiate.</param>
-        /// <param name="minBufferSize">Minimum buffer size for receiving incoming messages.</param>
-        public NamedMessagePipeServer(
-            string pipeName,
-            string instanceId,
-            CancellationToken listenCancelToken,
-            int maxServers = NamedPipeServerStream.MaxAllowedServerInstances,
-            int minBufferSize = 512
-        ) : base(pipeName, instanceId) {
-            this._listenCancelToken = listenCancelToken;
-            this._maxServers = maxServers;
-            this._minBufferSize = minBufferSize;
-
-            var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-            _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions, 0, 0);
-
+            if (security is null) {
+                _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions, 0, 0);
+            }
+            else {
+                _serverStream = NamedPipeServerStreamAcl.Create(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions, 0, 0, security);
+            }
             _listenTask = Listen(_pipeline.Writer);
         }
 
@@ -160,12 +116,14 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="instanceId">Unique identifier of this instance.</param>
         /// <param name="listenCancelToken">CancellationToken that stops the server.</param>
         /// <param name="maxServers">Maximum number of servers to instantiate.</param>
+        /// <param name="currentUserOnly">Can only be connected to a client created by the same user.</param>
         /// <param name="minBufferSize">Minimum buffer size for receiving incoming messages.</param>
         public NamedMessagePipeServer(
             string pipeName,
             string instanceId,
             CancellationToken listenCancelToken,
             int maxServers = NamedPipeServerStream.MaxAllowedServerInstances,
+            bool currentUserOnly = false,
             int minBufferSize = 512
         ) : base(pipeName, instanceId) {
             this._listenCancelToken = listenCancelToken;
@@ -173,6 +131,9 @@ namespace KdSoft.NamedMessagePipe
             this._minBufferSize = minBufferSize;
 
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
+            if (currentUserOnly) {
+                pipeOptions |= PipeOptions.CurrentUserOnly;
+            }
             _serverStream = new NamedPipeServerStream(PipeName, PipeDirection.InOut, maxServers, PipeTransmissionMode.Byte, pipeOptions, 0, 0);
 
             _listenTask = Listen(_pipeline.Writer);

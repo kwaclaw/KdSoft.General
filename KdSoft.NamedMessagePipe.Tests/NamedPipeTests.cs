@@ -124,7 +124,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             // Allow everyone read and write access to the pipe.
             pipeSecurity.SetAccessRule(new PipeAccessRule(id, PipeAccessRights.ReadWrite, AccessControlType.Allow));
 
-            using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, pipeSecurity, 2);
+            using var server = new NamedMessagePipeServer(PipeName, nameof(ClientSendMessages) + "-Server", cts.Token, 2, pipeSecurity);
 
             var readTask = Task.Run(async () => {
                 await foreach (var msgSequence in server.Messages().ConfigureAwait(false)) {
