@@ -4,13 +4,20 @@
 
   <PropertyGroup>
     <Title>KdSoft.CodeConfig</Title>
-    <VersionPrefix>2.1.0</VersionPrefix>
+    <VersionPrefix>2.2.0</VersionPrefix>
     <Description>KdSoft.CodeConfig Class Library</Description>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461;net6.0</TargetFrameworks>
+      <PackageReleaseNotes>
+          Added netstandard2.0 and net6.0 targets.
+      </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net461'">
+    <PackageReference Include="System.CodeDom" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

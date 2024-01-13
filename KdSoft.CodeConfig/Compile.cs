@@ -14,7 +14,9 @@ namespace KdSoft.Config
   /// Contains helper functions for simple (dynamic) compilation of source files.
   /// </summary>
   /// <remarks>This can be useful when using configuration through C# code instead of XML.</remarks>
+#if NET461_OR_GREATER
   [SecuritySafeCritical, PermissionSet(SecurityAction.Assert, Unrestricted = true)]
+#endif
   public static class Compile
   {
     static List<string> ParseReferences(string sourceFile) {

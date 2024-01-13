@@ -18,9 +18,11 @@ namespace KdSoft.Config
     T CreateConfigured(ref string[] args);
   }
 
+#if NET461_OR_GREATER
   /// <summary>
   /// This class just exists to be able to load this assembly across
   /// AppDomains using <see cref="Activator.CreateInstanceFrom(AppDomain, string, string)"/>.
   /// </summary>
   public class Configurator: MarshalByRefObject { }
+#endif
 }

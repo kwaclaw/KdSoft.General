@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security;
+#if NET461_OR_GREATER
 using System.Security.Permissions;
+#endif
 using KdSoft.Reflection;
 
 namespace KdSoft.Config
@@ -11,7 +13,9 @@ namespace KdSoft.Config
   /// <summary>
   /// Configurator helper routines.
   /// </summary>
+#if NET461_OR_GREATER
   [SecuritySafeCritical, PermissionSet(SecurityAction.Assert, Unrestricted = true)]
+#endif
   public static class ConfigUtil
   {
     /// <summary>
