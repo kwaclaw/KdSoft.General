@@ -5,10 +5,10 @@
   <PropertyGroup>
     <Title>KdSoft.Reflection</Title>
     <Description>KdSoft.Reflection Class Library</Description>
-    <VersionPrefix>2.2.1</VersionPrefix>
-    <TargetFrameworks>netstandard2.0;net461;net6.0</TargetFrameworks>
+    <VersionPrefix>3.0.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;net462;net6.0</TargetFrameworks>
     <PackageReleaseNotes>
-      Replaced netstandard1.3 target framework with netstandard2.0.
+        Changed from net461 to net462 target, breaking change.
     </PackageReleaseNotes>
   </PropertyGroup>
 

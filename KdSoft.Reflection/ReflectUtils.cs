@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.DependencyModel;
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
 using System.IO;
 using System.Security;
 using System.Security.Permissions;
@@ -15,7 +15,7 @@ namespace KdSoft.Reflection
   /// <summary>
   /// Reflection helper routines.
   /// </summary>
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
   [SecuritySafeCritical, PermissionSet(SecurityAction.Assert, Unrestricted = true)]
 #endif
   public static class ReflectUtils
@@ -87,7 +87,7 @@ namespace KdSoft.Reflection
       return FindAssembly(domain, matchName, false);
     }
 
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
     /// <summary>
     /// Loads assembly into reflection-only context from display name, and as fall-back uses an optional base Uri to construct a CodeBase.
     /// </summary>
@@ -135,7 +135,7 @@ namespace KdSoft.Reflection
       else
         types = assembly.GetTypes();
       foreach (Type tp in types) {
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
         if (tp.IsClass && superType.IsAssignableFrom(tp))
 #else
         if (tp.GetTypeInfo().IsClass && superType.IsAssignableFrom(tp))
@@ -172,7 +172,7 @@ namespace KdSoft.Reflection
     /// <param name="type">Type to get singleton instance for.</param>
     /// <param name="name">Name for public static property or field. String comparison is *not* case sensitive.</param>
     /// <returns>Singleton instance, or <c>null</c> if no matching property or field is found.</returns>
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
     public static object GetSingletonInstance(this Type type, string name) {
       if (!type.IsClass)
         throw new ArgumentException(string.Format("Singleton type '{0}' must be class.", type.FullName));
@@ -200,7 +200,7 @@ namespace KdSoft.Reflection
     }
 #endif
 
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
     /// <summary>
     /// Gets all strong names for an assembly and its referenced assemblies and adds them
     /// to an existing array. Does not include assemblies not loaded (yet), unless <c>load</c> is true;
@@ -229,7 +229,7 @@ namespace KdSoft.Reflection
 #endif
   }
 
-#if NET461_OR_GREATER
+#if NET462_OR_GREATER
   /// <summary>
   /// This class just exists to be able to load this assembly across
   /// AppDomains using <see cref="Activator.CreateInstanceFrom(AppDomain, string, string)"/>.
