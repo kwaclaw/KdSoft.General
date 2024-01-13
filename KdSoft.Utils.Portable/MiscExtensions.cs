@@ -60,14 +60,14 @@ namespace KdSoft.Utils
         /// Like the null-coalescing operator, but also works for empty strings.
         /// </summary>
         public static string IfNullOrEmpty(this string? str, string defaultValue) {
-            return string.IsNullOrEmpty(str) ? defaultValue : str;
+            return string.IsNullOrEmpty(str) ? defaultValue : str!;
         }
 
         /// <summary>
         /// Like the null-coalescing operator, but also works for empty strings and white space.
         /// </summary>
         public static string IfNullOrWhiteSpace(this string? str, string defaultValue) {
-            return string.IsNullOrWhiteSpace(str) ? defaultValue : str;
+            return string.IsNullOrWhiteSpace(str) ? defaultValue : str!;
         }
     }
 }

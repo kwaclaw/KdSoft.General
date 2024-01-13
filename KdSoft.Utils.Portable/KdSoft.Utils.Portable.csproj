@@ -7,7 +7,7 @@
     <Description>KdSoft.Utils.Portable Class Library</Description>
     <VersionPrefix>4.2.1</VersionPrefix>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net6.0</TargetFrameworks>
-    <LangVersion>10</LangVersion>
+    <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
