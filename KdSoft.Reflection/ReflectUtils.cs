@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.DotNet.PlatformAbstractions;
@@ -54,7 +53,6 @@ namespace KdSoft.Reflection
       return result;
     }
 
-#if NET461_OR_GREATER
     /// <summary>
     /// Finds assembly loaded into AppDomain given a full or partial assembly name.
     /// </summary>
@@ -89,6 +87,7 @@ namespace KdSoft.Reflection
       return FindAssembly(domain, matchName, false);
     }
 
+#if NET461_OR_GREATER
     /// <summary>
     /// Loads assembly into reflection-only context from display name, and as fall-back uses an optional base Uri to construct a CodeBase.
     /// </summary>
@@ -136,12 +135,12 @@ namespace KdSoft.Reflection
       else
         types = assembly.GetTypes();
       foreach (Type tp in types) {
-#if !NET461_OR_GREATER
-        if (tp.GetTypeInfo().IsClass && superType.IsAssignableFrom(tp))
-#else
+#if NET461_OR_GREATER
         if (tp.IsClass && superType.IsAssignableFrom(tp))
+#else
+        if (tp.GetTypeInfo().IsClass && superType.IsAssignableFrom(tp))
 #endif
-          result.Add(tp);
+        result.Add(tp);
       }
       return result;
     }
@@ -173,12 +172,12 @@ namespace KdSoft.Reflection
     /// <param name="type">Type to get singleton instance for.</param>
     /// <param name="name">Name for public static property or field. String comparison is *not* case sensitive.</param>
     /// <returns>Singleton instance, or <c>null</c> if no matching property or field is found.</returns>
-#if !NET461_OR_GREATER
+#if NET461_OR_GREATER
     public static object GetSingletonInstance(this Type type, string name) {
-      if (!type.GetTypeInfo().IsClass)
+      if (!type.IsClass)
         throw new ArgumentException(string.Format("Singleton type '{0}' must be class.", type.FullName));
       BindingFlags bfs = BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Public;
-      PropertyInfo propInfo = type.GetProperty(name, bfs);
+      PropertyInfo propInfo = type.GetProperty(name, bfs, null, type, Type.EmptyTypes, null);
       if (propInfo != null)
         return propInfo.GetValue(null, null);
       FieldInfo fldInfo = type.GetField(name, bfs);
@@ -188,10 +187,10 @@ namespace KdSoft.Reflection
     }
 #else
     public static object GetSingletonInstance(this Type type, string name) {
-      if (!type.IsClass)
+      if (!type.GetTypeInfo().IsClass)
         throw new ArgumentException(string.Format("Singleton type '{0}' must be class.", type.FullName));
       BindingFlags bfs = BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Public;
-      PropertyInfo propInfo = type.GetProperty(name, bfs, null, type, Type.EmptyTypes, null);
+      PropertyInfo propInfo = type.GetProperty(name, bfs);
       if (propInfo != null)
         return propInfo.GetValue(null, null);
       FieldInfo fldInfo = type.GetField(name, bfs);
