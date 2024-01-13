@@ -16,8 +16,10 @@ namespace KdSoft.Faster
   public sealed class FasterReader: IDisposable
   {
     readonly FasterLog _log;
-    readonly FasterLogScanIterator _iter;
-    readonly MemoryPool<byte> _pool;
+#pragma warning disable CA2213 // Workaround for compiler bug
+        readonly FasterLogScanIterator _iter;
+#pragma warning restore CA2213 // Disposable fields should be disposed
+        readonly MemoryPool<byte> _pool;
 
     long _nextAddress;
 

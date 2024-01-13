@@ -46,7 +46,7 @@ namespace KdSoft.Utils.Tests
           bufferWriter.Clear();
           var byteCount = Encoding.UTF8.GetBytes(str, bufferWriter.GetSpan());
           if (stream != null)
-            await stream.WriteAsync(bufferWriter.WrittenMemory).ConfigureAwait(false);
+            await stream.WriteAsync(bufferWriter.WrittenMemory);
         }
       }
       finally {
@@ -92,7 +92,7 @@ namespace KdSoft.Utils.Tests
         var bufferWriter = new ArrayBufferWriter<byte>(1024);
         int counter = 0;
         FileStream? stream = null;
-        await foreach (var str in channel.Reader.ReadAllAsync().ConfigureAwait(false)) {
+        await foreach (var str in channel.Reader.ReadAllAsync()) {
           // every 100 lines check for rollover
           if (counter++ % 100 == 0) {
             stream = fileFactory.GetCurrentFileStream();
@@ -100,7 +100,7 @@ namespace KdSoft.Utils.Tests
           bufferWriter.Clear();
           var byteCount = Encoding.UTF8.GetBytes(str, bufferWriter.GetSpan());
           if (stream != null)
-            await stream.WriteAsync(bufferWriter.WrittenMemory).ConfigureAwait(false);
+            await stream.WriteAsync(bufferWriter.WrittenMemory);
         }
       });
 
@@ -114,7 +114,7 @@ namespace KdSoft.Utils.Tests
 
       channel.Writer.Complete();
 
-      await readTask.ConfigureAwait(false);
+      await readTask;
     }
 
   }

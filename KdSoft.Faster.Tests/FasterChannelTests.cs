@@ -129,7 +129,7 @@ namespace KdSoft.Faster.Tests
                         Assert.True(written);
                         channel.Commit(true);
 
-                        await Task.Delay(100).ConfigureAwait(false);
+                        await Task.Delay(100);
 
                         batchCount++;
                     }
@@ -145,7 +145,7 @@ namespace KdSoft.Faster.Tests
                 Assert.True(written);
                 channel.Commit(true);
 
-                outputData = await readerTask.ConfigureAwait(false);
+                outputData = await readerTask;
             }
 
             Assert.True(batchCount == outputData.Count);
