@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net462;net6.0</TargetFrameworks>
+        <TargetFrameworks>net462;net6.0-windows</TargetFrameworks>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
 
@@ -9,7 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Diagnostics.NETCore.Client" Version="0.2.505301" />
         <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.7" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
         <PackageReference Include="xunit" Version="2.6.5" />
@@ -24,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
-        <PackageReference Include="Microsoft.Diagnostics.NETCore.Client" Version="0.2.430602" />
+        <PackageReference Include="Microsoft.Diagnostics.NETCore.Client" Version="0.2.505301" />
     </ItemGroup>
     
     <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
