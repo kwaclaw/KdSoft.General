@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-#if NET461
+#if NET462
 using System.Security.Permissions;
 #endif
 
 namespace KdSoft.Utils
 {
 
-#if NET461 || NET6_0_OR_GREATER
+#if NET462 || NET6_0_OR_GREATER
   /// <summary>
   /// An extended XmlWriterTraceListener that starts a new file for every day.
   /// <example>
@@ -19,7 +19,7 @@ namespace KdSoft.Utils
   ///     </code>
   /// </example>
   /// </summary>
-#if NET461
+#if NET462
   [HostProtection(Synchronization = true)]
 #endif
   public class DailyXmlWriterTraceListener: XmlWriterTraceListener
