@@ -3,21 +3,23 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+#if NET462_OR_GREATER
 using System.Security;
 using System.Security.Permissions;
+#endif
 using KdSoft.Reflection;
 using Microsoft.CSharp;
 
 namespace KdSoft.Config
 {
-  /// <summary>
-  /// Contains helper functions for simple (dynamic) compilation of source files.
-  /// </summary>
-  /// <remarks>This can be useful when using configuration through C# code instead of XML.</remarks>
-#if NET461_OR_GREATER
+    /// <summary>
+    /// Contains helper functions for simple (dynamic) compilation of source files.
+    /// </summary>
+    /// <remarks>This can be useful when using configuration through C# code instead of XML.</remarks>
+#if NET462_OR_GREATER
   [SecuritySafeCritical, PermissionSet(SecurityAction.Assert, Unrestricted = true)]
 #endif
-  public static class Compile
+    public static class Compile
   {
     static List<string> ParseReferences(string sourceFile) {
       List<string> result = new List<string>();
