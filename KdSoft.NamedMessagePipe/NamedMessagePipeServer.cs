@@ -141,8 +141,8 @@ namespace KdSoft.NamedMessagePipe
 
 #endif
 
-        /// <inheritdoc cref="NamedPipeServerStream"/>
-        public bool IsConnected { get => _serverStream.IsConnected; }
+        /// <summary> Wrapped <see cref="NamedPipeServerStream"/>.</summary>
+        public NamedPipeServerStream Stream => _serverStream;
 
         /// <summary>Task representing the listening process.</summary>
         public Task ListenTask => _listenTask;
@@ -165,27 +165,6 @@ namespace KdSoft.NamedMessagePipe
         /// </summary>
         public IAsyncEnumerable<ReadOnlySequence<byte>> Messages() {
             return base.GetMessages(CancellationToken.None, () => _listenTask);
-            ;
-        }
-
-        /// <inheritdoc cref="NamedPipeServerStream.Disconnect"/>
-        public void Disconnect() {
-            _serverStream.Disconnect();
-        }
-
-        /// <inheritdoc cref="PipeStream.Read(byte[], int, int)"/>
-        public int Read(byte[] buffer, int offset, int count) {
-            return _serverStream.Read(buffer, offset, count);
-        }
-
-        /// <inheritdoc cref="PipeStream.Write(byte[], int, int)"/>
-        public void Write(byte[] buffer, int offset, int count) {
-            _serverStream.Write(buffer, offset, count);
-        }
-
-        /// <inheritdoc cref="PipeStream.Flush"/>
-        public void Flush() {
-            _serverStream.Flush();
         }
 
         async Task Listen(PipeLines.PipeWriter pipelineWriter) {
@@ -268,31 +247,10 @@ namespace KdSoft.NamedMessagePipe
         /// <inheritdoc />
         public ValueTask DisposeAsync() => _serverStream.DisposeAsync();
 
-        /// <summary>
-        /// Write message buffer to current connection.
-        /// See <see cref="PipeStream.WriteAsync(ReadOnlyMemory{byte}, CancellationToken)"/>.
-        /// </summary>
-        /// <param name="message">Message buffer, must not contain null bytes.</param>
-        /// <param name="cancelToken">Cancels write operation.</param>
-        /// <returns></returns>
-        public ValueTask WriteAsync(ReadOnlyMemory<byte> message, CancellationToken cancelToken = default) {
-            return _serverStream.WriteAsync(message, cancelToken);
-        }
-
-        /// <inheritdoc cref="PipeStream.WriteAsync(byte[], int, int, CancellationToken)"/>
-        public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
-            return _serverStream.WriteAsync(message, offset, count, cancelToken);
-        }
-
 #if NETSTANDARD2_1
         /// <inheritdoc cref="Stream.FlushAsync(CancellationToken)"/>
         public Task FlushAsync(CancellationToken cancelToken = default) {
             return MakeCancellable(() => _serverStream.Flush(), cancelToken);
-        }
-#else
-        /// <inheritdoc cref="PipeStream.FlushAsync(CancellationToken)"/>
-        public Task FlushAsync(CancellationToken cancelToken = default) {
-            return _serverStream.FlushAsync(cancelToken);
         }
 #endif
 

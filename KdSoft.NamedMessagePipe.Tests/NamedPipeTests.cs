@@ -56,7 +56,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             try {
                 var count = Encoding.UTF8.GetBytes(msg, 0, msg.Length, buffer, 0);
                 buffer[count++] = 0;
-                await server.WriteAsync(buffer, 0, count);
+                await server.Stream.WriteAsync(buffer, 0, count);
             }
             finally {
                 ArrayPool<byte>.Shared.Return(buffer);
@@ -69,7 +69,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                 var count = Encoding.UTF8.GetBytes(msg, 0, msg.Length, buffer, 0);
                 // 0 is the message terminator
                 buffer[count++] = 0;
-                await client.WriteAsync(buffer, 0, count);
+                await client.Stream.WriteAsync(buffer, 0, count);
             }
             finally {
                 ArrayPool<byte>.Shared.Return(buffer);
@@ -96,7 +96,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             for (int indx = 0; indx < 10; indx++) {
                 await WriteMessage(client, $"A long message exceeding 16 bytes, index: {indx}");
             }
-            await client.FlushAsync();
+            await client.Stream.FlushAsync();
             //client.WaitForPipeDrain();
 
             // brief delay to let _output catch up
@@ -138,7 +138,7 @@ namespace KdSoft.NamedMessagePipe.Tests
             for (int indx = 0; indx < 10; indx++) {
                 await WriteMessage(client, $"A long message exceeding 16 bytes, index: {indx}");
             }
-            await client.FlushAsync();
+            await client.Stream.FlushAsync();
             //client.WaitForPipeDrain();
 #if NET6_0_OR_GREATER
             await client.DisposeAsync();
@@ -175,7 +175,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                 for (int indx = 0; indx < 10; indx++) {
                     await WriteMessage(client, $"Client{clientIndex}: a message exceeding 16 bytes, index: {indx}");
                 }
-                await client.FlushAsync();
+                await client.Stream.FlushAsync();
                 //client.WaitForPipeDrain();
             }
 
@@ -219,7 +219,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                         await WriteMessage(server, $"A long message exceeding 16 bytes, index: {indx}");
                     }
                     await WriteMessage(server, "Last Message");
-                    await server.FlushAsync();
+                    await server.Stream.FlushAsync();
                 }
                 _output.WriteLine("End of messages");
             }
@@ -258,7 +258,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
                     await WriteMessage(server, $"Reply to {msg}");
-                    await server.FlushAsync();
+                    await server.Stream.FlushAsync();
                 }
                 _output.WriteLine("Server: End of messages");
             }
@@ -274,7 +274,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(SendReplyMessage) + "-Client", ConnectTimeout);
 #endif
                     await WriteMessage(client, $"A nice Hello from client {indx}");
-                    await client.FlushAsync();
+                    await client.Stream.FlushAsync();
                     //client.WaitForPipeDrain();
 
                     // this restarts the listener
@@ -326,7 +326,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
                     await WriteMessage(server1, $"Server1 reply to {msg}");
-                    await server1.FlushAsync();
+                    await server1.Stream.FlushAsync();
                 }
                 _output.WriteLine("Server1: End of messages");
             }, ServerTaskOptions);
@@ -337,7 +337,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     var msg = GetString(msgSequence);
                     _output.WriteLine(msg);
                     await WriteMessage(server2, $"Server2 reply to {msg}");
-                    await server2.FlushAsync();
+                    await server2.Stream.FlushAsync();
                 }
                 _output.WriteLine("Server2: End of messages");
             }, ServerTaskOptions);
@@ -349,7 +349,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                     using var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout);
                     await WriteMessage(client, $"Client{clientIndex}: a nice Hello, index: {indx}");
                     await client.FlushAsync();
-                    client.WaitForPipeDrain();
+                    client.Stream.WaitForPipeDrain();
 
                     // this starts the listener
                     await foreach (var msgSequence in client.Messages()) {
@@ -365,7 +365,7 @@ namespace KdSoft.NamedMessagePipe.Tests
                 using (var client = await NamedMessagePipeClient.ConnectAsync(".", PipeName, nameof(MultipleClientSendReplyMessage) + "-Client" + clientIndex, ConnectTimeout)) {
                     for (int indx = 0; indx < loopCount; indx++) {
                         await WriteMessage(client, $"Client{clientIndex}: a nice Hello, index: {indx}");
-                        await client.FlushAsync();
+                        await client.Stream.FlushAsync();
                         //client.WaitForPipeDrain();
 
                         // this restarts the listener

@@ -81,7 +81,7 @@ namespace KdSoft.NamedMessagePipe
             _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions);
         }
 
-                /// <summary>
+        /// <summary>
         /// Returns new instance of a connected <see cref="NamedMessagePipeClient"/>.
         /// </summary>
         /// <param name="server">Name of server. "." for local server.</param>
@@ -116,13 +116,8 @@ namespace KdSoft.NamedMessagePipe
 
 #endif
 
-        /// <inheritdoc cref="PipeStream.WaitForPipeDrain"/>
-#if NET6_0_OR_GREATER
-        [SupportedOSPlatform("windows")]
-#endif
-        public void WaitForPipeDrain() {
-            _clientStream.WaitForPipeDrain();
-        }
+        /// <summary> Wrapped <see cref="NamedPipeClientStream"/>.</summary>
+        public NamedPipeClientStream Stream => _clientStream;
 
         /// <summary>
         /// Resets the <see cref="PipeLines.Pipe"/> so that the client can retart reading/listening again
@@ -178,21 +173,6 @@ namespace KdSoft.NamedMessagePipe
                 await listenTask.ConfigureAwait(false);
             }
             return base.GetMessages(CancellationToken.None, LastStep);
-        }
-
-        /// <inheritdoc cref="PipeStream.Read(byte[], int, int)"/>
-        public int Read(byte[] buffer, int offset, int count) {
-            return _clientStream.Read(buffer, offset, count);
-        }
-
-        /// <inheritdoc cref="PipeStream.Write(byte[], int, int)"/>
-        public void Write(byte[] buffer, int offset, int count) {
-            _clientStream.Write(buffer, offset, count);
-        }
-
-        /// <inheritdoc cref="PipeStream.Flush"/>
-        public void Flush() {
-            _clientStream.Flush();
         }
 
         async Task Listen(PipeLines.PipeWriter pipelineWriter, CancellationToken cancelToken) {
@@ -272,37 +252,10 @@ namespace KdSoft.NamedMessagePipe
             return _clientStream.DisposeAsync();
         }
 
-        /// <inheritdoc cref="PipeStream.WriteAsync(ReadOnlyMemory{byte}, CancellationToken)"/>
-        /// <remarks>To mark the end of a message, add a null byte at the end.</remarks>
-        public ValueTask WriteAsync(ReadOnlyMemory<byte> message, CancellationToken cancelToken = default) {
-            return _clientStream.WriteAsync(message, cancelToken);
-        }
-
-        /// <inheritdoc cref="PipeStream.ReadAsync(Memory{byte}, CancellationToken)"/>
-        public ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancelToken = default) {
-            return _clientStream.ReadAsync(buffer, cancelToken);
-        }
-
-        /// <inheritdoc cref="PipeStream.WriteAsync(byte[], int, int, CancellationToken)"/>
-        /// <remarks>To mark the end of a message, add a null byte at the end.</remarks>
-        public Task WriteAsync(byte[] message, int offset, int count, CancellationToken cancelToken = default) {
-            return _clientStream.WriteAsync(message, offset, count, cancelToken);
-        }
-
-        /// <inheritdoc cref="PipeStream.ReadAsync(byte[], int, int, CancellationToken)"/>
-        public Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancelToken = default) {
-            return _clientStream.ReadAsync(buffer, offset, count, cancelToken);
-        }
-
 #if NETSTANDARD2_1
         /// <inheritdoc cref="Stream.FlushAsync(CancellationToken)"/>
         public Task FlushAsync(CancellationToken cancelToken = default) {
             return MakeCancellable(() => _clientStream.Flush(), cancelToken);
-        }
-#else
-        /// <inheritdoc cref="PipeStream.FlushAsync(CancellationToken)"/>
-        public Task FlushAsync(CancellationToken cancelToken = default) {
-            return _clientStream.FlushAsync(cancelToken);
         }
 #endif
 
