@@ -3,6 +3,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
+using System.Security.Principal;
 #if NET6_0_OR_GREATER
 using System.Runtime.Versioning;
 #endif
@@ -31,11 +32,17 @@ namespace KdSoft.NamedMessagePipe
 
 #if NETFRAMEWORK
 
-        NamedMessagePipeClient(string server, string pipeName, string instanceId, int minBufferSize) : base(pipeName, instanceId) {
+        NamedMessagePipeClient(
+            string server,
+            string pipeName,
+            string instanceId,
+            TokenImpersonationLevel impersonationLevel,
+            int minBufferSize
+        ) : base(pipeName, instanceId) {
             this._server = server;
             this._minBufferSize = minBufferSize;
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
-            _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions);
+            _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions, impersonationLevel);
         }
 
         /// <summary>
@@ -46,6 +53,7 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="instanceId">Unique identifier of this instance.</param>
         /// <param name="timeout">Timeout for connection attempt.</param>
         /// <param name="cancelToken">Cancellation token.</param>
+        /// <param name="impersonationLevel">Security impersonation level.</param>
         /// <param name="minBufferSize">Minimum buffer size to use for reading messages.</param>
         /// <returns>Connected <see cref="NamedMessagePipeClient"/> instance.</returns>
         public static async Task<NamedMessagePipeClient> ConnectAsync(
@@ -54,9 +62,10 @@ namespace KdSoft.NamedMessagePipe
             string instanceId,
             int timeout = Timeout.Infinite,
             CancellationToken cancelToken = default,
+            TokenImpersonationLevel impersonationLevel = TokenImpersonationLevel.None,
             int minBufferSize = 512
         ) {
-            var result = new NamedMessagePipeClient(server, pipeName, instanceId, minBufferSize);
+            var result = new NamedMessagePipeClient(server, pipeName, instanceId, impersonationLevel, minBufferSize);
             try {
                 await MakeCancellable(() => result._clientStream.Connect(timeout), cancelToken).ConfigureAwait(false);
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);
@@ -71,14 +80,21 @@ namespace KdSoft.NamedMessagePipe
 
 #else
 
-        NamedMessagePipeClient(string server, string pipeName, string instanceId, bool currentUserOnly, int minBufferSize) : base(pipeName, instanceId) {
+        NamedMessagePipeClient(
+            string server,
+            string pipeName,
+            string instanceId,
+            bool currentUserOnly,
+            TokenImpersonationLevel impersonationLevel,
+            int minBufferSize
+        ) : base(pipeName, instanceId) {
             this._server = server;
             this._minBufferSize = minBufferSize;
             var pipeOptions = PipeOptions.WriteThrough | PipeOptions.Asynchronous;
             if (currentUserOnly) {
                 pipeOptions |= PipeOptions.CurrentUserOnly;
             }
-            _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions);
+            _clientStream = new NamedPipeClientStream(server, PipeName, PipeDirection.InOut, pipeOptions, impersonationLevel);
         }
 
         /// <summary>
@@ -90,6 +106,7 @@ namespace KdSoft.NamedMessagePipe
         /// <param name="timeout">Timeout for connection attempt.</param>
         /// <param name="cancelToken">Cancellation token.</param>
         /// <param name="currentUserOnly">Can only connect to a server created by the same user.</param>
+        /// <param name="impersonationLevel">Security impersonation level.</param>
         /// <param name="minBufferSize">Minimum buffer size to use for reading messages.</param>
         /// <returns>Connected <see cref="NamedMessagePipeClient"/> instance.</returns>
         public static async Task<NamedMessagePipeClient> ConnectAsync(
@@ -99,9 +116,10 @@ namespace KdSoft.NamedMessagePipe
             int timeout = Timeout.Infinite,
             CancellationToken cancelToken = default,
             bool currentUserOnly = false,
+            TokenImpersonationLevel impersonationLevel = TokenImpersonationLevel.None,
             int minBufferSize = 512
         ) {
-            var result = new NamedMessagePipeClient(server, pipeName, instanceId, currentUserOnly, minBufferSize);
+            var result = new NamedMessagePipeClient(server, pipeName, instanceId, currentUserOnly, impersonationLevel, minBufferSize);
             try {
                 await result._clientStream.ConnectAsync(timeout, cancelToken).ConfigureAwait(false);
                 NamedPipeEventSource.Log.ClientConnected(result.PipeName, result.InstanceId);

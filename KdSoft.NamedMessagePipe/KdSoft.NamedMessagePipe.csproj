@@ -5,13 +5,12 @@
     <PropertyGroup>
         <Description>Text message exchange through Named Pipes.</Description>
         <TargetFrameworks>net462;netstandard2.1;net6.0</TargetFrameworks>
-        <VersionPrefix>3.0.0</VersionPrefix>
+        <VersionPrefix>4.0.0</VersionPrefix>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
 
         <PackageReleaseNotes>
-            Added support for PipeOptions.CurrentUserOnly, breaking API argument changes.
-            Exposed wrapped stream instead of wrapping it's methods, breaking change.
+            Added support for TokenImpersonationLevel in NamedMessagePipeClient, a breaking change.
         </PackageReleaseNotes>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
