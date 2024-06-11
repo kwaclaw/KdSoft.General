@@ -11,7 +11,7 @@
     <Nullable>enable</Nullable>
     <NoWarn>1591</NoWarn>
     <PackageReleaseNotes>
-      Added empty string and white space coalescing extensions.
+      Added IComparer implementation to LambdaComparer.
     </PackageReleaseNotes>
   </PropertyGroup>
 
